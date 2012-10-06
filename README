@@ -8,6 +8,11 @@ Change all 'michael' in ./chief/setting.py to your 'username', e.g. 'bute'
 Please using 'python manage.py runserver' to test if it works well
 
 
+ADMIN:
+username: ido
+password: 654321
+
+
 FILE DESCRIPTION:
 templates folder is for HTML files
 static folder is for CSS, JS, image files
