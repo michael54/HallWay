@@ -1,0 +1,18 @@
+PROJECT For CMPT 470
+Group ido
+
+
+INSTALLATION:
+Checkout project folder
+Change all 'michael' in ./chief/setting.py to your username, e.g. 'bute'
+Please using 'python manage.py runserver' to test if it works well
+
+
+FILE DESCRIPTION:
+templates folder is for HTML files
+static folder is for CSS, JS, image files
+media folder is for media files (uploaded files)
+database folder is for sqlite database file
+chief folder contains settings and url files for the whole project
+recipe folder contains the first app, recipe, dealing with recipe
+
