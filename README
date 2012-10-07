@@ -4,8 +4,11 @@ Group ido
 
 INSTALLATION:
 Checkout project folder in your computer
-Please using 'python manage.py runserver' to test if it works well
+
 Read http://www.sandersnewmedia.com/why/2012/04/16/installing-pil-virtualenv-ubuntu-1204-precise-pangolin/ to install PIL
+Read http://code.google.com/p/django-evolution/ to install django-evolution
+
+Please use 'python manage.py runserver' to test if it works well
 
 
 

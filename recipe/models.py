@@ -12,7 +12,7 @@ class Recipe(models.Model):
 	name = models.CharField(max_length=100)
 	brief = models.CharField(max_length=1000)
 	ingredients = models.ManyToManyField(Food, through='Amount', verbose_name="list of ingredients")
-
+	cover_image = models.ImageField(upload_to='photos/%Y/%m/%d', null=True);
 
 	def __unicode__(self):
 		return self.name
