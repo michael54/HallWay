@@ -3,8 +3,7 @@ Group ido
 
 
 INSTALLATION:
-Checkout project folder in your computer under your home directory.
-Change all 'michael' in ./chief/setting.py to your 'username', e.g. 'bute'
+Checkout project folder in your computer
 Please using 'python manage.py runserver' to test if it works well
 
 
