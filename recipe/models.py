@@ -1,9 +1,12 @@
 from django.db import models
-
 from food.models import Food
+import os
+import uuid
 
-# Create your models here.
-
+def get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('food_photos', filename)
 
 
 class Recipe(models.Model):
@@ -20,11 +23,11 @@ class Recipe(models.Model):
 
 class Amount(models.Model):
 	"""docstring for Amount"""
-	def __init__(self, arg):
-		super(Amount, self).__init__()
-		self.arg = arg
-
+	
 	ingredient = models.ForeignKey(Food)
 	recipe = models.ForeignKey(Recipe)
 	amount = models.CharField(max_length=50)
+
+	def __unicode__(self):
+		return self.recipe.name + self.ingredient.name
 		

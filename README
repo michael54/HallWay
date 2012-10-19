@@ -6,7 +6,10 @@ INSTALLATION:
 Checkout project folder in your computer
 
 Read http://www.sandersnewmedia.com/why/2012/04/16/installing-pil-virtualenv-ubuntu-1204-precise-pangolin/ to install PIL
+
 Read http://code.google.com/p/django-evolution/ to install django-evolution
+
+Read https://github.com/jdriscoll/django-imagekit to install django-imagekit
 
 Please use 'python manage.py runserver' to test if it works well
 

@@ -28,7 +28,6 @@ class Food(models.Model):
 	storage_method = models.CharField(max_length=1000, blank=True)
 	recipe_num = models.IntegerField(default=0)
 	like_num = models.IntegerField(default=0)
-	recipes = models.ManyToManyField('recipe.Recipe', null=True, verbose_name=u'list of recipes')
 	pick_method = models.CharField(max_length=1000, blank=True, verbose_name=u'How to choose')
 	food_efficacy = models.CharField(max_length=1000, blank=True)
 
