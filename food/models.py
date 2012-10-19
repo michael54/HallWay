@@ -23,7 +23,7 @@ class Food(models.Model):
 	name = models.CharField(max_length=100)
 	category = models.ForeignKey(FoodCategory)
 	brief = models.CharField(max_length=1000)
-	cover_image = models.ImageField(upload_to=get_file_path, null=True, verbose_name=u'Cover image');
+	cover_image = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image')
 	storage_time = models.CharField(max_length=50, blank=True)
 	storage_method = models.CharField(max_length=1000, blank=True)
 	recipe_num = models.IntegerField(default=0)
