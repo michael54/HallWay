@@ -5,11 +5,14 @@ Group ido
 INSTALLATION:
 Checkout project folder in your computer
 
+IMPORTANT: DEPENDENCIES
 Read http://www.sandersnewmedia.com/why/2012/04/16/installing-pil-virtualenv-ubuntu-1204-precise-pangolin/ to install PIL
 
 Read http://code.google.com/p/django-evolution/ to install django-evolution
 
 Read https://github.com/jdriscoll/django-imagekit to install django-imagekit
+
+Read http://docs.django-userena.org/en/latest/installation.html#required-settings to install django-userena
 
 Please use 'python manage.py runserver' to test if it works well
 
