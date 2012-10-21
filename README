@@ -14,6 +14,8 @@ Read https://github.com/jdriscoll/django-imagekit to install django-imagekit
 
 Read http://docs.django-userena.org/en/latest/installation.html#required-settings to install django-userena
 
+Read https://django-grappelli.readthedocs.org/en/2.4.2/quickstart.html#installation to install django-grappelli
+
 Please use 'python manage.py runserver' to test if it works well
 
 

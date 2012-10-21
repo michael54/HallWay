@@ -10,7 +10,7 @@ class MyProfile(UserenaLanguageBaseProfile):
                                 verbose_name=_('user'),
                                 related_name='my_profile')
 
-    favourite_recipes = models.ManyToManyField(Recipe,
+    favourite_recipes = models.ManyToManyField(Recipe, blank=True,
     							related_name='favourite_recipes')
 
 
