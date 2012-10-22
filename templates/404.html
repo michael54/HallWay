@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+  div.#img-404 {
+    margin-left: auto;
+    margin-right: auto;
+  }
+{% endblock %}
+
+{% block body %}
+  <div id="img-404">
+    <img src="{% static "img/404.jpg" %}"></script>
+  </div>
+{% endblock %}
