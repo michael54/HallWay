@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}Page not found{% endblock %}
+
 {% block stylesheet %}
   div.#img-404 {
     margin-left: auto;
@@ -7,8 +9,8 @@
   }
 {% endblock %}
 
-{% block body %}
+{% block content %}
   <div id="img-404">
-    <img src="{% static "img/404.jpg" %}"></script>
+    <img src="img/404.jpg">
   </div>
 {% endblock %}

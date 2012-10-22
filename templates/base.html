@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    {% block title %}{% endblock %}
+    <title> {% block title %}{% endblock %} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="{% static "css/bootstrap-responsive.min.css" %}" type="text/css" />
 
     <!-- Your own css file -->
-    {% block stylesheet %}{% endblock %}
+    <style>
+        {% block stylesheet %}{% endblock %}
+    </style>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -27,7 +29,8 @@
   </head>
 
   <body>
-    {% block body %}{% endblock %}
+
+    {% block content %}{% endblock %}
 
     <!-- Le javascript
     ================================================== -->
