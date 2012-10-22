@@ -17,3 +17,4 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('userena.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
 )
+

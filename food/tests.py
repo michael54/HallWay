@@ -6,11 +6,13 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django_dynamic_fixture import G
+from food.models import Food, FoodCategory
 
 
 class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+	def test(self):
+		food2 = G(FoodCategory)
+		food1 = G(Food, FoodCategory=[food2,])
+		
+		print food1
