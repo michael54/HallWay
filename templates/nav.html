@@ -1,14 +1,35 @@
+
 {% extends "base.html" %}
-    
+{% load static from staticfiles %}
+{% block csslink %}
+	<link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" />
+{% endblock csslink%}
+
 {% block content %}
-	<div class="navbar">
-	  <div class="navbar-inner">
-	    <a class="brand" href="#">Title</a>
-	    <ul class="nav">
-	      <li class="active"><a href="#">Home</a></li>
-	      <li><a href="#">Link</a></li>
-	      <li><a href="#">Link</a></li>
-	    </ul>
-	  </div>
-	</div>	
-{% endblock %}
+<nav id="colorNav">
+	<ul>
+		<li class="green">
+			<a href="#"><i class="icon-home"></i></a>
+			<ul>
+				<li><a href="#">Home</a></li>
+			</ul>
+		</li>
+		<li class="blue">
+			<a href="#"><i class="icon-user"></i></a>
+			<ul>
+				<li><a href="#">My Profile</a></li>
+				<li><a href="#">My Recipes</a></li>
+			</ul>
+		</li>
+		<li class="purple">
+			<a href="#"><i class="icon-envelope"></i></a>
+			<ul>
+				<li><a href="#">Contact Us</a></li>
+			</ul>
+		</li>
+		<!-- More menu items -->
+
+	</ul>
+</nav>
+{% endblock content %}
