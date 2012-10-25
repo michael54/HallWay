@@ -5,7 +5,7 @@
 
 
 #colorNav > ul{
-	width: 450px; /* Increase when adding more menu items */
+	/*width: 900px;  Increase when adding more menu items */
 	margin:0 auto;
 }
 
@@ -13,16 +13,18 @@
 	list-style: none;
 	box-shadow: 0 0 10px rgba(100, 100, 100, 0.2) inset,1px 1px 1px #CCC;
 	display: inline-block;
-	line-height: 2;
+	line-height: 60px;
 	margin: 1px;
-	border-radius: 3px;
+	margin-left: 10px;
+	margin-right: 10px;
+	border-radius: 10px;
 	position:relative;
 }
 
 #colorNav > ul > li > a{
 	color:inherit;
 	text-decoration:none !important;
-	font-size:15px;
+	font-size:30px;
 	padding: 25px;
 }
 
@@ -33,7 +35,7 @@
 	width:180px;
 	left:50%;
 	margin-left:-90px;
-	top:10px;
+	top:45px;
 	font:bold 12px 'Open Sans Condensed', sans-serif;
 	
 	/* This is important for the show/hide CSS animation */

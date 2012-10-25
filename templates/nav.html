@@ -6,30 +6,70 @@
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" />
 {% endblock csslink%}
 
-{% block content %}
-<nav id="colorNav">
+{# <nav id="colorNav">
 	<ul>
 		<li class="green">
 			<a href="#"><i class="icon-home"></i></a>
-			<ul>
-				<li><a href="#">Home</a></li>
-			</ul>
 		</li>
 		<li class="blue">
 			<a href="#"><i class="icon-user"></i></a>
 			<ul>
-				<li><a href="#">My Profile</a></li>
-				<li><a href="#">My Recipes</a></li>
+				<li><a href="#"><i></i>Register</a></li>
+				<li><a href="#"><i></i>Login</a></li>
+				<li><a href="#"><i class="icon-user icon-white"></i>My Profile</a></li>
+				<li><a href="#"><i class="icon-glass icon-white"></i>My Recipes</a></li>
 			</ul>
 		</li>
 		<li class="purple">
 			<a href="#"><i class="icon-envelope"></i></a>
 			<ul>
-				<li><a href="#">Contact Us</a></li>
+				<li><a href="#"><i class="icon-envelope icon-white"></i>Contact Us</a></li>
 			</ul>
 		</li>
 		<!-- More menu items -->
 
 	</ul>
-</nav>
+</nav> #}
+
+
+{% block content %}
+	<div class="navbar navbar-fixed-top">
+	  <div class="navbar-inner">
+	  	<div class="container row-fluid">
+		    <a class="brand span4" href="#">LOGO</a>
+		    <div id="colorNav" class="span8">
+					<ul>
+						<li class="green">
+							<a href="#"><i class="icon-home"></i></a>
+						</li>
+						<li class="red">
+							<a href="#"><i class="icon-glass"></i></a>
+							<ul>
+								<li><a href="#"><i class="icon-heart"></i>Hot Recipes</a></li>
+							</ul>
+						</li>
+						<li class="yellow">
+							<a href="#"><i class="icon-search"></i></a>
+						</li>
+						<li class="blue pull-right">
+							<a href="#"><i class="icon-user"></i></a>
+							<ul>	
+								<li><a href="#"><i class="icon-signin"></i> Sign In</a></li>
+								<li><a href="#"><i class="icon-signout"></i> Sign Out</a></li>
+								<li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+								<li><a href="#"><i class="icon-glass"></i> My Recipes</a></li>
+							</ul>
+						</li>
+						<li class="purple">
+							<a href="#"><i class="icon-envelope"></i></a>
+							<ul>
+								<li><a href="#"><i class="icon-comment"></i> Contact Us</a></li>
+							</ul>
+						</li>
+						<!-- More menu items -->  	
+		    	</ul>
+		  	</div>
+	  	</div>
+		</div>
+	</div>
 {% endblock content %}
