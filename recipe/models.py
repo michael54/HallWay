@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from food.models import Food
+from imagekit.models.fields import ProcessedImageField
+from imagekit.processors import SmartResize, Adjust
 import os
 import uuid
 
@@ -29,7 +31,11 @@ class Recipe(models.Model):
 	category = models.ForeignKey(RecipeCategory)
 	brief = models.CharField(max_length=2000)
 	ingredients = models.ManyToManyField(Food, through='Amount', verbose_name=u"list of ingredients")
-	cover_image = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image')
+
+	cover_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
+						processors=[Adjust(contrast=1.2, sharpness=1.1),
+            SmartResize(640, 480)], format='JPEG', options={'quality': 90})
+
 	tips = models.CharField(max_length=2000)
 	did_num = models.IntegerField(default=0)
 	like_num = models.IntegerField(default=0)

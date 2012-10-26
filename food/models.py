@@ -1,4 +1,6 @@
 from django.db import models
+from imagekit.models.fields import ProcessedImageField
+from imagekit.processors import SmartResize, Adjust
 import os
 import uuid
 
@@ -12,6 +14,7 @@ def get_file_path(instance, filename):
 class FoodCategory(models.Model):
 	"""Food Category Model"""
 	name = models.CharField(max_length=100)
+	parent = models.ForeignKey('self', null=True, blank=True)
 
 	def __unicode__(self):
 		return self.name
@@ -23,7 +26,9 @@ class Food(models.Model):
 	name = models.CharField(max_length=100)
 	category = models.ForeignKey(FoodCategory)
 	brief = models.CharField(max_length=1000)
-	cover_image = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image')
+	cover_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image', processors=[Adjust(contrast=1.2, sharpness=1.1),
+            SmartResize(300, 300)], format='JPEG', options={'quality': 90})
+	
 	storage_time = models.CharField(max_length=50, blank=True)
 	storage_method = models.CharField(max_length=1000, blank=True)
 	recipe_num = models.IntegerField(default=0)
