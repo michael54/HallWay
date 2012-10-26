@@ -1,8 +1,8 @@
 
-/*----------------------------
-	The Navigation Menu
------------------------------*/
-
+body {
+	position: relative;
+	padding-top: 60px;
+}
 
 #colorNav > ul{
 	/*width: 900px;  Increase when adding more menu items */

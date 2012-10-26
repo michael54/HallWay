@@ -1,7 +1,13 @@
+{% extends "base.html" %}
 
-
+{% load static from staticfiles %}
+{% block csslink %}
+<link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" />
+{% endblock %}
 	
-
+{% block navbar %}
 
 	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
@@ -42,3 +48,4 @@
 	  	</div>
 		</div>
 	</div>
+{% endblock %}

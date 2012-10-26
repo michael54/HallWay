@@ -134,7 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
         
     # Plugins
-    'django_evolution',
+    'south',
     'userena',
     'guardian',
     'easy_thumbnails',

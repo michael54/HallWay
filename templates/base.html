@@ -13,9 +13,7 @@
     <!-- Le styles de bootstrap -->
     <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" type="text/css" />
     <link rel="stylesheet" href="{% static "css/bootstrap-responsive.min.css" %}" type="text/css" />
-    <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
-    <link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" />
+    
     <!-- Your own css file -->
     <style type="text/css">{% block css %} {% endblock css %}</style>
 
@@ -31,7 +29,7 @@
   </head>
 
   <body>
-
+    {% block navbar %}{% endblock %}
     {% block content %}{% endblock %}
 
     <!-- Le javascript

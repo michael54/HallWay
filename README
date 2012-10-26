@@ -8,7 +8,7 @@ Checkout project folder in your computer
 IMPORTANT: DEPENDENCIES
 Read http://www.sandersnewmedia.com/why/2012/04/16/installing-pil-virtualenv-ubuntu-1204-precise-pangolin/ to install PIL
 
-Read http://code.google.com/p/django-evolution/ to install django-evolution
+Read http://south.readthedocs.org/en/latest/installation.html to install South
 
 Read https://github.com/jdriscoll/django-imagekit to install django-imagekit
 
