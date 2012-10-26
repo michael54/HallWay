@@ -96,6 +96,13 @@ body {
 	max-height:200px; /* Increase when adding more dropdown items */
 }
 
+#welcomePig {
+	position: absolute;
+	right: 40px;
+	top: 110px;
+
+}
+
 
 /*----------------------------
 	Color Themes

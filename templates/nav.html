@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% load static from staticfiles %}
+{% load url from future %}
+
 {% block csslink %}
 <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
 <link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
@@ -30,7 +32,7 @@
 						<li class="blue pull-right">
 							<a href="#"><i class="icon-user"></i></a>
 							<ul>	
-								<li><a href="#"><i class="icon-signin"></i> Sign In</a></li>
+								<li><a data-toggle="modal" href="#myModal" ><i class="icon-signin"></i> Sign In</a></li>
 								<li><a href="#"><i class="icon-signout"></i> Sign Out</a></li>
 								<li><a href="#"><i class="icon-user"></i> My Profile</a></li>
 								<li><a href="#"><i class="icon-glass"></i> My Recipes</a></li>
@@ -48,4 +50,28 @@
 	  	</div>
 		</div>
 	</div>
+<div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <legend>Sign In</legend>
+  </div>
+  <div class="modal-body">
+    <form method="post" action="{% url 'userena_signin' %}" >
+    	{% csrf_token %}
+    	<fieldset>
+    		<img src="{% static 'img/welcome_pig.jpg' %}" id="welcomePig"/>
+	      <p><input type="text" class="span3" name="identification" id="email" placeholder="Username or Email"></p>
+	      <p><input type="password" class="span3" name="password" placeholder="Password"></p>
+	      <p><button type="submit" class="btn btn-primary">Sign in</button>
+	        <a href="{% url 'userena_password_reset' %}">Forgot Password?</a>
+	      </p>
+    </fieldset>
+    </form>
+  </div>
+  <div class="modal-footer">
+    New To MyWebsite.com?
+    <a href="{% url 'userena_signup' %}" class="btn btn-primary">Sign Up</a>
+  </div>
+</div>
+
 {% endblock %}
