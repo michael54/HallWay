@@ -4,26 +4,41 @@
 {% block title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<form action="" method="post">
-  {% csrf_token %}
-  <fieldset>
-    <legend>{% trans "Signup" %}</legend>
-    {{ form.non_field_errors }}
-    {% for field in form %}
-    {{ field.errors }}
-    {% comment %} Displaying checkboxes differently {% endcomment %}
-    {% if field.name == 'tos' %}
-    <p class="checkbox">
-    <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
-    </p>
-    {% else %}
-    <p>
-    {{ field.label_tag }} 
-    {{ field }}
-    </p>
-    {% endif %}
-    {% endfor %}
-  </fieldset>
-  <input type="submit" value="{% trans "Signup"%}" />
-</form>
+<div class="container">
+  <div class="row">
+    <div class="span4 offset4 well">
+        <form action="" method="post">
+          {% csrf_token %}
+          <fieldset>
+            <legend>{% trans "Signup" %}</legend>
+            {% if form.non_field_errors %}
+              <div class="alert alert-error fieldWrapper fade in">
+                  <a class="close" data-dismiss="alert" href="#">×</a>{{ form.non_field_errors }}
+              </div>
+            {% endif %}
+            
+            {% for field in form %}
+                {% if field.errors %}
+                <div class="alert alert-error fieldWrapper fade in">
+                    <a class="close" data-dismiss="alert" href="#">×</a>{{ field.errors }}
+                </div>
+                {% endif %}
+            {% comment %} Displaying checkboxes differently {% endcomment %}
+            {% if field.name == 'tos' %}
+            <p class="checkbox">
+            <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
+            </p>
+            {% else %}
+            <p class="fieldWrapper">
+            {{ field.label_tag }} 
+            {{ field }}
+            </p>
+            {% endif %}
+            {% endfor %}
+          </fieldset>
+          <input type="submit" class="btn btn-primary" value="{% trans "Signup"%}" />
+        </form>
+    </div>
+</div>
+</div>
 {% endblock %}

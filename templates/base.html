@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="iDo">
+    {% block meta %}{% endblock %}
 
     <title> {% block title %} {% endblock title %} </title>
 
@@ -31,7 +32,10 @@
   <body>
     {% block navbar %}{% endblock %}
     <div class="container">
-    {% block content %}{% endblock %}
+        {% block content_title %}{% endblock %}
+      </div>
+    <div class="container">
+        {% block content %}{% endblock %}
     </div>
     <!-- Le javascript
     ================================================== -->

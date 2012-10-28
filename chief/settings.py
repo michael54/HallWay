@@ -135,10 +135,11 @@ INSTALLED_APPS = (
         
     # Plugins
     'imagekit',
-    'south',
-    'userena',
+    #'south',
+    
     'guardian',
     'easy_thumbnails',
+    'userena',
 
     # Own apps
     'recipe',

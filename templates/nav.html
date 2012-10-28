@@ -4,9 +4,10 @@
 {% load url from future %}
 
 {% block csslink %}
-<link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
-<link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" />
+	<link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
+	<link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" />
+  <link rel="stylesheet" href="{% static "css/form.css" %}" type="text/css" />
 {% endblock %}
 	
 {% block navbar %}
@@ -62,6 +63,9 @@
     		<img src="{% static 'img/welcome_pig.jpg' %}" id="welcomePig"/>
 	      <p><input type="text" class="span3" name="identification" id="email" placeholder="Username or Email"></p>
 	      <p><input type="password" class="span3" name="password" placeholder="Password"></p>
+	      <p class="checkbox">
+          <label for="id_remember_me"><input type="checkbox" name="remember_me" id="id_remember_me" /> Remember me for a month</label>
+        </p>
 	      <p><button type="submit" class="btn btn-primary">Sign in</button>
 	        <a href="{% url 'userena_password_reset' %}">Forgot Password?</a>
 	      </p>

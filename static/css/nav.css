@@ -15,8 +15,8 @@ body {
 	display: inline-block;
 	line-height: 60px;
 	margin: 1px;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: 0px;
+	margin-right: 20px;
 	border-radius: 10px;
 	position:relative;
 }
