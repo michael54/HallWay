@@ -16,7 +16,7 @@ class RecipeCategory(models.Model):
 	"""docstring for RecipeCategory"""
 
 	name = models.CharField(max_length=200)
-	brief = models.CharField(max_length=2000)
+	brief = models.TextField()
 
 	def __unicode__(self):
 		return self.name
@@ -29,14 +29,14 @@ class Recipe(models.Model):
 	author = models.ForeignKey(User)
 	date = models.DateField(auto_now_add=True)
 	category = models.ForeignKey(RecipeCategory)
-	brief = models.CharField(max_length=2000)
+	brief = models.TextField()
 	ingredients = models.ManyToManyField(Food, through='Amount', verbose_name=u"list of ingredients")
 
 	cover_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
             SmartResize(640, 480)], format='JPEG', options={'quality': 90})
 
-	tips = models.CharField(max_length=2000)
+	tips = models.TextField()
 	did_num = models.IntegerField(default=0)
 	like_num = models.IntegerField(default=0)
 	view_num = models.IntegerField(default=0)

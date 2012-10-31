@@ -1,0 +1,30 @@
+{% extends 'nav.html' %}
+
+{% load static from staticfiles %}
+{% load url from future %}
+
+{% block csslink %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
+{% endblock %}
+
+{% block title %}
+上厨娘
+{% endblock %}
+
+{% block content %}
+  <div class="container row-fluid">
+		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.29_1920x1080.jpg" alt="" />
+		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.28_1920x1080.jpg" alt="" />
+		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.27_1920x1080.jpg" alt="" />
+		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.26_1920x1080.jpg" alt="" />
+  </div>
+{% endblock %}
+
+{% block js %}
+  <script type="text/javascript">
+	  window.onload = function () {
+	  	$('img').show();
+	  };
+  </script>
+{% endblock %}

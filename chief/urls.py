@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('userena.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^test/','recipe.views.nav'),
-    url(r'^$', 'recipe.views.nav', name='homepage'),
+    #url(r'^$', 'recipe.views.nav', name='homepage'),
+	url(r'^$', 'recipe.views.index', name='homepage'),
 )
 
