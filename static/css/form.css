@@ -1,15 +1,37 @@
 .fieldWrapper {
-	margin: 5px;
-}
-.fieldWrapper input{
-	box-sizing:border-box;
-	-moz-box-sizing:border-box; /* Firefox */
-	-webkit-box-sizing:border-box; /* Safari */
-	width: 100%;
-	height: 30px;
+	margin: 0px;
 }
 
 .fieldWrapper ul{
 	margin-bottom: 0px;
 	padding: 0px;
+}
+
+.fieldWrapper > .shortPass{
+	position: relative;
+
+	top: -5px;
+	right: 50px;
+}
+
+.fieldWrapper > .badPass{
+	position: relative;
+
+	top: -5px;
+	right: 50px;
+}
+
+
+.fieldWrapper > .goodPass{
+	position: relative;
+
+	top: -5px;
+	right: 50px;
+}
+
+
+.fieldWrapper > .strongPass{
+	position: relative;
+	top: -5px;
+	right: 50px;
 }

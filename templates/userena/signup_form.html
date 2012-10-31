@@ -1,12 +1,13 @@
 {% extends 'userena/base_userena.html' %}
 {% load i18n %}
+{% load static from staticfiles %}
 
 {% block title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="span4 offset4 well">
+  <div class="row-fluid">
+    <div class="span6 offset6 ">
         <form action="" method="post">
           {% csrf_token %}
           <fieldset>
@@ -29,16 +30,50 @@
             <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
             </p>
             {% else %}
-            <p class="fieldWrapper">
-            {{ field.label_tag }} 
-            {{ field }}
-            </p>
+            <div class="row-fluid control-group fieldWrapper" id="group_{{ field.name }}">
+              {{ field.label_tag }} 
+              {{ field }}
+            </div>
             {% endif %}
             {% endfor %}
           </fieldset>
-          <input type="submit" class="btn btn-primary" value="{% trans "Signup"%}" />
+          <div id="scrollbar1" class="span10 well">
+            <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+            <div class="viewport">
+                <div class="overview">
+                  {% include "terms_of_service.html" %}
+                </div>
+            </div>
+          </div>
+          <button type="submit" class="span10 btn btn-info" style="margin:0px;">{% trans "Create My Account"%}</button>
         </form>
     </div>
 </div>
 </div>
-{% endblock %}
+{% endblock content %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static "js/password_strength_plugin.js" %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('input').addClass('span10');
+      $('#id_password1').passStrength({
+        baseStyle: "help-inline",
+        userid: "#id_username",
+        messageloc: 1,
+        controlGroup: "#group_password1",
+      });
+      $('#scrollbar1').tinyscrollbar(); 
+      $('#scrollbar1').one("click", function(){
+        $('#scrollbar1 .scrollbar').css("visibility","hidden");
+        $('#scrollbar1 .viewport' ).animate({
+          height: '400px'
+        }, 500, function(){
+          $('#scrollbar1 .scrollbar').css("visibility","visible");
+          $('#scrollbar1').tinyscrollbar_update();
+        });
+        
+      });
+    });    
+  </script>
+{% endblock js %}
