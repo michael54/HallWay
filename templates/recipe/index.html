@@ -13,18 +13,15 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container row-fluid">
+  <!--div class="container row-fluid">
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.29_1920x1080.jpg" alt="" />
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.28_1920x1080.jpg" alt="" />
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.27_1920x1080.jpg" alt="" />
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.26_1920x1080.jpg" alt="" />
-  </div>
+  </div-->
+  
 {% endblock %}
 
 {% block js %}
-  <script type="text/javascript">
-	  window.onload = function () {
-	  	$('img').show();
-	  };
-  </script>
+  <script type="text/javascript" src="{% static "js/recipe/index.js" %}"></script>
 {% endblock %}
