@@ -32,10 +32,16 @@
   <div class="row">
     <a href="javascript:;" id="toggleAnimation" >PAUSE</a>
   </div>
+  <div class="content search-form">
+    <div class="input-append">
+      <input class="span4" id="appendedInputButton search" placeholder="Type in a dish name or the main ingrediant..." type="text">
+      <button class="btn" type="button">GO!</button>
+    </div>
+  </div>
 {% endblock %}
 
-{% block js %}
-  <script type="text/javascript" src="{% static "js/bgstretcher.js" %}"></script>
+{% block js-head %}
+  <script src="{% static "js/bgstretcher.js" %}"></script>
   <script type="text/javascript">
   $(document).ready(function(){  
     // initialize slider
@@ -45,8 +51,9 @@
       imageWidth: 1024, 
       imageHeight: 768, 
       slideDirection: 'N',
-      slideShowSpeed: 1000,
-      slideShow: true,
+      nextSlideDelay: 10000,
+      slideShowSpeed: 3000,
+      slideShow: 'true',
       transitionEffect: 'fade',
       sequenceMode: 'normal',
       buttonPrev: '#prev',
