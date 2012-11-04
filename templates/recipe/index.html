@@ -7,6 +7,10 @@
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
   <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/elastislide.css" %}"/>
+
+
+
 {% endblock %}
 
 {% block title %}
@@ -20,6 +24,9 @@
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.27_1920x1080.jpg" alt="" />
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.26_1920x1080.jpg" alt="" />
   </div-->
+
+  <div id="overlay"></div>
+  <div id="bg-show"></div>
   <div class="row nav-buttons">
     <div id="nav">&nbsp;</div>
   </div>
@@ -38,14 +45,44 @@
       <button class="btn" type="button">GO!</button>
     </div>
   </div>
+  <div class="image-show">
+    <div class="fixed-bar">
+      <!-- Elastislide Carousel -->
+      <ul id="carousel1" class="elastislide-list">
+        <li><a href="#"><img src="{% static "img/small/1.jpg" %}" alt="image01" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/2.jpg" %}" alt="image02" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/3.jpg" %}" alt="image03" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/4.jpg" %}" alt="image04" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/5.jpg" %}"  alt="image05" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/6.jpg" %}"  alt="image06" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/7.jpg" %}"  alt="image07" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/8.jpg" %}"  alt="image08" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/9.jpg" %}"  alt="image09" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/10.jpg" %}"  alt="image10" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/11.jpg" %}"  alt="image11" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/12.jpg" %}"  alt="image12" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/13.jpg" %}"  alt="image13" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/14.jpg" %}"  alt="image14" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/15.jpg" %}"  alt="image15" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/16.jpg" %}"  alt="image16" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/17.jpg" %}"  alt="image17" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/18.jpg" %}"  alt="image18" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/19.jpg" %}"  alt="image19" /></a></li>
+        <li><a href="#"><img src="{% static "img/small/20.jpg" %}"  alt="image20" /></a></li>
+      </ul>
+      <!-- End Elastislide Carousel -->
+    </div>
+  </div>
 {% endblock %}
 
 {% block js-head %}
+  <script src="{% static "js/modernizr.custom.17475.js" %}"></script>
   <script src="{% static "js/bgstretcher.js" %}"></script>
   <script type="text/javascript">
-  $(document).ready(function(){  
+  var j = jQuery.noConflict();
+  j(document).ready(function(){  
     // initialize slider
-    $('BODY').bgStretcher({
+    j('#bg-show').bgStretcher({
       images: ['/static/img/bg-food1.jpg', '/static/img/bg-food2.jpg',
         '/static/img/bg-food3.jpg', '/static/img/bg-food4.jpg'],
       imageWidth: 1024, 
@@ -64,16 +101,26 @@
     });
 
     // animation control
-    $('#toggleAnimation').unbind('click');
-    $('#toggleAnimation').click(function(){
-      if ($(this).html() == "PAUSE"){
-        $(this).html("RESUME");
-        $('BODY').bgStretcher.pause();
+    j('#toggleAnimation').unbind('click');
+    j('#toggleAnimation').click(function(){
+      if (j(this).html() == "PAUSE"){
+        j(this).html("RESUME");
+        j('#bg-show').bgStretcher.pause();
       } else {
-        $(this).html("PAUSE");
-        $('BODY').bgStretcher.play();
+        j(this).html("PAUSE");
+        j('#bg-show').bgStretcher.play();
       }
     });
   });
 </script>
-{% endblock %}
+{% endblock js-head%}
+
+{% block js %}
+  <script type="text/javascript" src="{% static "js/jquery.elastislide.js" %}"></script>
+  <script type="text/javascript">
+     j('#carousel1').elastislide( {
+          minItems : 4
+        });
+ 
+  </script>
+{% endblock js %}

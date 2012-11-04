@@ -5,7 +5,6 @@
 	or email us at support@ajaxblender.com
 */
 
-HTML {_background: url(/images/trans.gif) no-repeat fixed;}
 .bgstretcher-area { text-align: left; }
 .bgstretcher, .bgstretcher UL, .bgstretcher UL LI {
 	position: absolute;
@@ -22,7 +21,7 @@ HTML {_background: url(/images/trans.gif) no-repeat fixed;}
 	overflow: hidden;
 	width: 100%;
 	position: fixed;
-	z-index: 1;
+	z-index: -2;
 	_position: absolute; /*IE6 doesn't support fixed positioning*/
 	top: 0;
 	left: 0;
