@@ -1,14 +1,28 @@
-body { 
-	background: url(../../img/bg-food.jpg) no-repeat center center fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+.column {
+	float: left;
+	width: 320px;
+	margin-right: 40px;
 }
-.bg1 {
-	background: url(../../img/bg-food.jpg) no-repeat center center fixed; 
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
+.column  .row {
+	float: left;
+	width: 100%;
+	padding-bottom: 13px;
 }
+.column.small { width: 90px; }
+.column.small .row { padding-bottom: 5px;}
+.column select { width: 180px;}
+.column label {cursor: pointer;}
+.column  .row span.pager { float: left; margin-right: 15px;}
+.column  .row a { position: relative; }
+p.larger-size { font-size: 16px; }
+#page strong { color: #ffffff; }
+#nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+#nav ul li {
+	display: inline;
+	margin-right: 8px;
+}
+#nav ul li.showpage a { color: #fff; }

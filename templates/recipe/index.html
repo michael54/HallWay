@@ -6,6 +6,7 @@
 {% block csslink %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
+  <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
 {% endblock %}
 
 {% block title %}
@@ -19,9 +20,52 @@
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.27_1920x1080.jpg" alt="" />
 		  <img id="body" style="display:none;" src="http://img.wordsmotivate.me/2012.10/2012.10.26_1920x1080.jpg" alt="" />
   </div-->
-  
+  <div class="row nav-buttons">
+    <div id="nav">&nbsp;</div>
+  </div>
+  <div class="row">
+    <div class="nav-buttons">
+      <a href="javascript:;" id="prev">&lsaquo;</a>&nbsp;&nbsp;&nbsp;
+      <a href="javascript:;" id="next">&rsaquo;</a>
+    </div>
+  </div>
+  <div class="row">
+    <a href="javascript:;" id="toggleAnimation" >PAUSE</a>
+  </div>
 {% endblock %}
 
 {% block js %}
-  <script type="text/javascript" src="{% static "js/recipe/index.js" %}"></script>
+  <script type="text/javascript" src="{% static "js/bgstretcher.js" %}"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){  
+    // initialize slider
+    $('body').bgStretcher({
+      images: ['/static/img/bg-food1.jpg', '/static/img/bg-food2.jpg',
+        '/static/img/bg-food3.jpg', '/static/img/bg-food4.jpg'],
+      imageWidth: 1024, 
+      imageHeight: 768, 
+      slideDirection: 'N',
+      slideShowSpeed: 1000,
+      transitionEffect: 'fade',
+      sequenceMode: 'normal',
+      buttonPrev: '#prev',
+      buttonNext: '#next',
+      pagination: '#nav',
+      anchoring: 'left center',
+      anchoringImg: 'left center'
+    });
+
+    // animation control
+    $('#toggleAnimation').unbind('click');
+    $('#toggleAnimation').click(function(){
+      if ($(this).html() == "PAUSE"){
+        $(this).html("RESUME");
+        $('body').bgStretcher.pause();
+      } else {
+        $(this).html("PAUSE");
+        $('body').bgStretcher.play();
+      }
+    });
+  });
+</script>
 {% endblock %}
