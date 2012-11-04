@@ -39,13 +39,14 @@
   <script type="text/javascript">
   $(document).ready(function(){  
     // initialize slider
-    $('body').bgStretcher({
+    $('BODY').bgStretcher({
       images: ['/static/img/bg-food1.jpg', '/static/img/bg-food2.jpg',
         '/static/img/bg-food3.jpg', '/static/img/bg-food4.jpg'],
       imageWidth: 1024, 
       imageHeight: 768, 
       slideDirection: 'N',
       slideShowSpeed: 1000,
+      slideShow: true,
       transitionEffect: 'fade',
       sequenceMode: 'normal',
       buttonPrev: '#prev',
@@ -60,10 +61,10 @@
     $('#toggleAnimation').click(function(){
       if ($(this).html() == "PAUSE"){
         $(this).html("RESUME");
-        $('body').bgStretcher.pause();
+        $('BODY').bgStretcher.pause();
       } else {
         $(this).html("PAUSE");
-        $('body').bgStretcher.play();
+        $('BODY').bgStretcher.play();
       }
     });
   });

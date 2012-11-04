@@ -10,19 +10,19 @@
 }
 .column.small { width: 90px; }
 .column.small .row { padding-bottom: 5px;}
-.column select { width: 180px;}
-.column label {cursor: pointer;}
-.column  .row span.pager { float: left; margin-right: 15px;}
-.column  .row a { position: relative; }
-p.larger-size { font-size: 16px; }
-#page strong { color: #ffffff; }
-#nav ul {
+.column SELECT { width: 180px;}
+.column LABEL {cursor: pointer;}
+.column  .row SPAN.pager { float: left; margin-right: 15px;}
+.column  .row A { position: relative; }
+P.larger-size { font-size: 16px; }
+#page STRONG { color: #FFFFFF; }
+#nav UL {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
-#nav ul li {
+#nav UL LI {
 	display: inline;
 	margin-right: 8px;
 }
-#nav ul li.showpage a { color: #fff; }
+#nav UL LI.showPage A { color: #fff; }
