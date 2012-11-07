@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from recipe.views import RecipeCreate
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -19,5 +20,9 @@ urlpatterns = patterns('',
     url(r'^test/','recipe.views.nav'),
     #url(r'^$', 'recipe.views.nav', name='homepage'),
 	url(r'^$', 'recipe.views.index', name='homepage'),
+
+    # URL for recipe
+    url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create')
+
 )
 

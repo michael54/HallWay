@@ -32,4 +32,4 @@ media folder is for media files (uploaded files)
 database folder is for sqlite database file
 chief folder contains settings and url files for the whole project
 recipe folder contains the first app, recipe, dealing with recipe
-
+ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"

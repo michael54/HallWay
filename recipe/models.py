@@ -36,7 +36,7 @@ class Recipe(models.Model):
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
             SmartResize(640, 480)], format='JPEG', options={'quality': 90})
 
-	tips = models.TextField()
+	tips = models.TextField(blank=True)
 	did_num = models.IntegerField(default=0)
 	like_num = models.IntegerField(default=0)
 	view_num = models.IntegerField(default=0)
