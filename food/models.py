@@ -35,7 +35,17 @@ class Food(models.Model):
 	like_num = models.IntegerField(default=0)
 	pick_method = models.CharField(max_length=1000, blank=True, verbose_name=u'How to choose')
 	food_efficacy = models.CharField(max_length=1000, blank=True)
-
+	view_num = models.IntegerField(default=0)
+	
 
 	def __unicode__(self):
 		return self.name
+
+	@models.permalink
+	def get_absolute_url(self):
+		return ('food.views.details', [str(self.id)])
+
+
+
+
+

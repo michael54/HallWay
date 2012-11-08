@@ -1,0 +1,10 @@
+<!-- recipe_detail.html -->
+{% extends "nav.html" %}
+
+{% block content %}
+    <h2>Recipe</h2>
+    <ul>
+            <li>{{ object.name }}</li>
+            <li>{{ object.view_num }}</li>
+    </ul>
+{% endblock %}
