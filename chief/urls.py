@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from recipe.views import RecipeCreate, RecipeDetailView
 from food.views import FoodDetailView
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -31,5 +32,5 @@ urlpatterns = patterns('',
     url(r'^food/(?P<pk>\d+)/$', FoodDetailView.as_view())
 
 
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
