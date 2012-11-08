@@ -128,7 +128,7 @@ P.larger-size { font-size: 16px; }
 	padding: 5px;
 }*/
 
-.image-show .fixed-bar ul li .carousel1-caption {
+.ca-img-link .carousel1-caption {
 	top: 0;
 	left: 10px;
 	width: 130px;
@@ -138,7 +138,7 @@ P.larger-size { font-size: 16px; }
 	margin: 0;
 }
 
-.image-show .fixed-bar ul li .carousel1-caption h4 {
+.ca-img-link .carousel1-caption h4 {
 	font-size: 12px;
 	font-weight: bold;
 	color: white;
@@ -146,7 +146,7 @@ P.larger-size { font-size: 16px; }
 	text-decoration: none;
 }
 
-.image-show .fixed-bar ul li .carousel1-caption p {
+.ca-img-link .carousel1-caption p {
 	font-size: 10px;
 	color: rgb(0.9, 0.9, 0.9);
 	margin: 0;

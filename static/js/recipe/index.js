@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+j(document).ready(function () {
 	/*window.onload = function () {
 		$('body').show();
 		$('body').animate({
@@ -26,13 +26,15 @@ jQuery(document).ready(function () {
 		anchoringImg: 'left center'
 	}).play();*/
 
-	jQuery('.image-show .fixed-bar ul li a').unbind('hover');
-	jQuery('.image-show .fixed-bar ul li a').hover(
-		function () {
-			jQuery('.image-show .fixed-bar ul li .carousel1-caption').show('slow');
-			alert('gan!');
-		}, function () {
-			jQuery('.image-show .fixed-bar ul li .carousel1-caption').hide('slow');
-		}
-	);
+	
+    // hover caption effect
+    j('a.ca-img-link .carousel1-caption').hide();
+    j('a.ca-img-link').unbind('hover');
+    j('a.ca-img-link').hover(
+      function () {
+        j(this).children('.carousel1-caption').fadeIn('slow');
+      }, function () {
+        j(this).children('.carousel1-caption').fadeOut('slow');
+      }
+    );
 });

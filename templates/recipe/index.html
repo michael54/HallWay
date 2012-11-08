@@ -42,7 +42,8 @@
       <!-- Elastislide Carousel -->
       <ul id="carousel1" class="elastislide-list">
         <li>
-          <a href="#"><img src="{% static "img/small/1.jpg" %}" alt="image01" />
+          <a href="#" class="ca-img-link">
+            <img src="{% static "img/small/1.jpg" %}" alt="image01" />
           <div class="carousel1-caption">
             <h4>Dish title</h4>
             <p>Dish description hehehe.</p>
@@ -111,13 +112,13 @@
     });
 
     // hover caption effect
-    j('.image-show .fixed-bar ul li a .carousel1-caption').hide();
-    j('.image-show .fixed-bar ul li a').unbind('hover');
-    j('.image-show .fixed-bar ul li a').hover(
+    j('a.ca-img-link .carousel1-caption').hide();
+    j('a.ca-img-link').unbind('hover');
+    j('a.ca-img-link').hover(
       function () {
-        j('.image-show .fixed-bar ul li a .carousel1-caption').fadeIn('slow');
+        j(this).children('.carousel1-caption').fadeIn('slow');
       }, function () {
-        j('.image-show .fixed-bar ul li a .carousel1-caption').fadeOut('slow');
+        j(this).children('.carousel1-caption').fadeOut('slow');
       }
     );
   });
