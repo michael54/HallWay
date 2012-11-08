@@ -6,24 +6,45 @@
 {% endblock %}
 
 {% block content %}
-	<div id="mod-main">
+	<section id="mod-main">
 	    <h1 class="mod-page-title">{{ object.name }}</h1>
-	    <ul>
-	            <li><img src="/media/{{ object.cover_image }}" alt="" /></li>
-	            <li>{{ object.did_num }} did this. | 
-	            	{{ object.like_num }} liked this. | 
-	            	{{ object.view_num }} viewed this.</li>
-	            <li><a href="#i-like-it">I like it!</a></li>
-	            <!--li><a href="/accounts/{{ object.author }}">{{ object.author }}</a></li-->
-	            <li>{{ object.date }}</li>
-	            <li>{{ object.category }}</li>
-	            <li>{{ object.brief }}</li>
-	            <ul>
-	            	{% for ingredient in object.ingredients.all %}
-	            		<li>{{ ingredient }}</li>
-	            	{% endfor %}
-	            </ul>
-	            <li>{{ object.tips }}</li>
-	    </ul>
-	</div>
+        <div class="mod-recipe-img">
+            <img src="/media/{{ object.cover_image }}" alt="" />
+        </div>
+        <div class="mod-recipe-stat">
+            <span class="mod-recipe-count">
+                {{ object.did_num }} did this. | 
+            	{{ object.like_num }} liked this. | 
+            	{{ object.view_num }} viewed this.
+            </span>
+            <span class="mod-recipe-like">
+                <a href="#i-like-it">I like it!</a>
+            </span>
+        </div>
+        <div class="mod-recipe-share">
+            <span class="mod-recipe-upload">
+                <a href="#upload-own">Upload your own recipe for this dish?</a>
+            </span>
+        </div>
+        <!--li><a href="/accounts/{{ object.author }}">{{ object.author }}</a></li-->
+        <!--div>{{ object.date }}</div-->
+        <!--div>{{ object.category }}</div-->
+        <div class="mod-recipe-brief">
+            <h2 class="mod-recipe-title-h2">Brief Introduction</h2>
+            <p class="mod-recipe-brief-content">
+                {{ object.brief }}
+            </p>
+        </div>
+        <div class="mod-reicpe-ingredients">
+            <h2 class="mod-recipe-title-h2">
+                Ingredients
+            </h2>
+        	{% for ingredient in object.ingredients.all %}
+        		<li>{{ ingredient }}</li>
+        	{% endfor %}
+        </div>
+        <li>{{ object.tips }}</li>
+	</section>
+    <aside class="mod-side">
+    </aside>
 {% endblock %}
