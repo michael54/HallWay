@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from food.models import Food
 from imagekit.models.fields import ProcessedImageField
-from imagekit.processors import SmartResize, Adjust
+from imagekit.processors import ResizeToFit, Adjust
 import os
 import uuid
 
@@ -34,7 +34,7 @@ class Recipe(models.Model):
 
 	cover_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
-            SmartResize(640, 480)], format='JPEG', options={'quality': 90})
+            ResizeToFit(width=640,upscale=True)], format='JPEG', options={'quality': 90})
 
 	tips = models.TextField(blank=True)
 	did_num = models.IntegerField(default=0)
