@@ -1,23 +1,29 @@
 <!-- recipe_detail.html -->
 {% extends "nav.html" %}
 
+{% block title %}
+	{{ object.name }}_{{ object.author }}(上厨娘)
+{% endblock %}
+
 {% block content %}
-    <h2>Recipe</h2>
-    <ul>
-            <li>{{ object.name }}</li>
-            <li>{{ object.author }}</li>
-            <li>{{ object.date }}</li>
-            <li>{{ object.category }}</li>
-            <li>{{ object.brief }}</li>
-            <ul>
-            	{% for ingredient in object.ingredients.all %}
-            		<li>{{ ingredient }}</li>
-            	{% endfor %}
-            </ul>
-            <li><img src="/media/{{ object.cover_image }}" alt="" /></li>
-            <li>{{ object.tips }}</li>
-            <li>{{ object.did_num }}</li>
-            <li>{{ object.like_num }}</li>
-            <li>{{ object.view_num }}</li>
-    </ul>
+	<div id="mod-main">
+	    <h1 class="mod-page-title">{{ object.name }}</h1>
+	    <ul>
+	            <li><img src="/media/{{ object.cover_image }}" alt="" /></li>
+	            <li>{{ object.did_num }} did this. | 
+	            	{{ object.like_num }} liked this. | 
+	            	{{ object.view_num }} viewed this.</li>
+	            <li><a href="#i-like-it">I like it!</a></li>
+	            <!--li><a href="/accounts/{{ object.author }}">{{ object.author }}</a></li-->
+	            <li>{{ object.date }}</li>
+	            <li>{{ object.category }}</li>
+	            <li>{{ object.brief }}</li>
+	            <ul>
+	            	{% for ingredient in object.ingredients.all %}
+	            		<li>{{ ingredient }}</li>
+	            	{% endfor %}
+	            </ul>
+	            <li>{{ object.tips }}</li>
+	    </ul>
+	</div>
 {% endblock %}
