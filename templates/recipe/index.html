@@ -111,16 +111,6 @@
       }
     });
 
-    // hover caption effect
-    j('a.ca-img-link .carousel1-caption').hide();
-    j('a.ca-img-link').unbind('hover');
-    j('a.ca-img-link').hover(
-      function () {
-        j(this).children('.carousel1-caption').fadeIn('slow');
-      }, function () {
-        j(this).children('.carousel1-caption').fadeOut('slow');
-      }
-    );
   });
 </script>
 {% endblock js-head%}
