@@ -116,3 +116,40 @@ P.larger-size { font-size: 16px; }
 	-moz-transform: rotate(-7deg);
 	-o-transform: rotate(-7deg);*/
 }
+
+/* image caption hover effect */
+
+/*.image-show .fixed-bar ul li .carousel1-caption:hover {
+	top: 90px;
+	left: 10px;
+	width: 130px;
+	position: absolute;
+	background: rgba(0, 0, 0, 0.7);
+	padding: 5px;
+}*/
+
+.image-show .fixed-bar ul li .carousel1-caption {
+	top: 0;
+	left: 10px;
+	width: 130px;
+	height: 139px;
+	position: absolute;
+	background: rgba(0, 0, 0, 0.7);
+	margin: 0;
+}
+
+.image-show .fixed-bar ul li .carousel1-caption h4 {
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	margin: 0;
+	text-decoration: none;
+}
+
+.image-show .fixed-bar ul li .carousel1-caption p {
+	font-size: 10px;
+	color: rgb(0.9, 0.9, 0.9);
+	margin: 0;
+	text-decoration: none;
+	word-wrap: break-word;
+}

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+jQuery(document).ready(function () {
 	/*window.onload = function () {
 		$('body').show();
 		$('body').animate({
@@ -8,7 +8,7 @@ $(document).ready(function () {
 		});
 	};
 	*/
-	$('body').bgStretcher({
+	/*$('body').bgStretcher({
 		images: ['/static/img/bg-food1.jpg', '/static/img/bg-food2.jpg',
 				'/static/img/bg-food3.jpg', '/static/img/bg-food4.jpg'],
 		imageWidth: 1024, 
@@ -24,5 +24,15 @@ $(document).ready(function () {
 		pagination: '#nav',
 		anchoring: 'left center',
 		anchoringImg: 'left center'
-	}).play();
+	}).play();*/
+
+	jQuery('.image-show .fixed-bar ul li a').unbind('hover');
+	jQuery('.image-show .fixed-bar ul li a').hover(
+		function () {
+			jQuery('.image-show .fixed-bar ul li .carousel1-caption').show('slow');
+			alert('gan!');
+		}, function () {
+			jQuery('.image-show .fixed-bar ul li .carousel1-caption').hide('slow');
+		}
+	);
 });
