@@ -1,13 +1,21 @@
 <!-- recipe_detail.html -->
 {% extends "nav.html" %}
 
+{% load static from staticfiles %}
+{% load url from future %}
+
+{% block csslink %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_detail.css" %}"/>
+{% endblock %}
+
 {% block title %}
 	{{ object.name }}_{{ object.author }}(上厨娘)
 {% endblock %}
 
 {% block content %}
 	<section id="mod-main">
-	    <h1 class="mod-page-title">{{ object.name }}</h1>
+	    <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
         <div class="mod-recipe-img">
             <img src="/media/{{ object.cover_image }}" alt="" />
         </div>
@@ -35,16 +43,32 @@
                 {{ object.brief }}
             </p>
         </div>
+        <div class="mod-recipe-tip">
+            <h2 class="mod-recipe-title-h2">Chef's Tip</h2>
+            <p class="mod-recipe-tip-content">
+                {{ object.tips }}
+            </p>
+        </div>
         <div class="mod-reicpe-ingredients">
             <h2 class="mod-recipe-title-h2">
                 Ingredients
             </h2>
-        	{% for ingredient in object.ingredients.all %}
-        		<li>{{ ingredient }}</li>
+        	{% for ingredient in object.amount_set.all %}
+                {% if ingredient.must %}
+            		<li>{{ ingredient.ingredient }}: {{ ingredient.amount }} yeah!</li>
+                {% else %}
+                    <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} no!</li>
+                {% endif %}
         	{% endfor %}
         </div>
-        <li>{{ object.tips }}</li>
 	</section>
     <aside class="mod-side">
     </aside>
 {% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        var j = jQuery.noConflict();
+    </script>
+    <script type="text/javascript" src="{% static "js/recipe/recipe_detail.js" %}"></script>
+{% endblock js %}
