@@ -40,9 +40,14 @@ class Recipe(models.Model):
 	did_num = models.IntegerField(default=0)
 	like_num = models.IntegerField(default=0)
 	view_num = models.IntegerField(default=0)
+	prep_time = models.TimeField()
+	cook_time = models.TimeField()
 
 	def __unicode__(self):
 		return self.name
+
+	class Meta:
+		ordering = ['like_num', 'view_num']
 
 
 class Amount(models.Model):

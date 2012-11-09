@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
-from recipe.views import RecipeCreate, RecipeDetailView
-from food.views import FoodDetailView
+from recipe.views import RecipeCreate, RecipeDetailView, RecipeCategoryListView, HotRecipeListView
+from food.views import FoodDetailView, FoodCategoryListView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,10 +27,13 @@ urlpatterns = patterns('',
     # URL for recipe
     url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create'),
     url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view()),
+    url(r'^recipecategory/(\d+)/(\w+)/$', RecipeCategoryListView.as_view()),
+    url(r'^hot/$', HotRecipeListView.as_view()),
 
     # URL for food
-    url(r'^food/(?P<pk>\d+)/$', FoodDetailView.as_view())
-
+    url(r'^food/(?P<pk>\d+)/$', FoodDetailView.as_view()),
+    url(r'^foodcategory/(\d+)/$', FoodCategoryListView.as_view()),
+    url(r'^foodcategory/(\d+)/(\w+)/$', FoodCategoryListView.as_view()),
 
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

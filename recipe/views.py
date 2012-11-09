@@ -1,12 +1,13 @@
 # Create your views here.
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 from userena.views import signin
 from django.views.generic.edit import CreateView
-from recipe.models import Recipe
-from recipe.forms import RecipeForm
+from recipe.models import Recipe, RecipeCategory
+from recipe.forms import RecipeForm, RecipeStepFormSet
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 def nav(request):
 	return render(request, 'nav.html')
@@ -17,12 +18,32 @@ def index(request):
 class RecipeCreate(CreateView):
 	form_class = RecipeForm
 	model = Recipe
-
+	success_url = 'thanks/'
+	
 	@method_decorator(login_required)
-
 	def form_valid(self, form):
+		context = self.get_context_data()
 		form.instance.author = self.request.userena
-		return super(RecipeCreate, self).form_valid(form)
+		step_form = context['step_form']
+		if step_form.is_valid():
+			self.object = form.save()
+			step_form.instance = self.object
+			step_form.save()
+			return HttpResponseRedirect('thanks/')
+		else:
+			return self.render(self.request, self.get_context_data(form=form))
+
+	def form_invaild(self, form):
+		return self.render(self.request, self.get_context_data(form=form))
+
+	def get_context_data(self, **kwargs):
+		context = super(RecipeCreate, self).get_context_data(**kwargs)
+		if self.request.POST:
+			context['step_form'] = RecipeStepFormSet(self.request.POST)
+		else:
+			context['step_form'] = RecipeStepFormSet()
+		return context
+
 
 class RecipeDetailView(DetailView):
 	queryset = Recipe.objects.all()
@@ -34,5 +55,35 @@ class RecipeDetailView(DetailView):
 		object.save()
 
 		return object
+
+class RecipeCategoryListView(ListView):
+	context_object_name = "recipe_list"
+	paginate_by = 10
+
+	def get_queryset(self):		
+		if self.args[1] == 'hot':
+			self.recipecategory = get_object_or_404(RecipeCategory, id__iexact=self.args[0])
+			return Recipe.objects.filter(category = self.recipecategory)
+		elif self.args[1] == 'time':
+			self.recipecategory = get_object_or_404(RecipeCategory, id__iexact=self.args[0])
+			return Recipe.objects.filter(category = self.recipecategory).order_by("date")
+		else:
+			raise Http404
+
+	def get_context_data(self, **kwargs):
+		context = super(RecipeCategoryListView, self).get_context_data(**kwargs)
+		context['category'] = self.recipecategory
+		return context
+
+class HotRecipeListView(ListView):
+	model = Recipe
+	# context_object_name = "hot_recipe_list"
+	paginate_by = 10
+	
+
+
+
+
+
 
 

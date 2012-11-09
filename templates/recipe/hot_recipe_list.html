@@ -1,0 +1,34 @@
+<!-- hot_recipe_list.html -->
+{% extends "nav.html" %}
+
+{% block content %}
+{% if object_list %}
+    <table id="hot_recipes">
+        {% for hot_recipe in object_list %}
+            <tr>
+                <td>{{ hot_recipe.name }}</td>
+                <td><a href="/hot_recipe/{{ hot_recipe.id }}/" class="see_detail">detail</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# .... **Now the pagination section** .... #}
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/hot_recipes?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/hot_recipes?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% else %}
+    <h3>My hot_recipes</h3>
+    <p>No hot_recipes found!!! :(</p>
+{% endif %}
+{% endblock %}
