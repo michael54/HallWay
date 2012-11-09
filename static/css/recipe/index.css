@@ -134,12 +134,13 @@ P.larger-size { font-size: 16px; }
 	width: 130px;
 	height: 139px;
 	position: absolute;
-	background: rgba(0, 0, 0, 0.7);
+	background: rgba(171, 205, 239, 1.0);
+	border-radius: 10px;
 	margin: 0;
 }
 
 .ca-img-link .carousel1-caption h4 {
-	font-size: 12px;
+	font-size: 16px;
 	font-weight: bold;
 	color: white;
 	margin: 0;

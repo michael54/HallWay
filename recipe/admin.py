@@ -1,5 +1,5 @@
 from django.contrib import admin
-from recipe.models import Recipe, Amount, Step, RecipeCategory
+from recipe.models import Recipe, Amount, Step, RecipeCategory, Vote
 
 class AmountInline(admin.TabularInline):
 	model = Amount
@@ -9,11 +9,14 @@ class StepInline(admin.TabularInline):
 	model = Step
 	extra = 10
 
+class VoteInline(admin.TabularInline):
+	model = Vote
+
 class RecipeInline(admin.TabularInline):
 	model = Recipe
 
 class RecipeAdmin(admin.ModelAdmin):
-	inlines = (AmountInline, StepInline, )
+	inlines = (AmountInline, StepInline, VoteInline, )
 
 class RecipeCategoryAdmin(admin.ModelAdmin):
 	inlines = (RecipeInline, )
@@ -21,4 +24,5 @@ class RecipeCategoryAdmin(admin.ModelAdmin):
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Amount)
 admin.site.register(Step)
+admin.site.register(Vote)
 admin.site.register(RecipeCategory, RecipeCategoryAdmin)
