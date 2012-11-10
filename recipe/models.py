@@ -52,7 +52,18 @@ class Recipe(models.Model):
 		return self.name
 
 	class Meta:
-		ordering = ['like_num', 'view_num']
+		ordering = ['view_num', 'like_num']
+
+
+class DidRecipe(models.Model):
+	"""docstring for DidRecipe"""
+	recipe = models.ForeignKey(Recipe)
+	user = models.ForeignKey(User)
+	image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
+						processors=[Adjust(contrast=1.2, sharpness=1.1),
+            ResizeToFit(width=640,upscale=True)], format='JPEG', options={'quality': 90})
+	comments = models.TextField()
+
 
 
 class Amount(models.Model):
@@ -65,6 +76,10 @@ class Amount(models.Model):
 
 	def __unicode__(self):
 		return u'Amount of %s in %s' % (self.ingredient.name, self.recipe.name)
+
+	class Meta:
+		ordering = ['recipe']
+		unique_together = ('recipe', 'ingredient')
 		
 class Step(models.Model):
 	"""docstring for Steps"""
@@ -77,15 +92,23 @@ class Step(models.Model):
 	def __unicode__(self):
 		return u'Step %d of %s' % (self.step_num, self.recipe.name)
 
+	class Meta:
+		ordering = ['recipe', 'step_num']
+		unique_together = ("recipe", "step_num")
+
 
 class Vote(models.Model):
 	"""Vote class, used for recommendation system """
 	recipe = models.ForeignKey(Recipe)
 	user = models.ForeignKey(User)
-	score = models.PositiveSmallIntegerField(default=1, validators=[MaxValueValidator(5)])
+	score = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(5)])
 
 	def __unicode__(self):
 		return u'Vote for %s from %s' %(self.recipe.name, self.user)
+
+	class Meta:
+		ordering = ['user']
+		unique_together = ("user", "recipe")
 
 
 
