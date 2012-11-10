@@ -17,8 +17,8 @@
 {% block content %}
 	<section id="mod-main">
 	    <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
-        <div class="mod-recipe-img">
-            <img src="/media/{{ object.cover_image }}" alt="" />
+        <div id="recipe_img_div" class="mod-recipe-img">
+            <img id="recipe_img" src="/media/{{ object.cover_image }}" alt="" />
         </div>
         <div class="mod-recipe-stat">
             <span class="mod-recipe-count">
@@ -68,8 +68,10 @@
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript" src="{% static "js/yuEffect.js" %}"></script>
     <script type="text/javascript">
         var j = jQuery.noConflict();
+        yuEffect(j("#recipe_img_div"),j("#recipe_img"),500);
     </script>
     <script type="text/javascript" src="{% static "js/recipe/recipe_detail.js" %}"></script>
 {% endblock js %}
