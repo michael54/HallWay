@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
 from recipe import recommendations, itemsim
-
+from recipe.tasks import add_view_num
 
 def nav(request):
 	return render(request, 'nav.html')
@@ -51,23 +51,23 @@ class RecipeDetailView(DetailView):
 	queryset = Recipe.objects.all()
 
 	def get_object(self):
-		object = super(RecipeDetailView, self).get_object();
+		object = super(RecipeDetailView, self).get_object()
 
-		object.view_num = object.view_num + 1
-		object.save()
+		add_view_num.delay(object)
 
 		return object
 
 	def get_context_data(self, **kwargs):
 		context = super(RecipeDetailView, self).get_context_data(**kwargs)
-		id_list = []
-		for (similarity, i) in itemsim.itemsim[str(context['object'].id)]:
-			id_list.append(i)
+		if str(context['object'].id) in itemsim.itemsim:
+			id_list = []
+			for (similarity, i) in itemsim.itemsim[str(context['object'].id)]:
+				id_list.append(i)
 
-		objects = Recipe.objects.filter(id__in=id_list)
-		objects = dict([(obj.id, obj) for obj in objects])
-		sorted_objects = [objects[id] for id in id_list]
-		context['recommends'] = sorted_objects[0:10]
+			objects = Recipe.objects.filter(id__in=id_list)
+			objects = dict([(obj.id, obj) for obj in objects])
+			sorted_objects = [objects[id] for id in id_list]
+			context['recommends'] = sorted_objects[0:10]
 		return context
 
 class RecipeCategoryListView(ListView):
@@ -80,7 +80,10 @@ class RecipeCategoryListView(ListView):
 			return Recipe.objects.filter(category = self.recipecategory)
 		elif self.args[1] == 'time':
 			self.recipecategory = get_object_or_404(RecipeCategory, id__iexact=self.args[0])
-			return Recipe.objects.filter(category = self.recipecategory).order_by("date")
+			return Recipe.objects.filter(category = self.recipecategory).order_by("-date")
+		elif self.args[1] == 'trend':
+			self.recipecategory = get_object_or_404(RecipeCategory, id__iexact=self.args[0])
+			return Recipe.objects.filter(category = self.recipecategory).order_by("-trend_num")
 		else:
 			raise Http404
 

@@ -134,6 +134,8 @@ INSTALLED_APPS = (
     'django.contrib.comments',
         
     # Plugins
+    'kombu.transport.django',
+    'djcelery',
     'autofixture',
     'imagekit',
     #'south',
@@ -147,6 +149,12 @@ INSTALLED_APPS = (
     'food',
     'accounts',
 )
+
+# Settings for celery
+BROKER_URL = "django://"
+import djcelery
+djcelery.setup_loader()
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

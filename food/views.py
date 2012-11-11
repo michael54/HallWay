@@ -26,6 +26,9 @@ class FoodCategoryListView(ListView):
 		elif self.args[1] == 'time':
 			self.foodcategory = get_object_or_404(FoodCategory, id__iexact=self.args[0])
 			return Food.objects.filter(category = self.foodcategory).order_by("date")
+		elif self.args[1] == 'trend':
+			self.foodcategory = get_object_or_404(FoodCategory, id__iexact=self.args[0])
+			return Food.objects.filter(category = self.foodcategory).order_by("-trend_num")
 		else:
 			raise Http404
 

@@ -16,6 +16,8 @@ Read http://docs.django-userena.org/en/latest/installation.html#required-setting
 
 Read https://django-grappelli.readthedocs.org/en/2.4.2/quickstart.html#installation to install django-grappelli
 
+Install 'django-autofixture' 'django-celery'
+
 Please use 'python manage.py runserver' to test if it works well
 
 

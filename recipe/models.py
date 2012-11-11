@@ -41,6 +41,9 @@ class Recipe(models.Model):
 	did_num = models.PositiveIntegerField(default=0)
 	like_num = models.PositiveIntegerField(default=0)
 	view_num = models.PositiveIntegerField(default=0)
+	trend_num = models.FloatField(default=0.0)
+	today_view_num = models.PositiveIntegerField(default=0)
+
 	prep_time = models.TimeField()
 	cook_time = models.TimeField()
 
