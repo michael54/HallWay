@@ -58,6 +58,7 @@
             <h2 class="mod-recipe-title-h2">
                 Ingredients
             </h2>
+            <ul>
         	{% for ingredient in object.amount_set.all %}
                 {% if ingredient.must %}
             		<li>{{ ingredient.ingredient }}: {{ ingredient.amount }} yeah!</li>
@@ -65,7 +66,20 @@
                     <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} no!</li>
                 {% endif %}
         	{% endfor %}
+            </ul>
         </div>
+        <div class="mod-recipe-recommends">
+            <h2 class="mod-recipe-title-h2">
+                Recommends
+            </h2>
+            <ul>
+            {% for r in recommends %}
+                <li>
+                    <a href="{{r.get_absolute_url}}">{{r.name}}</a>
+                </li>
+            {% endfor%}
+            </ul>
+
 	</section>
     <aside class="mod-side">
     </aside>

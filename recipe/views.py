@@ -8,6 +8,8 @@ from recipe.forms import RecipeForm, RecipeStepFormSet
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
+from recipe import recommendations, itemsim
+
 
 def nav(request):
 	return render(request, 'nav.html')
@@ -55,6 +57,18 @@ class RecipeDetailView(DetailView):
 		object.save()
 
 		return object
+
+	def get_context_data(self, **kwargs):
+		context = super(RecipeDetailView, self).get_context_data(**kwargs)
+		id_list = []
+		for (similarity, i) in itemsim.itemsim[str(context['object'].id)]:
+			id_list.append(i)
+
+		objects = Recipe.objects.filter(id__in=id_list)
+		objects = dict([(obj.id, obj) for obj in objects])
+		sorted_objects = [objects[id] for id in id_list]
+		context['recommends'] = sorted_objects[0:10]
+		return context
 
 class RecipeCategoryListView(ListView):
 	context_object_name = "recipe_list"

@@ -51,6 +51,10 @@ class Recipe(models.Model):
 	def __unicode__(self):
 		return self.name
 
+	@models.permalink
+	def get_absolute_url(self):
+		return ('recipe_detail', (), {'pk': self.id})
+
 	class Meta:
 		ordering = ['view_num', 'like_num']
 
