@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.comments',
         
     # Plugins
+    'autofixture',
     'imagekit',
     #'south',
     

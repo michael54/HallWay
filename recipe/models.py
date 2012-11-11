@@ -101,7 +101,7 @@ class Vote(models.Model):
 	"""Vote class, used for recommendation system """
 	recipe = models.ForeignKey(Recipe)
 	user = models.ForeignKey(User)
-	score = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(5)])
+	score = models.PositiveSmallIntegerField(validators=[MaxValueValidator(5)])
 
 	def __unicode__(self):
 		return u'Vote for %s from %s' %(self.recipe.name, self.user)

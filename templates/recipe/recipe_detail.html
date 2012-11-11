@@ -18,7 +18,11 @@
 	<section id="mod-main">
 	    <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
         <div id="recipe_img_div" class="mod-recipe-img">
-            <img id="recipe_img" src="/media/{{ object.cover_image }}" alt="" />
+            {% if object.cover_image %}
+            <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
+            {% else %}
+            <img id="recipe_img" src="/media/no_image_available.jpg" alt="" />
+            {% endif %}
         </div>
         <div class="mod-recipe-stat">
             <span class="mod-recipe-count">
