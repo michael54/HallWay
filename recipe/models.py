@@ -56,7 +56,7 @@ class Recipe(models.Model):
 		return ('recipe_detail', (), {'pk': self.id})
 
 	class Meta:
-		ordering = ['view_num', 'like_num']
+		ordering = ['-view_num', '-like_num']
 
 
 class DidRecipe(models.Model):

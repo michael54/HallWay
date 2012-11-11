@@ -54,5 +54,13 @@
         </dl>
       {% endblock %}
     </div>
-  </div>
+
+    <div id="recommends">
+      <h2>Recommended Recipes</h2>
+      <ul>
+        {% for r in recommends %}
+          <li><a href="{{ r.get_absolute_url }}">{{r.name}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
 {% endblock %}

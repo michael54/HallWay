@@ -3,12 +3,12 @@
 {% extends "nav.html" %}
 
 {% block content %}
-{% if object_list %}
+{% if hot_recipe_list %}
     <table id="hot_recipes">
-        {% for hot_recipe in object_list %}
+        {% for hot_recipe in hot_recipe_list %}
             <tr>
                 <td>{{ hot_recipe.name }}</td>
-                <td><a href="/hot_recipe/{{ hot_recipe.id }}/" class="see_detail">detail</a></td>
+                <td><a href="{{ hot_recipe.get_absolute_url }}" class="see_detail">detail</a></td>
             </tr>
         {% endfor %}
     </table>
@@ -17,13 +17,13 @@
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="/hot_recipes?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
                 {% endif %}
                 <span class="page-current">
                     Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="/hot_recipes?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
                 {% endif %}
             </span>
         </div>

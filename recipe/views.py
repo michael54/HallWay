@@ -90,9 +90,13 @@ class RecipeCategoryListView(ListView):
 		return context
 
 class HotRecipeListView(ListView):
-	model = Recipe
+	queryset = Recipe.objects.all()
+	context_object_name = "hot_recipe_list"
+	template_name = "recipe/hot_recipe_list.html"
 	# context_object_name = "hot_recipe_list"
 	paginate_by = 10
+
+
 	
 
 

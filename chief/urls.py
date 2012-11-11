@@ -18,9 +18,14 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+   
+
+    url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/$',
+       'accounts.views.profile',
+       name='userena_profile_detail'),
     url(r'^accounts/', include('userena.urls')),
+    
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^test/','recipe.views.nav'),
     #url(r'^$', 'recipe.views.nav', name='homepage'),
 	url(r'^$', 'recipe.views.index', name='homepage'),
 
@@ -28,7 +33,7 @@ urlpatterns = patterns('',
     url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create'),
     url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
     url(r'^recipecategory/(\d+)/(\w+)/$', RecipeCategoryListView.as_view()),
-    url(r'^hot/$', HotRecipeListView.as_view()),
+    url(r'^hot/$', HotRecipeListView.as_view(), name='hot_recipes'),
 
     # URL for food
     url(r'^food/(?P<pk>\d+)/$', FoodDetailView.as_view(), name='food_detail'),
