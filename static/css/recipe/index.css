@@ -1,3 +1,13 @@
+#hide-arrow{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	z-index: 10;
+}
+.image-show {
+	position: relative;
+}
+
 .fixed-bar {
 	position: fixed;
 	width: 100%;

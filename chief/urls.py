@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     # URL for recipe
     url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create'),
     url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
-    url(r'^recipecategory/(\d+)/(\w+)/$', RecipeCategoryListView.as_view()),
+    url(r'^recipecategory/(\d+)/(\w+)/$', RecipeCategoryListView.as_view(), name='recipe_category'),
     url(r'^hot/$', HotRecipeListView.as_view(), name='hot_recipes'),
 
     # URL for food

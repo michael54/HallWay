@@ -25,7 +25,7 @@
 						<li class="red">
 							<a href="#"><i class="icon-glass"></i></a>
 							<ul>
-								<li><a href="#"><i class="icon-heart"></i>Hot Recipes</a></li>
+								<li><a href="{% url 'hot_recipes' %}"><i class="icon-heart"></i>Hot Recipes</a></li>
 							</ul>
 						</li>
 						<li class="yellow">
@@ -34,10 +34,13 @@
 						<li class="blue pull-right">
 							<a href="#"><i class="icon-user"></i></a>
 							<ul>	
-								<li><a data-toggle="modal" href="#myModal" ><i class="icon-signin"></i> Sign In</a></li>
-								<li><a href="{% url 'userena_signout' %}"><i class="icon-signout"></i> Sign Out</a></li>
-								<li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+								{% if user.is_authenticated %}
+								<li><a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i> My Profile</a></li>
 								<li><a href="#"><i class="icon-glass"></i> My Recipes</a></li>
+								<li><a href="{% url 'userena_signout' %}"><i class="icon-signout"></i> Sign Out</a></li>
+								{% else %}
+								<li><a data-toggle="modal" href="#myModal" ><i class="icon-signin"></i> Sign In</a></li>
+								{% endif %}
 							</ul>
 						</li>
 						<li class="purple">
