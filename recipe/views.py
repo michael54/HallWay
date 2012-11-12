@@ -10,12 +10,14 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
 from recipe import recommendations, itemsim
 from recipe.tasks import add_view_num
+from django.template import Context
 
 def nav(request):
 	return render(request, 'nav.html')
 
 def index(request):
-	return render(request, 'recipe/index.html')
+	c = Context({'results': Recipe.objects.all() })
+	return render(request, 'recipe/index.html', c)
 
 class RecipeCreate(CreateView):
 	form_class = RecipeForm

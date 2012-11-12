@@ -9,7 +9,7 @@
         {% for recipe in recipe_list %}
             <tr>
                 <td>{{ recipe.name }}</td>
-                <td><a href="/recipe/{{ recipe.id }}/" class="see_detail">detail</a></td>
+                <td><a href="{% url recipe.get_absolute_url %}" class="see_detail">detail</a></td>
             </tr>
         {% endfor %}
     </table>

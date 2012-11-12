@@ -4,6 +4,8 @@ from food.views import FoodDetailView, FoodCategoryListView
 from django.conf import settings
 from django.conf.urls.static import static
 
+import autocomplete_light
+autocomplete_light.autodiscover()
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -18,7 +20,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-   
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
 
     url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/$',
        'accounts.views.profile',
@@ -32,7 +34,7 @@ urlpatterns = patterns('',
     # URL for recipe
     url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create'),
     url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
-    url(r'^recipecategory/(\d+)/(\w+)/$', RecipeCategoryListView.as_view(), name='recipe_category'),
+    url(r'^recipecategory/(\d+)/(hot|time|trend)/$', RecipeCategoryListView.as_view(), name='recipe_category'),
     url(r'^hot/$', HotRecipeListView.as_view(), name='hot_recipes'),
 
     # URL for food

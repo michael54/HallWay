@@ -1,5 +1,6 @@
 from django.contrib import admin
 from recipe.models import Recipe, Amount, Step, RecipeCategory, Vote
+import autocomplete_light
 
 class AmountInline(admin.TabularInline):
 	model = Amount
@@ -17,6 +18,7 @@ class RecipeInline(admin.TabularInline):
 
 class RecipeAdmin(admin.ModelAdmin):
 	inlines = (AmountInline, StepInline, VoteInline, )
+	form = autocomplete_light.modelform_factory(Recipe)
 
 class RecipeCategoryAdmin(admin.ModelAdmin):
 	inlines = (RecipeInline, )

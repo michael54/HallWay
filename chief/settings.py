@@ -139,7 +139,8 @@ INSTALLED_APPS = (
     'autofixture',
     'imagekit',
     #'south',
-    
+    'autocomplete_light',
+
     'guardian',
     'easy_thumbnails',
     'userena',
@@ -221,3 +222,11 @@ AUTH_PROFILE_MODULE = 'accounts.MyProfile'
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
+
+
+# Settings for easy_thumbnail
+THUMBNAIL_ALIASES = {
+    '': {
+        'normal': {'size': (200,200), 'crop': 'smart'},
+    },
+}

@@ -3,6 +3,8 @@
 {% load static from staticfiles %}
 {% load url from future %}
 
+{% load thumbnail %}
+
 {% block csslink %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
@@ -44,6 +46,11 @@
       </div>
       <!-- Elastislide Carousel -->
       <ul id="carousel1" class="elastislide-list">
+        {% for r in results %}
+        {% if r.cover_image %}
+        <li><a href="{{ r.get_absolute_url }}"><img src="{{ r.cover_image|thumbnail_url:'normal' }}"></a></li>
+        {% endif %}
+        {% endfor %}
         <li>
           <a href="#" class="ca-img-link">
             <img src="{% static "img/small/1.jpg" %}" alt="image01" />
@@ -53,6 +60,7 @@
             </div>
           </a>
         </li>
+        
         <li><a href="#"><img src="{% static "img/small/2.jpg" %}" alt="image02" /></a></li>
         <li><a href="#"><img src="{% static "img/small/3.jpg" %}" alt="image03" /></a></li>
         <li><a href="#"><img src="{% static "img/small/4.jpg" %}" alt="image04" /></a></li>
