@@ -13,7 +13,7 @@ def get_file_path(instance, filename):
 
 class FoodCategory(models.Model):
 	"""Food Category Model"""
-	name = models.CharField(max_length=100)
+	name = models.CharField(db_index=True, max_length=100)
 	parent = models.ForeignKey('self', null=True, blank=True)
 
 	def __unicode__(self):
@@ -23,7 +23,7 @@ class FoodCategory(models.Model):
 class Food(models.Model):
 	"""Food Model, managing all kinds of food"""
 	
-	name = models.CharField(max_length=100)
+	name = models.CharField(db_index=True, max_length=100)
 	category = models.ForeignKey(FoodCategory)
 	brief = models.CharField(max_length=1000)
 	cover_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image', processors=[Adjust(contrast=1.2, sharpness=1.1),

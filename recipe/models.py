@@ -26,7 +26,7 @@ class RecipeCategory(models.Model):
 class Recipe(models.Model):
 	"""docstring for Recipe"""
 
-	name = models.CharField(max_length=200)
+	name = models.CharField(db_index=True, max_length=200)
 	author = models.ForeignKey(User)
 	date = models.DateField(auto_now_add=True)
 	category = models.ForeignKey(RecipeCategory)
