@@ -15,6 +15,19 @@ h1.mod-page-title {
 	margin-bottom: 15px;
 }
 
+h2 {
+	color: rgb(130, 130, 130);
+	font-size: 22px;
+	font-style: bold;
+	line-height: 30px;
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+p {
+	padding-left: 15px;
+}
+
 #recipe_img_div {
 	height: 400px;
 	overflow: hidden;
@@ -73,6 +86,7 @@ div.mod-recipe-share span.mod-recipe-upload > a {
 	font-size: 14px;
 	color: rgb(178, 34, 34);
 	text-decoration: none;
+	padding-left: 15px;
 }
 
 div.mod-recipe-share span.mod-recipe-upload > a:link {

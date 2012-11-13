@@ -17,7 +17,7 @@
 {% block content %}
 <div id="mod-container">
   <div class="row-fluid container-fluid">
-    <section class="mod-main span7">
+    <section class="mod-main span7 well">
      <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
      <div id="recipe_img_div" class="mod-recipe-img">
       {% if object.cover_image %}
@@ -49,6 +49,9 @@
         <a href="#upload-own">Upload your own recipe for this dish?</a>
       </span>
     </div>
+
+    <hr />
+
     <!--li><a href="/accounts/{{ object.author }}">{{ object.author }}</a></li-->
     <!--div>{{ object.date }}</div-->
     <!--div>{{ object.category }}</div-->
@@ -56,12 +59,6 @@
       <h2 class="mod-recipe-title-h2">Brief Introduction</h2>
       <p class="mod-recipe-brief-content">
         {{ object.brief }}
-      </p>
-    </div>
-    <div class="mod-recipe-tip">
-      <h2 class="mod-recipe-title-h2">Chef's Tip</h2>
-      <p class="mod-recipe-tip-content">
-        {{ object.tips }}
       </p>
     </div>
     <div class="mod-reicpe-ingredients">
@@ -78,6 +75,15 @@
        {% endfor %}
      </ul>
     </div>
+    <div class="mod-recipe-tip">
+      <h2 class="mod-recipe-title-h2">Chef's Tip</h2>
+      <p class="mod-recipe-tip-content">
+        {{ object.tips }}
+      </p>
+    </div>
+
+    <hr />
+
     <div class="mod-recipe-recommends">
       <h2 class="mod-recipe-title-h2">
         People also like
