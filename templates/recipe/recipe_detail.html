@@ -15,83 +15,87 @@
 {% endblock %}
 
 {% block content %}
-<section id="mod-main">
- <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
- <div id="recipe_img_div" class="mod-recipe-img">
-  {% if object.cover_image %}
-  <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
-  {% else %}
-  <img id="recipe_img" src="/media/no_image_available.jpg" alt="" />
-  {% endif %}
-</div>
-<div class="mod-recipe-stat">
-  <span class="mod-recipe-count">
-    {{ object.did_num }} did this. | 
-    {{ object.like_num }} liked this. | 
-    {{ object.view_num }} viewed this.
-  </span>
-  <span class="mod-recipe-like">
-    <a href="#i-like-it">I like it!</a>
-  </span>
-</div>
-<div class="mod-recipe-share">
-  <span class="mod-recipe-upload">
-    <a href="#upload-own">Upload your own recipe for this dish?</a>
-  </span>
-</div>
-<!--li><a href="/accounts/{{ object.author }}">{{ object.author }}</a></li-->
-<!--div>{{ object.date }}</div-->
-<!--div>{{ object.category }}</div-->
-<div class="mod-recipe-brief">
-  <h2 class="mod-recipe-title-h2">Brief Introduction</h2>
-  <p class="mod-recipe-brief-content">
-    {{ object.brief }}
-  </p>
-</div>
-<div class="mod-recipe-tip">
-  <h2 class="mod-recipe-title-h2">Chef's Tip</h2>
-  <p class="mod-recipe-tip-content">
-    {{ object.tips }}
-  </p>
-</div>
-<div class="mod-reicpe-ingredients">
-  <h2 class="mod-recipe-title-h2">
-    Ingredients
-  </h2>
-  <ul>
-   {% for ingredient in object.amount_set.all %}
-   {% if ingredient.must %}
-   <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} yeah!</li>
-   {% else %}
-   <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} no!</li>
-   {% endif %}
-   {% endfor %}
- </ul>
-</div>
-<div class="mod-recipe-recommends">
-  <h2 class="mod-recipe-title-h2">
-    People also like
-  </h2>
-  {% if recommends %}
-  <ul>
-    {% for r in recommends %}
-    <li>
-      <a href="{{r.get_absolute_url}}">{{r.name}}</a>
-    </li>
-    {% endfor%}
-  </ul>
-  {% endif %}
+<div class="container-fluid" id="mod-container">
+  <div class="row-fluid">
+    <section class="mod-main span8">
+     <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
+     <div id="recipe_img_div" class="mod-recipe-img">
+      {% if object.cover_image %}
+      <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
+      {% else %}
+      <img id="recipe_img" src="/media/no_image_available.jpg" alt="" />
+      {% endif %}
+    </div>
+    <div class="mod-recipe-stat">
+      <span class="mod-recipe-count">
+        {{ object.did_num }} did this. | 
+        {{ object.like_num }} liked this. | 
+        {{ object.view_num }} viewed this.
+      </span>
+      <span class="mod-recipe-like">
+        <a href="#i-like-it">I like it!</a>
+      </span>
+    </div>
+    <div class="mod-recipe-share">
+      <span class="mod-recipe-upload">
+        <a href="#upload-own">Upload your own recipe for this dish?</a>
+      </span>
+    </div>
+    <!--li><a href="/accounts/{{ object.author }}">{{ object.author }}</a></li-->
+    <!--div>{{ object.date }}</div-->
+    <!--div>{{ object.category }}</div-->
+    <div class="mod-recipe-brief">
+      <h2 class="mod-recipe-title-h2">Brief Introduction</h2>
+      <p class="mod-recipe-brief-content">
+        {{ object.brief }}
+      </p>
+    </div>
+    <div class="mod-recipe-tip">
+      <h2 class="mod-recipe-title-h2">Chef's Tip</h2>
+      <p class="mod-recipe-tip-content">
+        {{ object.tips }}
+      </p>
+    </div>
+    <div class="mod-reicpe-ingredients">
+      <h2 class="mod-recipe-title-h2">
+        Ingredients
+      </h2>
+      <ul>
+       {% for ingredient in object.amount_set.all %}
+       {% if ingredient.must %}
+       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} yeah!</li>
+       {% else %}
+       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} no!</li>
+       {% endif %}
+       {% endfor %}
+     </ul>
+    </div>
+    <div class="mod-recipe-recommends">
+      <h2 class="mod-recipe-title-h2">
+        People also like
+      </h2>
+      {% if recommends %}
+      <ul>
+        {% for r in recommends %}
+        <li>
+          <a href="{{r.get_absolute_url}}">{{r.name}}</a>
+        </li>
+        {% endfor%}
+      </ul>
+      {% endif %}
 
-</section>
-<aside class="mod-side">
-</aside>
+    </section>
+    <aside class="mod-side span4 well">
+    </aside>
+  </div>
+</div>
 {% endblock %}
 
 {% block js %}
 <script type="text/javascript" src="{% static "js/yuEffect.js" %}"></script>
 <script type="text/javascript">
 var j = jQuery.noConflict();
-yuEffect(j("#recipe_img_div"),j("#recipe_img"),500);
+yuEffect(j("#recipe_img_div"),j("#recipe_img"),200);
 </script>
 <script type="text/javascript" src="{% static "js/recipe/recipe_detail.js" %}"></script>
 {% endblock js %}

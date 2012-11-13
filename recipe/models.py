@@ -35,7 +35,7 @@ class Recipe(models.Model):
 
 	cover_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
-            ResizeToFit(width=640,upscale=True)], format='JPEG', options={'quality': 90})
+            ResizeToFit(width=594,upscale=True)], format='JPEG', options={'quality': 90})
 
 	tips = models.TextField(blank=True)
 	did_num = models.PositiveIntegerField(default=0)
