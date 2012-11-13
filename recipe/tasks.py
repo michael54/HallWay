@@ -20,4 +20,5 @@ class ProcessTrendTask(PeriodicTask):
 @task(ignore_result=True)
 def add_view_num(obj):
 	obj.view_num = obj.view_num+1
+	obj.today_view_num = obj.today_view_num+1
 	obj.save()
