@@ -1,10 +1,93 @@
+body {
+	background: rgb(255, 255, 220);
+}
+
 div.#mod-container {
 	padding: 0;
 	margin: 0;
 	border: 0;
 }
 
+h1.mod-page-title {
+	font-size: 28px;
+	font-style: bold;
+	line-height: 30px;
+	margin-bottom: 15px;
+}
+
 #recipe_img_div {
 	height: 400px;
 	overflow: hidden;
+}
+
+div.mod-recipe-stat {
+	padding: 5px;
+	max-height: 50px;
+}
+
+div.mod-recipe-stat .mod-recipe-count,
+div.mod-recipe-stat .mod-recipe-like {
+	height: 40px;
+	line-height: 40px;
+}
+
+div.mod-recipe-stat .mod-recipe-count {
+	padding-left: 10px;
+}
+
+div.mod-recipe-stat .mod-recipe-count span {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(169, 169, 169);
+}
+
+div.mod-recipe-stat .mod-recipe-like {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+div.mod-recipe-stat .mod-recipe-like > a {
+	text-decoration: none;
+}
+
+div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likebtn {
+	background: rgb(178, 34, 34);
+	border-radius: 0;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+div.mod-recipe-share {
+	height: 30px;
+	max-height: 30px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+div.mod-recipe-share span.mod-recipe-upload {
+	height: 40px;
+}
+
+div.mod-recipe-share span.mod-recipe-upload > a {
+	font-size: 14px;
+	color: rgb(178, 34, 34);
+	text-decoration: none;
+}
+
+div.mod-recipe-share span.mod-recipe-upload > a:link {
+	color: rgb(178, 34, 34);
+}
+
+div.mod-recipe-share span.mod-recipe-upload > a:visited {
+	color: rgb(169, 169, 169);
+}
+
+div.mod-recipe-share span.mod-recipe-upload > a:hover {
+	color: rgb(0, 191, 255);
+}
+
+div.mod-recipe-share span.mod-recipe-upload > a:active {
+	background: rgb(0, 191, 255);
+	color: white;
 }

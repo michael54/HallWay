@@ -15,9 +15,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid" id="mod-container">
-  <div class="row-fluid">
-    <section class="mod-main span8">
+<div id="mod-container">
+  <div class="row-fluid container-fluid">
+    <section class="mod-main span7">
      <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
      <div id="recipe_img_div" class="mod-recipe-img">
       {% if object.cover_image %}
@@ -28,12 +28,20 @@
     </div>
     <div class="mod-recipe-stat">
       <span class="mod-recipe-count">
-        {{ object.did_num }} did this. | 
-        {{ object.like_num }} liked this. | 
-        {{ object.view_num }} viewed this.
+        <span class="mod-recipe-did">
+          {{ object.did_num }} did this.
+        </span>
+        <span class="mod-recipe-count-sep">|</span>
+        <span class="mod-recipe-liked"> 
+          {{ object.like_num }} liked this.
+        </span>
+        <span class="mod-recipe-count-sep">|</span>
+        <span class="mod-recipe-viewed">
+          {{ object.view_num }} viewed this.
+        </span>
       </span>
-      <span class="mod-recipe-like">
-        <a href="#i-like-it">I like it!</a>
+      <span class="mod-recipe-like pull-right">
+        <a href="#i-like-it"><button class="btn" id="mod-recipe-likebtn">++ Lovin' it!</button></a>
       </span>
     </div>
     <div class="mod-recipe-share">
