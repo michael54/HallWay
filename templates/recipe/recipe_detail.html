@@ -40,9 +40,18 @@
           {{ object.view_num }} viewed this.
         </span>
       </span>
+      {% if user.is_authenticated %}
       <span class="mod-recipe-like pull-right">
-        <a href="#i-like-it"><button class="btn" id="mod-recipe-likebtn">++ Lovin' it!</button></a>
+          {% if object in user.get_profile.favourite_recipes.all %}
+          <a href="#" id="likehref"><button class="btn" id="mod-recipe-likebtn">
+          Liked</button></a>
+          {% else %}
+          <a href="{% url 'like' object.id %}" id="likehref"><button class="btn" id="mod-recipe-likebtn">
+          ++ Lovin' it!</button></a>
+          {% endif %}
+        
       </span>
+      {% endif %}
     </div>
     <div class="mod-recipe-share">
       <span class="mod-recipe-upload">
@@ -188,7 +197,21 @@ j(document).ready(function() {
     j.post( url, postdata,
       function( data ) {
           j( "#comment_modal_body" ).empty().append( data );
+          setTimeout(function() {
+            j( "#rateModal").modal('hide');
+          }, 500);
       });
+  });
+  j('#likehref').click(function() {
+    var url = j('#likehref').attr('href');
+    var postdata = {
+      'csrfmiddlewaretoken': '{{ csrf_token }}'
+    }
+    j.post(url, postdata, function(data){
+      j('#mod-recipe-likebtn').html(data);
+      j('#likehref').attr('href', '#');
+    });
+    return false;
   });
 });
 

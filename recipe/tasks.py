@@ -9,7 +9,7 @@ from datetime import timedelta
 
 class ProcessTrendTask(PeriodicTask):
 	# run_every = crontab(hour=0)
-	run_every = timedelta(seconds = 60)
+	run_every = timedelta(hours = 1)
 
 	def run(self, **kwargs):
 		alpha = 0.8
@@ -47,3 +47,7 @@ def get_or_create_vote(r, u, s, c):
 
 	return recipe_object.save()
 
+@task()
+def add_like_num(obj):
+	obj.like_num = obj.like_num + 1
+	return obj.save()

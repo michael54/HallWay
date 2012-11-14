@@ -31,6 +31,7 @@ urlpatterns = patterns('',
     url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create'),
     url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
     url(r'^recipe/(?P<pk>\d+)/rate/$', 'recipe.views.rate', name='rate'),
+    url(r'^recipe/(?P<pk>\d+)/like/$', 'recipe.views.like', name='like'),
     url(r'^recipecategory/(\d+)/(hot|time|trend)/$', RecipeCategoryListView.as_view(), name='recipe_category'),
     url(r'^hot/$', HotRecipeListView.as_view(), name='hot_recipes'),
 

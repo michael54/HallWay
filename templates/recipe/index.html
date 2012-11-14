@@ -34,10 +34,11 @@
     <a href="javascript:;" id="toggleAnimation" >PAUSE</a>
   </div>
   <div class="content search-form">
-    <div class="input-append">
-      <input class="span4" id="appendedInputButton search" placeholder="Type in a dish name or the main ingredient..." type="text">
-      <button class="btn" type="button">GO!</button>
-    </div>
+      <form id="searchform" action="" method="POST">
+        {% csrf_token %}
+      <input class="span4" id="searchinput" placeholder="Type in a dish name or the main ingredient..." type="search" autocomplete="off">
+      <div id="suggestions"></div>
+      </form>
   </div>
   <div class="image-show">
     <div class="fixed-bar">
@@ -70,16 +71,6 @@
         <li><a href="#"><img src="{% static "img/small/8.jpg" %}"  alt="image08" /></a></li>
         <li><a href="#"><img src="{% static "img/small/9.jpg" %}"  alt="image09" /></a></li>
         <li><a href="#"><img src="{% static "img/small/10.jpg" %}"  alt="image10" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/11.jpg" %}"  alt="image11" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/12.jpg" %}"  alt="image12" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/13.jpg" %}"  alt="image13" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/14.jpg" %}"  alt="image14" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/15.jpg" %}"  alt="image15" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/16.jpg" %}"  alt="image16" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/17.jpg" %}"  alt="image17" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/18.jpg" %}"  alt="image18" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/19.jpg" %}"  alt="image19" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/20.jpg" %}"  alt="image20" /></a></li>
       </ul>
       <!-- End Elastislide Carousel -->
     </div>
@@ -120,6 +111,27 @@
       } else {
         j(this).html("PAUSE");
         j('#bg-show').bgStretcher.play();
+      }
+    });
+    var minlength = 3;
+    j('#searchinput').keyup(function(event) {
+      j('#searchform').submit();
+    });
+    j('#searchform').submit(function(event) {
+      event.preventDefault();
+      var value = j('#searchinput').val(),
+          url = j(this).attr('action');
+      var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+      if(value.length >= minlength) {
+        j.post(url, postdata,
+          function(data) {
+            j('#suggestions').fadeIn();
+            j('#suggestions').empty().append(data);
+          }
+        );
+      }
+      else {
+        j('#suggestions').fadeOut();
       }
     });
 

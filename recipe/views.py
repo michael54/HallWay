@@ -9,16 +9,44 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
 from recipe import recommendations, itemsim
-from recipe.tasks import add_view_num, get_or_create_vote
+from recipe.tasks import add_view_num, get_or_create_vote, add_like_num
 from django.template import Context
 from django.core.urlresolvers import reverse
+from food.models import Food
+from django.core import serializers
 
 def nav(request):
 	return render(request, 'nav.html')
 
 def index(request):
-	c = Context({'results': Recipe.objects.all() })
-	return render(request, 'recipe/index.html', c)
+	if request.is_ajax():
+		data = ''
+		q = request.POST['q']
+		queries = {}
+		queries['recipe'] = Recipe.objects.filter(name__contains= q)[:3]
+		queries['food'] = Food.objects.filter(name__contains=q)[:3]
+		if queries['recipe']:
+			data += '<span class="category">Recipe</span>'
+			for obj in queries['recipe']:
+				data+= '<a href="'+obj.get_absolute_url()+'">'
+				data+= '<span class="searchheading">'+obj.name+'</span></a>'
+				brief = obj.brief
+				if len(brief) > 50:
+					brief = brief[:50]
+				data+= '<span>'+brief+'</span>'
+
+		if queries['food']:
+			data += '<span class="category">Food</span>'
+			for obj in queries['food']:
+				data+= '<a href="'+obj.get_absolute_url()+'">'
+				data+= '<span class="searchheading">'+obj.name+'</span></a>'
+				brief = obj.brief
+				if len(brief) > 50:
+					brief = brief[:50]
+				data+= '<span>'+brief+'</span>'
+		return HttpResponse(data)
+	else:
+		return render(request, 'recipe/index.html')
 
 class RecipeCreate(CreateView):
 	form_class = RecipeForm
@@ -108,7 +136,6 @@ class HotRecipeListView(ListView):
 	queryset = Recipe.objects.all()
 	context_object_name = "hot_recipe_list"
 	template_name = "recipe/hot_recipe_list.html"
-	# context_object_name = "hot_recipe_list"
 	paginate_by = 10
 
 def rate(request, pk):
@@ -123,45 +150,12 @@ def rate(request, pk):
 	else:	
 		return HttpResponse('<div id="content">Failed</div>')
 
-
-# def rate(request, pk):
-# 	if request.method =="POST":
-# 		user = request.user.id
-# 		form = VoteForm(request.POST)
-# 		if form.is_valid():
-# 			score = form.cleaned_data['score']
-# 			comment = form.cleaned_data['comment']
-# 			get_or_create_vote.delay(pk, user, score, comment)
-# 	else:
-# 		raise Http404
-# 	return HttpResponseRedirect(reverse('recipe_detail', args=(pk,)))
-
-# def rate(request, pk):
-# 	if request.method =="POST":
-# 		recipe_object = Recipe.objects.get(pk = pk)
-# 		user_object = request.user
-# 		s = int(request.POST['score'])
-# 		c = request.POST['comment']
-# 		try:	
-# 			v = Vote.objects.get(recipe = recipe_object, user = user_object)
-		
-# 		except Vote.DoesNotExist:
-# 			v = Vote(recipe = recipe_object, user = user_object, score = s, comment = c)
-			
-# 			recipe_object.cumulative_score = recipe_object.cumulative_score + s
-# 			recipe_object.rating_num = recipe_object.rating_num + 1
-# 			recipe_object.save()
-# 			v.save()
-# 		else:
-# 			old_score = v.score
-# 			v.score = s
-# 			v.comment = c
-# 			recipe_object.cumulative_score = recipe_object.cumulative_score + s - old_score
-# 			recipe_object.save()
-# 			v.save()
-# 	else:
-# 		raise Http404
-# 	return HttpResponseRedirect(reverse('recipe_detail', args=(pk,)))
-
-
-
+def like(request, pk):
+	if request.is_ajax():
+		recipe = get_object_or_404(Recipe, pk=pk)
+		profile = request.user.get_profile()
+		profile.favourite_recipes.add(recipe)
+		add_like_num.delay(recipe)
+		return HttpResponse('Liked')
+	else:
+		raise Http404	
