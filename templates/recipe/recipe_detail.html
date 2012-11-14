@@ -127,8 +127,8 @@
     <button type="button" class="close" data-dismiss="modal">x</button>
     <legend>Comment it</legend>
   </div>
-  <div class="modal-body">
-    <form method="post" action="{% url 'rate' object.id %}" >
+  <div class="modal-body" id="comment_modal_body">
+    <form method="post" action="{% url 'rate' object.id %}" id="vote_form">
       {% csrf_token %}
       <fieldset>
         {% if vote %}
@@ -173,6 +173,23 @@ j(document).ready(function() {
       j('#id_score').val(score);
     }
   })
+  j('#vote_form').submit(function(event) {
+    event.preventDefault();
+    var s = j('#id_score').val(),
+        c = j('#id_comment').val(),
+        url = j(this).attr( 'action' );
+
+    var postdata = {
+      'score': s,
+      'comment': c,
+      'csrfmiddlewaretoken': '{{ csrf_token }}'
+    }
+    /* Send the data using post and put the results in a div */
+    j.post( url, postdata,
+      function( data ) {
+          j( "#comment_modal_body" ).empty().append( data );
+      });
+  });
 });
 
 

@@ -112,31 +112,56 @@ class HotRecipeListView(ListView):
 	paginate_by = 10
 
 def rate(request, pk):
-	if request.method =="POST":
-		recipe_object = Recipe.objects.get(pk = pk)
-		user_object = request.user
-		s = int(request.POST['score'])
-		c = request.POST['comment']
-		try:	
-			v = Vote.objects.get(recipe = recipe_object, user = user_object)
+	if request.is_ajax():
+		user = request.user.id
+		form = VoteForm(request.POST)
+		if form.is_valid():
+			score = form.cleaned_data['score']
+			comment = form.cleaned_data['comment']
+			get_or_create_vote.delay(pk, user, score, comment)
+			return HttpResponse('<div id="content">Success</div>')
+	else:	
+		return HttpResponse('<div id="content">Failed</div>')
+
+
+# def rate(request, pk):
+# 	if request.method =="POST":
+# 		user = request.user.id
+# 		form = VoteForm(request.POST)
+# 		if form.is_valid():
+# 			score = form.cleaned_data['score']
+# 			comment = form.cleaned_data['comment']
+# 			get_or_create_vote.delay(pk, user, score, comment)
+# 	else:
+# 		raise Http404
+# 	return HttpResponseRedirect(reverse('recipe_detail', args=(pk,)))
+
+# def rate(request, pk):
+# 	if request.method =="POST":
+# 		recipe_object = Recipe.objects.get(pk = pk)
+# 		user_object = request.user
+# 		s = int(request.POST['score'])
+# 		c = request.POST['comment']
+# 		try:	
+# 			v = Vote.objects.get(recipe = recipe_object, user = user_object)
 		
-		except Vote.DoesNotExist:
-			v = Vote(recipe = recipe_object, user = user_object, score = s, comment = c)
+# 		except Vote.DoesNotExist:
+# 			v = Vote(recipe = recipe_object, user = user_object, score = s, comment = c)
 			
-			recipe_object.cumulative_score = recipe_object.cumulative_score + s
-			recipe_object.rating_num = recipe_object.rating_num + 1
-			recipe_object.save()
-			v.save()
-		else:
-			old_score = v.score
-			v.score = s
-			v.comment = c
-			recipe_object.cumulative_score = recipe_object.cumulative_score + s - old_score
-			recipe_object.save()
-			v.save()
-	else:
-		raise Http404
-	return HttpResponseRedirect(reverse('recipe_detail', args=(pk,)))
+# 			recipe_object.cumulative_score = recipe_object.cumulative_score + s
+# 			recipe_object.rating_num = recipe_object.rating_num + 1
+# 			recipe_object.save()
+# 			v.save()
+# 		else:
+# 			old_score = v.score
+# 			v.score = s
+# 			v.comment = c
+# 			recipe_object.cumulative_score = recipe_object.cumulative_score + s - old_score
+# 			recipe_object.save()
+# 			v.save()
+# 	else:
+# 		raise Http404
+# 	return HttpResponseRedirect(reverse('recipe_detail', args=(pk,)))
 
 
 

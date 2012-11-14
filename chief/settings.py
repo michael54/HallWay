@@ -133,7 +133,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
         
     # Plugins
-    'kombu.transport.django',
     'djcelery',
     'autofixture',
     'imagekit',
@@ -151,9 +150,10 @@ INSTALLED_APPS = (
 )
 
 # Settings for celery
-BROKER_URL = "django://"
+BROKER_URL = "amqp://django_login:654321@localhost:5672/myvhost"
 import djcelery
 djcelery.setup_loader()
+
 
 
 # A sample logging configuration. The only tangible logging

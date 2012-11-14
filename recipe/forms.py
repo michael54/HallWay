@@ -11,8 +11,7 @@ class RecipeForm(ModelForm):
 RecipeStepFormSet = inlineformset_factory(Recipe, Step, extra = 5)
 
 class VoteForm(forms.Form):
-	recipe = forms.IntegerField()
-	user = forms.IntegerField()
-	score = forms.IntegerField()
+	score = forms.IntegerField(min_value = 0, max_value = 5)
+	comment = forms.CharField()
 
 	
