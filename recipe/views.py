@@ -1,16 +1,17 @@
 # Create your views here.
-from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from userena.views import signin
 from django.views.generic.edit import CreateView
-from recipe.models import Recipe, RecipeCategory
-from recipe.forms import RecipeForm, RecipeStepFormSet
+from recipe.models import Recipe, RecipeCategory, Vote
+from recipe.forms import RecipeForm, RecipeStepFormSet, VoteForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
 from recipe import recommendations, itemsim
-from recipe.tasks import add_view_num
+from recipe.tasks import add_view_num, get_or_create_vote
 from django.template import Context
+from django.core.urlresolvers import reverse
 
 def nav(request):
 	return render(request, 'nav.html')
@@ -70,6 +71,7 @@ class RecipeDetailView(DetailView):
 			objects = dict([(obj.id, obj) for obj in objects])
 			sorted_objects = [objects[id] for id in id_list]
 			context['recommends'] = sorted_objects[0:10]
+			context['form'] = VoteForm
 		return context
 
 class RecipeCategoryListView(ListView):
@@ -101,12 +103,30 @@ class HotRecipeListView(ListView):
 	# context_object_name = "hot_recipe_list"
 	paginate_by = 10
 
-
-	
-
-
-
-
+def rate(request, pk):
+	if request.method =="POST":
+		recipe_object = Recipe.objects.get(pk = pk)
+		user_object = request.user
+		s = int(request.POST['score'])
+		try:	
+			v = Vote.objects.get(recipe = recipe_object, user = user_object)
+		
+		except Vote.DoesNotExist:
+			v = Vote(recipe = recipe_object, user = user_object, score = s)
+			
+			recipe_object.cumulative_score = recipe_object.cumulative_score + s
+			recipe_object.rating_num = recipe_object.rating_num + 1
+			recipe_object.save()
+			v.save()
+		else:
+			old_score = v.score
+			v.score = s
+			recipe_object.cumulative_score = recipe_object.cumulative_score + s - old_score
+			recipe_object.save()
+			v.save()
+	else:
+		raise Http404
+	return HttpResponseRedirect(reverse('recipe_detail', args=(pk,)))
 
 
 

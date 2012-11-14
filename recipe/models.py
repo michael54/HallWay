@@ -47,8 +47,8 @@ class Recipe(models.Model):
 	prep_time = models.TimeField()
 	cook_time = models.TimeField()
 
-	cumulative_score = models.PositiveIntegerField(default=0)
-	rating_num = models.PositiveIntegerField(default=0)
+	cumulative_score = models.IntegerField(default=0)
+	rating_num = models.IntegerField(default=0)
 
 
 	def __unicode__(self):

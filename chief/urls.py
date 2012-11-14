@@ -11,10 +11,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'chief.views.home', name='home'),
-    # url(r'^chief/', include('chief.foo.urls')),
-
+    url(r'^comments/', include('django.contrib.comments.urls')),
+    
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
@@ -34,6 +32,7 @@ urlpatterns = patterns('',
     # URL for recipe
     url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create'),
     url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
+    url(r'^recipe/(?P<pk>\d+)/rate/$', 'recipe.views.rate', name='rate'),
     url(r'^recipecategory/(\d+)/(hot|time|trend)/$', RecipeCategoryListView.as_view(), name='recipe_category'),
     url(r'^hot/$', HotRecipeListView.as_view(), name='hot_recipes'),
 

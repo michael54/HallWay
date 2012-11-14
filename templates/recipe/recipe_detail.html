@@ -61,6 +61,7 @@
         {{ object.brief }}
       </p>
     </div>
+
     <div class="mod-reicpe-ingredients">
       <h2 class="mod-recipe-title-h2">
         Ingredients
@@ -72,6 +73,16 @@
        {% else %}
        <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} no!</li>
        {% endif %}
+       {% endfor %}
+      </ul>
+    </div>
+    <div class="mod-recipe-steps">
+      <h2 class="mod-recipe-title-h2">
+        Instructions
+      </h2>
+      <ul>
+       {% for step in object.step_set.all %}
+       <li>{{ step.step_num }}:{{step.description}}</li>
        {% endfor %}
      </ul>
     </div>
@@ -97,7 +108,20 @@
         {% endfor%}
       </ul>
       {% endif %}
-
+    </div>
+    {% if user.is_authenticated %}
+    <div>
+      <form action="{% url 'rate' object.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="recipe" id="recipe_id" value="{{object.id}}" />
+        <input type="hidden" name="user" id="user_id" valuse="{{user.id}}"
+        <p>
+          <input type="text" name="score" id="score" />
+          <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+      </form>
+    </div>
+    {% endif %}
     </section>
     <aside class="mod-side span4 well">
     </aside>
