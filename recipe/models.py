@@ -50,6 +50,12 @@ class Recipe(models.Model):
 	cumulative_score = models.IntegerField(default=0)
 	rating_num = models.IntegerField(default=0)
 
+	def rating(self):
+		result = float(self.cumulative_score)
+		if self.rating_num == 0:
+			return "0"
+		result = result/self.rating_num
+		return "%g" % round(result, 1)
 
 	def __unicode__(self):
 		return self.name
@@ -109,6 +115,7 @@ class Vote(models.Model):
 	recipe = models.ForeignKey(Recipe)
 	user = models.ForeignKey(User)
 	score = models.PositiveSmallIntegerField(validators=[MaxValueValidator(5)])
+	comment = models.TextField()
 
 	def __unicode__(self):
 		return u'Vote for %s from %s' %(self.recipe.name, self.user)

@@ -71,7 +71,15 @@ class RecipeDetailView(DetailView):
 			objects = dict([(obj.id, obj) for obj in objects])
 			sorted_objects = [objects[id] for id in id_list]
 			context['recommends'] = sorted_objects[0:10]
-			context['form'] = VoteForm
+
+		if self.request.user.is_authenticated():
+			try:
+				vote = Vote.objects.get(recipe = context['object'], user=self.request.user)
+			except Vote.DoesNotExist:
+				context['vote'] = None
+			else:
+				context['vote'] = vote
+				
 		return context
 
 class RecipeCategoryListView(ListView):
@@ -108,11 +116,12 @@ def rate(request, pk):
 		recipe_object = Recipe.objects.get(pk = pk)
 		user_object = request.user
 		s = int(request.POST['score'])
+		c = request.POST['comment']
 		try:	
 			v = Vote.objects.get(recipe = recipe_object, user = user_object)
 		
 		except Vote.DoesNotExist:
-			v = Vote(recipe = recipe_object, user = user_object, score = s)
+			v = Vote(recipe = recipe_object, user = user_object, score = s, comment = c)
 			
 			recipe_object.cumulative_score = recipe_object.cumulative_score + s
 			recipe_object.rating_num = recipe_object.rating_num + 1
@@ -121,6 +130,7 @@ def rate(request, pk):
 		else:
 			old_score = v.score
 			v.score = s
+			v.comment = c
 			recipe_object.cumulative_score = recipe_object.cumulative_score + s - old_score
 			recipe_object.save()
 			v.save()

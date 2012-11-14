@@ -10,9 +10,7 @@ autocomplete_light.autodiscover()
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    url(r'^comments/', include('django.contrib.comments.urls')),
-    
+urlpatterns = patterns('',   
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

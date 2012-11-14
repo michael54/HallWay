@@ -109,17 +109,12 @@
       </ul>
       {% endif %}
     </div>
+    <div>
+      Rating: <div id="star"></div>
+    </div>
     {% if user.is_authenticated %}
     <div>
-      <form action="{% url 'rate' object.id %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="recipe" id="recipe_id" value="{{object.id}}" />
-        <input type="hidden" name="user" id="user_id" valuse="{{user.id}}"
-        <p>
-          <input type="text" name="score" id="score" />
-          <button type="submit" class="btn btn-primary">Save</button>
-        </p>
-      </form>
+      <a data-toggle="modal" href="#rateModal">Tried</a>
     </div>
     {% endif %}
     </section>
@@ -127,13 +122,60 @@
     </aside>
   </div>
 </div>
+<div class="modal hide fade" tabindex="-1" aria-hidden="true" id="rateModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <legend>Comment it</legend>
+  </div>
+  <div class="modal-body">
+    <form method="post" action="{% url 'rate' object.id %}" >
+      {% csrf_token %}
+      <fieldset>
+        {% if vote %}
+        <input type="text" name="comment" id="id_comment" value="{{ vote.comment }}"/>
+        {% else %}
+        <input type="text" name="comment" id="id_comment" />
+        {% endif %}
+        <input type="hidden" name="recipe" id="id_recipe" value="{{object.id}}" />
+        <input type="hidden" name="user" id="id_user" valuse="{{user.id}}" />
+        <div id="comment_star"></div>
+        <div id="comment_target"></div>
+        <p>
+          <input type="hidden" name="score" id="id_score" />
+          <button type="submit" class="btn btn-primary">Save</button>
+        </p>
+      </fieldset>
+    </form>
+  </div>
+</div>
 {% endblock %}
 
 {% block js %}
 <script type="text/javascript" src="{% static "js/yuEffect.js" %}"></script>
+<script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
 <script type="text/javascript">
 var j = jQuery.noConflict();
-yuEffect(j("#recipe_img_div"),j("#recipe_img"),200);
+j(document).ready(function() {
+  yuEffect(j("#recipe_img_div"),j("#recipe_img"),200);
+  j('#star').raty({
+    path: '{% static "jquery.raty-2.4.5/img/" %}',
+    half: true,
+    readOnly: true,
+    size: 24,
+    score: {{ object.rating }}
+  });
+  j('#comment_star').raty({
+    path: '{% static "jquery.raty-2.4.5/img/" %}',
+    score: {{vote.score}},
+    size: 24,
+    target: '#comment_target',
+    click: function(score, evt){
+      j('#id_score').val(score);
+    }
+  })
+});
+
+
 </script>
 <script type="text/javascript" src="{% static "js/recipe/recipe_detail.js" %}"></script>
 {% endblock js %}
