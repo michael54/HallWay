@@ -129,6 +129,9 @@
     {% endif %}
     </section>
     <aside class="mod-side span4 well">
+      <div class="mod-author">
+        <a href="{{ object.author.get_absolute_url }}"><img src="{{object.author.get_profile.get_mugshot_url}}" />{{ object.author.username }}</a>
+      </div>
       <div class="mod-vote">
         <h2 class="mod-recipe-title-h2">
           Who tried this before?

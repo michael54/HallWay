@@ -112,14 +112,13 @@ class Step(models.Model):
 		ordering = ['recipe', 'step_num']
 		unique_together = ("recipe", "step_num")
 
-
 class Vote(models.Model):
 	"""Vote class, used for recommendation system """
 	recipe = models.ForeignKey(Recipe)
 	user = models.ForeignKey(User)
 	score = models.PositiveSmallIntegerField(validators=[MaxValueValidator(5)])
 	comment = models.TextField()
-	date = models.DateTimeField(auto_now_add=True)
+	date = models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
 		return u'Vote for %s from %s' %(self.recipe.name, self.user)

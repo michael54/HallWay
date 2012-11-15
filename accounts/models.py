@@ -17,5 +17,3 @@ class MyProfile(UserenaLanguageBaseProfile):
     age = models.PositiveSmallIntegerField(null = True, blank=True)
     website = models.URLField(null = True, blank=True)
     about_me = models.TextField(null = True, blank=True)
-
-

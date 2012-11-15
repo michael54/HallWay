@@ -14,6 +14,9 @@ from django.template import Context
 from django.core.urlresolvers import reverse
 from food.models import Food
 from django.core import serializers
+from actstream import actions, models
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 def nav(request):
 	return render(request, 'nav.html')
@@ -152,11 +155,29 @@ def rate(request, pk):
 		return HttpResponse('<div id="content">Failed</div>')
 
 def like(request, pk):
+	"""
+	Handle ajax request to like a recipe from a user 
+	"""
 	if request.is_ajax():
 		recipe = get_object_or_404(Recipe, pk=pk)
 		profile = request.user.get_profile()
 		profile.favourite_recipes.add(recipe)
+		action.send(request.user, verb='liked', target = recipe)
 		add_like_num.delay(recipe)
+
 		return HttpResponse('Liked')
 	else:
 		raise Http404	
+
+
+@login_required
+def activity(request):
+    """
+    Index page for authenticated user's activity stream. 
+    """
+    return render(request, 'actstream/update.html', {
+        'ctype': ContentType.objects.get_for_model(User),
+        'actor': request.user, 'action_list': models.user_stream(request.user),
+        'following': models.following(request.user),
+        'followers': models.followers(request.user),
+    })

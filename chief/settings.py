@@ -230,10 +230,14 @@ THUMBNAIL_ALIASES = {
 }
 
 ACTSTREAM_SETTINGS = {
-    'MODELS': ('auth.user', 'recipe.Vote', 'recipe.Recipe', 'recipe.DidRecipe'),
+    'MODELS': ('auth.user', ),
     'MANAGER': 'actstream.managers.ActionManager',
     'FETCH_RELATIONS': True,
     'USE_PREFETCH': True,
     'USE_JSONFIELD': False,
     'GFK_FETCH_DEPTH': 0,
+}
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "/accounts/%s/" % u.username,
 }
