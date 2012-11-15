@@ -1,10 +1,12 @@
 {% extends 'nav.html' %}
-
 {% load activity_tags i18n %}
 
+{% block title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block content_title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
+
 {% block content %}
-{% if user.is_authenticated %}
-<p><b><a href="{% actor_url user %}">{% trans "View my actions" %}</a></b></p>
+{% if request.user.is_authenticated %}
+<p><b><a href="{% actor_url request.user %}">{% trans "View my actions" %}</a></b></p>
 {% endif %}
 <ul>
 {% for action in action_list %}
