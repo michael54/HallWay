@@ -1,0 +1,38 @@
+{% extends 'nav.html' %}
+{% load activity_tags i18n static %}
+
+{% block csslink %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_detail.css" %}"/>
+{% endblock %}
+
+{% block title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block content_title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
+
+{% block content %}
+<div id="mod-container">
+	<div class="row-fluid container-fluid">
+		<section class="mod-main span7 well">
+			{% if request.user.is_authenticated %}
+			<p><b><a href="{% actor_url request.user %}">{% trans "View my actions" %}</a></b></p>
+			{% endif %}
+			<ul>
+				{% for action in action_list %}
+				<li>{% include 'actstream/action.html' %}</li>
+				{% empty %}
+				{% trans "No actions yet" %}
+				{% endfor %}
+			</ul>
+		</section>
+		<aside class="mod-side span4 well">
+			<div>
+				I am following
+				{{following}}
+			</div>
+			<div>
+				They are following me
+				{{ followers }}
+			</div>
+		</aside>
+	</div></div>
+{% endblock %}
