@@ -6,6 +6,7 @@ from celery.task.schedules import crontab
 from celery.task import task
 from django.contrib.auth.models import User
 from datetime import timedelta
+from actstream import action
 
 class ProcessTrendTask(PeriodicTask):
 	# run_every = crontab(hour=0)
@@ -39,6 +40,7 @@ def get_or_create_vote(r, u, s, c):
 		recipe_object.cumulative_score = recipe_object.cumulative_score + s
 		recipe_object.rating_num = recipe_object.rating_num + 1
 		v.save()
+		action.send(user_object, verb='rated on', action_object = v, target = recipe_object)
 	else:
 		old_score = v.score
 		v.score = s

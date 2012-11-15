@@ -1,0 +1,16 @@
+{% extends 'nav.html' %}
+
+{% load activity_tags i18n %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<p><b><a href="{% actor_url user %}">{% trans "View my actions" %}</a></b></p>
+{% endif %}
+<ul>
+{% for action in action_list %}
+    <li>{% include 'actstream/action.html' %}</li>
+{% empty %}
+{% trans "No actions yet" %}
+{% endfor %}
+</ul>
+{% endblock %}

@@ -4,6 +4,7 @@
 
 {% load static from staticfiles %}
 {% load url from future %}
+{% load activity_tags %}
 
 {% block csslink %}
 {{ block.super }}
@@ -119,7 +120,7 @@
       {% endif %}
     </div>
     <div>
-      Rating: <div id="star"></div>
+      Rating: <div id="star"></div><div>{{object.rating_num}} rated this</div>
     </div>
     {% if user.is_authenticated %}
     <div>
@@ -128,6 +129,18 @@
     {% endif %}
     </section>
     <aside class="mod-side span4 well">
+      <div class="mod-vote">
+        <h2 class="mod-recipe-title-h2">
+          Who tried this before?
+        </h2>
+        <ul>
+          {% for v in votelist %}
+          <div><div>{{v.user}}<div class="medstar{{v.score}}"></div></div><div>{{ v.date|timesince }} ago</div></div>
+          {% empty %}
+          <div>No Rating Yet</div>
+          {% endfor %}
+        </ul>
+      </div>
     </aside>
   </div>
 </div>
@@ -162,10 +175,13 @@
 {% block js %}
 <script type="text/javascript" src="{% static "js/yuEffect.js" %}"></script>
 <script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
 <script type="text/javascript">
 var j = jQuery.noConflict();
 j(document).ready(function() {
   yuEffect(j("#recipe_img_div"),j("#recipe_img"),200);
+  yuStar('{% static "jquery.raty-2.4.5/img/" %}');
+
   j('#star').raty({
     path: '{% static "jquery.raty-2.4.5/img/" %}',
     half: true,
@@ -175,7 +191,11 @@ j(document).ready(function() {
   });
   j('#comment_star').raty({
     path: '{% static "jquery.raty-2.4.5/img/" %}',
+    {% if vote %}
     score: {{vote.score}},
+    {% else %}
+    score: 0,
+    {% endif %}
     size: 24,
     target: '#comment_target',
     click: function(score, evt){

@@ -92,7 +92,7 @@ SECRET_KEY = '1@u8c_k6b6t@nkbmy1&amp;s*ds6@+2c7+*ps)^f(b+u64b7eoh3-#'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -137,8 +137,7 @@ INSTALLED_APPS = (
     'autofixture',
     'imagekit',
     #'south',
-    'autocomplete_light',
-
+    'actstream',
     'guardian',
     'easy_thumbnails',
     'userena',
@@ -228,4 +227,13 @@ THUMBNAIL_ALIASES = {
     '': {
         'normal': {'size': (200,200), 'crop': 'smart'},
     },
+}
+
+ACTSTREAM_SETTINGS = {
+    'MODELS': ('auth.user', 'recipe.Vote', 'recipe.Recipe', 'recipe.DidRecipe'),
+    'MANAGER': 'actstream.managers.ActionManager',
+    'FETCH_RELATIONS': True,
+    'USE_PREFETCH': True,
+    'USE_JSONFIELD': False,
+    'GFK_FETCH_DEPTH': 0,
 }

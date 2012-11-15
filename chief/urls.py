@@ -39,6 +39,6 @@ urlpatterns = patterns('',
     url(r'^food/(?P<pk>\d+)/$', FoodDetailView.as_view(), name='food_detail'),
     url(r'^foodcategory/(\d+)/$', FoodCategoryListView.as_view()),
     url(r'^foodcategory/(\d+)/(\w+)/$', FoodCategoryListView.as_view()),
-
+    url(r'^activity/', include('actstream.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

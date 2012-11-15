@@ -5,7 +5,8 @@ import zipfile
 import json
 
 class Command(BaseCommand):
-
+	help = 'Build recipe similarity table based on all votes'
+	
 	def handle(self, *args, **options):
 		lastid = -1
 		critics = {}

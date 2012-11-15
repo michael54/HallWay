@@ -53,7 +53,7 @@ class Recipe(models.Model):
 	def rating(self):
 		result = float(self.cumulative_score)
 		if self.rating_num == 0:
-			return "0"
+			return "0.0"
 		result = result/self.rating_num
 		return "%g" % round(result, 1)
 
@@ -76,7 +76,10 @@ class DidRecipe(models.Model):
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
             ResizeToFit(width=640,upscale=True)], format='JPEG', options={'quality': 90})
 	comments = models.TextField()
+	date = models.DateTimeField(auto_now_add=True)
 
+	def __unicode__(self):
+		return u"%s's %s" % (self.user.name, self.recipe.name)
 
 
 class Amount(models.Model):
@@ -116,12 +119,13 @@ class Vote(models.Model):
 	user = models.ForeignKey(User)
 	score = models.PositiveSmallIntegerField(validators=[MaxValueValidator(5)])
 	comment = models.TextField()
+	date = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
 		return u'Vote for %s from %s' %(self.recipe.name, self.user)
 
 	class Meta:
-		ordering = ['user']
+		ordering = ['user', 'recipe',]
 		unique_together = ("user", "recipe")
 
 

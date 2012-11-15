@@ -107,7 +107,8 @@ class RecipeDetailView(DetailView):
 				context['vote'] = None
 			else:
 				context['vote'] = vote
-				
+		
+		context['votelist'] = Vote.objects.filter(recipe = context['object']).order_by('-date')
 		return context
 
 class RecipeCategoryListView(ListView):
