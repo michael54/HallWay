@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from userena.views import signin
 from django.views.generic.edit import CreateView
-from recipe.models import Recipe, RecipeCategory, Vote
+from recipe.models import Recipe, RecipeCategory, Vote, Step, Amount
 from recipe.forms import RecipeForm, VoteForm, StepForm, AmountForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -18,6 +18,7 @@ from actstream import actions, models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.forms.formsets import formset_factory
+import sys 
 
 def nav(request):
 	return render(request, 'nav.html')
@@ -113,6 +114,7 @@ class HotRecipeListView(ListView):
 	template_name = "recipe/hot_recipe_list.html"
 	paginate_by = 10
 
+@login_required
 def rate(request, pk):
 	if request.is_ajax():
 		user = request.user.id
@@ -178,20 +180,48 @@ def recipe_create(request):
 	"""
 	Page for create a new recipe
 	"""    
-	RecipeFormSet = formset_factory(RecipeForm)
-	AmountFormSet = formset_factory(AmountForm, extra = 4)
-	StepFormSet = formset_factory(StepForm, extra = 4)
+	AmountFormSet = formset_factory(AmountForm, extra = 1)
+	StepFormSet = formset_factory(StepForm, extra = 1)
 	if request.method == 'POST':
-		recipe_formset = RecipeFormSet(request.POST, request.FILES, prefix = 'recipe')
+		recipe_form = RecipeForm(request.POST, request.FILES)
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
 		step_formset = StepFormSet(request.POST, request.FILES, prefix='step')
-		if recipe_formset.is_valid() and step_formset.is_valid() and amount_formset.is_valid():
-			pass
+		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
+			r = recipe_form.save()
+			step = 0
+			for form in step_formset:
+				des = ''
+				if 'description' in form.cleaned_data:
+					des = form.cleaned_data['description']
+				else:
+					continue
+				img = 'step-'+str(step)+'-step_image'
+				if img in request.FILES:
+					s = Step(recipe = r, step_num = step, description = des, step_image = request.FILES[img])
+				else:
+					s = Step(recipe = r, step_num = step, description = des)
+				s.save()
+				step = step + 1
+
+			for form in amount_formset:
+				if 'ingredient' in form.cleaned_data:
+					f, created = Food.objects.get_or_create(name = form.cleaned_data['ingredient'], defaults={'category': 1})
+					a = Amount(ingredient = f, recipe = r, amount = form.cleaned_data['amount'], must = form.cleaned_data['must'])
+					a.save()
+				else:
+					continue
+
+			return redirect(r)
+
 	else:
-		recipe_formset = RecipeFormSet(prefix='recipe')
+		recipe_form = RecipeForm(initial={'author': request.user.id})
 		amount_formset = AmountFormSet(prefix='amount')
 		step_formset = StepFormSet(prefix='step')
 
-	return render(request, 'recipe/recipe_form.html')
+	return render(request, 'recipe/recipe_form.html',{
+		'recipe_form': recipe_form,
+		'amount_formset': amount_formset,
+		'step_formset': step_formset,
+		})
 
 

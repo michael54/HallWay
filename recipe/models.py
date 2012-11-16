@@ -74,7 +74,7 @@ class DidRecipe(models.Model):
 	user = models.ForeignKey(User)
 	image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
-            ResizeToFit(width=640,upscale=True)], format='JPEG', options={'quality': 90})
+            ResizeToFit(width=540,upscale=True)], format='JPEG', options={'quality': 90})
 	comments = models.TextField()
 	date = models.DateTimeField(auto_now_add=True)
 
@@ -103,7 +103,9 @@ class Step(models.Model):
 	recipe = models.ForeignKey(Recipe)
 	step_num = models.PositiveIntegerField()
 	description = models.CharField(max_length = 1000)
-	step_image = models.ImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Step Image')
+	step_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Step image',
+						processors=[Adjust(contrast=1.2, sharpness=1.1),
+            ResizeToFit(width=160,upscale=True)], format='JPEG', options={'quality': 90})
 
 	def __unicode__(self):
 		return u'Step %d of %s' % (self.step_num, self.recipe.name)

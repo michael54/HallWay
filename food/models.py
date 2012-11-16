@@ -23,22 +23,28 @@ class FoodCategory(models.Model):
 class Food(models.Model):
 	"""Food Model, managing all kinds of food"""
 	
-	name = models.CharField(db_index=True, max_length=100)
+	name = models.CharField(db_index=True, unique=True, max_length=100)
 	category = models.ForeignKey(FoodCategory)
-	brief = models.CharField(max_length=1000)
+	brief = models.TextField(blank=True)
 	cover_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image', processors=[Adjust(contrast=1.2, sharpness=1.1),
             SmartResize(300, 300)], format='JPEG', options={'quality': 90})
 	
 	storage_time = models.CharField(max_length=50, blank=True)
 	storage_method = models.CharField(max_length=1000, blank=True)
 	like_num = models.IntegerField(default=0)
-	pick_method = models.CharField(max_length=1000, blank=True, verbose_name=u'How to choose')
-	food_efficacy = models.CharField(max_length=1000, blank=True)
+	pick_method = models.TextField(blank=True, verbose_name=u'How to choose')
+	food_efficacy = models.TextField(blank=True)
 	view_num = models.IntegerField(default=0)
 	
 
 	def __unicode__(self):
 		return self.name
+
+	def active(self):
+		if self.category.name == 'inactive':
+			return False
+		else:
+			return True
 
 	class Meta:
 		ordering = ['like_num', 'view_num']

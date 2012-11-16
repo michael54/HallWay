@@ -3,10 +3,77 @@
 
 {% load i18n %}
 {% load url from future %}
+{% load static %}
+
+{% block title%}
+Upload your Recipe
+{% endblock title%}
 
 {% block content %}
-<form action="" method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Submit" />
+<form id="newFormsets" method="post" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    <table id="recipe_table" class="table-hover">
+        {{ recipe_form.as_table }}
+    </table>
+    {{ amount_formset.management_form }}
+    <table id="ingredient_table" class="table-hover">
+        <caption>What Ingredients Needs?</caption>
+        <thead>
+                <tr>
+                <th>Ingredient</th>
+                <th>Amount</th>
+                <th>Must?</th>
+            </tr>
+        </thead>    
+      <tbody>
+        {% for form in amount_formset %}
+        <tr>{{ form.recipe }}
+            <td>{{ form.ingredient }}</td>
+            <td>{{ form.amount }}</td>
+            <td>{{ form.must }}</td>
+        </tr>
+        {% endfor %}
+      </tbody> 
+    </table>
+
+    {{ step_formset.management_form }}
+    <table id="step_table" class="table-hover">
+        <caption>Give Instructions</caption>
+        <thead>
+            <tr>
+                <th>Step Num</th>
+                <th>Step Description</th>
+                <th>Step Image</th>
+            </tr>
+        </thead>
+      <tbody>
+        {% for form in step_formset %}
+        <tr>{{form.recipe}}
+            <td>{{ form.step_num }} </td>
+            <td>{{ form.description }}</td>
+            <td>{{ form.step_image }}</td>
+        </tr>
+        {% endfor %}
+      </tbody> 
+    </table>
+    <button type="submit" class="btn btn-primary pull-right">Save</button>
 </form>
 {% endblock content %}
+
+{% block js %}
+	<script type="text/javascript" src="{% static 'js/jquery.formset.min.js' %}"></script>	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#ingredient_table tbody tr').formset({
+				prefix: '{{ amount_formset.prefix }}',
+				formCssClass: 'dynamic_amount_formset',
+			});
+
+			$('#step_table tbody tr').formset({
+				prefix: '{{ step_formset.prefix }}',
+				formCssClass: 'dynamic_step_formset',
+			});
+
+		});
+	</script>
+{% endblock js%}
