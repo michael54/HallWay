@@ -14,11 +14,11 @@ class RecipeForm(forms.Form):
 
 class VoteForm(forms.Form):
 	score = forms.IntegerField(min_value = 0, max_value = 5)
-	comment = forms.CharField()
+	comment = forms.CharField(widget=forms.Textarea)
 
 class StepForm(forms.Form):
 	step_num = forms.IntegerField(min_value = 1)
-	description = forms.CharField(widget=forms.Textarea)
+	description = forms.CharField()
 	step_image = forms.ImageField(required=False)
 
 class AmountForm(forms.Form):

@@ -44,6 +44,7 @@ def get_or_create_vote(r, u, s, c):
 	else:
 		old_score = v.score
 		v.score = s
+		v.comment = c
 		recipe_object.cumulative_score = recipe_object.cumulative_score + s - old_score
 		v.save()
 

@@ -44,15 +44,23 @@
       {% if user.is_authenticated %}
       <span class="mod-recipe-like pull-right">
           {% if object in user.get_profile.favourite_recipes.all %}
-          <a href="#" id="likehref"><button class="btn" id="mod-recipe-likebtn">
-          Liked</button></a>
+          <a href="#" id="likehref">
+            <button class="btn" id="mod-recipe-likedbtn" disabled="disabled">
+          Liked</button>
+          </a>
           {% else %}
-          <a href="{% url 'like' object.id %}" id="likehref"><button class="btn" id="mod-recipe-likebtn">
-          ++ Lovin' it!</button></a>
+          <a href="{% url 'like' object.id %}" id="likehref">
+            <button class="btn" id="mod-recipe-likebtn">
+          ++ Lovin' it!</button>
+          </a>
           {% endif %}
         
       </span>
       {% endif %}
+    </div>
+    <div class="mod-recipe-ratings">
+        Ratings: <div id="star"></div>
+        <div>{{object.rating_num}} rated this.</div>
     </div>
     <div class="mod-recipe-share">
       <span class="mod-recipe-upload">
@@ -97,7 +105,7 @@
      </ul>
     </div>
     <div class="mod-recipe-tip">
-      <h2 class="mod-recipe-title-h2">Chef's Tip</h2>
+      <h2 class="mod-recipe-title-h2">Chef's Notes</h2>
       <p class="mod-recipe-tip-content">
         {{ object.tips }}
       </p>
@@ -105,9 +113,17 @@
 
     <hr />
 
+    {% if user.is_authenticated %}
+    <div class="mod-recipe-comments">
+      <a data-toggle="modal" href="#rateModal">Wanna to say about the dish?</a>
+    </div>
+    {% endif %}
+
+    <hr />
+
     <div class="mod-recipe-recommends">
       <h2 class="mod-recipe-title-h2">
-        People also like
+        People Also Like
       </h2>
       {% if recommends %}
       <ul>
@@ -119,14 +135,6 @@
       </ul>
       {% endif %}
     </div>
-    <div>
-      Rating: <div id="star"></div><div>{{object.rating_num}} rated this</div>
-    </div>
-    {% if user.is_authenticated %}
-    <div>
-      <a data-toggle="modal" href="#rateModal">Tried</a>
-    </div>
-    {% endif %}
     </section>
     <aside class="mod-side span4 well">
       <div class="mod-author">
@@ -139,6 +147,7 @@
         <ul>
           {% for v in votelist %}
           <div><div>{{v.user}}<div class="medstar{{v.score}}"></div></div><div>{{ v.date|timesince }} ago</div></div>
+          <div>{{ v.comment }}</div>
           {% empty %}
           <div>No Rating Yet</div>
           {% endfor %}
@@ -149,25 +158,34 @@
 </div>
 <div class="modal hide fade" tabindex="-1" aria-hidden="true" id="rateModal">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal">x</button>
-    <legend>Comment it</legend>
+    
+    <legend id="modal-title">
+      <button id="modal-closebtn" type="button" class="close" data-dismiss="modal">x</button>
+      <span>Leave a comment ...</span>
+    </legend>
   </div>
   <div class="modal-body" id="comment_modal_body">
     <form method="post" action="{% url 'rate' object.id %}" id="vote_form">
       {% csrf_token %}
       <fieldset>
-        {% if vote %}
-        <input type="text" name="comment" id="id_comment" value="{{ vote.comment }}"/>
-        {% else %}
-        <input type="text" name="comment" id="id_comment" />
-        {% endif %}
         <input type="hidden" name="recipe" id="id_recipe" value="{{object.id}}" />
         <input type="hidden" name="user" id="id_user" valuse="{{user.id}}" />
+        <div id="modal-rating-title">How do you like me, my dear?</div>&nbsp;&nbsp;&nbsp;&nbsp;
         <div id="comment_star"></div>
         <div id="comment_target"></div>
+        <br />
+        <div id="modal-cmt-title">
+          <span>Short comment:</span>
+          <span class="pull-right">140</span>
+        </div>
+        {% if vote %}
+        <textarea name="comment" id="id_comment" maxlength="140">{{ vote.comment }}</textarea>
+        {% else %}
+        <textarea name="comment" id="id_comment" maxlength="140"></textarea>
+        {% endif %}
         <p>
           <input type="hidden" name="score" id="id_score" />
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-primary pull-right">Save</button>
         </p>
       </fieldset>
     </form>
@@ -207,8 +225,13 @@ j(document).ready(function() {
   })
   j('#vote_form').submit(function(event) {
     event.preventDefault();
-    var s = j('#id_score').val(),
-        c = j('#id_comment').val(),
+    {% if vote %}
+    var s = {{ vote.score }};
+    {% endif %}
+    if (j('#id_score').val()) {
+      var s = j('#id_score').val();
+    }
+    var c = j('#id_comment').val(),
         url = j(this).attr( 'action' );
 
     var postdata = {
@@ -219,9 +242,10 @@ j(document).ready(function() {
     /* Send the data using post and put the results in a div */
     j.post( url, postdata,
       function( data ) {
-          j( "#comment_modal_body" ).empty().append( data );
+          j( "#comment_modal_body" ).append( data );
           setTimeout(function() {
             j( "#rateModal").modal('hide');
+            j('#ajax-feedback').remove();
           }, 500);
       });
   });

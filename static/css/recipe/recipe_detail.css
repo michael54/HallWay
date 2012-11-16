@@ -63,12 +63,32 @@ div.mod-recipe-stat .mod-recipe-like > a {
 	text-decoration: none;
 }
 
-div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likebtn {
-	background: rgb(178, 34, 34);
+div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likebtn, 
+div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likedbtn {
 	border-radius: 0;
 	color: white;
 	font-weight: bold;
 	font-size: 14px;
+}
+
+div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likebtn{
+	background: rgb(178, 34, 34);
+}
+
+div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likedbtn {
+	background: rgb(77, 221, 221);
+}
+
+div.mod-recipe-ratings, div.mod-recipe-ratings > div {
+	display: inline;
+	font-size: 14px;
+	color: rgb(169, 169, 169);
+	height: 40px;
+	line-height: 40px;
+}
+
+div.mod-recipe-ratings {
+	padding-left: 15px;
 }
 
 div.mod-recipe-share {
@@ -89,19 +109,70 @@ div.mod-recipe-share span.mod-recipe-upload > a {
 	padding-left: 15px;
 }
 
-div.mod-recipe-share span.mod-recipe-upload > a:link {
+div.mod-recipe-share span.mod-recipe-upload > a:link,
+div.mod-recipe-comments > a:link {
 	color: rgb(178, 34, 34);
 }
 
-div.mod-recipe-share span.mod-recipe-upload > a:visited {
+div.mod-recipe-share span.mod-recipe-upload > a:visited,
+div.mod-recipe-comments > a:visited {
 	color: rgb(169, 169, 169);
 }
 
-div.mod-recipe-share span.mod-recipe-upload > a:hover {
+div.mod-recipe-share span.mod-recipe-upload > a:hover,
+div.mod-recipe-comments > a:hover {
 	color: rgb(0, 191, 255);
 }
 
-div.mod-recipe-share span.mod-recipe-upload > a:active {
+div.mod-recipe-share span.mod-recipe-upload > a:active,
+div.mod-recipe-comments > a:active {
 	background: rgb(0, 191, 255);
 	color: white;
+}
+
+div.mod-recipe-comments {
+	padding-left: 15px;
+}
+
+div.mod-recipe-comments > a {
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(169, 169, 169);
+	text-decoration: none;
+}
+
+div#rateModal > .modal-body form {
+	margin-bottom: 5px;
+}
+
+div#rateModal > .modal-body fieldset div#modal-rating-title,
+div#rateModal > .modal-body fieldset div#comment_star,
+div#rateModal > .modal-body fieldset div#comment_target {
+	display: inline;
+	padding: 5px;
+}
+
+div#rateModal > .modal-body fieldset div#modal-cmt-title {
+	padding: 5px;
+}
+
+div#rateModal > .modal-body fieldset textarea#id_comment {
+	margin-left: 5px;
+	width: 95%;
+	height: 50px;
+	resize: none;
+}
+
+div#rateModal > .modal-body fieldset p{
+	padding-right: 15px;
+}
+
+div#rateModal > .modal-header {
+	border-bottom: 0;
+}
+
+div#rateModal > .modal-header > #modal-title,
+div#rateModal > .modal-header > #modal-closebtn {
+	margin-bottom: 0;
+	display: inline;
 }
