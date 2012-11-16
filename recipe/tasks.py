@@ -50,6 +50,6 @@ def get_or_create_vote(r, u, s, c):
 	return recipe_object.save()
 
 @task()
-def add_like_num(obj):
-	obj.like_num = obj.like_num + 1
+def add_like_num(obj, num):
+	obj.like_num = obj.like_num + num
 	return obj.save()

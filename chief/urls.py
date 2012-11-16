@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from recipe.views import RecipeCreate, RecipeDetailView, RecipeCategoryListView, HotRecipeListView
+from recipe.views import RecipeDetailView, RecipeCategoryListView, HotRecipeListView
 from food.views import FoodDetailView, FoodCategoryListView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,10 +28,11 @@ urlpatterns = patterns('',
 	url(r'^$', 'recipe.views.index', name='homepage'),
 
     # URL for recipe
-    url(r'^recipe/add/$', RecipeCreate.as_view(), name='recipe_create'),
+    url(r'^recipe/add/$', 'recipe.views.recipe_create', name='recipe_create'),
     url(r'^recipe/(?P<pk>\d+)/$', RecipeDetailView.as_view(), name='recipe_detail'),
     url(r'^recipe/(?P<pk>\d+)/rate/$', 'recipe.views.rate', name='rate'),
     url(r'^recipe/(?P<pk>\d+)/like/$', 'recipe.views.like', name='like'),
+    url(r'^recipe/(?P<pk>\d+)/unlike/$', 'recipe.views.unlike', name='unlike'),
     url(r'^recipecategory/(\d+)/(hot|time|trend)/$', RecipeCategoryListView.as_view(), name='recipe_category'),
     url(r'^hot/$', HotRecipeListView.as_view(), name='hot_recipes'),
 

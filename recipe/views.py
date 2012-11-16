@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from userena.views import signin
 from django.views.generic.edit import CreateView
 from recipe.models import Recipe, RecipeCategory, Vote
-from recipe.forms import RecipeForm, RecipeStepFormSet, VoteForm
+from recipe.forms import RecipeForm, VoteForm, StepForm, AmountForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
@@ -17,6 +17,7 @@ from django.core import serializers
 from actstream import actions, models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from django.forms.formsets import formset_factory
 
 def nav(request):
 	return render(request, 'nav.html')
@@ -50,36 +51,6 @@ def index(request):
 		return HttpResponse(data)
 	else:
 		return render(request, 'recipe/index.html')
-
-class RecipeCreate(CreateView):
-	form_class = RecipeForm
-	model = Recipe
-	success_url = 'thanks/'
-	
-	@method_decorator(login_required)
-	def form_valid(self, form):
-		context = self.get_context_data()
-		form.instance.author = self.request.userena
-		step_form = context['step_form']
-		if step_form.is_valid():
-			self.object = form.save()
-			step_form.instance = self.object
-			step_form.save()
-			return HttpResponseRedirect('thanks/')
-		else:
-			return self.render(self.request, self.get_context_data(form=form))
-
-	def form_invaild(self, form):
-		return self.render(self.request, self.get_context_data(form=form))
-
-	def get_context_data(self, **kwargs):
-		context = super(RecipeCreate, self).get_context_data(**kwargs)
-		if self.request.POST:
-			context['step_form'] = RecipeStepFormSet(self.request.POST)
-		else:
-			context['step_form'] = RecipeStepFormSet()
-		return context
-
 
 class RecipeDetailView(DetailView):
 	queryset = Recipe.objects.all()
@@ -154,6 +125,7 @@ def rate(request, pk):
 	else:	
 		return HttpResponse('<div id="content">Failed</div>')
 
+@login_required
 def like(request, pk):
 	"""
 	Handle ajax request to like a recipe from a user 
@@ -163,11 +135,30 @@ def like(request, pk):
 		profile = request.user.get_profile()
 		profile.favourite_recipes.add(recipe)
 		action.send(request.user, verb='liked', target = recipe)
-		add_like_num.delay(recipe)
+		add_like_num.delay(recipe, 1)
 
 		return HttpResponse('Liked')
 	else:
 		raise Http404	
+
+
+@login_required
+def unlike(request, pk):
+	"""
+	Handle ajax request to unlike a recipe from a user 
+	"""
+	if request.is_ajax():
+		recipe = get_object_or_404(Recipe, pk=pk)
+		profile = request.user.get_profile()
+		profile.favourite_recipes.remove(recipe)
+		action.send(request.user, verb='liked', target = recipe)
+		add_like_num.delay(recipe, -1)
+
+		return HttpResponse('Liked')
+	else:
+		raise Http404	
+
+
 
 
 @login_required
@@ -181,3 +172,26 @@ def activity(request):
         'following': models.following(request.user),
         'followers': models.followers(request.user),
     })
+
+@login_required
+def recipe_create(request):
+	"""
+	Page for create a new recipe
+	"""    
+	RecipeFormSet = formset_factory(RecipeForm)
+	AmountFormSet = formset_factory(AmountForm, extra = 4)
+	StepFormSet = formset_factory(StepForm, extra = 4)
+	if request.method == 'POST':
+		recipe_formset = RecipeFormSet(request.POST, request.FILES, prefix = 'recipe')
+		amount_formset = AmountFormSet(request.POST, prefix='amount')
+		step_formset = StepFormSet(request.POST, request.FILES, prefix='step')
+		if recipe_formset.is_valid() and step_formset.is_valid() and amount_formset.is_valid():
+			pass
+	else:
+		recipe_formset = RecipeFormSet(prefix='recipe')
+		amount_formset = AmountFormSet(prefix='amount')
+		step_formset = StepFormSet(prefix='step')
+
+	return render(request, 'recipe/recipe_form.html')
+
+
