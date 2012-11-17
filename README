@@ -6,6 +6,8 @@ INSTALLATION:
 Checkout project folder in your computer
 
 IMPORTANT: DEPENDENCIES
+Install django-ajaxuploader from my github https://github.com/michael54/django-ajax-uploader
+
 Read http://www.sandersnewmedia.com/why/2012/04/16/installing-pil-virtualenv-ubuntu-1204-precise-pangolin/ to install PIL
 
 Read http://south.readthedocs.org/en/latest/installation.html to install South

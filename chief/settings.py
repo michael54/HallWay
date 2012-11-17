@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'guardian',
     'easy_thumbnails',
     'userena',
+    'ajaxuploader',
 
     # Own apps
     'recipe',

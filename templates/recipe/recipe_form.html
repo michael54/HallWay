@@ -9,71 +9,173 @@
 Upload your Recipe
 {% endblock title%}
 
+{% block csslink %}
+{{block.super}}
+<link href="{{ STATIC_URL }}ajaxuploader/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
+{% endblock csslink %}
+
 {% block content %}
 <form id="newFormsets" method="post" enctype="multipart/form-data" action="">
-    {% csrf_token %}
-    <table id="recipe_table" class="table-hover">
-        {{ recipe_form.as_table }}
-    </table>
-    {{ amount_formset.management_form }}
-    <table id="ingredient_table" class="table-hover">
-        <caption>What Ingredients Needs?</caption>
-        <thead>
-                <tr>
-                <th>Ingredient</th>
-                <th>Amount</th>
-                <th>Must?</th>
-            </tr>
-        </thead>    
-      <tbody>
-        {% for form in amount_formset %}
-        <tr>{{ form.recipe }}
-            <td>{{ form.ingredient }}</td>
-            <td>{{ form.amount }}</td>
-            <td>{{ form.must }}</td>
-        </tr>
-        {% endfor %}
-      </tbody> 
-    </table>
+  {% csrf_token %}
+  <table id="recipe_table" class="table-hover">
+    <tr>
+      <th>{{recipe_form.name.label}}</th>
+      <td>{{recipe_form.name}}</td>
+    </tr>
+    {{recipe_form.author}}
+    <tr>
+      <th>{{recipe_form.category.label}}</th>
+      <td>{{recipe_form.category}}</td>
+    </tr>
+    <tr>
+      <th>{{recipe_form.brief.label}}</th>
+      <td>{{recipe_form.brief}}</td>
+    </tr>
+    <tr>
+      <th>{{recipe_form.cover_image.label}}</th>
+      <td><img id="cover_image_preview" />{{recipe_form.cover_image}}</td>
+      <td><div id="recipe_uploader"></div></td>
+    </tr><tr>
+    <th>Notes</th>
+    <td>{{recipe_form.tips}}</td>
+  </tr>
+  <tr>
+    <th>{{recipe_form.prep_time.label}}</th>
+    <td>{{recipe_form.prep_time}}</td>
+  </tr>
+  <tr>
+    <th>{{recipe_form.cook_time.label}}</th>
+    <td>{{recipe_form.cook_time}}</td>
+  </tr>
+</table>
+{{ amount_formset.management_form }}
+<table id="ingredient_table" class="table-hover">
+  <caption>What Ingredients Needs?</caption>
+  <thead>
+    <tr>
+      <th>Ingredient</th>
+      <th>Amount</th>
+      <th>Must?</th>
+    </tr>
+  </thead>    
+  <tbody>
+    {% for form in amount_formset %}
+    <tr>{{ form.recipe }}
+      <td>{{ form.ingredient }}</td>
+      <td>{{ form.amount }}</td>
+      <td>{{ form.must }}</td>
+    </tr>
+    {% endfor %}
+  </tbody> 
+</table>
 
-    {{ step_formset.management_form }}
-    <table id="step_table" class="table-hover">
-        <caption>Give Instructions</caption>
-        <thead>
-            <tr>
-                <th>Step Num</th>
-                <th>Step Description</th>
-                <th>Step Image</th>
-            </tr>
-        </thead>
-      <tbody>
-        {% for form in step_formset %}
-        <tr>{{form.recipe}}
-            <td>{{ form.step_num }} </td>
-            <td>{{ form.description }}</td>
-            <td>{{ form.step_image }}</td>
-        </tr>
-        {% endfor %}
-      </tbody> 
-    </table>
-    <button type="submit" class="btn btn-primary pull-right">Save</button>
+{{ step_formset.management_form }}
+<table id="step_table" class="table-hover">
+  <caption>Give Instructions</caption>
+  <thead>
+    <tr>
+      <th>Step Num</th>
+      <th>Step Description</th>
+      <th>Step Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for form in step_formset %}
+    <tr>{{form.recipe}}
+      <td>{{ form.step_num }} </td>
+      <td>{{ form.description }}</td>
+      <td>{{ form.step_image }}</td>
+      <td><img class="step_preview" id="step{{forloop.counter0}}_preview" />
+      <td><div class="step-uploader"></div></td>
+    </tr>
+    {% endfor %}
+  </tbody> 
+</table>
+<button type="submit" class="btn btn-primary pull-right">Save</button>
 </form>
 {% endblock content %}
 
 {% block js %}
-	<script type="text/javascript" src="{% static 'js/jquery.formset.min.js' %}"></script>	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#ingredient_table tbody tr').formset({
-				prefix: '{{ amount_formset.prefix }}',
-				formCssClass: 'dynamic_amount_formset',
-			});
+<script type="text/javascript" src="{% static 'js/jquery.formset.min.js' %}"></script>
+<script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js" ></script>	
+<script type="text/javascript">
+$(document).ready(function() {
+ $('#ingredient_table tbody tr').formset({
+  prefix: '{{ amount_formset.prefix }}',
+  formCssClass: 'dynamic_amount_formset',
+});
 
-			$('#step_table tbody tr').formset({
-				prefix: '{{ step_formset.prefix }}',
-				formCssClass: 'dynamic_step_formset',
-			});
+ $('#step_table tbody tr').formset({
+  prefix: '{{ step_formset.prefix }}',
+  formCssClass: 'dynamic_step_formset',
+  added: function(row) {
+    var uploader1 = new qq.FileUploader({
+      action: "{% url 'step_image_upload' %}",
+      element: row.find('.step-uploader')[0],
+      multiple: false,
+      onComplete: function(id, fileName, responseJSON) {
+        if(responseJSON.success) {
+          row.find('[id*="step_image"]').val(responseJSON.path);
+          row.find('.step_preview').attr('src', responseJSON.path);
 
-		});
-	</script>
+          $('.qq-upload-list').css('display','none');
+        } else {
+          alert("upload failed!");
+        }
+      },
+      params: {
+        'csrf_token': '{{ csrf_token }}',
+        'csrf_name': 'csrfmiddlewaretoken',
+        'csrf_xname': 'X-CSRFToken',
+      },
+    });
+  },
+});
+
+ $('.step-uploader').each(function (i){
+  var uploader2 = new qq.FileUploader({
+    action: "{% url 'step_image_upload' %}",
+    element: $(this)[0],
+    multiple: false,
+    onComplete: function(id, fileName, responseJSON) {
+      if(responseJSON.success) {
+        $('#id_step-'+i+'-step_image').val(responseJSON.path);
+        $('#step'+i+'_preview').attr('src', responseJSON.path);
+
+        $('.qq-upload-list').css('display','none');
+      } else {
+        alert("upload failed!");
+      }
+    },
+    params: {
+      'csrf_token': '{{ csrf_token }}',
+      'csrf_name': 'csrfmiddlewaretoken',
+      'csrf_xname': 'X-CSRFToken',
+    },
+  });
+});
+
+
+ var uploader = new qq.FileUploader({
+  action: "{% url 'recipe_image_upload' %}",
+  element: $('#recipe_uploader')[0],
+  multiple: false,
+  onComplete: function(id, fileName, responseJSON) {
+    if(responseJSON.success) {
+      $('#id_cover_image').val(responseJSON.path);
+      $('#cover_image_preview').attr('src', responseJSON.path);
+
+      $('.qq-upload-list').css('display','none');
+    } else {
+      alert("upload failed!");
+    }
+  },
+  params: {
+    'csrf_token': '{{ csrf_token }}',
+    'csrf_name': 'csrfmiddlewaretoken',
+    'csrf_xname': 'X-CSRFToken',
+  },
+});
+});
+</script>
 {% endblock js%}
