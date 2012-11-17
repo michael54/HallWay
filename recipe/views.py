@@ -306,9 +306,14 @@ def recipe_edit(request, pk):
 @login_required
 def recipe_delete(request, pk):
 	recipe = get_object_or_404(Recipe, pk = pk)
+	name = recipe.name
 	if recipe.author == request.user:
-		pass
+		recipe.amount_set.all().delete()
+		recipe.step_set.all().delete()
+		recipe.delete()
+		return render(request, 'recipe/recipe_delete.html', {'recipe': name,})
 
 	else:
 		raise Http404
 
+	

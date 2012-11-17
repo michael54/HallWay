@@ -18,13 +18,13 @@ class RecipeForm(ModelForm):
 		}
 
 	def save(self, force_insert=False, force_update=False, commit=True):
-		m = super(RecipeForm, self).save(commit=False)
-		old_image = settings.SITE_ROOT + m.cover_image.name
-		print >> sys.stderr, old_image
-		if m.cover_image != self.cleaned_data['cover_image']:
-			os.removedir(os.path.dirname(old_image))
-			m.cover_image = self.cleaned_data['cover_image']
+		if self.instance:
+			print >> sys.stderr, self.instance.cover_image
+			if self.instance.cover_image != self.cleaned_data['cover_image']:
+				self.instance.cover_image.delete()
 
+		m = super(RecipeForm, self).save(commit=False)
+		
 		if commit:
 			m.save()
 		return m
