@@ -40,6 +40,6 @@ class StepForm(forms.Form):
 class AmountForm(forms.Form):
 	ingredient = forms.CharField(min_length = 1)
 	amount = forms.CharField(min_length = 1)
-	must = forms.BooleanField()
+	must = forms.BooleanField(required=False)
 
 

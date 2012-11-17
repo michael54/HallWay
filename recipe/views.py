@@ -194,6 +194,7 @@ def recipe_create(request):
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
 		step_formset = StepFormSet(request.POST, prefix='step')
 		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
+			print >> sys.stderr, 'valid!!!!!!!!!!!!!!!!'
 			r = recipe_form.save()
 			step = 0
 			for form in step_formset:
