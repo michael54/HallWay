@@ -6,6 +6,8 @@
 {% load url from future %}
 {% load activity_tags %}
 
+{% load thumbnail %}
+
 {% block csslink %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_detail.css" %}"/>
@@ -20,7 +22,7 @@
   <div class="row-fluid container-fluid">
     <section class="mod-main span7 well">
      <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
-     <div id="recipe_img_div" class="mod-recipe-img">
+     <div id="recipe_img_div" class="mod-recipe-img well">
       {% if object.cover_image %}
       <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
       {% else %}
@@ -75,7 +77,7 @@
     <!--div>{{ object.category }}</div-->
     <div class="mod-recipe-brief">
       <h2 class="mod-recipe-title-h2">Brief Introduction</h2>
-      <p class="mod-recipe-brief-content">
+      <p class="mod-recipe-brief-content well">
         {{ object.brief }}
       </p>
     </div>
@@ -84,7 +86,7 @@
       <h2 class="mod-recipe-title-h2">
         Ingredients
       </h2>
-      <ul>
+      <ul class="well">
        {% for ingredient in object.amount_set.all %}
        {% if ingredient.must %}
        <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} yeah!</li>
@@ -98,7 +100,7 @@
       <h2 class="mod-recipe-title-h2">
         Instructions
       </h2>
-      <ul>
+      <ul class="well">
        {% for step in object.step_set.all %}
        <li>{{ step.step_num }}:{{step.description}}</li>
        {% endfor %}
@@ -106,7 +108,7 @@
     </div>
     <div class="mod-recipe-tip">
       <h2 class="mod-recipe-title-h2">Chef's Notes</h2>
-      <p class="mod-recipe-tip-content">
+      <p class="mod-recipe-tip-content well">
         {{ object.tips }}
       </p>
     </div>
@@ -142,7 +144,10 @@
     </section>
     <aside class="mod-side span4 well">
       <div class="mod-author">
-        <a href="{{ object.author.get_absolute_url }}"><img src="{{object.author.get_profile.get_mugshot_url}}" />{{ object.author.username }}</a>
+        <img src="{{object.author.get_profile.get_mugshot_url}}" id="mod-author-img" />
+        <a href="{{ object.author.get_absolute_url }}">
+          <span id="mod-author-name">{{ object.author.username }}</span>
+        </a>
       </div>
       <div class="mod-vote">
         <h2 class="mod-recipe-title-h2">
@@ -153,7 +158,7 @@
           <div><div><a href="{{v.user.get_absolute_url}}">{{v.user}}</a><div class="medstar{{v.score}}"></div></div><div>{{ v.comment }}</div><div>{{ v.date|timesince }} ago</div></div>
           
           {% empty %}
-          <div>No Rating Yet</div>
+          <div>No ratings yet...</div>
           {% endfor %}
         </ul>
       </div>

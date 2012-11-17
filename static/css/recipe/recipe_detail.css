@@ -26,6 +26,7 @@ h2 {
 
 p {
 	padding-left: 15px;
+	margin-left: 25px;
 }
 
 #recipe_img_div {
@@ -175,4 +176,34 @@ div#rateModal > .modal-header > #modal-title,
 div#rateModal > .modal-header > #modal-closebtn {
 	margin-bottom: 0;
 	display: inline;
+}
+
+aside.mod-side div.mod-author a {
+	text-decoration: none;
+}
+
+aside.mod-side div.mod-author a > span {
+	font-size: 20px;
+	color: rgb(178, 34, 34);
+	margin-left: 15px;
+}
+
+aside.mod-side div.mod-author a > span:link {
+	color: rgb(178, 34, 34);
+}
+
+aside.mod-side div.mod-author a > span:visited,
+div.mod-recipe-comments > a:visited {
+	color: rgb(169, 169, 169);
+}
+
+aside.mod-side div.mod-author a > span:hover,
+div.mod-recipe-comments > a:hover {
+	color: rgb(0, 191, 255);
+}
+
+aside.mod-side div.mod-author a > span:active,
+div.mod-recipe-comments > a:active {
+	background: rgb(0, 191, 255);
+	color: white;
 }

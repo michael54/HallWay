@@ -227,6 +227,7 @@ LOGOUT_URL = '/accounts/signout/'
 THUMBNAIL_ALIASES = {
     '': {
         'normal': {'size': (200,200), 'crop': 'smart'},
+        'avatar': {'size': (50,50), 'crop': 'smart'},
     },
 }
 
