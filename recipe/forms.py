@@ -3,10 +3,12 @@ from recipe.models import Recipe, Step, Vote
 from django.forms.models import inlineformset_factory
 from django import forms
 from django.conf import settings
+import os
+import sys
 
 class RecipeForm(ModelForm):
-	prep_time = forms.TimeField(input_formats=['%H:%M',])
-	cook_time = forms.TimeField(input_formats=['%H:%M',])
+	prep_time = forms.TimeField(input_formats=['%H:%M','%H:%M:%S',])
+	cook_time = forms.TimeField(input_formats=['%H:%M','%H:%M:%S',])
 	cover_image = forms.CharField(required=False)
 	class Meta:
 		model = Recipe
@@ -17,7 +19,12 @@ class RecipeForm(ModelForm):
 
 	def save(self, force_insert=False, force_update=False, commit=True):
 		m = super(RecipeForm, self).save(commit=False)
-		m.cover_image = self.cleaned_data['cover_image']
+		old_image = settings.SITE_ROOT + m.cover_image.name
+		print >> sys.stderr, old_image
+		if m.cover_image != self.cleaned_data['cover_image']:
+			os.removedir(os.path.dirname(old_image))
+			m.cover_image = self.cleaned_data['cover_image']
+
 		if commit:
 			m.save()
 		return m

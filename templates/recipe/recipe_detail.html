@@ -150,8 +150,8 @@
         </h2>
         <ul>
           {% for v in votelist %}
-          <div><div>{{v.user}}<div class="medstar{{v.score}}"></div></div><div>{{ v.date|timesince }} ago</div></div>
-          <div>{{ v.comment }}</div>
+          <div><div><a href="{{v.user.get_absolute_url}}">{{v.user}}</a><div class="medstar{{v.score}}"></div></div><div>{{ v.comment }}</div><div>{{ v.date|timesince }} ago</div></div>
+          
           {% empty %}
           <div>No Rating Yet</div>
           {% endfor %}

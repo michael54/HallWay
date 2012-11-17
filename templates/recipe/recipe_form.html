@@ -100,6 +100,15 @@ Upload your Recipe
 <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js" ></script>	
 <script type="text/javascript">
 $(document).ready(function() {
+  $('#cover_image_preview').attr(
+    'src',$('#id_cover_image').val()
+    );
+
+  $('.step_preview').each(function (i){
+    $('#step'+i+'_preview').attr('src',
+      $('#id_step-'+i+'-step_image').val());
+  });
+
  $('#ingredient_table tbody tr').formset({
   prefix: '{{ amount_formset.prefix }}',
   formCssClass: 'dynamic_amount_formset',

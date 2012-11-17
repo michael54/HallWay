@@ -10,9 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
 from recipe import recommendations, itemsim
 from recipe.tasks import add_view_num, get_or_create_vote, add_like_num
-from django.template import Context
 from django.core.urlresolvers import reverse
-from food.models import Food
+from food.models import Food, FoodCategory
 from django.core import serializers
 from actstream import actions, models
 from django.contrib.auth.models import User
@@ -208,9 +207,10 @@ def recipe_create(request):
 				s.save()
 				step = step + 1
 
+			unactive = get_object_or_404(FoodCategory, pk = 1)
 			for form in amount_formset:
 				if 'ingredient' in form.cleaned_data:
-					f, created = Food.objects.get_or_create(name = form.cleaned_data['ingredient'], defaults={'category': 1})
+					f, created = Food.objects.get_or_create(name = form.cleaned_data['ingredient'], defaults={'category': unactive})
 					a = Amount(ingredient = f, recipe = r, amount = form.cleaned_data['amount'], must = form.cleaned_data['must'])
 					a.save()
 				else:
@@ -235,14 +235,18 @@ def recipe_edit(request, pk):
 	Page for edit a recipe
 	"""    
 	recipe = get_object_or_404(Recipe, pk = pk)
+	if request.user != recipe.author:
+		raise Http404
 	AmountFormSet = formset_factory(AmountForm, extra = 1)
 	StepFormSet = formset_factory(StepForm, extra = 1)
 	if request.method == 'POST':
-		recipe_form = RecipeForm(request.POST, request.FILES)
+		recipe_form = RecipeForm(request.POST, instance = recipe)
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
-		step_formset = StepFormSet(request.POST, request.FILES, prefix='step')
+		step_formset = StepFormSet(request.POST, prefix='step')
 		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
 			r = recipe_form.save()
+			
+			# Process step
 			step = 0
 			for form in step_formset:
 				des = ''
@@ -250,31 +254,61 @@ def recipe_edit(request, pk):
 					des = form.cleaned_data['description']
 				else:
 					continue
-				img = 'step-'+str(step)+'-step_image'
-				if img in request.FILES:
-					s = Step(recipe = r, step_num = step, description = des, step_image = request.FILES[img])
-				else:
-					s = Step(recipe = r, step_num = step, description = des)
+				s, created = Step.objects.get_or_create(recipe = r, step_num= step, defaults={'description': des})
+				s.description = des
+				s.step_image = form.cleaned_data['step_image'];
 				s.save()
 				step = step + 1
 
+			# Process amount
+			unactive = get_object_or_404(FoodCategory, pk = 1)
 			for form in amount_formset:
 				if 'ingredient' in form.cleaned_data:
-					f, created = Food.objects.get_or_create(name = form.cleaned_data['ingredient'], defaults={'category': 1})
-					a = Amount(ingredient = f, recipe = r, amount = form.cleaned_data['amount'], must = form.cleaned_data['must'])
+					f, created = Food.objects.get_or_create(name = form.cleaned_data['ingredient'], defaults={'category': unactive})
+					a, created = Amount.objects.get_or_create(ingredient = f, recipe = r, defaults={'amount':form.cleaned_data['amount'], 'must':form.cleaned_data['must']})
+					a.amount = form.cleaned_data['amount']
+					a.must = form.cleaned_data['must']
 					a.save()
 				else:
 					continue
 
 			return redirect(r)
 
+
 	else:
-		recipe_form = RecipeForm(initial={'author': request.user.id})
-		amount_formset = AmountFormSet(prefix='amount')
-		step_formset = StepFormSet(prefix='step')
+		""" Give initial data """
+		recipe_form = RecipeForm(instance = recipe)
+
+		amount = recipe.amount_set.all()
+		initial_amount = []
+		for a in amount:
+			initial_amount.append({	'ingredient':a.ingredient,
+									'amount': a.amount,
+									'must': a.must,
+									})
+
+		step = recipe.step_set.all()
+		initial_step = []
+		for s in step:
+			initial_step.append({	'description':s.description,
+									'step_image':s.step_image.url
+									})
+
+		amount_formset = AmountFormSet(initial = initial_amount ,prefix='amount')
+		step_formset = StepFormSet(initial = initial_step, prefix='step')
 
 	return render(request, 'recipe/recipe_form.html',{
 		'recipe_form': recipe_form,
 		'amount_formset': amount_formset,
 		'step_formset': step_formset,
 		})
+
+@login_required
+def recipe_delete(request, pk):
+	recipe = get_object_or_404(Recipe, pk = pk)
+	if recipe.author == request.user:
+		pass
+
+	else:
+		raise Http404
+

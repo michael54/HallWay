@@ -27,11 +27,25 @@
 		<aside class="mod-side span4 well">
 			<div>
 				I am following
-				{{following}}
+				{% for f in following %}
+				<div class='display_user'>
+					<img src="{{f.get_mugshot_url}}" />
+					<div class='display_username'>
+						<a href="{{f.get_absolute_url}}">{{f}}</a>
+					</div>
+				</div>
+				{% endfor %}
 			</div>
 			<div>
 				They are following me
-				{{ followers }}
+				{% for f in followers %}
+				<div class='display_user'>
+					<img src="{{f.get_mugshot_url}}" />
+					<div class='display_username'>
+						<a href="{{f.get_absolute_url}}">{{f}}</a>
+					</div>
+				</div>
+				{% endfor %}
 			</div>
 		</aside>
 	</div></div>
