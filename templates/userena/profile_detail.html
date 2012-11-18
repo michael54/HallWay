@@ -84,8 +84,8 @@
         </ul>
 
         <div class="tab-content">
-          <div class="tab-pane" id="recipes">
-            <div>{{ user.did_recipe_set.all }}</div>
+          <div class="tab-pane active" id="recipes">
+            <div>{{ user.recipe_set.all }}</div>
           </div>
           <div class="tab-pane" id="favs">
             <div>{{ user.get_profile.favorite.all }}</div>
@@ -122,7 +122,9 @@
               </dl>
             {% endblock %}
           </div>
-          <div class="tab-pane" id="friends"></div>
+          <div class="tab-pane" id="friends">
+            <div>{{followers}}</div>
+          </div>
           <div class="tab-pane" id="cmts">
             <div class="row span8">
               <form action="">
