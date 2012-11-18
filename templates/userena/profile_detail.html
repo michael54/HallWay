@@ -84,11 +84,33 @@
         </ul>
 
         <div class="tab-content">
-          <div class="tab-pane active" id="recipes">
-            <div>{{ user.recipe_set.all }}</div>
+          <div class="tab-pane active row-fluid" id="recipes">
+            <ul class="thumbnails">
+              {% for r in user.recipe_set.all %}
+                <li class="span4">
+                  <a href="{{ r.get_absolute_url }}" class="thumbnail">
+                    <img class="cover-img" src="{{ r.cover_image }}" alt="{% trans "cover image" %}" />
+                    <div class="caption">
+                      <div class="recipe-name">{{ r.name }}</div>
+                      <div class="recipe-stat">
+                        <span>{{ r.did_num }} did it.</span>
+                        <span class="seperator">&nbsp;|&nbsp;</span>
+                        <span>{{ r.like_num }} liked it.</span>
+                        <span class="seperator">&nbsp;|&nbsp;</span>
+                        <span>{{ r.view_num }} viewed it.</span>
+                      </div>
+                      <div class="recipe-date">
+                        {{ r.date }}
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              {% endfor %}
           </div>
           <div class="tab-pane" id="favs">
-            <div>{{ user.get_profile.favorite.all }}</div>
+            {% for f in user.get_profile.favorite.all %}
+              <div>{{ user.get_profile.favorite.all }}</div>
+            {% endfor %}
           </div>
           <div class="tab-pane" id="prof">
             {% block profile_details %}

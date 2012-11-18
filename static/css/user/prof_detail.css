@@ -22,7 +22,7 @@ div#mod-container #mod-prof-main .mod-prof-main-img{
 div#mod-container #mod-prof-main .mod-prof-username-h2 {
 	color: rgb(130, 130, 130);
 	font-size: 22px;
-	font-style: bold;
+	font-weight: bold;
 	line-height: 30px;
 	margin-bottom: 15px;
 	padding-left: 15px;
@@ -35,7 +35,7 @@ div#mod-container #mod-prof-main .mod-prof-main-about {
 div#mod-container #mod-prof-main .mod-prof-main-about dt {
 	color: rgb(140, 140, 140);
 	font-size: 14px;
-	font-style: bold;
+	font-weight: bold;
 	line-height: 14px;
 	margin-bottom: 5px;
 }
@@ -43,7 +43,6 @@ div#mod-container #mod-prof-main .mod-prof-main-about dt {
 div#mod-container #mod-prof-main .mod-prof-main-about dd {
 	color: rgb(150, 150, 150);
 	font-size: 14px;
-	font-style: bold;
 	line-height: 14px;
 	margin-bottom: 5px;
 }
@@ -76,20 +75,24 @@ div#mod-container #mod-prof-details {
 	margin-right: auto;
 }
 
+div#mod-container #mod-prof-nav {
+	margin-bottom: 15px;
+}
+
 div#mod-container #mod-prof-nav ul li a {
 	margin-left: auto;
 	margin-right: auto;
 }
 
 div#mod-container #mod-prof-details .tab-content {
-	padding-left: 15px;
+	padding-left: 0px;
 	padding-top: 0px;
 }
 
 div#mod-container #mod-prof-details .tab-content .tab-pane dt {
 	color: rgb(140, 140, 140);
 	font-size: 14px;
-	font-style: bold;
+	font-weight: bold;
 	line-height: 14px;
 	margin-bottom: 5px;
 }
@@ -97,7 +100,6 @@ div#mod-container #mod-prof-details .tab-content .tab-pane dt {
 div#mod-container #mod-prof-details .tab-content .tab-pane dd {
 	color: rgb(150, 150, 150);
 	font-size: 14px;
-	font-style: bold;
 	line-height: 14px;
 	margin-bottom: 5px;
 }
@@ -128,4 +130,32 @@ div#mod-container #mod-prof-details .tab-content #cmts textarea {
 	resize: none;
 	width: 60%;
 	height: 200px;
+}
+
+div#mod-container #mod-prof-details .tab-content #recipes > ul > li {
+	height: 241px;
+}
+
+div#mod-container #mod-prof-details .tab-content #recipes > ul > li > a {
+	text-decoration: none;
+}
+
+div.caption div.recipe-name {
+	color: rgb(0, 191, 255);
+	font-size: 14px;
+	line-height: 14px;
+}
+
+div.caption div.recipe-stat span, div.caption div.recipe-date {
+	color: rgb(140, 140, 140);
+	font-size: 12px;
+	line-height: 12px;
+}
+
+div#mod-container #mod-prof-details .tab-content #recipes > ul > li:nth-child(3n+1) {
+	margin-left: 0;
+}
+
+div#mod-container #mod-prof-details .tab-content #prof {
+	margin-left: 15px;
 }
