@@ -79,13 +79,17 @@
             <a href="#friends" data-toggle="tab">Friends</a>
           </li>
           <li>
-            <a href="#cmts" data-toggle="tab">Comments</a>
+            <a href="#cmts" data-toggle="tab">Message</a>
           </li>
         </ul>
 
         <div class="tab-content">
-          <div class="tab-pane" id="recipes"></div>
-          <div class="tab-pane" id="favs"></div>
+          <div class="tab-pane" id="recipes">
+            <div>{{ user.did_recipe_set.all }}</div>
+          </div>
+          <div class="tab-pane" id="favs">
+            <div>{{ user.get_profile.favorite.all }}</div>
+          </div>
           <div class="tab-pane" id="prof">
             {% block profile_details %}
               <dl>
@@ -119,7 +123,15 @@
             {% endblock %}
           </div>
           <div class="tab-pane" id="friends"></div>
-          <div class="tab-pane" id="cmts"></div>
+          <div class="tab-pane" id="cmts">
+            <div class="row span8">
+              <form action="">
+                <textarea name="comment" id="id_comment" maxlength="140"></textarea>
+                <button type="submit" class="btn btn-primary pull-right">Save</button>
+              </form>
+              <a href="#">See a full list of messages ...</a>
+            </div>
+          </div>
         </div>
       </div>
 

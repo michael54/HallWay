@@ -33,7 +33,7 @@ div#mod-container #mod-prof-main .mod-prof-main-about {
 }
 
 div#mod-container #mod-prof-main .mod-prof-main-about dt {
-	color: rgb(150, 150, 150);
+	color: rgb(140, 140, 140);
 	font-size: 14px;
 	font-style: bold;
 	line-height: 14px;
@@ -41,7 +41,7 @@ div#mod-container #mod-prof-main .mod-prof-main-about dt {
 }
 
 div#mod-container #mod-prof-main .mod-prof-main-about dd {
-	color: rgb(170, 170, 170);
+	color: rgb(150, 150, 150);
 	font-size: 14px;
 	font-style: bold;
 	line-height: 14px;
@@ -50,6 +50,7 @@ div#mod-container #mod-prof-main .mod-prof-main-about dd {
 
 div#mod-container #mod-prof-main .mod-prof-main-about dd > a {
 	text-decoration: none;
+	color: rgb(178, 34, 34);
 }
 
 div#mod-container #mod-prof-main .mod-prof-main-about dd > a:link {
@@ -57,7 +58,7 @@ div#mod-container #mod-prof-main .mod-prof-main-about dd > a:link {
 }
 
 div#mod-container #mod-prof-main .mod-prof-main-about dd > a:visited {
-	color: rgb(169, 169, 169);
+	color: rgb(150, 150, 150);
 }
 
 div#mod-container #mod-prof-main .mod-prof-main-about dd > a:hover {
@@ -78,4 +79,53 @@ div#mod-container #mod-prof-details {
 div#mod-container #mod-prof-nav ul li a {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+div#mod-container #mod-prof-details .tab-content {
+	padding-left: 15px;
+	padding-top: 0px;
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dt {
+	color: rgb(140, 140, 140);
+	font-size: 14px;
+	font-style: bold;
+	line-height: 14px;
+	margin-bottom: 5px;
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dd {
+	color: rgb(150, 150, 150);
+	font-size: 14px;
+	font-style: bold;
+	line-height: 14px;
+	margin-bottom: 5px;
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dd > a {
+	text-decoration: none;
+	color: rgb(178, 34, 34);
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:link {
+	color: rgb(178, 34, 34);
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:visited {
+	color: rgb(150, 150, 150);
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:hover {
+	color: rgb(0, 191, 255);
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:active {
+	background: rgb(0, 191, 255);
+	color: white;
+}
+
+div#mod-container #mod-prof-details .tab-content #cmts textarea {
+	resize: none;
+	width: 60%;
+	height: 200px;
 }
