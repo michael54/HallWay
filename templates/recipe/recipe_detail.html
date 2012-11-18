@@ -89,9 +89,9 @@
       <ul class="well">
        {% for ingredient in object.amount_set.all %}
        {% if ingredient.must %}
-       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} yeah!</li>
+       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
        {% else %}
-       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }} no!</li>
+       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
        {% endif %}
        {% endfor %}
       </ul>

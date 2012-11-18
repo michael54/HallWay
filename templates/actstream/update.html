@@ -3,18 +3,25 @@
 
 {% block csslink %}
 {{ block.super }}
-<link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_detail.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/user/act_update.css" %}"/>
 {% endblock %}
 
-{% block title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
-{% block content_title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block title %}{% ifequal user actor %}Chef Industry News{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block content_title %}
+	{% ifequal user actor %}
+		<h2>What I am interested in ...</h2>
+	{% else %}{{ actor }}
+	{% endifequal %}
+{% endblock %}
 
 {% block content %}
 <div id="mod-container">
 	<div class="row-fluid container-fluid">
 		<section class="mod-main span7 well">
 			{% if request.user.is_authenticated %}
-			<p><b><a href="{% actor_url request.user %}">{% trans "View my actions" %}</a></b></p>
+			<p>
+				<a href="{% actor_url request.user %}">{% trans "View my actions" %}</a>
+			</p>
 			{% endif %}
 			<ul>
 				{% for action in action_list %}
@@ -48,5 +55,6 @@
 				{% endfor %}
 			</div>
 		</aside>
-	</div></div>
+	</div>
+</div>
 {% endblock %}
