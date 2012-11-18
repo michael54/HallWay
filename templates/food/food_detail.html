@@ -3,18 +3,39 @@
 
 {% extends "nav.html" %}
 
+{% load static from staticfiles %}
+{% load url from future %}
+
+{% load thumbnail %}
+
+{% block csslink %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "css/food/food_detail.css" %}"/>
+{% endblock %}
+
+{% block title %}
+{{ object.name }} Details (上厨娘)
+{% endblock %}
+
 {% block content %}
-    <h2>Food</h2>
-    <ul>
-	    <li>Name: {{ object.name }}</li>
-	    <li>View Num: {{ object.view_num }}</li>
-	    <li>Category: {{ object.category }}</li>
-	    <li>Brief: {{ object.brief }}</li>
-	    <li>Cover Image: {{ object.cover_image }}</li>
-	    <li>Storage Time: {{ object.storage_time }}</li>
-	    <li>Storage Method: {{ object.storage_method }}</li>
-	    <li>Like Num: {{ object.like_num }}</li>
-	    <li>Pick Method: {{ object.pick_method }}</li>
-	    <li>Food Efficacy: {{ object.food_efficacy }}</li>
-    </ul>
+<div id="mod-container" class="well">
+	<div class="row-fluid container">
+		<div class="mod-food-nav span3 well"></div>
+		<div class="mod-food-detail span9 well">
+	    <h2>Food</h2>
+	    <ul>
+		    <li>Name: {{ object.name }}</li>
+		    <li>View Num: {{ object.view_num }}</li>
+		    <li>Category: {{ object.category }}</li>
+		    <li>Brief: {{ object.brief }}</li>
+		    <li>Cover Image: {{ object.cover_image }}</li>
+		    <li>Storage Time: {{ object.storage_time }}</li>
+		    <li>Storage Method: {{ object.storage_method }}</li>
+		    <li>Like Num: {{ object.like_num }}</li>
+		    <li>Pick Method: {{ object.pick_method }}</li>
+		    <li>Food Efficacy: {{ object.food_efficacy }}</li>
+	    </ul>
+	  </div>
+  </div>
+</div>
 {% endblock %}
