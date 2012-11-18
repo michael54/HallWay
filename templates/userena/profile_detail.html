@@ -119,30 +119,69 @@
 					{% if profile.user.get_full_name %}
 					<dt>{% trans "Name" %}</dt>
 					<dd>{{ profile.user.get_full_name }}</dd>
+          <div class="prof-form">
+            <form action="" method="POST">
+              <input type="text" name="uname" value="{{ profile.user.get_full_name }}" />
+              <button id="prof_smt_btn" rel="popover" type="submit" class="btn">Submit</button>
+            </form>
+          </div>
 					{% endif %}
 					{% if profile.user.email and not hide_email %}
 					<dt>{% trans "Email" %}</dt>
 					<dd>{{ profile.user.email }}</dd>
+          <div class="prof-form">
+            <form action="" method="POST">
+              <input type="text" name="uemail" value="{{ profile.user.email }}" />
+              <button id="prof_smt_btn" rel="popover" type="submit" class="btn">Submit</button>
+            </form>
+          </div>
 					{% endif %}
 					{% if profile.age %}
 					<dt>{% trans "Age" %}</dt>
 					<dd>{{ profile.age }}</dd>
+          <div class="prof-form">
+            <form action="#" method="POST">
+              <input type="text" name="uage" value="{{ profile.age }}" />
+              <button id="prof_smt_btn" rel="popover" type="submit" class="btn">Submit</button>
+            </form>
+          </div>
 					{% endif %}
 					{% if profile.website %}
 					<dt>{% trans "Website" %}</dt>
 					<dd>{{ profile.website|urlize }}</dd>
+          <div class="prof-form">
+            <form action="#" method="POST">
+              <input type="text" name="uwebsite" value="{{ profile.website }}" />
+              <button id="prof_smt_btn" rel="popover" type="submit" class="btn">Submit</button>
+            </form>
+          </div>
 					{% endif %}
 					{% if profile.location %}
 					<dt>{% trans "Location" %}</dt>
 					<dd>{{ profile.location }}</dd>
+          <div class="prof-form">
+            <form action="#" method="POST">
+              <input type="text" name="uloc" value="{{ profile.location }}" />
+              <button id="prof_smt_btn" rel="popover" type="submit" class="btn">Submit</button>
+            </form>
+          </div>
 					{% endif %}
 					{% if profile.about_me %}
 					<dt>{% trans "About me" %}</dt>
 					<dd>{{ profile.about_me }}</dd>
+          <div class="prof-form">
+            <form action="#" method="POST">
+              <input type="text" name="uabout" value="{{ profile.about_me }}" />
+              <button id="prof_smt_btn" rel="popover" type="submit" class="btn">Submit</button>
+            </form>
+          </div>
 					{% endif %}
 					{% endblock %}
 				</dl>
 				{% endblock %}
+        <div>
+          <a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a>
+        </div>
 			</div>
 			<div class="tab-pane" id="friends">
 				<div>{{followers}}</div>
@@ -213,6 +252,13 @@ $(document).ready(function() {
 		})
 		return false;
 	});
+
+  $('#prof_smt_btn').popover({
+    trigger: 'manual',
+    title: 'Success',
+    content: 'Your modification has been processed.',
+    placement: 'bottom',
+  });
 });
 </script>
 {% endblock js%}
