@@ -1,7 +1,7 @@
 import sys
 import uuid
 from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from recipe.models import Recipe, RecipeCategory, Vote, Step, Amount
 from recipe.forms import RecipeForm, VoteForm, StepForm, AmountForm, DidRecipeForm
 from django.utils.decorators import method_decorator
@@ -37,26 +37,8 @@ def index(request):
 		queries = {}
 		queries['recipe'] = Recipe.objects.filter(name__contains= q)[:3]
 		queries['food'] = Food.objects.filter(name__contains=q)[:3]
-		if queries['recipe']:
-			data += '<span class="category">Recipe</span>'
-			for obj in queries['recipe']:
-				data+= '<a href="'+obj.get_absolute_url()+'">'
-				data+= '<span class="searchheading">'+obj.name+'</span></a>'
-				brief = obj.brief
-				if len(brief) > 50:
-					brief = brief[:50]
-				data+= '<span>'+brief+'</span>'
-
-		if queries['food']:
-			data += '<span class="category">Food</span>'
-			for obj in queries['food']:
-				data+= '<a href="'+obj.get_absolute_url()+'">'
-				data+= '<span class="searchheading">'+obj.name+'</span></a>'
-				brief = obj.brief
-				if len(brief) > 50:
-					brief = brief[:50]
-				data+= '<span>'+brief+'</span>'
-		return HttpResponse(data)
+		print>>sys.stderr, queries
+		return render_to_response('autocomplete.html',{'recipe_list':queries['recipe'], 'food_list':queries['food']})
 	else:
 		return render(request, 'recipe/index.html')
 

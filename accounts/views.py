@@ -6,7 +6,10 @@ from actstream import models as ActStream
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from userena.contrib.umessages.models import Message
+from userena.utils import get_profile_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from guardian.decorators import permission_required_or_403
+from userena.decorators import secure_required
 
 import sys
 import json
@@ -44,6 +47,45 @@ def leave_message(request, username):
 			return render_to_response('umessages/message.html', {'message': msg})
 		else:
 			return HttpResponse('Failed')
+	else:
+		raise Http404
+
+@secure_required
+@permission_required_or_403('change_profile', (get_profile_model(), 'user__username', 'username'))
+def profile_edit(request, username):
+
+	user = get_object_or_404(User, username__iexact=username)
+
+	profile = user.get_profile()
+
+	if request.is_ajax():
+		field = request.POST['field']
+		value = request.POST['value']
+		if field == 'first_name':
+			user.first_name = value
+			user.save()
+			return HttpResponse('Saved!')
+		elif field == 'last_name':
+			user.last_name = value
+			user.save()
+			return HttpResponse('Saved!')
+		elif field == 'location':
+			profile.location = value
+			profile.save()
+			return HttpResponse('Saved!')
+		elif field == 'age':
+			profile.age = value
+			profile.save()
+			return HttpResponse('Saved!')
+		elif field == 'website':
+			profile.website = value
+			profile.save()
+			return HttpResponse('Saved!')
+		elif field == 'about_me':
+			profile.about_me = value
+			profile.save()
+			return HttpResponse('Saved!')
+		return HttpResponse('Failed!')
 	else:
 		raise Http404
 

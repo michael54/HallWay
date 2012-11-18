@@ -23,7 +23,10 @@ urlpatterns = patterns('',
     url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/message/$',
        'accounts.views.leave_message',
        name='leave_message'),
-    
+    url(r'^accounts/(?P<username>[\.\w]+)/edit/$',
+       'accounts.views.profile_edit',
+       name='userena_profile_edit'),
+
     url(r'^accounts/', include('userena.urls')),
 
     url(r'^messages/', include('userena.contrib.umessages.urls')),

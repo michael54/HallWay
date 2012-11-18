@@ -1,0 +1,31 @@
+{% load url from future %}
+{% load thumbnail %}
+{% load i18n %}
+
+<p id="searchresults">
+	{% if recipe_list %}
+	<span class="category">Recipe</span>
+		{% for recipe in recipe_list %}
+		<a href="{{ recipe.get_absolute_url }}">
+			<img alt="" src="{{ recipe.cover_image|thumbnail_url:'avatar' }}"/>
+			<span class="searchheading">{{recipe.name}}</span>
+			<span>{{recipe.brief|truncatechars:50}}</span>
+		</a>
+		{% endfor %}
+	{% endif %}
+	{% if food_list %}
+	<span class="category">Food</span>
+
+		{% for food in food_list %}
+		<a href="{{ food.get_absolute_url }}">
+			<img alt="" src="{{ food.cover_image|thumbnail_url:'avatar' }}"/>
+			<span class="searchheading">{{food.name}}</span>
+			<span>{{food.brief|truncatechars:50}}</span>
+		</a>
+		{% endfor %}
+	{% endif %}
+	<!-- more categories -->
+	<span class="seperator">
+		<a href="{% url 'hot_recipes'%}">More Hot Recipes</a>
+	</span>
+</p>
