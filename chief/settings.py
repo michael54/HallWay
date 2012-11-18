@@ -243,3 +243,5 @@ ACTSTREAM_SETTINGS = {
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: "/accounts/%s/" % u.username,
 }
+
+USERENA_MUGSHOT_SIZE = 160

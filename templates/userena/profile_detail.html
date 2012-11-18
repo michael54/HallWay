@@ -1,6 +1,12 @@
 {% extends 'userena/base_userena.html' %}
 {% load i18n %}
+{% load static from staticfiles %}
 {% load url from future %}
+
+{% block csslink %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static "css/user/prof_detail.css" %}" type="text/css" />
+{% endblock %}
 
 {% block title %}
 {% blocktrans with profile.user.username as username %}
@@ -9,14 +15,40 @@
 {% endblock %}
 
 {% block content %}
-  <div id="mod-container">
-    <div class="row-fluid container-fluid white-box">
-      <div class="mod-prof-img">
-        <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
+  <div id="mod-container" class="well">
+    <div class="row-fluid container">
+      <div id="mod-prof-main" class="row">
+        <div class="mod-prof-main-img span3">
+          <a href="#">
+            <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mug shot" %}" />
+          </a>
+        </div>
+        <div class="mod-prof-main-txt span9">
+          <div class="mod-prof-username-h2">
+            <h2>The Kitchen of {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>
+          </div>
+          {% comment %}        
+              <div>{{ user.vote_set.all }}</div>
+              <div>{{ user.get_profile.favorite.all }}</div>
+              <div>{{ user.did_recipe_set.all }}</div>
+          {% endcomment %}
+          <div class="mod-prof-main-about">
+            <dl>
+              {% if profile.about_me %}
+                <dt>{% trans "About me" %}</dt>
+                <dd>{{ profile.about_me }}</dd>
+              {% endif %}
+              {% if profile.website %}
+                <dt>{% trans "Website" %}</dt>
+                <dd>{{ profile.website|urlize }}</dd>
+              {% endif %}
+            </dl>
+          </div>
+        </div>
       </div>
-      <div class="mod-prof-username-h1">
-        <h1>{{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h1>
-      </div>
+
+      <hr />
+
       {% comment %}
       {% block profile_navigation %}
         {% if user.username == profile.user.username %}
@@ -29,39 +61,62 @@
             {% endblock %}
           </ul>
         {% endif %}
-      {% endblock %}{% endcomment %}
+      {% endblock %}
+      {% endcomment %}
 
-      <div id="details">
-        {% block profile_details %}
-          <dl>
-            {% block profile_definition_list %}
-              {% if profile.user.get_full_name %}
-                <dt>{% trans "Name" %}</dt>
-                <dd>{{ profile.user.get_full_name }}</dd>
-              {% endif %}
-              {% if profile.user.email and not hide_email %}
-                <dt>{% trans "Email" %}</dt>
-                <dd>{{ profile.user.email }}</dd>
-              {% endif %}
-              {% if profile.age %}
-                <dt>{% trans "Age" %}</dt>
-                <dd>{{ profile.age }}</dd>
-              {% endif %}
-              {% if profile.website %}
-                <dt>{% trans "Website" %}</dt>
-                <dd>{{ profile.website|urlize }}</dd>
-              {% endif %}
-              {% if profile.location %}
-                <dt>{% trans "Location" %}</dt>
-                <dd>{{ profile.location }}</dd>
-              {% endif %}
-              {% if profile.about_me %}
-                <dt>{% trans "About me" %}</dt>
-                <dd>{{ profile.about_me }}</dd>
-              {% endif %}
+      <div id="mod-prof-details" class="tabbable">
+        <ul id="mod-prof-nav" class="nav nav-tabs">
+          <li class="active">
+            <a href="#recipes" data-toggle="tab">Recipes</a>
+          </li>
+          <li>
+            <a href="#favs" data-toggle="tab">Favorites</a>
+          </li>
+          <li>
+            <a href="#prof" data-toggle="tab">Profile</a>
+          </li>
+          <li>
+            <a href="#friends" data-toggle="tab">Friends</a>
+          </li>
+          <li>
+            <a href="#cmts" data-toggle="tab">Comments</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane" id="prof">
+            {% block profile_details %}
+              <dl>
+                {% block profile_definition_list %}
+                  {% if profile.user.get_full_name %}
+                    <dt>{% trans "Name" %}</dt>
+                    <dd>{{ profile.user.get_full_name }}</dd>
+                  {% endif %}
+                  {% if profile.user.email and not hide_email %}
+                    <dt>{% trans "Email" %}</dt>
+                    <dd>{{ profile.user.email }}</dd>
+                  {% endif %}
+                  {% if profile.age %}
+                    <dt>{% trans "Age" %}</dt>
+                    <dd>{{ profile.age }}</dd>
+                  {% endif %}
+                  {% if profile.website %}
+                    <dt>{% trans "Website" %}</dt>
+                    <dd>{{ profile.website|urlize }}</dd>
+                  {% endif %}
+                  {% if profile.location %}
+                    <dt>{% trans "Location" %}</dt>
+                    <dd>{{ profile.location }}</dd>
+                  {% endif %}
+                  {% if profile.about_me %}
+                    <dt>{% trans "About me" %}</dt>
+                    <dd>{{ profile.about_me }}</dd>
+                  {% endif %}
+                {% endblock %}
+              </dl>
             {% endblock %}
-          </dl>
-        {% endblock %}
+          </div>
+        </div>
       </div>
 
       {% comment %}

@@ -1,0 +1,81 @@
+body {
+	background: rgb(255, 255, 220);
+}
+
+div#mod-container {
+	width: 840px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#mod-container #mod-prof-main {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-img{
+	display: inline;
+	padding-right: auto;
+	padding-left: 15px;
+}
+
+div#mod-container #mod-prof-main .mod-prof-username-h2 {
+	color: rgb(130, 130, 130);
+	font-size: 22px;
+	font-style: bold;
+	line-height: 30px;
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about {
+	padding-left: 30px;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dt {
+	color: rgb(150, 150, 150);
+	font-size: 14px;
+	font-style: bold;
+	line-height: 14px;
+	margin-bottom: 5px;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dd {
+	color: rgb(170, 170, 170);
+	font-size: 14px;
+	font-style: bold;
+	line-height: 14px;
+	margin-bottom: 5px;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dd > a {
+	text-decoration: none;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dd > a:link {
+	color: rgb(178, 34, 34);
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dd > a:visited {
+	color: rgb(169, 169, 169);
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dd > a:hover {
+	color: rgb(0, 191, 255);
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dd > a:active {
+	background: rgb(0, 191, 255);
+	color: white;
+}
+
+div#mod-container #mod-prof-nav {
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#mod-container #mod-prof-nav ul li a {
+	margin-left: auto;
+	margin-right: auto;
+}

@@ -100,11 +100,11 @@
       <h2 class="mod-recipe-title-h2">
         Instructions
       </h2>
-      <ul class="well">
+      <ol class="well">
        {% for step in object.step_set.all %}
        <li>{{ step.step_num }}:{{step.description}}</li>
        {% endfor %}
-     </ul>
+     </ol>
     </div>
     <div class="mod-recipe-tip">
       <h2 class="mod-recipe-title-h2">Chef's Notes</h2>
