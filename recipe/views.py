@@ -161,8 +161,6 @@ def unlike(request, pk):
 		raise Http404	
 
 
-
-
 @login_required
 def activity(request):
     """

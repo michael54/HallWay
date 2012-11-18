@@ -22,7 +22,8 @@ urlpatterns = patterns('',
        'accounts.views.profile',
        name='userena_profile_detail'),
     url(r'^accounts/', include('userena.urls')),
-    
+    url(r'^messages/', include('userena.contrib.umessages.urls')),
+
     url(r'^grappelli/', include('grappelli.urls')),
     #url(r'^$', 'recipe.views.nav', name='homepage'),
 	url(r'^$', 'recipe.views.index', name='homepage'),

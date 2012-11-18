@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'guardian',
     'easy_thumbnails',
     'userena',
+    'userena.contrib.umessages',
     'ajaxuploader',
 
     # Own apps
