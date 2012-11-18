@@ -124,8 +124,11 @@ def rate(request, pk):
 			comment = form.cleaned_data['comment']
 			get_or_create_vote.delay(pk, user, score, comment)
 			return HttpResponse('<div id="ajax-feedback">Success</div>')
-	else:	
-		return HttpResponse('<div id="ajax-feedback">Failed</div>')
+		else:
+			return HttpResponse('<div id="ajax-feedback">Failed</div>')
+	else:
+		raise Http404
+
 
 @login_required
 def like(request, pk):

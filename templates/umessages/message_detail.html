@@ -1,0 +1,20 @@
+{% extends 'nav.html' %}
+{% load i18n %}
+{% load thumbnail %}
+
+{% block content_title %}<h2>{% blocktrans %}Conversation with {{ recipient }}{% endblocktrans %}</h2>{% endblock %}
+
+{% block content %}
+
+<ul>
+{% for message in message_list %}
+<li>
+  <div class="row"><img src="{{ message.sender.get_profile.mugshot|thumbnail_url:'avatar'}}"/><a href="{{message.sender.get_absolute_url}}">{{ message.sender }}</a></div>
+  <div class="row">{{ message.body}}</div>
+  <p>{% blocktrans with message.sent_at as sent_at %}Received on {{ sent_at }}{% endblocktrans %}</p>
+</li>
+{% endfor %}
+
+</ul>
+
+{% endblock %}

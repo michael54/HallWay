@@ -16,12 +16,16 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^autocomplete/', include('autocomplete_light.urls')),
 
     url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/$',
        'accounts.views.profile',
        name='userena_profile_detail'),
+    url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/message/$',
+       'accounts.views.leave_message',
+       name='leave_message'),
+    
     url(r'^accounts/', include('userena.urls')),
+
     url(r'^messages/', include('userena.contrib.umessages.urls')),
 
     url(r'^grappelli/', include('grappelli.urls')),

@@ -1,0 +1,14 @@
+{% extends 'nav.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Compose" %}{% endblock %}
+
+{% block content %}
+<form action="" method="post" id="compose_message_form">
+  {% csrf_token %}
+  <fieldset>
+    <legend>{% trans "Compose message" %}</legend>
+    {{ form.as_p }}
+  </fieldset>
+  <button type="submit" class="btn">{% trans "Send" %}</button>
+{% endblock %}

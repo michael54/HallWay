@@ -1,0 +1,50 @@
+{% load i18n %}
+{% load thumbnail %}
+
+<ul>
+	{% for message in message_list %}
+	<li>
+		<div class="row"><img src="{{ message.sender.get_profile.mugshot|thumbnail_url:'avatar'}}"/><a href="{{message.sender.get_absolute_url}}">{{ message.sender }}</a></div>
+		<div class="row">{{ message.body}}</div>
+		<p>{% blocktrans with message.sent_at as sent_at %}Received on {{ sent_at }}{% endblocktrans %}</p>
+	</li>
+	{% endfor %}
+</ul>
+<div class="pagination">
+	<span class="step-links">
+		{% if message_list.has_previous %}
+		<a href="?page={{ message_list.previous_page_number }}" id="previous_link">previous</a>
+		{% endif %}
+
+		<span class="current">
+			Page {{ message_list.number }} of {{ message_list.paginator.num_pages }}.
+		</span>
+
+		{% if message_list.has_next %}
+		<a href="?page={{ message_list.next_page_number }}" id="next_link">next</a>
+		{% endif %}
+	</span>
+</div>
+
+<script type="text/javascript">
+	$('#previous_link').click(function(){
+  		var url = $(this).attr('href');
+  		var postdata = {
+  			'csrfmiddlewaretoken': '{{ csrf_token }}',
+  		}
+  		$.get(url, postdata, function(data){
+  			$('#conversation').empty().append(data);
+  		})
+  		return false;
+  	});
+  	$('#next_link').click(function(){
+  		var url = $(this).attr('href');
+  		var postdata = {
+  			'csrfmiddlewaretoken': '{{ csrf_token }}',
+  		}
+  		$.get(url, postdata, function(data){
+  			$('#conversation').empty().append(data);
+  		})
+  		return false;
+  	});
+</script>

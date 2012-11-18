@@ -4,8 +4,8 @@
 {% load url from future %}
 
 {% block csslink %}
-  {{ block.super }}
-  <link rel="stylesheet" href="{% static "css/user/prof_detail.css" %}" type="text/css" />
+{{ block.super }}
+<link rel="stylesheet" href="{% static "css/user/prof_detail.css" %}" type="text/css" />
 {% endblock %}
 
 {% block title %}
@@ -15,160 +15,204 @@
 {% endblock %}
 
 {% block content %}
-  <div id="mod-container" class="well">
-    <div class="row-fluid container">
-      <div id="mod-prof-main" class="row">
-        <div class="mod-prof-main-img span3">
-          <a href="#">
-            <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mug shot" %}" />
-          </a>
-        </div>
-        <div class="mod-prof-main-txt span9">
-          <div class="mod-prof-username-h2">
-            <h2>The Kitchen of {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>
-          </div>
-          {% comment %}        
-              <div>{{ user.vote_set.all }}</div>
-              <div>{{ user.get_profile.favorite.all }}</div>
-              <div>{{ user.did_recipe_set.all }}</div>
-          {% endcomment %}
-          <div class="mod-prof-main-about">
-            <dl>
-              {% if profile.about_me %}
-                <dt>{% trans "About me" %}</dt>
-                <dd>{{ profile.about_me }}</dd>
-              {% endif %}
-              {% if profile.website %}
-                <dt>{% trans "Website" %}</dt>
-                <dd>{{ profile.website|urlize }}</dd>
-              {% endif %}
-            </dl>
-          </div>
-        </div>
-      </div>
+<div id="mod-container" class="well">
+	<div class="row-fluid container">
+		<div id="mod-prof-main" class="row">
+			<div class="mod-prof-main-img span3">
+				<a href="#">
+					<img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mug shot" %}" />
+				</a>
+			</div>
+			<div class="mod-prof-main-txt span9">
+				<div class="mod-prof-username-h2">
+					<h2>The Kitchen of {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>
+				</div>
+{% comment %}        
+	<div>{{ user.vote_set.all }}</div>
+	<div>{{ user.get_profile.favorite.all }}</div>
+	<div>{{ user.did_recipe_set.all }}</div>
+	{% endcomment %}
+	<div class="mod-prof-main-about">
+		<dl>
+			{% if profile.about_me %}
+			<dt>{% trans "About me" %}</dt>
+			<dd>{{ profile.about_me }}</dd>
+			{% endif %}
+			{% if profile.website %}
+			<dt>{% trans "Website" %}</dt>
+			<dd>{{ profile.website|urlize }}</dd>
+			{% endif %}
+		</dl>
+	</div>
+</div>
+</div>
 
-      <hr />
+<hr />
 
-      {% comment %}
-      {% block profile_navigation %}
-        {% if user.username == profile.user.username %}
-          <ul id="box-nav">
-            {% block profile_navigation_items %}
-              <li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
-              <li><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
-              <li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
-              <li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
-            {% endblock %}
-          </ul>
-        {% endif %}
-      {% endblock %}
-      {% endcomment %}
-
-      <div id="mod-prof-details" class="tabbable">
-        <ul id="mod-prof-nav" class="nav nav-tabs">
-          <li class="active">
-            <a href="#recipes" data-toggle="tab">Recipes</a>
-          </li>
-          <li>
-            <a href="#favs" data-toggle="tab">Favorites</a>
-          </li>
-          <li>
-            <a href="#prof" data-toggle="tab">Profile</a>
-          </li>
-          <li>
-            <a href="#friends" data-toggle="tab">Friends</a>
-          </li>
-          <li>
-            <a href="#cmts" data-toggle="tab">Message</a>
-          </li>
-        </ul>
-
-        <div class="tab-content">
-          <div class="tab-pane active row-fluid" id="recipes">
-            <ul class="thumbnails">
-              {% for r in user.recipe_set.all %}
-                <li class="span4">
-                  <a href="{{ r.get_absolute_url }}" class="thumbnail">
-                    <img class="cover-img" src="{{ r.cover_image }}" alt="{% trans "cover image" %}" />
-                    <div class="caption">
-                      <div class="recipe-name">{{ r.name }}</div>
-                      <div class="recipe-stat">
-                        <span>{{ r.did_num }} did it.</span>
-                        <span class="seperator">&nbsp;|&nbsp;</span>
-                        <span>{{ r.like_num }} liked it.</span>
-                        <span class="seperator">&nbsp;|&nbsp;</span>
-                        <span>{{ r.view_num }} viewed it.</span>
-                      </div>
-                      <div class="recipe-date">
-                        {{ r.date }}
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              {% endfor %}
-          </div>
-          <div class="tab-pane" id="favs">
-            {% for f in user.get_profile.favorite.all %}
-              <div>{{ user.get_profile.favorite.all }}</div>
-            {% endfor %}
-          </div>
-          <div class="tab-pane" id="prof">
-            {% block profile_details %}
-              <dl>
-                {% block profile_definition_list %}
-                  {% if profile.user.get_full_name %}
-                    <dt>{% trans "Name" %}</dt>
-                    <dd>{{ profile.user.get_full_name }}</dd>
-                  {% endif %}
-                  {% if profile.user.email and not hide_email %}
-                    <dt>{% trans "Email" %}</dt>
-                    <dd>{{ profile.user.email }}</dd>
-                  {% endif %}
-                  {% if profile.age %}
-                    <dt>{% trans "Age" %}</dt>
-                    <dd>{{ profile.age }}</dd>
-                  {% endif %}
-                  {% if profile.website %}
-                    <dt>{% trans "Website" %}</dt>
-                    <dd>{{ profile.website|urlize }}</dd>
-                  {% endif %}
-                  {% if profile.location %}
-                    <dt>{% trans "Location" %}</dt>
-                    <dd>{{ profile.location }}</dd>
-                  {% endif %}
-                  {% if profile.about_me %}
-                    <dt>{% trans "About me" %}</dt>
-                    <dd>{{ profile.about_me }}</dd>
-                  {% endif %}
-                {% endblock %}
-              </dl>
-            {% endblock %}
-          </div>
-          <div class="tab-pane" id="friends">
-            <div>{{followers}}</div>
-          </div>
-          <div class="tab-pane" id="cmts">
-            <div class="row span8">
-              <form action="">
-                <textarea name="comment" id="id_comment" maxlength="140"></textarea>
-                <button type="submit" class="btn btn-primary pull-right">Save</button>
-              </form>
-              <a href="#">See a full list of messages ...</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {% comment %}
-      <div id="recommends">
-        <h2>Recommended Recipes</h2>
-        <ul>
-          {% for r in recommends %}
-            <li><a href="{{ r.get_absolute_url }}">{{r.name}}</a></li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endcomment %}
-    </div>
-  </div>
+{% comment %}
+{% block profile_navigation %}
+{% if user.username == profile.user.username %}
+<ul id="box-nav">
+{% block profile_navigation_items %}
+	<li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
+	<li><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
+	<li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
+	<li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
 {% endblock %}
+</ul>
+{% endif %}
+{% endblock %}
+{% endcomment %}
+
+<div id="mod-prof-details" class="tabbable">
+	<ul id="mod-prof-nav" class="nav nav-tabs">
+		<li class="active">
+			<a href="#recipes" data-toggle="tab">Recipes</a>
+		</li>
+		<li>
+			<a href="#favs" data-toggle="tab">Favorites</a>
+		</li>
+		<li>
+			<a href="#prof" data-toggle="tab">Profile</a>
+		</li>
+		<li>
+			<a href="#friends" data-toggle="tab">Friends</a>
+		</li>
+		<li>
+			<a href="#cmts" data-toggle="tab">Message</a>
+		</li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="tab-pane active row-fluid" id="recipes">
+			<ul class="thumbnails">
+				{% for r in user.recipe_set.all %}
+				<li class="span4">
+					<a href="{{ r.get_absolute_url }}" class="thumbnail">
+						<img class="cover-img" src="{{ r.cover_image }}" alt="{% trans "cover image" %}" />
+						<div class="caption">
+							<div class="recipe-name">{{ r.name }}</div>
+							<div class="recipe-stat">
+								<span>{{ r.did_num }} did it.</span>
+								<span class="seperator">&nbsp;|&nbsp;</span>
+								<span>{{ r.like_num }} liked it.</span>
+								<span class="seperator">&nbsp;|&nbsp;</span>
+								<span>{{ r.view_num }} viewed it.</span>
+							</div>
+							<div class="recipe-date">
+								{{ r.date }}
+							</div>
+						</div>
+					</a>
+				</li>
+				{% endfor %}
+			</div>
+			<div class="tab-pane" id="favs">
+				{% for f in user.get_profile.favorite.all %}
+				<div>{{ user.get_profile.favorite.all }}</div>
+				{% endfor %}
+			</div>
+			<div class="tab-pane" id="prof">
+				{% block profile_details %}
+				<dl>
+					{% block profile_definition_list %}
+					{% if profile.user.get_full_name %}
+					<dt>{% trans "Name" %}</dt>
+					<dd>{{ profile.user.get_full_name }}</dd>
+					{% endif %}
+					{% if profile.user.email and not hide_email %}
+					<dt>{% trans "Email" %}</dt>
+					<dd>{{ profile.user.email }}</dd>
+					{% endif %}
+					{% if profile.age %}
+					<dt>{% trans "Age" %}</dt>
+					<dd>{{ profile.age }}</dd>
+					{% endif %}
+					{% if profile.website %}
+					<dt>{% trans "Website" %}</dt>
+					<dd>{{ profile.website|urlize }}</dd>
+					{% endif %}
+					{% if profile.location %}
+					<dt>{% trans "Location" %}</dt>
+					<dd>{{ profile.location }}</dd>
+					{% endif %}
+					{% if profile.about_me %}
+					<dt>{% trans "About me" %}</dt>
+					<dd>{{ profile.about_me }}</dd>
+					{% endif %}
+					{% endblock %}
+				</dl>
+				{% endblock %}
+			</div>
+			<div class="tab-pane" id="friends">
+				<div>{{followers}}</div>
+			</div>
+			<div class="tab-pane" id="cmts">
+				<div class="row span8">
+					<form id="message_form" action="{% url 'leave_message' profile.user.username %}" method="POST">
+						<textarea name="comment" id="id_comment" maxlength="140"></textarea>
+						<button id="message_btn" rel="popover" type="submit" class="btn pull-right">Leave a Message</button>
+					</form>
+					<div id="conversation">
+					</div>
+					<a id="load_converstion" href="?page=1">See a full list of messages ...</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% comment %}
+<div id="recommends">
+<h2>Recommended Recipes</h2>
+<ul>
+{% for r in recommends %}
+<li><a href="{{ r.get_absolute_url }}">{{r.name}}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endcomment %}
+</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#message_btn').popover({
+		trigger: 'manual',
+		title: 'Success',
+		content: 'Your message is sent',
+		placement: 'bottom',
+	});
+	$('#message_form').submit(function(event) {
+		event.preventDefault();
+		var url = $(this).attr('action');
+		var postdata = {
+			'message': $('#id_comment').val(),
+			'csrfmiddlewaretoken': '{{ csrf_token }}',
+		}
+		$.post(url, postdata, function(data){
+			$('#message_btn').popover('show');
+			setTimeout(function() {
+				$('#message_btn').popover('hide');
+			}, 1200);
+			$('#conversation').prepend(data);
+			$('#id_comment').val('');
+		});
+		return false;
+	});
+
+	$('#load_converstion').click(function(){
+		var url = $(this).attr('href');
+		var postdata = {
+			'csrfmiddlewaretoken': '{{ csrf_token }}',
+		}
+		$.get(url, postdata, function(data){
+			$('#conversation').empty().append(data);
+			$('#load_converstion').hide();
+		})
+		return false;
+	});
+});
+</script>
+{% endblock js%}
