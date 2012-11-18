@@ -1,0 +1,15 @@
+{% extends 'nav.html' %}
+
+{% block title %}
+	Upload  Your Work
+{% endblock title%}
+
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">{% csrf_token %}
+	<fieldset>
+		<legend>Upload Your Work Hon~</legend>
+		{{form.as_p}}
+		<button type="submit" class="btn">Upload</button>
+	</fieldset>
+</form>
+{% endblock content %}

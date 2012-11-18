@@ -13,6 +13,7 @@ class MyProfile(UserenaLanguageBaseProfile):
     favourite_recipes = models.ManyToManyField(Recipe, blank=True,
     							related_name='favourite_recipes')
 
+    
     location = models.CharField(max_length = 50, null = True, blank=True)
     age = models.PositiveSmallIntegerField(null = True, blank=True)
     website = models.URLField(null = True, blank=True)

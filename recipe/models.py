@@ -79,7 +79,7 @@ class DidRecipe(models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):
-		return u"%s's %s" % (self.user.name, self.recipe.name)
+		return u"%s's %s" % (self.user.username, self.recipe.name)
 
 
 class Amount(models.Model):

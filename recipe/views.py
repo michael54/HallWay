@@ -1,14 +1,14 @@
-# Create your views here.
+import sys
+import uuid
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from userena.views import signin
-from django.views.generic.edit import CreateView
 from recipe.models import Recipe, RecipeCategory, Vote, Step, Amount
-from recipe.forms import RecipeForm, VoteForm, StepForm, AmountForm
+from recipe.forms import RecipeForm, VoteForm, StepForm, AmountForm, DidRecipeForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
-from recipe import recommendations, itemsim
+from django.views.generic.edit import CreateView
+from recipe import recommendations
 from recipe.tasks import add_view_num, get_or_create_vote, add_like_num
 from django.core.urlresolvers import reverse
 from food.models import Food, FoodCategory
@@ -17,11 +17,11 @@ from actstream import actions, models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.forms.formsets import formset_factory
-import sys 
 from django.conf import settings
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
-import uuid
+
+did_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, UPLOAD_DIR='Recipe_Images/Did_Images')
 
 cover_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, UPLOAD_DIR='Recipe_Images/Cover_Images')
 
@@ -72,15 +72,8 @@ class RecipeDetailView(DetailView):
 
 	def get_context_data(self, **kwargs):
 		context = super(RecipeDetailView, self).get_context_data(**kwargs)
-		if str(context['object'].id) in itemsim.itemsim:
-			id_list = []
-			for (similarity, i) in itemsim.itemsim[str(context['object'].id)]:
-				id_list.append(i)
-
-			objects = Recipe.objects.filter(id__in=id_list)
-			objects = dict([(obj.id, obj) for obj in objects])
-			sorted_objects = [objects[id] for id in id_list]
-			context['recommends'] = sorted_objects[0:10]
+		
+		context['recommends'] = recommendations.recommendRecipeForRecipe(context['object'].id, 10)
 
 		if self.request.user.is_authenticated():
 			try:
@@ -317,4 +310,20 @@ def recipe_delete(request, pk):
 	else:
 		raise Http404
 
-	
+@login_required
+def did_recipe_upload(request, pk):
+	recipe = get_object_or_404(Recipe, pk = pk)
+	if request.method == 'POST':
+		form = DidRecipeForm(request.POST, request.FILES)
+		if form.is_valid():
+			if request.user != form.cleaned_data['user']:
+				raise Http404
+			form.save()
+
+		return redirect(recipe)
+	else:
+		form = DidRecipeForm(initial= {'recipe': recipe.id, 'user': request.user.id,})
+
+	return render(request, 'recipe/did_form.html', {
+			'form': form,
+		})

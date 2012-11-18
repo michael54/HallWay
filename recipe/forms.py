@@ -1,10 +1,19 @@
 from django.forms import ModelForm
-from recipe.models import Recipe, Step, Vote
+from recipe.models import Recipe, Step, Vote, DidRecipe
 from django.forms.models import inlineformset_factory
 from django import forms
 from django.conf import settings
 import os
 import sys
+
+class DidRecipeForm(ModelForm):
+	class Meta:
+		model = DidRecipe
+		exclude = ('date', )
+		widgets = {
+			'recipe': forms.HiddenInput(),
+			'user': forms.HiddenInput(),
+		}
 
 class RecipeForm(ModelForm):
 	prep_time = forms.TimeField(input_formats=['%H:%M','%H:%M:%S',])

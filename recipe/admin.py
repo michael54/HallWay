@@ -1,5 +1,5 @@
 from django.contrib import admin
-from recipe.models import Recipe, Amount, Step, RecipeCategory, Vote
+from recipe.models import Recipe, Amount, Step, RecipeCategory, Vote, DidRecipe
 import autocomplete_light
 
 class AmountInline(admin.TabularInline):
@@ -27,4 +27,5 @@ admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Amount)
 admin.site.register(Step)
 admin.site.register(Vote)
+admin.site.register(DidRecipe)
 admin.site.register(RecipeCategory, RecipeCategoryAdmin)

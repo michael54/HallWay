@@ -35,6 +35,8 @@ urlpatterns = patterns('',
     url(r'^recipe/(?P<pk>\d+)/unlike/$', 'recipe.views.unlike', name='unlike'),
     url(r'^recipe/(?P<pk>\d+)/edit/$', 'recipe.views.recipe_edit', name='recipe_edit'),
     url(r'^recipe/(?P<pk>\d+)/delete/$', 'recipe.views.recipe_delete', name='recipe_delete'),
+    url(r'^recipe/(?P<pk>\d+)/did/$', 'recipe.views.did_recipe_upload', name='did_recipe_upload'),
+
     url(r'^recipecategory/(\d+)/(hot|time|trend)/$', RecipeCategoryListView.as_view(), name='recipe_category'),
     url(r'^hot/$', HotRecipeListView.as_view(), name='hot_recipes'),
     url(r'^recipe/cover_image_upload/$', 'recipe.views.cover_image_upload', name='recipe_image_upload'),
