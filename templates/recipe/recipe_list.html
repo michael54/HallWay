@@ -4,33 +4,40 @@
 
 {% block content %}
 {% if recipe_list %}
-    <h1>{{category}}</h1>
-    <table id="recipes">
-        {% for recipe in recipe_list %}
-            <tr>
-                <td>{{ recipe.name }}</td>
-                <td><a href="{% url recipe.get_absolute_url %}" class="see_detail">detail</a></td>
-            </tr>
-        {% endfor %}
-    </table>
-    {# .... **Now the pagination section** .... #}
-    {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="/recipes?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="/recipes?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
+<div id="mod-container" class="well">
+	<div class="row-fluid container">
+		<div class="mod-food-nav span3 well"></div>
+		<div class="mod-food-detail span9 well">
+			<h1>{{category}}</h1>
+			<table id="recipes">
+				{% for recipe in recipe_list %}
+				<tr>
+					<td>{{ recipe.name }}</td>
+					<td><a href="{{ recipe.get_absolute_url }}" class="see_detail">detail</a></td>
+				</tr>
+				{% endfor %}
+			</table>
+			{# .... **Now the pagination section** .... #}
+			{% if is_paginated %}
+			<div class="pagination">
+				<span class="page-links">
+					{% if page_obj.has_previous %}
+					<a href="/recipes?page={{ page_obj.previous_page_number }}">previous</a>
+					{% endif %}
+					<span class="page-current">
+						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+					</span>
+					{% if page_obj.has_next %}
+					<a href="/recipes?page={{ page_obj.next_page_number }}">next</a>
+					{% endif %}
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
 {% else %}
-    <h3>My recipes</h3>
-    <p>No recipes found!!! :(</p>
+<h3>My recipes</h3>
+<p>No recipes found!!! :(</p>
 {% endif %}
 {% endblock %}

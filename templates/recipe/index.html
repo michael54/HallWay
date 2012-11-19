@@ -33,9 +33,9 @@
     <a href="javascript:;" id="toggleAnimation" >PAUSE</a>
   </div>
   <div class="content search-form">
-      <form id="searchform" action="" method="POST">
+      <form id="searchform" class=".form-search"action="" method="POST">
         {% csrf_token %}
-      <input class="span4" id="searchinput" placeholder="Type in a dish name or the main ingredient..." type="search" autocomplete="off">
+      <input class="span4 search-query" id="searchinput" placeholder="Type in a dish name or the main ingredient..." type="search" autocomplete="off">
       <div id="suggestions"></div>
       </form>
   </div>

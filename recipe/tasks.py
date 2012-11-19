@@ -7,6 +7,7 @@ from celery.task import task
 from django.contrib.auth.models import User
 from datetime import timedelta
 from actstream import action
+from django.shortcuts import get_object_or_404
 
 class ProcessTrendTask(PeriodicTask):
 	# run_every = crontab(hour=0)
@@ -51,6 +52,19 @@ def get_or_create_vote(r, u, s, c):
 	return recipe_object.save()
 
 @task()
-def add_like_num(obj, num):
-	obj.like_num = obj.like_num + num
-	return obj.save()
+def add_like_num(user, recipeid):
+	recipe = get_object_or_404(Recipe, pk=recipeid)
+	profile = user.get_profile()
+	profile.favourite_recipes.add(recipe)
+	action.send(user, verb='liked', target=recipe)
+	recipe.like_num = recipe.like_num + 1
+	return recipe.save()
+
+
+@task()
+def decrease_like_num(user, recipeid):
+	recipe = get_object_or_404(Recipe, pk=recipeid)
+	profile = user.get_profile()
+	profile.favourite_recipes.remove(recipe)
+	recipe.like_num = recipe.like_num - 1
+	return recipe.save()

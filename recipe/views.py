@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView
 from recipe import recommendations
-from recipe.tasks import add_view_num, get_or_create_vote, add_like_num
+from recipe.tasks import add_view_num, get_or_create_vote, add_like_num, decrease_like_num
 from django.core.urlresolvers import reverse
 from food.models import Food, FoodCategory
 from django.core import serializers
@@ -118,11 +118,8 @@ def like(request, pk):
 	Handle ajax request to like a recipe from a user 
 	"""
 	if request.is_ajax():
-		recipe = get_object_or_404(Recipe, pk=pk)
-		profile = request.user.get_profile()
-		profile.favourite_recipes.add(recipe)
-		action.send(request.user, verb='liked', target = recipe)
-		add_like_num.delay(recipe, 1)
+		
+		add_like_num.delay(request.user, pk)
 
 		return HttpResponse('Liked')
 	else:
@@ -135,11 +132,7 @@ def unlike(request, pk):
 	Handle ajax request to unlike a recipe from a user 
 	"""
 	if request.is_ajax():
-		recipe = get_object_or_404(Recipe, pk=pk)
-		profile = request.user.get_profile()
-		profile.favourite_recipes.remove(recipe)
-		action.send(request.user, verb='liked', target = recipe)
-		add_like_num.delay(recipe, -1)
+		decrease_like_num.delay(request.user, pk)
 
 		return HttpResponse('Liked')
 	else:
@@ -170,8 +163,7 @@ def recipe_create(request):
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
 		step_formset = StepFormSet(request.POST, prefix='step')
 		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
-			print >> sys.stderr, 'valid!!!!!!!!!!!!!!!!'
-			r = recipe_form.save()
+			r = recipe_form.save(commit = False)
 			step = 0
 			for form in step_formset:
 				des = ''
@@ -193,6 +185,8 @@ def recipe_create(request):
 				else:
 					continue
 
+			r.save(commit=True)
+			actions.send(request.user, verb='created a new Recipe,', target = r)
 			return redirect(r)
 
 	else:
@@ -221,7 +215,7 @@ def recipe_edit(request, pk):
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
 		step_formset = StepFormSet(request.POST, prefix='step')
 		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
-			r = recipe_form.save()
+			r = recipe_form.save(commit = False)
 			
 			# Process step
 			step = 0
@@ -249,6 +243,8 @@ def recipe_edit(request, pk):
 				else:
 					continue
 
+			r.save(commit=True)
+			actions.send(request.user, verb='updated his/her Recipe,', target = r)
 			return redirect(r)
 
 
@@ -288,6 +284,7 @@ def recipe_delete(request, pk):
 		recipe.amount_set.all().delete()
 		recipe.step_set.all().delete()
 		recipe.delete()
+		actions.send(request.user, verb="deleted recipe %s" % name)
 		return render(request, 'recipe/recipe_delete.html', {'recipe': name,})
 
 	else:
