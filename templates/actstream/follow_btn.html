@@ -1,0 +1,26 @@
+{% load activity_tags %}
+
+<span class="mod-recipe-like pull-right">
+	{% if user|is_following:profile.user %}
+	<a href="#" id="followhref">
+		<button class="btn" id="mod-followbtn" disabled="disabled">
+			Followed</button>
+		</a>
+		{% else %}
+		<a href="{% follow_url profile.user %}" id="followhref">
+			<button class="btn" id="mod-followbtn">
+				Follow</button>
+		</a>
+		{% endif %}
+</span>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#followhref').click(function(){
+			$(this).html('<button class="btn" id="mod-followbtn" disabled="disabled">
+						Followed</button>
+					</a>');
+			return false;
+		});
+	});
+</script>

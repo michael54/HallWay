@@ -1,0 +1,7 @@
+{% load thumbnail %}
+<div>
+	<img src="{{comment.user.get_profile.mugshot|thumbnail_url:'avatar'}}" />
+	<a href="{{comment.user.get_absolute_url}}">{{comment.user}}</a>:
+	{{comment.comment}}
+	{{comment.submit_date|timesince}} ago
+</div>

@@ -5,6 +5,7 @@
 {% load static from staticfiles %}
 {% load url from future %}
 {% load activity_tags %}
+{% load comments%}
 
 {% load thumbnail %}
 
@@ -45,7 +46,7 @@
       </span>
       {% if user.is_authenticated %}
       <span class="mod-recipe-like pull-right">
-          {% if object in user.get_profile.favourite_recipes.all %}
+          {% if object in profile.favourite_recipes.all %}
           <a href="#" id="likehref">
             <button class="btn" id="mod-recipe-likedbtn" disabled="disabled">
           Liked</button>
@@ -72,9 +73,6 @@
 
     <hr />
 
-    <!--li><a href="/accounts/{{ object.author }}">{{ object.author }}</a></li-->
-    <!--div>{{ object.date }}</div-->
-    <!--div>{{ object.category }}</div-->
     <div class="mod-recipe-brief">
       <h2 class="mod-recipe-title-h2">Brief Introduction</h2>
       <p class="mod-recipe-brief-content well">
@@ -87,7 +85,7 @@
         Ingredients
       </h2>
       <ul class="well">
-       {% for ingredient in object.amount_set.all %}
+       {% for ingredient in amount_list %}
        {% if ingredient.must %}
        <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
        {% else %}
@@ -101,7 +99,7 @@
         Instructions
       </h2>
       <ol class="well">
-       {% for step in object.step_set.all %}
+       {% for step in step_list %}
        <li>{{ step.step_num }}:{{step.description}}</li>
        {% endfor %}
      </ol>
@@ -162,6 +160,38 @@
           {% endfor %}
         </ul>
       </div>
+      <div class="mod-discussion">
+        <span>
+          Discussion Board
+        </span>
+        {% if user.is_authenticated %}
+        {% get_comment_form for object as form %}
+        <form id="comment_form" action="/comments/post/" method="POST">
+          {% csrf_token %}
+          {{ form.comment }}
+          <div style="display:none">{{ form.honeypot }}</div>
+          {{ form.content_type }}
+          {{ form.object_pk }}
+          {{ form.timestamp }}
+          {{ form.security_hash }}
+          <button type="submit" class="btn" id="id_comment_submit" />Post</button>
+        </form>
+        {% else %}
+        <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
+        {% endif %}
+        <div id="discussion_list">
+        {% get_comment_list for object as comment_list%}
+        {% for comment in comment_list|slice:"-5:" reversed%}
+        <div>
+          <img src="{{comment.user.get_profile.mugshot|thumbnail_url:'avatar'}}" />
+          <a href="{{comment.user.get_absolute_url}}">{{comment.user}}</a>:
+          {{comment.comment}}
+          {{comment.submit_date|timesince}} ago
+        </div>
+
+        {% endfor %}
+        </div>
+      </div>
     </aside>
   </div>
 </div>
@@ -188,9 +218,9 @@
           <span class="pull-right">140</span>
         </div>
         {% if vote %}
-        <textarea name="comment" id="id_comment" maxlength="140">{{ vote.comment }}</textarea>
+        <textarea name="comment" id="id_votecomment" maxlength="140">{{ vote.comment }}</textarea>
         {% else %}
-        <textarea name="comment" id="id_comment" maxlength="140"></textarea>
+        <textarea name="comment" id="id_votecomment" maxlength="140"></textarea>
         {% endif %}
         <p>
           <input type="hidden" name="score" id="id_score" />
@@ -240,7 +270,7 @@ j(document).ready(function() {
     if (j('#id_score').val()) {
       var s = j('#id_score').val();
     }
-    var c = j('#id_comment').val(),
+    var c = j('#id_votecomment').val(),
         url = j(this).attr( 'action' );
 
     var postdata = {
@@ -268,6 +298,34 @@ j(document).ready(function() {
       j('#likehref').attr('href', '#');
     });
     return false;
+  });
+
+  j('#id_comment_submit').popover({
+    trigger: 'manual',
+    title: 'Success',
+    content: 'Your message is posted on the discussion board.',
+    placement: 'top',
+  });
+
+  j('#comment_form').submit(function(event) {
+    event.preventDefault();
+    var postdata = {
+      'comment' : j('#id_comment').val(),
+      'content_type' : j('#id_content_type').val(),
+      'object_pk' : j('#id_object_pk').val(),
+      'timestamp' : j('#id_timestamp').val(),
+      'security_hash' : j('#id_security_hash').val(),
+      'honeypot' : j('#id_honeypot').val(),
+      'csrfmiddlewaretoken': '{{ csrf_token }}',
+    }
+
+    j.post("/comments/post/", postdata, function(data) {
+        j('#id_comment_submit').popover('show');
+        setTimeout(function() {
+          j('#id_comment_submit').popover('hide');
+        }, 1200);
+        j(data).hide().prependTo('#discussion_list').show('slow');
+      });
   });
 });
 

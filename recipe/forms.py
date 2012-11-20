@@ -40,7 +40,7 @@ class RecipeForm(ModelForm):
 
 class VoteForm(forms.Form):
 	score = forms.IntegerField(min_value = 0, max_value = 5)
-	comment = forms.CharField(widget=forms.Textarea)
+	comment = forms.CharField(widget=forms.Textarea, required=False)
 
 class StepForm(forms.Form):
 	description = forms.CharField(min_length = 1)

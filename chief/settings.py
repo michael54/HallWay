@@ -104,6 +104,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'userena.middleware.UserenaLocaleMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'chief.urls'
@@ -120,6 +121,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'debug_toolbar',
     'grappelli',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,6 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'django.contrib.comments',
         
     # Plugins
     'djcelery',
@@ -233,7 +236,7 @@ THUMBNAIL_ALIASES = {
 }
 
 ACTSTREAM_SETTINGS = {
-    'MODELS': ('auth.user', 'recipe.Recipe', 'food.Food', 'recipe.Vote', ),
+    'MODELS': ('auth.user', 'recipe.Recipe', 'food.Food', 'recipe.Vote', 'comments.comment' ),
     'MANAGER': 'actstream.managers.ActionManager',
     'FETCH_RELATIONS': True,
     'USE_PREFETCH': True,
@@ -252,3 +255,6 @@ USERENA_MUGSHOT_GRAVATAR = False
 USERENA_MUGSHOT_DEFAULT = "/media/no_mugshot.jpg"
 
 USERENA_SIGNIN_REDIRECT_URL = "/activity/"
+
+
+INTERNAL_IPS = ('127.0.0.1',)

@@ -157,7 +157,7 @@ div#rateModal > .modal-body fieldset div#modal-cmt-title {
 	padding: 5px;
 }
 
-div#rateModal > .modal-body fieldset textarea#id_comment {
+div#rateModal > .modal-body fieldset textarea#id_votecomment {
 	margin-left: 5px;
 	width: 95%;
 	height: 50px;

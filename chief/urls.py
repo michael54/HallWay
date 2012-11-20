@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
+    url(r'^comments/post/$', 'recipe.ajax_comment_post.post_comment', name='ajaxcommentpost'),
+    url(r'^comments/', include('django.contrib.comments.urls')),
+
     url(r'^accounts/(?P<username>(?!signout|signup|signin)[\.\w]+)/$',
        'accounts.views.profile',
        name='userena_profile_detail'),

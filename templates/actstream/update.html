@@ -1,6 +1,6 @@
 {% extends 'nav.html' %}
 {% load activity_tags i18n static %}
-
+{% load static %}
 {% block csslink %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "css/user/act_update.css" %}"/>
@@ -58,3 +58,13 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	yuStar('{% static "jquery.raty-2.4.5/img/" %}');
+});
+</script>
+{% endblock%}

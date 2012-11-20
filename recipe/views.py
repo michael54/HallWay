@@ -18,6 +18,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.forms.formsets import formset_factory
 from django.conf import settings
+from accounts.models import MyProfile
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
 
@@ -43,10 +44,9 @@ def index(request):
 		return render(request, 'recipe/index.html')
 
 class RecipeDetailView(DetailView):
-	queryset = Recipe.objects.all()
 
 	def get_object(self):
-		object = super(RecipeDetailView, self).get_object()
+		object = Recipe.objects.select_related().get(id=self.kwargs.get('pk',None))
 
 		add_view_num.delay(object)
 
@@ -64,7 +64,10 @@ class RecipeDetailView(DetailView):
 				context['vote'] = None
 			else:
 				context['vote'] = vote
-		
+
+		context['profile'] = MyProfile.objects.prefetch_related('favourite_recipes').only('mugshot').get(user = context['object'].author)
+		context['amount_list'] = Amount.objects.filter(recipe = context['object']).select_related('ingredient')
+		context['step_list'] = Step.objects.filter(recipe = context['object']).order_by('step_num')
 		context['votelist'] = Vote.objects.filter(recipe = context['object']).order_by('-date')
 		return context
 
@@ -163,7 +166,7 @@ def recipe_create(request):
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
 		step_formset = StepFormSet(request.POST, prefix='step')
 		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
-			r = recipe_form.save(commit = False)
+			r = recipe_form.save()
 			step = 0
 			for form in step_formset:
 				des = ''
@@ -185,8 +188,6 @@ def recipe_create(request):
 				else:
 					continue
 
-			r.save(commit=True)
-			actions.send(request.user, verb='created a new Recipe,', target = r)
 			return redirect(r)
 
 	else:
@@ -215,7 +216,7 @@ def recipe_edit(request, pk):
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
 		step_formset = StepFormSet(request.POST, prefix='step')
 		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
-			r = recipe_form.save(commit = False)
+			r = recipe_form.save()
 			
 			# Process step
 			step = 0
@@ -243,8 +244,6 @@ def recipe_edit(request, pk):
 				else:
 					continue
 
-			r.save(commit=True)
-			actions.send(request.user, verb='updated his/her Recipe,', target = r)
 			return redirect(r)
 
 

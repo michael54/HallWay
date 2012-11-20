@@ -48,7 +48,7 @@ class Food(models.Model):
 
 	@models.permalink
 	def get_absolute_url(self):
-		return ('recipe_detail', (), {'pk': self.id})
+		return ('food_detail', (), {'pk': self.id})
 
 	class Meta:
 		ordering = ['like_num', 'view_num']
