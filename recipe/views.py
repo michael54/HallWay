@@ -63,10 +63,12 @@ class RecipeDetailView(DetailView):
 			except Vote.DoesNotExist:
 				context['vote'] = None
 			else:
-				context['vote'] = vote
+				context['vote'] = vote.select_related('user').only('user__mugshot','user__name')
 
-		context['profile'] = MyProfile.objects.prefetch_related('favourite_recipes').only('mugshot').get(user = context['object'].author)
-		context['amount_list'] = Amount.objects.filter(recipe = context['object']).select_related('ingredient')
+		context['profile'] = MyProfile.objects.only('mugshot').get(user = context['object'].author)
+		context['liked'] = context['profile'].favourite_recipes.filter(id=context['object'].id).only('id')
+
+		context['amount_list'] = Amount.objects.filter(recipe = context['object']).select_related('ingredient').only('ingredient__name')
 		context['step_list'] = Step.objects.filter(recipe = context['object']).order_by('step_num')
 		context['votelist'] = Vote.objects.filter(recipe = context['object']).order_by('-date')
 		return context

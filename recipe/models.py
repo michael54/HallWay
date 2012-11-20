@@ -75,7 +75,7 @@ class DidRecipe(models.Model):
 	image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
             ResizeToFit(width=540,upscale=True)], format='JPEG', options={'quality': 90})
-	comments = models.TextField()
+	comment = models.TextField()
 	date = models.DateTimeField(auto_now_add=True)
 
 	def __unicode__(self):

@@ -236,7 +236,7 @@ THUMBNAIL_ALIASES = {
 }
 
 ACTSTREAM_SETTINGS = {
-    'MODELS': ('auth.user', 'recipe.Recipe', 'food.Food', 'recipe.Vote', 'comments.comment' ),
+    'MODELS': ('auth.user', 'recipe.Recipe', 'food.Food', 'recipe.Vote', 'recipe.DidRecipe' ),
     'MANAGER': 'actstream.managers.ActionManager',
     'FETCH_RELATIONS': True,
     'USE_PREFETCH': True,

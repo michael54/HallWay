@@ -46,7 +46,7 @@
       </span>
       {% if user.is_authenticated %}
       <span class="mod-recipe-like pull-right">
-          {% if object in profile.favourite_recipes.all %}
+          {% if liked %}
           <a href="#" id="likehref">
             <button class="btn" id="mod-recipe-likedbtn" disabled="disabled">
           Liked</button>
@@ -142,7 +142,7 @@
     </section>
     <aside class="mod-side span4 well">
       <div class="mod-author">
-        <img src="{{object.author.get_profile.get_mugshot_url}}" id="mod-author-img" />
+        <img src="{{profile.get_mugshot_url}}" id="mod-author-img" />
         <a href="{{ object.author.get_absolute_url }}">
           <span id="mod-author-name">{{ object.author.username }}</span>
         </a>
@@ -166,7 +166,7 @@
         </span>
         {% if user.is_authenticated %}
         {% get_comment_form for object as form %}
-        <form id="comment_form" action="/comments/post/" method="POST">
+        <form id="comment_form" action="{% url 'ajaxcommentpost'%}" method="POST">
           {% csrf_token %}
           {{ form.comment }}
           <div style="display:none">{{ form.honeypot }}</div>
@@ -319,7 +319,7 @@ j(document).ready(function() {
       'csrfmiddlewaretoken': '{{ csrf_token }}',
     }
 
-    j.post("/comments/post/", postdata, function(data) {
+    j.post(j(this).attr('action'), postdata, function(data) {
         j('#id_comment_submit').popover('show');
         setTimeout(function() {
           j('#id_comment_submit').popover('hide');

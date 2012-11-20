@@ -6,6 +6,7 @@
     {% else %}<a href="{{ action.target_url }}">{{ action.target }}</a>
 {% endif %}
 {% if action.action_object %}
+{{ action.action_object.content_type}}
 <div class="medstar{{action.action_object.score}}"></div>
 <div class="mod-brief">{{action.target.brief|truncatechars:50}}</div>
 {% if action.action_object.comment %}

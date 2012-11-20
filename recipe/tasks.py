@@ -9,20 +9,24 @@ from datetime import timedelta
 from actstream import action
 from django.shortcuts import get_object_or_404
 from django.contrib.comments.signals import comment_was_posted
-from recipe.models import Recipe
+from recipe.models import Recipe, DidRecipe
 from django.db.models.signals import post_save
 from actstream.actions import follow, unfollow
 
-def async_comment_posted(sender, comment=None, request=None, **kwargs):
-	action.send(request.user, verb="discussed", action_object=comment, target=comment.content_object)
+# def async_comment_posted(sender, comment=None, request=None, **kwargs):
+# 	action.send(request.user, verb="discussed", action_object=comment, target=comment.content_object)
 
-comment_was_posted.connect(async_comment_posted)
+# comment_was_posted.connect(async_comment_posted)
 
+def didrecipe_saved(sender, instance=None, created=None, **kwargs):
+	if created:
+		action.send(instance.user, verb='uploaded', action_object=instance, target = instance.recipe)
+
+post_save.connect(didrecipe_saved, sender=DidRecipe)
 
 def recipe_saved(sender, instance=None, created=None, **kwargs):
 	if created:
 		action.send(instance.author, verb='created a new Recipe,', target = instance)
-		follow(instance.author, instance, actor_only=False)
 
 post_save.connect(recipe_saved, sender=Recipe)
 
