@@ -25,6 +25,7 @@
 			<div class="row-fluid">
 				<div class="mod-food-detail-header">
 					<div class="header-left span3">
+				    {# since food can only be added in admin, so I add /media/ in src attr #}
 				    <img class="food-cover-img" src="/media/{{object.cover_image}}" alt="food cover image" />
 				  </div>
 				  <div class="header-right span9">
@@ -41,19 +42,35 @@
 
 		  <hr />
 
-	    <ul>
-		    <li>Name: {{ object.name }}</li>
-		    <li>View Num: {{ object.view_num }}</li>
-		    <li>Category: {{ object.category }}</li>
-		    <li>Brief: {{ object.brief }}</li>
-		    {# since food can only be added in admin, so I add /media/ in src attr #}
-		    <li>Cover Image: <img src="/media/{{ object.cover_image }}" alt="food cover image" /></li>
-		    <li>Storage Time: {{ object.storage_time }}</li>
-		    <li>Storage Method: {{ object.storage_method }}</li>
-		    <li>Like Num: {{ object.like_num }}</li>
-		    <li>Pick Method: {{ object.pick_method }}</li>
-		    <li>Food Efficacy: {{ object.food_efficacy }}</li>
-	    </ul>
+		  <div id="mod-food-detail-content" class="tabbable">
+				<ul id="content-nav" class="nav nav-tabs">
+					<li class="active">
+						<a href="#rel-recipes" data-toggle="tab">Relative Recipes</a>
+					</li>
+					<li>
+						<a href="#detail-info" data-toggle="tab">Material Details</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div class="tab-pane active row-fluid" id="rel-recipes"></div>
+					<div class="tab-pane" id="detail-info">
+						<ul>
+					    <li>Name: {{ object.name }}</li>
+					    <li>View Num: {{ object.view_num }}</li>
+					    <li>Category: {{ object.category }}</li>
+					    <li>Brief: {{ object.brief }}</li>
+					    <li>Storage Time: {{ object.storage_time }}</li>
+					    <li>Storage Method: {{ object.storage_method }}</li>
+					    <li>Like Num: {{ object.like_num }}</li>
+					    <li>Pick Method: {{ object.pick_method }}</li>
+					    <li>Food Efficacy: {{ object.food_efficacy }}</li>
+				    </ul>
+				  </div>
+				</div>
+			</div>
+
+	    
 	  </div>
   </div>
 </div>
