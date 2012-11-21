@@ -44,3 +44,30 @@ p {
 	font-weight: bold;
 	color: rgb(169, 169, 169);
 }
+
+#mod-container div.brief-intro {
+	display: inline;
+}
+
+#mod-container a.hide-show {
+	display: none;
+	text-decoration: none;
+	color: rgb(178, 34, 34);
+}
+
+#mod-container a.hide-show:link {
+	color: rgb(178, 34, 34);
+}
+
+#mod-container a.hide-show:hover {
+	color: rgb(0, 191, 255);
+}
+
+#mod-container a.hide-show:visited {
+	color: rgb(178, 34, 34);
+}
+
+#mod-container a.hide-show:active {
+	background: rgb(0, 191, 255);
+	color: white;
+}

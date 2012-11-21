@@ -90,12 +90,14 @@ def profile_edit(request, username):
 		raise Http404
 
 def message_comet(request):
-	if request.is_ajax() and request.user.is_authenticated():
+	if request.user.is_authenticated():
 		number = MessageRecipient.objects.count_unread_messages_for(request.user)
 		if number > 0:
 			return render_to_response('umessages/notification.html', {'number': number})
 		else:
 			return HttpResponse('')
+	else:
+		return HttpResponse('')
 
 
 
