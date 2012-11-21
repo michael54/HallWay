@@ -13,7 +13,7 @@ from recipe.tasks import add_view_num, get_or_create_vote, add_like_num, decreas
 from django.core.urlresolvers import reverse
 from food.models import Food, FoodCategory
 from django.core import serializers
-from actstream import actions, models
+from actstream import action, models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.forms.formsets import formset_factory
@@ -63,7 +63,7 @@ class RecipeDetailView(DetailView):
 			except Vote.DoesNotExist:
 				context['vote'] = None
 			else:
-				context['vote'] = vote.select_related('user').only('user__mugshot','user__name')
+				context['vote'] = vote
 
 		context['profile'] = MyProfile.objects.only('mugshot').get(user = context['object'].author)
 		context['liked'] = context['profile'].favourite_recipes.filter(id=context['object'].id).only('id')
@@ -285,7 +285,7 @@ def recipe_delete(request, pk):
 		recipe.amount_set.all().delete()
 		recipe.step_set.all().delete()
 		recipe.delete()
-		actions.send(request.user, verb="deleted recipe %s" % name)
+		action.send(request.user, verb="deleted recipe %s" % name)
 		return render(request, 'recipe/recipe_delete.html', {'recipe': name,})
 
 	else:

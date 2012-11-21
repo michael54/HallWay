@@ -29,9 +29,23 @@ p {
 	margin-left: 25px;
 }
 
+h1 span.mod-edit {
+	color: rgb(130, 130, 130);
+	font-size: 14px;
+	font-style: bold;
+}
+
+h1 span.mod-edit a {
+	text-decoration: none;
+}
+
 #recipe_img_div {
 	height: 400px;
 	overflow: hidden;
+}
+
+div.mod-page-header {
+	display: inline;
 }
 
 div.mod-recipe-stat {
