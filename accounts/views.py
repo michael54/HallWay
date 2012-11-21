@@ -5,7 +5,7 @@ from recipe.models import Recipe
 from actstream import models as ActStream
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
-from userena.contrib.umessages.models import Message
+from userena.contrib.umessages.models import Message, MessageRecipient
 from userena.utils import get_profile_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from guardian.decorators import permission_required_or_403
@@ -88,5 +88,14 @@ def profile_edit(request, username):
 		return HttpResponse('Failed!')
 	else:
 		raise Http404
+
+def message_comet(request):
+	if request.is_ajax() and request.user.is_authenticated():
+		number = MessageRecipient.objects.count_unread_messages_for(request.user)
+		if number > 0:
+			return render_to_response('umessages/notification.html', {'number': number})
+		else:
+			return HttpResponse('')
+
 
 

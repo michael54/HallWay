@@ -1,0 +1,11 @@
+
+#notification_circle {
+	vertical-align:middle;
+	text-align:center;
+	height:18px;
+	width:18px;
+	font-size:13px;
+	color:white;
+	background-image:url('/static/img/circle-red.png');
+	background-size:contain;
+}

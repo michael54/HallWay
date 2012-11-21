@@ -35,7 +35,7 @@
 							<a href="#"><i class="icon-search"></i></a>
 						</li>
 						<li class="purple">
-							<a href="{% url 'actstream' %}"><i class="icon-rss"></i></a>
+							<a href="{% url 'actstream' %}"><i class="icon-bullhorn"></i></a>
 							<ul>
 								<li><a href="{% url 'actstream' %}"><i class="icon-rss"></i>News Feed</a></li>
 								<li><a href="{% url 'userena_umessages_list' %}"><i class="icon-envelope-alt"></i> Message</a></li>
@@ -90,5 +90,23 @@
 	<a href="{% url 'userena_signup' %}" class="btn btn-primary">Sign Up</a>
   </div>
 </div>
+<div id="notification" style="position:absolute; top:33px; right:438px; z-index:99999;"></div>
 
-{% endblock %}
+<script type="text/javascript" src="{% static "js/yuNotify.js"%}"></script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+function yuNotify(){
+	jQuery.ajax({ url: "{% url 'message_comet' %}", data:{'csrfmiddlewaretoken': '{{ csrf_token }}'}, success: function(data){
+			//Update your dashboard gauge
+			if (jQuery('#notification').html() != data) {
+				jQuery('#notification').html(data);
+			}
+
+	}, complete: yuNotify, timeout: 30000 });
+};
+
+yuNotify();
+});
+</script>
+
+{% endblock%}

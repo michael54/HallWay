@@ -28,6 +28,8 @@ urlpatterns = patterns('',
        'accounts.views.profile_edit',
        name='userena_profile_edit'),
 
+    url(r'^message_comet/$', 'accounts.views.message_comet', name='message_comet'),
+
     url(r'^accounts/', include('userena.urls')),
 
     url(r'^messages/', include('userena.contrib.umessages.urls')),
