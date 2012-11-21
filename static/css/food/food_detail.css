@@ -1,0 +1,46 @@
+body {
+	background: rgb(255, 255, 220);
+}
+
+div.#mod-container {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+h1.mod-page-title {
+	font-size: 28px;
+	font-style: bold;
+	line-height: 30px;
+	margin-bottom: 15px;
+}
+
+h2 {
+	color: rgb(110, 110, 110);
+	font-size: 22px;
+	font-style: bold;
+	line-height: 22px;
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+p {
+	padding-left: 15px;
+	/*margin-left: 25px;*/
+}
+
+#mod-container img.food-cover-img {
+	height: 140px;
+	width: 140px;
+	margin-left: auto;
+	margin-right: auto;
+	line-height: 140px;
+}
+
+#mod-container div.food-stat {
+	padding-left: 15px;
+	margin-bottom: 15px;
+	font-size: 14px;
+	font-weight: bold;
+	color: rgb(169, 169, 169);
+}

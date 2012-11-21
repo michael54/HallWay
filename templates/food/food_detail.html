@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block title %}
-{{ object.name }} Details (上厨娘)
+{{ object.name }} (上厨娘)
 {% endblock %}
 
 {% block content %}
@@ -22,13 +22,32 @@
 	<div class="row-fluid container">
 		<div class="mod-food-nav span3 well"></div>
 		<div class="mod-food-detail span9 well">
-	    <h2>Food</h2>
+			<div class="row-fluid">
+				<div class="mod-food-detail-header">
+					<div class="header-left span3">
+				    <img class="food-cover-img" src="/media/{{object.cover_image}}" alt="food cover image" />
+				  </div>
+				  <div class="header-right span9">
+				    <h2 class="food-name">{{object.name}}</h2>
+				    <div class="food-stat">
+					    <span class="rel-dish">## relative dishes.</span>
+					    <br />
+					    <span class="like-num">{{object.like_num}} liked this material.</span>
+					  </div>
+				    <p class="brief-intro">{{object.brief}}</p>
+				  </div>
+			  </div>
+			</div>
+
+		  <hr />
+
 	    <ul>
 		    <li>Name: {{ object.name }}</li>
 		    <li>View Num: {{ object.view_num }}</li>
 		    <li>Category: {{ object.category }}</li>
 		    <li>Brief: {{ object.brief }}</li>
-		    <li>Cover Image: {{ object.cover_image }}</li>
+		    {# since food can only be added in admin, so I add /media/ in src attr #}
+		    <li>Cover Image: <img src="/media/{{ object.cover_image }}" alt="food cover image" /></li>
 		    <li>Storage Time: {{ object.storage_time }}</li>
 		    <li>Storage Method: {{ object.storage_method }}</li>
 		    <li>Like Num: {{ object.like_num }}</li>
@@ -39,3 +58,7 @@
   </div>
 </div>
 {% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "js/food/food_detail.js" %}"></script>
+{% endblock js %}

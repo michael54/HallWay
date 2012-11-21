@@ -90,6 +90,7 @@
 				{% for r in recipe_list %}
 				<li class="span4">
 					<a href="{{ r.get_absolute_url }}" class="thumbnail">
+						{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
 						<img class="cover-img" src="{{ r.cover_image }}" alt="{% trans "cover image" %}" />
 						<div class="caption">
 							<div class="recipe-name">{{ r.name }}</div>
