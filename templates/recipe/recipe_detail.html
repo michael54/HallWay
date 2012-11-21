@@ -23,7 +23,7 @@
   <div class="row-fluid container-fluid">
     <section class="mod-main span7 well">
      <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}</h1>
-     <div id="recipe_img_div" class="mod-recipe-img well">
+     <div id="recipe_img_div" class="mod-recipe-img">
       {% if object.cover_image %}
       <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
       {% else %}

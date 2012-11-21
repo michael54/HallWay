@@ -11,21 +11,24 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.html import escape
+from django.contrib.auth.decorators import login_required
 
 from django.utils import simplejson
 import sys
 
+@login_required
 def post_comment(request, next=None, using=None):
     if request.is_ajax():
         
         # Fill out some initial data fields from an authenticated user, if present
         data = request.POST.copy()
-        if request.user.is_authenticated():
-            if not data.get('name', ''):
-                data["name"] = request.user.get_full_name() or request.user.get_username()
-            if not data.get('email', ''):
-                data["email"] = request.user.email
-
+        
+        if not data.get('name', ''):
+            data["name"] = request.user.username
+        if not data.get('email', ''):
+            data["email"] = request.user.email
+        print >> sys.stderr, data
+        
         # Look up the object we're trying to comment about
         ctype = data.get("content_type")
         object_pk = data.get("object_pk")
@@ -50,6 +53,7 @@ def post_comment(request, next=None, using=None):
 
         # Save the comment and signal that it was saved
         comment.save()
+
         signals.comment_was_posted.send(
             sender=comment.__class__,
             comment=comment,
