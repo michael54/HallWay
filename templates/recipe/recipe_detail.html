@@ -184,7 +184,7 @@
           <button type="submit" class="btn" id="id_comment_submit" />Post</button>
         </form>
         {% else %}
-        <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
+        <p>Please <a href="{% url 'userena_signin' %}">log in</a> to leave a comment.</p>
         {% endif %}
         <div id="discussion_list">
         {% get_comment_list for object as comment_list%}
