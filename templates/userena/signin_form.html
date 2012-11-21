@@ -1,11 +1,17 @@
 {% extends 'nav.html' %}
 {% load i18n %}
+{% load static from staticfiles %}
 {% load url from future %}
+
+{% block csslink %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "css/user/signup.css" %}" type="text/css" />
+{% endblock %}
 
 {% block title %}{% trans "Signin" %}{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container fill">
   <div class="row-fluid">
     <div class="span8 well">
       <img src="/media/signin-page-img.jpg" alt="sign in page image" />

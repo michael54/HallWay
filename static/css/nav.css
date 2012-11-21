@@ -22,11 +22,11 @@ body {
 
 #colorNav > ul > li{ /* will style only the top level li */
 	list-style: none;
-	box-shadow: 0 0 10px rgba(100, 100, 100, 0.2) inset,1px 1px 1px #CCC;
+	/*box-shadow: 0 0 10px rgba(100, 100, 100, 0.2) inset,1px 1px 1px #CCC;*/
 	display: inline-block;
 	line-height: 50px;
 	margin: 0px;
-	border-radius: 10px;
+	border: 0;
 	position:relative;
 	height: 50px;
 	max-height: 50px;
@@ -148,3 +148,10 @@ body {
 #colorNav li.yellow{	background-color:#f8c54d;color:#ab8426;}
 #colorNav li.purple{	background-color:#df6dc2;color:#9f3c85;}
 
+.navbar-inner {
+	background-color: transparent; /* background color will be black for all browsers */
+	background-image: none;
+	background-repeat: no-repeat;
+	filter: none;
+	border: 0;
+}
