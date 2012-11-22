@@ -13,58 +13,63 @@
 	
 {% block navbar %}
 	
-	<div class="navbar navbar-fixed-top">
-	  <div class="navbar-inner" id="navbar-global">
-		<div class="container row-fluid" id="nav-container">
-			<a class="brand span3" href="#">LOGO</a>
-			<div id="colorNav" class="span8">
-					<ul style="position:relative;">
-						<li class="green">
-							<a href="{% url 'homepage' %}"><i class="icon-home"></i></a>
-						</li>
-						<li class="red">
-							<a href="#"><i class="icon-glass"></i></a>
-							<ul>
-								<li><a href="{% url 'hot_recipes' %}"><i class="icon-heart"></i>Hot Recipes</a></li>
-								{% if user.is_authenticated %}
-								<li><a href="{% url 'recipe_create' %}"><i class="icon-upload-alt"></i>Add A Recipe</a></li>
-								{% endif %}
-							</ul>
-						</li>
-						<li class="yellow">
-							<a href="#"><i class="icon-search"></i></a>
-						</li>
-						<div id="notification" style="position:absolute; top:30px; right:180px;" ></div>
-						<li class="purple">
-							<a href="{% url 'actstream' %}"><i class="icon-bullhorn"></i></a>
-							<ul>
-								<li><a href="{% url 'actstream' %}"><i class="icon-rss"></i>News Feed</a></li>
-								<li><a href="{% url 'userena_umessages_list' %}"><i class="icon-envelope-alt"></i> Message</a></li>
-							</ul>
-						</li>
-						<li class="blue pull-right">
-							{% if user.is_authenticated %}
-							<a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i></a>
-							{% else %}
-							<a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i></a>
-							{% endif %}
-							<ul>	
-								{% if user.is_authenticated %}
-								<li><a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i> My Profile</a></li>
-								<li><a href="#"><i class="icon-glass"></i> My Recipes</a></li>
-								<li><a href="{% url 'userena_signout' %}"><i class="icon-signout"></i> Sign Out</a></li>
-								{% else %}
-								<li><a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i> Sign In</a></li>
-								<li><a data-toggle="modal" href="{% url 'userena_signup' %}" ><i class="icon-plus"></i> Sign Up</a></li>
-								{% endif %}
-							</ul>
-						</li>
-						<!-- More menu items -->  	
-				</ul>
-			</div>
+<div class="navbar navbar-static-top">
+  <div class="navbar-inner">
+	<div class="container row-fluid" id="nav-container">
+		<div id="nav-logo" class="span3">
+			<a class="brand" href="#">LOGO</a>
 		</div>
+		<div id="colorNav" class="span9">
+				<ul style="position:relative;">
+					<li class="green">
+						<a href="{% url 'homepage' %}"><i class="icon-home"></i></a>
+					</li>
+					<li class="red">
+						<a href="#"><i class="icon-glass"></i></a>
+						<ul>
+							<li><a href="{% url 'hot_recipes' %}"><i class="icon-heart"></i>Hot Recipes</a></li>
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'recipe_create' %}"><i class="icon-upload-alt"></i>Add A Recipe</a></li>
+							{% endif %}
+						</ul>
+					</li>
+					<li class="yellow">
+						<a href="#"><i class="icon-search"></i></a>
+					</li>
+					<div id="notification" style="position:absolute; top:30px; right:180px;" ></div>
+					<li class="purple">
+						<a href="{% url 'actstream' %}"><i class="icon-bullhorn"></i></a>
+						<ul>
+							<li><a href="{% url 'actstream' %}"><i class="icon-rss"></i>News Feed</a></li>
+							<li><a href="{% url 'userena_umessages_list' %}"><i class="icon-envelope-alt"></i> Message</a></li>
+						</ul>
+					</li>
+					<li class="blue pull-right">
+						{% if user.is_authenticated %}
+						<a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i></a>
+						{% else %}
+						<a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i></a>
+						{% endif %}
+						<ul>	
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i> My Profile</a></li>
+							<li><a href="#"><i class="icon-glass"></i> My Recipes</a></li>
+							<li><a href="{% url 'userena_signout' %}"><i class="icon-signout"></i> Sign Out</a></li>
+							{% else %}
+							<li><a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i> Sign In</a></li>
+							<li><a data-toggle="modal" href="{% url 'userena_signup' %}" ><i class="icon-plus"></i> Sign Up</a></li>
+							{% endif %}
+						</ul>
+					</li>
+					<!-- More menu items -->  	
+			</ul>
 		</div>
 	</div>
+	</div>
+</div>
+<div>
+	<a href="#" class="scroll-up"><i class="icon-chevron-up"></i></a>
+</div>
 <div class="modal hide fade" tabindex="-1" aria-hidden="true" id="signinModal">
   <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">x</button>
@@ -117,5 +122,6 @@ yuNotify();
 {% endif %}
 });
 </script>
+<script type="text/javascript" src="{% static "js/zhEffect.js" %}"></script>
 
 {% endblock%}

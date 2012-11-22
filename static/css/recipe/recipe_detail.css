@@ -1,22 +1,13 @@
-body {
-	/*background: rgb(255, 255, 220);*/
-	background: rgb(206,161,99); /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover,  rgba(206,161,99,1) 0%, rgba(56,28,14,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(206,161,99,1)), color-stop(100%,rgba(56,28,14,1))); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover,  rgba(206,161,99,1) 0%,rgba(56,28,14,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover,  rgba(206,161,99,1) 0%,rgba(56,28,14,1) 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover,  rgba(206,161,99,1) 0%,rgba(56,28,14,1) 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center,  rgba(206,161,99,1) 0%,rgba(56,28,14,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cea163', endColorstr='#381c0e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-}
-
 div.#mod-container {
 	padding: 0;
 	margin: 0;
 	border: 0;
+	overflow: scroll;
 }
 
 h1.mod-page-title {
+	font-family: 'Dancing Script', cursive;
+	color: #EE9A2A;
 	font-size: 28px;
 	font-style: bold;
 	line-height: 30px;
@@ -38,6 +29,7 @@ p {
 }
 
 h1 span.mod-edit {
+	font-family: 'Kite One', sans-serif;
 	color: rgb(130, 130, 130);
 	font-size: 14px;
 	font-style: bold;

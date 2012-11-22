@@ -21,7 +21,7 @@
 {% block content %}
 <div id="mod-container">
   <div class="row-fluid container-fluid">
-    <section class="mod-main span7 well">
+    <section class="mod-main span7 well well-small">
      <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}
        {% ifequal user object.author %}
        <span class="mod-edit">
@@ -147,7 +147,7 @@
       {% endif %}
     </div>
     </section>
-    <aside class="mod-side span4 well">
+    <aside class="mod-side span4 well well-small">
       <div class="mod-author">
         <img src="{{profile.get_mugshot_url}}" id="mod-author-img" />
         <a href="{{ object.author.get_absolute_url }}">

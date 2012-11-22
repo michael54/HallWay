@@ -108,23 +108,11 @@ P.larger-size { font-size: 16px; }
 
 
 /*change nav bar to be transparent*/
-.navbar{
-	opacity: 0.6;
-}
-
 #colorNav > ul > li{
-	opacity: 0.6;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
 
-}
-
-#colorNav > ul > li:hover {
-	opacity: 1.0;
-	/*-webkit-transform: rotate(-7deg);
-	-moz-transform: rotate(-7deg);
-	-o-transform: rotate(-7deg);*/
 }
 
 /* image caption hover effect */
