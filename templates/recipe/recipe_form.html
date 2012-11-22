@@ -18,6 +18,9 @@ Upload your Recipe
 {% block content %}
 <form id="newFormsets" method="post" enctype="multipart/form-data" action="">
   {% csrf_token %}
+<div id="container">  
+<fieldset>
+  <legend>What's the dish you wanna add?</legend>  
   <table id="recipe_table" class="table-hover">
     <tr>
       <th>{{recipe_form.name.label}}</th>
@@ -49,9 +52,13 @@ Upload your Recipe
     <td>{{recipe_form.cook_time}}</td>
   </tr>
 </table>
+</fieldset>
+
+<fieldset id="fieldset">
+<legend>How about the ingredients?</legend>  
 {{ amount_formset.management_form }}
 <table id="ingredient_table" class="table-hover">
-  <caption>What Ingredients Needs?</caption>
+  <!-- <caption>What Ingredients Needs?</caption> -->
   <thead>
     <tr>
       <th>Ingredient</th>
@@ -69,7 +76,9 @@ Upload your Recipe
     {% endfor %}
   </tbody> 
 </table>
-
+</fieldset>
+<fieldset id="fieldset2">
+<legend>Wanna share your cooking steps with us?</legend>
 {{ step_formset.management_form }}
 <table id="step_table" class="table-hover">
   <caption>Give Instructions</caption>
@@ -92,7 +101,9 @@ Upload your Recipe
     {% endfor %}
   </tbody> 
 </table>
-<button type="submit" class="btn btn-primary pull-right">Save</button>
+</fieldset>
+</div>
+<button type="submit" id="save_button" class="btn btn-primary pull-right">Save</button>
 </form>
 {% endblock content %}
 

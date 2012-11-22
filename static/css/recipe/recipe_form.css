@@ -1,0 +1,51 @@
+#recipe_table {
+	position: relative;
+	left:80px;
+	top:10px;
+}
+#ingredient_table{
+	position: relative;
+	left:80px;
+	top:10px;
+}
+#step_table {
+	position: relative;
+	left:80px;
+	top:10px;
+}
+#fieldset {
+	position: relative;
+	top:50px;
+}
+#fieldset2 {
+	position: relative;
+	top:80px;
+}
+#save_button {
+	position: relative;
+	top:100px;
+	right:480px;
+}
+legend {
+	margin: 1em 0px;
+	padding: 0px 0.5em;
+	color: rgb(0, 51, 102);
+	background: none repeat scroll 0% 0% transparent;
+	font-size: 1.3em;
+	font-weight: bold;
+}
+
+fieldset {
+	margin: 1em 0px;
+	border-right: medium none;
+	border-width: 1px medium medium;
+	border-style: solid none none;
+	border-color: rgb(204, 204, 204) -moz-use-text-color -moz-use-text-color;
+}
+
+#container {
+	margin: 0px auto;
+	padding: 1em;
+	width: 800px;
+	text-align: left;
+}
