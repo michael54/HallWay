@@ -1,20 +1,49 @@
 {% extends 'nav.html' %}
 {% load i18n %}
 {% load thumbnail %}
+{% load static %}
+{% block csslink %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "css/message/chat.css" %}">
+{% endblock%}
+
+
+{% block title %}{% blocktrans %}Conversation with {{ recipient }}{% endblocktrans %}{% endblock %}
 
 {% block content_title %}<h2>{% blocktrans %}Conversation with {{ recipient }}{% endblocktrans %}</h2>{% endblock %}
 
 {% block content %}
 
-<ul>
-{% for message in message_list %}
-<li>
-  <div class="row"><img src="{{ message.sender.get_profile.mugshot|thumbnail_url:'avatar'}}"/><a href="{{message.sender.get_absolute_url}}">{{ message.sender }}</a></div>
-  <div class="row">{{ message.body}}</div>
-  <p>{% blocktrans with message.sent_at as sent_at %}Received on {{ sent_at }}{% endblocktrans %}</p>
-</li>
+<div id="chat_section" class="chat span7 section">
+{% for message in message_list reversed %}
+{% ifequal user message.sender %}
+  <div class="bubble me"><img src="{{ message.sender.get_profile.mugshot|thumbnail_url:'avatar'}}"/><a href="{{message.sender.get_absolute_url}}">{{ message.sender }}</a>
+  <p>{{ message.body}}<p>
+  <p>{{ message.sent_at|timesince }} ago</p></div>
+{% else %}
+  <div class="bubble you"><img src="{{ message.sender.get_profile.mugshot|thumbnail_url:'avatar'}}"/><a href="{{message.sender.get_absolute_url}}">{{ message.sender }}</a>
+  <p>{{ message.body}}<p>
+  <p>{{ message.sent_at|timesince }} ago</p></div>
+{% endifequal %}
 {% endfor %}
+</div>
+<div class="aside span4 well">
+<form action="{% url userena_umessages_compose %}" method="post" id="compose_message_form">
+  {% csrf_token %}
+  <fieldset>
+    <legend>Compose message</legend>
+    <input type="hidden" name="to" id="id_to" value="{{recipient}}"/>
+<p><label for="id_body">Message:</label> <textarea id="id_body" rows="10" cols="40" name="body" class="message"></textarea></p>
+  </fieldset>
+  <button type="submit" class="btn">Send</button>
+</form>
+</div>
 
-</ul>
+{% endblock %}
 
+{% block js %}
+<script type="text/javascript">
+var objDiv = document.getElementById("chat_section");
+objDiv.scrollTop = objDiv.scrollHeight;
+</script>
 {% endblock %}

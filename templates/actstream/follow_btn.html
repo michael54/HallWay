@@ -1,26 +1,25 @@
 {% load activity_tags %}
 
 <span class="mod-recipe-like pull-right">
-	{% if user|is_following:profile.user %}
-	<a href="#" id="followhref">
-		<button class="btn" id="mod-followbtn" disabled="disabled">
-			Followed</button>
-		</a>
-		{% else %}
-		<a href="{% follow_url profile.user %}" id="followhref">
-			<button class="btn" id="mod-followbtn">
-				Follow</button>
-		</a>
-		{% endif %}
+	
+	<a href="{% follow_url profile.user %}" id="followhref">
+		<button id="follow_btn" class="btn">{% if user|is_following:profile.user %}UnFollow{% else %}Follow{% endif %}</button>
+	</a>
 </span>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#followhref').click(function(){
-			$(this).html('<button class="btn" id="mod-followbtn" disabled="disabled">
-						Followed</button>
-					</a>');
-			return false;
+jQuery(document).ready(function() {
+	jQuery('#followhref').click(function(event){
+		var url = jQuery(this).attr('href');
+		jQuery.get(url, function(data) {
+			if (jQuery('#follow_btn').html() == 'Follow'){
+				jQuery('#follow_btn').html('UnFollow');
+			}
+			else{
+				jQuery('#follow_btn').html('Follow');
+			}
 		});
+		return false;
 	});
+});
 </script>
