@@ -94,7 +94,6 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
-function yuNotify(){
 	jQuery.ajax({ url: "{% url 'message_comet' %}", success: function(data){
 		//Update your dashboard gauge
 		if (jQuery('#notification').html() != data) {
@@ -102,6 +101,7 @@ function yuNotify(){
 		}
 
 	}});
+function yuNotify(){
 	setTimeout(function () {
 		jQuery.ajax({ url: "{% url 'message_comet' %}", success: function(data){
 			//Update your dashboard gauge
@@ -112,8 +112,9 @@ function yuNotify(){
 		}, complete: yuNotify });
 	}, 30000);
 };
-
+{% if user.is_authenticated %}
 yuNotify();
+{% endif %}
 });
 </script>
 

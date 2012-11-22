@@ -14,9 +14,11 @@ jQuery(document).ready(function() {
 		jQuery.get(url, function(data) {
 			if (jQuery('#follow_btn').html() == 'Follow'){
 				jQuery('#follow_btn').html('UnFollow');
+				jQuery('#followhref').attr('href', "{% url actstream_unfollow 3 profile.user.id %}")
 			}
 			else{
 				jQuery('#follow_btn').html('Follow');
+				jQuery('#followhref').attr('href', "{% url actstream_follow 3 profile.user.id %}")
 			}
 		});
 		return false;

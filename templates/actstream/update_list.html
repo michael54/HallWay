@@ -1,0 +1,30 @@
+
+{% load i18n %}
+
+
+{% for action in action_list %}
+<li>{% include 'actstream/action.html' %}</li>
+{% empty %}
+{% trans "No more action" %}
+{% endfor %}
+
+<div class="pagination">
+	<span class="step-links">
+		{% if action_list.has_next %}
+		<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activites</a>
+		{% endif %}
+	</span>
+</div>
+
+<script type="text/javascript">
+  	$('#next_link').click(function(){
+  		var url = $(this).attr('href');
+  		var postdata = {
+  			'csrfmiddlewaretoken': '{{ csrf_token }}',
+  		}
+  		$.get(url, postdata, function(data){
+  			$('.pagination').replaceWith(data);
+  		})
+  		return false;
+  	});
+</script>

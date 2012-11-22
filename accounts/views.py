@@ -53,6 +53,8 @@ def leave_message(request, username):
 	else:
 		raise Http404
 
+
+
 @secure_required
 @permission_required_or_403('change_profile', (get_profile_model(), 'user__username', 'username'))
 def profile_edit(request, username):
@@ -93,25 +95,49 @@ def profile_edit(request, username):
 		raise Http404
 
 def message_comet(request):
-	if request.user.is_authenticated():
+	if request.is_ajax() and request.user.is_authenticated():
 		number = MessageRecipient.objects.count_unread_messages_for(request.user)
 		if number > 0:
 			return render_to_response('umessages/notification.html', {'number': number})
 		else:
 			return HttpResponse('')
 	else:
-		return HttpResponse('')
+		raise Http404
 
 @login_required
 def activity(request):
-    """
-    Index page for authenticated user's activity stream. 
-    """
-    return render(request, 'actstream/update.html', {
-        'ctype': ContentType.objects.get_for_model(User),
-        'actor': request.user, 'action_list': models.user_stream(request.user),
-        'following': models.following(request.user),
-        'followers': models.followers(request.user),
-    })
+	if request.is_ajax():
+
+		queryset = models.user_stream(request.user)
+		paginator = Paginator(queryset, 10)
+		page = request.GET.get('page')
+		try:
+			action_list = paginator.page(page)
+		except PageNotAnInteger:
+			raise Http404
+		except EmptyPage:
+			# If page is out of range (e.g. 9999), deliver last page of results.
+			action_list = paginator.page(paginator.num_pages)
+		return render_to_response('actstream/update_list.html',{
+			'action_list': action_list,
+		})
+
+	else:
+		queryset = models.user_stream(request.user)
+		paginator = Paginator(queryset, 10)
+		try:
+			action_list = paginator.page(1)
+		except PageNotAnInteger:
+			raise Http404
+		except EmptyPage:
+			# If page is out of range (e.g. 9999), deliver last page of results.
+			action_list = paginator.page(paginator.num_pages)		
+		return render(request, 'actstream/update.html', {
+					'ctype': ContentType.objects.get_for_model(User),
+					'actor': request.user, 
+					'action_list': action_list,
+					'following': models.following(request.user),
+					'followers': models.followers(request.user),
+			})
 
 

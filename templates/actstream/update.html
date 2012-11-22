@@ -18,18 +18,30 @@
 <div id="mod-container">
 	<div class="row-fluid container-fluid">
 		<section class="mod-main span7 well">
-			{% if request.user.is_authenticated %}
+			{% comment %}
+			{% if user.is_authenticated %}
 			<p>
-				<a href="{% actor_url request.user %}">{% trans "View my actions" %}</a>
+				<a href="{% actor_url user %}">{% trans "View my actions" %}</a>
 			</p>
 			{% endif %}
-			<ul>
-				{% for action in action_list %}
-				<li>{% include 'actstream/action.html' %}</li>
-				{% empty %}
-				{% trans "No actions yet" %}
-				{% endfor %}
-			</ul>
+			{% endcomment %}
+			<div>
+				<ul id="action_list">
+					{% for action in action_list %}
+					<li>{% include 'actstream/action.html' %}</li>
+					{% empty %}
+					{% trans "No actions yet" %}
+					{% endfor %}
+				
+				<div class="pagination">
+					<span class="step-links">
+						{% if action_list.has_next %}
+						<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activties</a>
+						{% endif %}
+					</span>
+				</div>
+				</ul>
+			</div>
 		</section>
 		<aside class="mod-side span4 well">
 			<div>
@@ -65,6 +77,16 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	yuStar('{% static "jquery.raty-2.4.5/img/" %}');
+	$('#next_link').click(function(){
+		var url = $(this).attr('href');
+		var postdata = {
+			'csrfmiddlewaretoken': '{{ csrf_token }}',
+		}
+		$.get(url, postdata, function(data){
+			$('.pagination').replaceWith(data);
+		})
+		return false;
+	});
 });
 </script>
 {% endblock%}
