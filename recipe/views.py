@@ -13,9 +13,8 @@ from recipe.tasks import add_view_num, get_or_create_vote, add_like_num, decreas
 from django.core.urlresolvers import reverse
 from food.models import Food, FoodCategory
 from django.core import serializers
-from actstream import action, models
+from actstream import action
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.forms.formsets import formset_factory
 from django.conf import settings
 from accounts.models import MyProfile
@@ -143,18 +142,6 @@ def unlike(request, pk):
 	else:
 		raise Http404	
 
-
-@login_required
-def activity(request):
-    """
-    Index page for authenticated user's activity stream. 
-    """
-    return render(request, 'actstream/update.html', {
-        'ctype': ContentType.objects.get_for_model(User),
-        'actor': request.user, 'action_list': models.user_stream(request.user),
-        'following': models.following(request.user),
-        'followers': models.followers(request.user),
-    })
 
 @login_required
 def recipe_create(request):

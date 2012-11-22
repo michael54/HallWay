@@ -59,7 +59,7 @@ urlpatterns = patterns('',
     url(r'^foodcategory/(\d+)/(\w+)/$', FoodCategoryListView.as_view()),
     
     # URL for activity
-    url(r'^activity/$', 'recipe.views.activity', name='actstream'),
+    url(r'^activity/$', 'accounts.views.activity', name='actstream'),
     url(r'^activity/', include('actstream.urls')),
 
 

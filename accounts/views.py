@@ -1,6 +1,6 @@
 from userena.views import profile_detail
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import render,get_object_or_404, render_to_response
 from recipe.models import Recipe
 from actstream import models as ActStream
 from django.contrib.auth.decorators import login_required
@@ -10,6 +10,9 @@ from userena.utils import get_profile_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from guardian.decorators import permission_required_or_403
 from userena.decorators import secure_required
+from actstream import models
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 import sys
 import json
@@ -99,5 +102,16 @@ def message_comet(request):
 	else:
 		return HttpResponse('')
 
+@login_required
+def activity(request):
+    """
+    Index page for authenticated user's activity stream. 
+    """
+    return render(request, 'actstream/update.html', {
+        'ctype': ContentType.objects.get_for_model(User),
+        'actor': request.user, 'action_list': models.user_stream(request.user),
+        'following': models.following(request.user),
+        'followers': models.followers(request.user),
+    })
 
 

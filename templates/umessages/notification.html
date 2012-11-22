@@ -1,3 +1,4 @@
 {% load static %}
+{% load url from future %}
 <link rel="stylesheet" type="text/css" href="{% static "css/notification.css"%}">
-<div id="notification_circle">{{number}}</div>
+<a href="{% url 'userena_umessages_list'%}"><div id="notification_circle">{{number}}</div></a>
