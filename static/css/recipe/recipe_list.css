@@ -87,3 +87,27 @@ div.brief p {
 	font-size: 14px;
 	padding: 5px;
 }
+
+div.detail-nav {
+	margin-bottom: 10px;
+}
+
+div.rank-method, div.display-method {
+	display: inline;
+	margin-left: 10px;
+	height: 18px;
+	line-height: 18px;
+}
+
+div.rank-method a, div.display-method a, div.rank-method span {
+	text-decoration: none;
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 14px;
+	font-weight: bold;
+	color: #D3C0A8;
+}
+
+div.display-method a {
+	font-size: 18px;
+	margin-left: 5px;
+}

@@ -95,7 +95,17 @@
 		<div class="mod-list-detail span9 well well-small">
 			<h1 class="mod-page-title">{{category}}</h1>
 			<div class="detail-nav">
-				
+				<div class="rank-method">
+					<a href="#">Recently Popular</a>
+					<span>&nbsp;|&nbsp;</span>
+					<a href="#">Most Popular</a>
+					<span>&nbsp;|&nbsp;</span>
+					<a href="#">Latest Created</a>
+				</div>
+				<div class="display-method">
+					<a href="#"><i class="icon-list-ul"></i></a>
+					<a href="#"><i class="icon-th-large"></i></a>
+				</div>
 			</div>
 			<div class="rank-hot">
 				{% for recipe in recipe_list %}
