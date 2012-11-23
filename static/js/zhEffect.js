@@ -1,16 +1,14 @@
-var j = jQuery.noConflict();
-
-j(document).ready(function () {
-	j(window).scroll(function(){
-        if (j(this).scrollTop() > 100) {
-            j('a.scroll-up').fadeIn();
+$(document).ready(function () {
+	$(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('a.scroll-up').fadeIn();
         } else {
-            j('a.scroll-up').fadeOut();
+            $('a.scroll-up').fadeOut();
         }
     }); 
 
-    j('a.scroll-up').click(function(){
-        j("html, body").animate({ scrollTop: 0 }, 600);
+    $('a.scroll-up').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 600);
         return false;
     });
 });
