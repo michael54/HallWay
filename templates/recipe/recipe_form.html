@@ -27,9 +27,50 @@ Upload your Recipe
       <td>{{recipe_form.name}}</td>
     </tr>
     {{recipe_form.author}}
+    {{recipe_form.category}}
     <tr>
-      <th>{{recipe_form.category.label}}</th>
-      <td>{{recipe_form.category}}</td>
+      <th>Courses</th>
+      <td>
+        <select class="seperated_select">
+          <option>None</option>
+          {% for c in Courses%}
+          <option value="{{c.id}}">{{c.name}}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>Cuisine</th>
+      <td>
+        <select class="seperated_select">
+          <option>None</option>
+          {% for c in Cuisines%}
+          <option value="{{c.id}}">{{c.name}}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>Main Ingredient</th>
+      <td>
+        <select class="seperated_select">
+          <option>None</option>
+          {% for c in Main_Ingredients%}
+          <option value="{{c.id}}">{{c.name}}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>Special Diet</th>
+      <td>
+        <select class="seperated_select">
+          <option>None</option>
+          {% for c in Special_Diets%}
+          <option value="{{c.id}}">{{c.name}}</option>
+          {% endfor %}
+        </select>
+      </td>
     </tr>
     <tr>
       <th>{{recipe_form.brief.label}}</th>
@@ -111,6 +152,16 @@ Upload your Recipe
 <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js" ></script>  
 <script type="text/javascript" src="{% static "js/recipe/recipe_form.js" %}"></script>
 <script type="text/javascript">
+function bindSelet(){
+  var l = new Array();
+  $('.seperated_select').each(function (i){
+    if ($(this).val()!='None'){
+      l.push($(this).val());
+    }
+  });
+  $('#id_category').val(l);
+}
+
 $('body').on('click', '.step_image_delete', function(event) {
   event.preventDefault();
   var del = $(event.target);
@@ -135,6 +186,11 @@ $('body').on('click', '.step_image_delete', function(event) {
 });
 
 $(document).ready(function() {
+  $('#id_category').hide();
+  $('.seperated_select').change(function (){
+    bindSelet();
+  });
+
   stepCount(jQuery('.step_num_counter'));
 
   $('#cover_image_delete').click(function (event) {

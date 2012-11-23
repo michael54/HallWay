@@ -97,7 +97,7 @@ class RecipeCategoryListView(ListView):
 		context['Courses'] = RecipeCategory.objects.filter(parent__name='Courses').only('name')
 		context['Cuisines'] = RecipeCategory.objects.filter(parent__name='Cuisines').only('name')
 		context['Main_Ingredients'] = RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name')
-		context['Sepcial_Diets'] = RecipeCategory.objects.filter(parent__name='Special Diets').only('name')
+		context['Special_Diets'] = RecipeCategory.objects.filter(parent__name='Special Diets').only('name')
 		return context
 
 class HotRecipeListView(ListView):
@@ -194,6 +194,10 @@ def recipe_create(request):
 		'recipe_form': recipe_form,
 		'amount_formset': amount_formset,
 		'step_formset': step_formset,
+		'Courses': RecipeCategory.objects.filter(parent__name='Courses').only('name'),
+		'Cuisines': RecipeCategory.objects.filter(parent__name='Cuisines').only('name'),
+		'Main_Ingredients': RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'),
+		'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
 		})
 
 @login_required
@@ -257,8 +261,11 @@ def recipe_edit(request, pk):
 		step = recipe.step_set.all()
 		initial_step = []
 		for s in step:
+			u = ''
+			if s.step_image:
+				u = s.step_image.url
 			initial_step.append({	'description':s.description,
-									'step_image':s.step_image.url
+									'step_image':u
 									})
 
 		amount_formset = AmountFormSet(initial = initial_amount ,prefix='amount')
