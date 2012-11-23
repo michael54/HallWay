@@ -22,185 +22,185 @@
 {% block content %}
 <div id="mod-container">
   <div class="row-fluid container-fluid">
-    <section class="mod-main span7 well well-small">
-     <h1 class="mod-page-title" itemprop="dish-name">{{ object.name }}
-       {% ifequal user object.author %}
-       <span class="mod-edit">
-         <a href="{% url 'recipe_edit' object.id %}">&nbsp;<i class="icon-edit"></i>Edit</a>
-         <a href="{% url 'recipe_delete' object.id %}">&nbsp;<i class="icon-trash"></i>Delete</a>
-       </span>
-       {% endifequal %}
-     </h1>
-     <div id="recipe_img_div" class="mod-recipe-img">
-      {% if object.cover_image %}
-      <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
-      {% else %}
-      <img id="recipe_img" src="/media/no_image_available.jpg" alt="" />
-      {% endif %}
-    </div>
-    <div class="mod-recipe-stat">
-      <span class="mod-recipe-count">
-        <span class="mod-recipe-did">
-          {{ object.did_num }} did this.
-        </span>
-        <span class="mod-recipe-count-sep">|</span>
-        <span class="mod-recipe-liked"> 
-          {{ object.like_num }} liked this.
-        </span>
-        <span class="mod-recipe-count-sep">|</span>
-        <span class="mod-recipe-viewed">
-          {{ object.view_num }} viewed this.
-        </span>
+    <h1 class="mod-page-title span11" itemprop="dish-name">{{ object.name }}
+      {% ifequal user object.author %}
+      <span class="mod-edit">
+        <a href="{% url 'recipe_edit' object.id %}">&nbsp;<i class="icon-edit"></i>Edit</a>
+        <a href="{% url 'recipe_delete' object.id %}">&nbsp;<i class="icon-trash"></i>Delete</a>
       </span>
-      {% if user.is_authenticated %}
-      <span class="mod-recipe-like pull-right">
-          {% if liked %}
-          <a href="#" id="likehref">
-            <button class="btn" id="mod-recipe-likedbtn" disabled="disabled">
-          Liked</button>
-          </a>
-          {% else %}
-          <a href="{% url 'like' object.id %}" id="likehref">
-            <button class="btn" id="mod-recipe-likebtn"><i class="icon-heart"></i>
-          Lovin' it!</button>
-          </a>
-          {% endif %}
-        
-      </span>
-      {% endif %}
-    </div>
-    <div class="mod-recipe-ratings">
-        Ratings: <div id="star"></div>
-        <div>{{object.rating_num}} rated this.</div>
-    </div>
-    <div class="mod-recipe-share">
-      <span class="mod-recipe-upload">
-        <a href="{% url 'did_recipe_upload' object.id %}">Upload your own recipe for this dish?</a>
-      </span>
-    </div>
-
-    <hr />
-
-    <div class="mod-recipe-brief">
-      <h2 class="mod-recipe-title-h2">Brief Introduction</h2>
-      <p class="mod-recipe-brief-content well">
-        {{ object.brief }}
-      </p>
-    </div>
-
-    <div class="mod-reicpe-ingredients">
-      <h2 class="mod-recipe-title-h2">
-        Ingredients
-      </h2>
-      <ul class="well">
-       {% for ingredient in amount_list %}
-       {% if ingredient.must %}
-       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
-       {% else %}
-       <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
-       {% endif %}
-       {% endfor %}
-      </ul>
-    </div>
-    <div class="mod-recipe-steps">
-      <h2 class="mod-recipe-title-h2">
-        Instructions
-      </h2>
-      <ol class="well">
-       {% for step in step_list %}
-       <li>{{ step.step_num }}:{{step.description}}</li>
-       {% endfor %}
-     </ol>
-    </div>
-    <div class="mod-recipe-tip">
-      <h2 class="mod-recipe-title-h2">Chef's Notes</h2>
-      <p class="mod-recipe-tip-content well">
-        {{ object.tips }}
-      </p>
-    </div>
-
-    <hr />
-
-    {% if user.is_authenticated %}
-    <div class="mod-recipe-comments">
-      <a data-toggle="modal" href="#rateModal">Wanna to say about the dish?</a>
-    </div>
-    {% else %}
-    <div class="mod-recipe-comments">
-      <a data-toggle="modal" href="#myModal">Log in to rate it</a>
-    </div>
-    {% endif %}
-
-    <hr />
-
-    <div class="mod-recipe-recommends">
-      <h2 class="mod-recipe-title-h2">
-        People Also Like
-      </h2>
-      {% if recommends %}
-      <ul>
-        {% for r in recommends %}
-        <li>
-          <a href="{{r.get_absolute_url}}">{{r.name}}</a>
-        </li>
-        {% endfor%}
-      </ul>
-      {% endif %}
-    </div>
-    </section>
-    <aside class="mod-side span4 well well-small">
-      <div class="mod-author">
-        <img src="{{profile.get_mugshot_url}}" id="mod-author-img" />
-        <a href="{{ object.author.get_absolute_url }}">
-          <span id="mod-author-name">{{ object.author.username }}</span>
-        </a>
+      {% endifequal %}
+    </h1>
+    <div class="row-fluid">
+      <section class="mod-main span7">
+      <div id="recipe_img_div" class="mod-recipe-img well well-small">
+        {% if object.cover_image %}
+        <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
+        {% else %}
+        <img id="recipe_img" src="/media/no_image_available.jpg" alt="" />
+        {% endif %}
       </div>
-      <div class="mod-vote">
-        <h2 class="mod-recipe-title-h2">
-          Who tried this before?
-        </h2>
-        <ul>
-          {% for v in votelist %}
-          <div><div><a href="{{v.user.get_absolute_url}}">{{v.user}}</a><div class="medstar{{v.score}}"></div></div><div>{{ v.comment }}</div><div>{{ v.date|timesince }} ago</div></div>
-          
-          {% empty %}
-          <div>No ratings yet...</div>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="mod-discussion">
-        <span>
-          Discussion Board
+      <div class="mod-recipe-stat">
+        <span class="mod-recipe-count">
+          <span class="mod-recipe-did">
+            {{ object.did_num }} did this.
+          </span>
+          <span class="mod-recipe-count-sep">|</span>
+          <span class="mod-recipe-liked"> 
+            {{ object.like_num }} liked this.
+          </span>
+          <span class="mod-recipe-count-sep">|</span>
+          <span class="mod-recipe-viewed">
+            {{ object.view_num }} viewed this.
+          </span>
         </span>
         {% if user.is_authenticated %}
-        {% get_comment_form for object as form %}
-        <form id="comment_form" action="{% url 'ajaxcommentpost'%}" method="POST">
-          {% csrf_token %}
-          {{ form.comment }}
-          <div style="display:none">{{ form.honeypot }}</div>
-          {{ form.content_type }}
-          {{ form.object_pk }}
-          {{ form.timestamp }}
-          {{ form.security_hash }}
-          <button type="submit" class="btn" id="id_comment_submit" />Post</button>
-        </form>
-        {% else %}
-        <p>Please <a href="{% url 'userena_signin' %}">log in</a> to leave a comment.</p>
+        <span class="mod-recipe-like pull-right">
+            {% if liked %}
+            <a href="#" id="likehref">
+              <button class="btn" id="mod-recipe-likedbtn" disabled="disabled">
+            Liked</button>
+            </a>
+            {% else %}
+            <a href="{% url 'like' object.id %}" id="likehref">
+              <button class="btn" id="mod-recipe-likebtn"><i class="icon-heart"></i>
+            Lovin' it!</button>
+            </a>
+            {% endif %}
+          
+        </span>
         {% endif %}
-        <div id="discussion_list">
-        {% get_comment_list for object as comment_list%}
-        {% for comment in comment_list|slice:"-5:" reversed%}
-        <div>
-          <img src="{{comment.user.get_profile.mugshot|thumbnail_url:'avatar'}}" />
-          <a href="{{comment.user.get_absolute_url}}">{{comment.user}}</a>:
-          {{comment.comment}}
-          {{comment.submit_date|timesince}} ago
-        </div>
-
-        {% endfor %}
-        </div>
       </div>
-    </aside>
+      <div class="mod-recipe-ratings">
+          Ratings: <div id="star"></div>
+          <div>{{object.rating_num}} rated this.</div>
+      </div>
+      <div class="mod-recipe-share">
+        <span class="mod-recipe-upload">
+          <a href="{% url 'did_recipe_upload' object.id %}"><i class="icon-upload-alt"></i>&nbsp;Upload your own recipe for this dish?</a>
+        </span>
+      </div>
+
+      <div class="mod-recipe-brief">
+        <div class="mod-recipe-title">
+          <img src="/media/recipe-intro.png" alt="Introduction" />
+        </div>
+        <p class="mod-recipe-brief-content">
+          {{ object.brief }}
+        </p>
+      </div>
+
+      <div class="mod-reicpe-ingredients">
+        <div class="mod-recipe-title">
+          <img src="/media/recipe-ingredient.png" alt="Ingredients" />
+        </div>
+        <ul>
+         {% for ingredient in amount_list %}
+         {% if ingredient.must %}
+         <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
+         {% else %}
+         <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
+         {% endif %}
+         {% endfor %}
+        </ul>
+      </div>
+      <div class="mod-recipe-steps">
+        <div class="mod-recipe-title">
+          <img src="/media/recipe-instru.png" alt="Instructions" />
+        </div>
+        <ol>
+         {% for step in step_list %}
+         <li>{{ step.step_num }}:{{step.description}}</li>
+         {% endfor %}
+       </ol>
+      </div>
+      <div class="mod-recipe-tip">
+        <div class="mod-recipe-title">
+          <img src="/media/recipe-notes.png" alt="Chef's Notes" />
+        </div>
+        <p class="mod-recipe-tip-content">
+          {{ object.tips }}
+        </p>
+      </div>
+
+      {% if user.is_authenticated %}
+      <div class="mod-recipe-comments">
+        <a data-toggle="modal" href="#rateModal">Say something about the dish?</a>
+      </div>
+      {% else %}
+      <div class="mod-recipe-comments">
+        <a data-toggle="modal" href="#myModal">Log in to rate it</a>
+      </div>
+      {% endif %}
+
+      </section>
+      <aside class="mod-side span4 well well-small">
+        <div class="mod-author">
+          <img src="{{profile.get_mugshot_url}}" id="mod-author-img" />
+          <a href="{{ object.author.get_absolute_url }}">
+            <span id="mod-author-name">{{ object.author.username }}</span>
+          </a>
+        </div>
+        <div class="mod-vote">
+          <div class="mod-recipe-title">
+            Who tried this before?
+          </div>
+          <ul>
+            {% for v in votelist %}
+            <div><div><a href="{{v.user.get_absolute_url}}">{{v.user}}</a><div class="medstar{{v.score}}"></div></div><div>{{ v.comment }}</div><div>{{ v.date|timesince }} ago</div></div>
+            
+            {% empty %}
+            <div>No ratings yet...</div>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="mod-discussion">
+          <span>
+            Discussion Board
+          </span>
+          {% if user.is_authenticated %}
+          {% get_comment_form for object as form %}
+          <form id="comment_form" action="{% url 'ajaxcommentpost'%}" method="POST">
+            {% csrf_token %}
+            {{ form.comment }}
+            <div style="display:none">{{ form.honeypot }}</div>
+            {{ form.content_type }}
+            {{ form.object_pk }}
+            {{ form.timestamp }}
+            {{ form.security_hash }}
+            <button type="submit" class="btn btn-success" id="id_comment_submit" />Post</button>
+          </form>
+          {% else %}
+          <p>Please <a href="{% url 'userena_signin' %}">log in</a> to leave a comment.</p>
+          {% endif %}
+          <div id="discussion_list">
+          {% get_comment_list for object as comment_list%}
+          {% for comment in comment_list|slice:"-5:" reversed%}
+          <div>
+            <img src="{{comment.user.get_profile.mugshot|thumbnail_url:'avatar'}}" />
+            <a href="{{comment.user.get_absolute_url}}">{{comment.user}}</a>:
+            {{comment.comment}}
+            {{comment.submit_date|timesince}} ago
+          </div>
+
+          {% endfor %}
+          </div>
+        </div>
+        <div class="mod-recipe-recommends">
+          <div class="mod-recipe-title">
+            <h2>People Also Like</h2>
+          </div>
+          {% if recommends %}
+          <ul>
+            {% for r in recommends %}
+            <li>
+              <a href="{{r.get_absolute_url}}">{{r.name}}</a>
+            </li>
+            {% endfor%}
+          </ul>
+          {% endif %}
+        </div>
+      </aside>
+    </div>
   </div>
 </div>
 <div class="modal hide fade" tabindex="-1" aria-hidden="true" id="rateModal">

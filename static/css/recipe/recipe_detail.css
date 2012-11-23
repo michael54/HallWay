@@ -117,13 +117,6 @@ div.mod-recipe-share span.mod-recipe-upload {
 	height: 40px;
 }
 
-div.mod-recipe-share span.mod-recipe-upload > a {
-	font-size: 14px;
-	color: rgb(178, 34, 34);
-	text-decoration: none;
-	padding-left: 15px;
-}
-
 div.mod-recipe-share span.mod-recipe-upload > a:link,
 div.mod-recipe-comments > a:link {
 	color: rgb(178, 34, 34);
@@ -131,7 +124,7 @@ div.mod-recipe-comments > a:link {
 
 div.mod-recipe-share span.mod-recipe-upload > a:visited,
 div.mod-recipe-comments > a:visited {
-	color: rgb(169, 169, 169);
+	color: rgb(178, 34, 34);
 }
 
 div.mod-recipe-share span.mod-recipe-upload > a:hover,
@@ -145,14 +138,27 @@ div.mod-recipe-comments > a:active {
 	color: white;
 }
 
+div.mod-recipe-share span.mod-recipe-upload > a {
+	font-size: 14px;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left: 15px;
+}
+
+p.mod-recipe-brief-content, p.mod-recipe-tip-content {
+	color: #e3cb9f;
+	font-size: 14px;
+}
+
 div.mod-recipe-comments {
+	margin-top: 20px;
+	margin-bottom: 20px;
 	padding-left: 15px;
 }
 
 div.mod-recipe-comments > a {
 	font-size: 14px;
 	font-weight: bold;
-	color: rgb(169, 169, 169);
 	text-decoration: none;
 }
 
@@ -220,4 +226,31 @@ aside.mod-side div.mod-author a > span:active,
 div.mod-recipe-comments > a:active {
 	background: rgb(0, 191, 255);
 	color: white;
+}
+
+div.mod-recipe-brief, div.mod-reicpe-ingredients, 
+div.mod-recipe-steps, div.mod-recipe-tip {
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	border-bottom-color: #F5D982;
+}
+
+div.mod-reicpe-ingredients, div.mod-recipe-steps, div.mod-recipe-tip {
+	margin-top: 20px;
+}
+
+div.mod-recipe-img {
+	margin-bottom: 0px;
+}
+
+textarea#id_comment {
+	resize: none;
+	width: 268px;
+	height: 80px;
+}
+
+button#id_comment_submit {
+	float: right;
+	border-radius: 0;
+	font-weight: bold;
 }
