@@ -1,0 +1,89 @@
+h1.mod-page-title {
+	font-family: 'Gorditas', cursive;
+}
+
+h2.parent-cat {
+	font-family: 'Kite One', sans-serif;
+	font-size: 18px;
+	line-height: 18px;
+	margin: 0;
+	color: black;
+}
+
+div.accordion-inner ul {
+	list-style-type: none;
+}
+
+div.accordion-inner ul > li > a {
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 14px;
+	color: #130F0F;
+}
+
+div.accordion-group {
+	border: 0;
+}
+
+div.accordion-group a {
+	text-decoration: none;
+}
+
+.hidden-field {
+	display: none;
+}
+
+div.recipe.list {
+	width: 665px;
+	padding: 5px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #D3C0A8;
+}
+
+div.recipe a {
+	text-decoration: none;
+	font-family: 'Dancing Script', cursive;
+	color: #EE492A;
+	font-weight: bold;
+}
+
+div.name, div.name h3 {
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-size: 25px;
+	line-height: 25px;
+}
+
+div.author, div.like-num {
+	display: inline !important;
+}
+
+div.ingredients {
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 14px;
+	font-weight: bold;
+	color: #D3C0A8;
+	margin-top: 10px;
+}
+
+div.like-num {
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 18px;
+}
+
+div.rating, div.rating-num {
+	display: inline !important;
+}
+
+div.rating-num {
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 14px;
+	font-weight: bold;
+	color: #F1F11F;
+}
+
+div.brief p {
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 14px;
+	padding: 5px;
+}
