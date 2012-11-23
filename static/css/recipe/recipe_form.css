@@ -46,6 +46,9 @@ fieldset {
 #container {
 	margin: 0px auto;
 	padding: 1em;
-	width: 800px;
+	width: 700px;
 	text-align: left;
+}
+#id_name, #id_category, #id_brief, #id_cover_image, #id_tips {
+	width: 300px;
 }
