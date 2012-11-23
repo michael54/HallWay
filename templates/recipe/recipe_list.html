@@ -94,32 +94,39 @@
 		</div>
 		<div class="mod-list-detail span9 well well-small">
 			<h1 class="mod-page-title">{{category}}</h1>
-			<table id="recipes">
+			<div class="rank-hot">
 				{% for recipe in recipe_list %}
-				<div>
-					<div class="recipe-img">
+				<div class="recipe list row-fluid">
+					<div class="recipe-img span4">
 						<a href="{{ recipe.get_absolute_url }}" class="see_detail">
 							<img src="{{recipe.cover_image|thumbnail_url:'normal'}}" alt="recipe cover image" />
 						</a>
 					</div>
-					<div class="recipe-txt">
-						<h3 class="name">
-							<a href="{{ recipe.get_absolute_url }}" class="see_detail">{{ recipe.name }}</a>
-						</h3>
+					<div class="recipe-txt span8">
+						<div class="name">
+							<h3>
+								<a href="{{ recipe.get_absolute_url }}" class="see_detail">
+									{{ recipe.name }}&nbsp;-&nbsp;
+									<div class="author">{{recipe.author}}</div>
+									<div class="like-num pull-right"><i class="icon-heart"></i>&nbsp;{{recipe.like_num}}</div>
+								</a>
+							</h3>
+						</div>
+						<div class="rating medstar{{recipe.rating_int}}"></div>&nbsp;<div class="rating-num">{{recipe.rating|floatformat:1}}</div>
 						<div class="ingredients">
-							<span>
-							{% for i in recipe.ingredients.all %}
-								<span>{{i}}</span>
+							{% for i in recipe.amount_set.all %}
+								{% if i.must %}
+								<span>{{i.ingredient}}</span>
+								{% endif %}
 							{% endfor %}
 						</div>
-						<div class="rating medstar{{recipe.rating_int}}">{{recipe.rating_int}}</div>
-						<div class="did-num">{{recipe.did_num}} did this</div>
-						<div class="like-num">{{recipe.like_num}} liked this</div>
-						<div class="author">{{recipe.author}}</div>
+						<div class="brief">
+							<p>"{{recipe.brief|truncatechars:100}}"</p>
+						</div>
 					</div>
 				</div>
 				{% endfor %}
-			</table>
+			</div>
 			{# .... **Now the pagination section** .... #}
 			{% if is_paginated %}
 			<div class="pagination">

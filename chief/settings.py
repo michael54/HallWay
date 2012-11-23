@@ -230,7 +230,7 @@ LOGOUT_URL = '/accounts/signout/'
 # Settings for easy_thumbnail
 THUMBNAIL_ALIASES = {
     '': {
-        'normal': {'size': (200,200), 'crop': 'smart'},
+        'normal': {'size': (220,160), 'crop': 'smart'},
         'avatar': {'size': (50,50), 'crop': 'smart'},
     },
 }
