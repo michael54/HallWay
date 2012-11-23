@@ -1,5 +1,11 @@
 // star.js
 function yuStar(p) {
+	jQuery('.medstar0').raty({
+		path: p,
+    readOnly: true,
+    space: false,
+    score: 0,
+	});
 	jQuery('.medstar1').raty({
 		path: p,
     readOnly: true,

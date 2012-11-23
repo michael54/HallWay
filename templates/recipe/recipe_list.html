@@ -13,6 +13,7 @@
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_list.css" %}"/>
 <link href='http://fonts.googleapis.com/css?family=Gorditas:400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block title %}
@@ -21,23 +22,102 @@
 
 {% block content %}
 {% if recipe_list %}
-<div id="mod-container" class="well well-small">
+<div id="mod-container">
 	<div class="row-fluid container">
-		<div class="mod-food-nav span3 well well-small">
-			{% for c in category_list %}
-			<ul>
-				<li>{{c}}</li>
-			</ul>
-			{% endfor %}
+		<div class="mod-list-nav span3 well well-small">
+			<div class="accordion" id="accordion2">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+              <h2 class="parent-cat">Courses</h2>
+            </a>
+          </div>
+          <div id="collapseOne" class="accordion-body collapse in">
+            <div class="accordion-inner">
+              {% for c in Courses %}
+								<ul>
+									<li><a href="{{c.get_absolute_url}}">{{c}}</a></li>
+								</ul>
+							{% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+              <h2 class="parent-cat">Cuisines</h2>
+            </a>
+          </div>
+          <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+              {% for c in Cuisines %}
+								<ul>
+									<li><a href="{{c.get_absolute_url}}">{{c}}</a></li>
+								</ul>
+							{% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+              <h2 class="parent-cat">Main Ingredients</h2>
+            </a>
+          </div>
+          <div id="collapseThree" class="accordion-body collapse">
+            <div class="accordion-inner">
+              {% for m in Main_Ingredients %}
+								<ul>
+									<li><a href="{{m.get_absolute_url}}">{{m}}</a></li>
+								</ul>
+							{% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+              <h2 class="parent-cat">Special Diets</h2>
+            </a>
+          </div>
+          <div id="collapseFour" class="accordion-body collapse">
+            <div class="accordion-inner">
+              {% for s in Sepcial_Diets %}
+								<ul>
+									<li><a href="{{s.get_absolute_url}}">{{s}}</a></li>
+								</ul>
+							{% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
-		<div class="mod-food-detail span9 well well-small">
+		<div class="mod-list-detail span9 well well-small">
 			<h1 class="mod-page-title">{{category}}</h1>
 			<table id="recipes">
 				{% for recipe in recipe_list %}
-				<tr>
-					<td>{{ recipe.name }}</td>
-					<td><a href="{{ recipe.get_absolute_url }}" class="see_detail">detail</a></td>
-				</tr>
+				<div>
+					<div class="recipe-img">
+						<a href="{{ recipe.get_absolute_url }}" class="see_detail">
+							<img src="{{recipe.cover_image|thumbnail_url:'normal'}}" alt="recipe cover image" />
+						</a>
+					</div>
+					<div class="recipe-txt">
+						<h3 class="name">
+							<a href="{{ recipe.get_absolute_url }}" class="see_detail">{{ recipe.name }}</a>
+						</h3>
+						<div class="ingredients">
+							<span>
+							{% for i in recipe.ingredients.all %}
+								<span>{{i}}</span>
+							{% endfor %}
+						</div>
+						<div class="rating medstar{{recipe.rating_int}}">{{recipe.rating_int}}</div>
+						<div class="did-num">{{recipe.did_num}} did this</div>
+						<div class="like-num">{{recipe.like_num}} liked this</div>
+						<div class="author">{{recipe.author}}</div>
+					</div>
+				</div>
 				{% endfor %}
 			</table>
 			{# .... **Now the pagination section** .... #}
@@ -63,4 +143,14 @@
 <h3>My recipes</h3>
 <p>No recipes found!!! :(</p>
 {% endif %}
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+	yuStar('{% static "jquery.raty-2.4.5/img/" %}');
+});
+</script>
 {% endblock %}

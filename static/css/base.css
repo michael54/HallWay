@@ -26,7 +26,7 @@ div.#mod-container {
 	overflow: scroll;
 }
 
-h1.mod-page-title {
+h1 {
 	font-family: 'Dancing Script', cursive;
 	color: #EE9A2A;
 	font-size: 28px;

@@ -23,6 +23,10 @@ class RecipeCategory(models.Model):
 	def __unicode__(self):
 		return self.name
 
+	@models.permalink
+	def get_absolute_url(self):
+		return ('recipe_category', (self.id, 'hot'))
+
 
 class Recipe(models.Model):
 	"""docstring for Recipe"""
@@ -57,6 +61,13 @@ class Recipe(models.Model):
 			return "0.0"
 		result = result/self.rating_num
 		return "%g" % round(result, 1)
+
+	def rating_int(self):
+		result = float(self.cumulative_score)
+		if self.rating_num == 0:
+			return 0
+		result = result/self.rating_num
+		return int(round(result))
 
 	def __unicode__(self):
 		return self.name
