@@ -84,16 +84,21 @@
         <div class="mod-recipe-title">
           <img src="/media/recipe-intro.png" alt="Introduction" />
         </div>
+        {% if object.brief %}
         <p class="mod-recipe-brief-content">
           {{ object.brief }}
         </p>
+       {% else %}
+       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+       {% endif %}
       </div>
 
       <div class="mod-reicpe-ingredients">
         <div class="mod-recipe-title">
           <img src="/media/recipe-ingredient.png" alt="Ingredients" />
         </div>
-        <ul>
+        {% if amount_list %}
+        <ul class="ingredient-list">
          {% for ingredient in amount_list %}
          {% if ingredient.must %}
          <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
@@ -102,24 +107,35 @@
          {% endif %}
          {% endfor %}
         </ul>
+       {% else %}
+       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+       {% endif %}
       </div>
       <div class="mod-recipe-steps">
         <div class="mod-recipe-title">
           <img src="/media/recipe-instru.png" alt="Instructions" />
         </div>
+        {% if step_list %}
         <ol>
          {% for step in step_list %}
          <li>{{ step.step_num }}:{{step.description}}</li>
          {% endfor %}
        </ol>
+       {% else %}
+       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+       {% endif %}
       </div>
       <div class="mod-recipe-tip">
         <div class="mod-recipe-title">
           <img src="/media/recipe-notes.png" alt="Chef's Notes" />
         </div>
+        {% if object.tips %}
         <p class="mod-recipe-tip-content">
           {{ object.tips }}
         </p>
+       {% else %}
+       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+       {% endif %}
       </div>
 
       {% if user.is_authenticated %}

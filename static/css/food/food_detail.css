@@ -67,3 +67,7 @@ p {
 	background: rgb(0, 191, 255);
 	color: white;
 }
+
+#mod-container div.brief-intro div, #mod-container div.brief-intro a {
+	margin-left: 15px;
+}

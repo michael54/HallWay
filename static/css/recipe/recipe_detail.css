@@ -145,7 +145,7 @@ div.mod-recipe-share span.mod-recipe-upload > a {
 	padding-left: 15px;
 }
 
-p.mod-recipe-brief-content, p.mod-recipe-tip-content {
+p.mod-recipe-brief-content, p.mod-recipe-tip-content, p.empty-note, ul.ingredient-list {
 	color: #e3cb9f;
 	font-size: 14px;
 }
@@ -253,4 +253,9 @@ button#id_comment_submit {
 	float: right;
 	border-radius: 0;
 	font-weight: bold;
+}
+
+ul.ingredient-list {
+	list-style-type: none;
+	margin-left: 40px;
 }
