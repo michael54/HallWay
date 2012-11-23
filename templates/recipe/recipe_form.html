@@ -37,8 +37,7 @@ Upload your Recipe
     </tr>
     <tr>
       <th>{{recipe_form.cover_image.label}}</th>
-      <td><img id="cover_image_preview" />{{recipe_form.cover_image}}</td>
-      <td><div id="recipe_uploader"></div></td>
+      <td><div id="cover_image_frame"><img id="cover_image_preview" />{{recipe_form.cover_image}}<div id="recipe_uploader"></div><button class="btn" id="cover_image_delete">X</button></div></td>
     </tr><tr>
     <th>Notes</th>
     <td>{{recipe_form.tips}}</td>
@@ -90,11 +89,11 @@ Upload your Recipe
   <tbody>
     {% for form in step_formset %}
     <tr>{{form.recipe}}
-      <td>{{ form.step_num }} </td>
+      <td><div class="step_num_counter"></div></td>
       <td>{{ form.description }}</td>
-      <td>{{ form.step_image }}</td>
-      <td><img class="step_preview" id="step{{forloop.counter0}}_preview" />
-      <td><div class="step-uploader"></div></td>
+      <td><div class="step_image_frame">{{ form.step_image }}
+      <img class="step_preview" id="step{{forloop.counter0}}_preview" /><div class="step-uploader"></div><button class="btn step_image_delete">X</button></div>
+      </td>
     </tr>
     {% endfor %}
   </tbody> 
@@ -107,18 +106,71 @@ Upload your Recipe
 {% endblock content %}
 
 {% block js %}
-<script type="text/javascript" src="{% static 'js/jquery.formset.min.js' %}"></script>
-<script type="text/javascript" src="{% static "js//recipe/recipe_form.js" %}"></script>
-<script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js" ></script>  
-<script type="text/javascript">
-$(document).ready(function() {
-  $('#cover_image_preview').attr(
-    'src','/media/'+ $('#id_cover_image').val()
-    );
+<script type="text/javascript" src="{% static "js/jquery.formset.min.js" %}"></script>
 
+<script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js" ></script>  
+<script type="text/javascript" src="{% static "js/recipe/recipe_form.js" %}"></script>
+<script type="text/javascript">
+$('body').on('click', '.step_image_delete', function(event) {
+  event.preventDefault();
+  var del = $(event.target);
+  var preview  = $(event.target).siblings('img');
+  var input = $(event.target).siblings('input');
+  var up = $(event.target).siblings('.step-uploader');
+  var url = '{% url "image_delete"%}';
+  var postdata = {
+    'file': $(input).val(),
+    'csrfmiddlewaretoken': '{{ csrf_token }}',
+  }
+
+  $.post(url, postdata, function(data){
+    if (data=='success'){
+      $(del).hide();
+      $(preview).attr('src','');
+      $(preview).hide('slow');
+      $(input).val('');
+      $(up).show();
+    }
+  });
+});
+
+$(document).ready(function() {
+  stepCount(jQuery('.step_num_counter'));
+
+  $('#cover_image_delete').click(function (event) {
+    event.preventDefault();
+    var url = '{% url "image_delete"%}'
+    var postdata = {
+      'file': $('#id_cover_image').val(),
+      'csrfmiddlewaretoken': '{{ csrf_token }}',
+    }
+    $.post(url, postdata, function(data){
+      if (data=='success'){
+        $('#cover_image_delete').hide();
+        $('#cover_image_preview').attr('src','');
+        $('#cover_image_preview').hide('slow');
+        $('#id_cover_image').val('');
+        $('#recipe_uploader').show();
+      }
+    });
+  });
+
+  if($('#id_cover_image').val()){
+    $('#cover_image_preview').attr(
+      'src','/media/'+ $('#id_cover_image').val()
+    );
+    $('#recipe_uploader').hide();
+    $('#cover_image_delete').show();
+  }
+  
   $('.step_preview').each(function (i){
-    $('#step'+i+'_preview').attr('src',
-      $('#id_step-'+i+'-step_image').val());
+    if($('#id_step-'+i+'-step_image').val()){
+      $('#step'+i+'_preview').attr('src',
+        $('#id_step-'+i+'-step_image').val());
+      $($('.step_image_delete').get(i)).show();
+      $($('.step-uploader').get(i)).hide();
+    }
+    
   });
 
  $('#ingredient_table tbody tr').formset({
@@ -129,7 +181,11 @@ $(document).ready(function() {
  $('#step_table tbody tr').formset({
   prefix: '{{ step_formset.prefix }}',
   formCssClass: 'dynamic_step_formset',
+  removed: function(row){
+    stepCount(jQuery('.step_num_counter'));
+  },
   added: function(row) {
+    stepCount(jQuery('.step_num_counter'));
     var uploader1 = new qq.FileUploader({
       action: "{% url 'step_image_upload' %}",
       element: row.find('.step-uploader')[0],
@@ -138,7 +194,9 @@ $(document).ready(function() {
         if(responseJSON.success) {
           row.find('[id*="step_image"]').val(responseJSON.path);
           row.find('.step_preview').attr('src', '/media/'+responseJSON.path);
-
+          row.find('.step_image_delete').show();
+          row.find('.step-uploader').hide();
+          row.find('.step_preview').show('slow');
           $('.qq-upload-list').css('display','none');
         } else {
           alert("upload failed!");
@@ -154,15 +212,20 @@ $(document).ready(function() {
 });
 
  $('.step-uploader').each(function (i){
+  var sd = $('.step_image_delete').get(i),
+      su = $('.step-uploader').get(i),
+      preview = $('.step_preview').get(i);
   var uploader2 = new qq.FileUploader({
     action: "{% url 'step_image_upload' %}",
-    element: $(this)[0],
+    element: $('.step-uploader')[i],
     multiple: false,
     onComplete: function(id, fileName, responseJSON) {
       if(responseJSON.success) {
         $('#id_step-'+i+'-step_image').val(responseJSON.path);
         $('#step'+i+'_preview').attr('src', '/media/'+responseJSON.path);
-
+        $(sd).show();
+        $(su).hide();
+        $(preview).show('slow');
         $('.qq-upload-list').css('display','none');
       } else {
         alert("upload failed!");
@@ -187,6 +250,9 @@ $(document).ready(function() {
       $('#cover_image_preview').attr('src', '/media/'+responseJSON.path);
 
       $('.qq-upload-list').css('display','none');
+      $('#cover_image_delete').show();
+      $('#cover_image_preview').show('slow');
+      $('#recipe_uploader').hide();
     } else {
       alert("upload failed!");
     }

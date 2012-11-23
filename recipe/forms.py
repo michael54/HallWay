@@ -31,7 +31,7 @@ class VoteForm(forms.Form):
 	comment = forms.CharField(widget=forms.Textarea, required=False)
 
 class StepForm(forms.Form):
-	description = forms.CharField(min_length = 1)
+	description = forms.CharField(widget=forms.Textarea(), min_length = 1)
 	step_image = forms.CharField(widget=forms.HiddenInput(), required=False)
 
 class AmountForm(forms.Form):

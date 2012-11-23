@@ -1,4 +1,6 @@
 import sys
+import shutil
+import os
 import uuid
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
@@ -299,3 +301,22 @@ def did_recipe_upload(request, pk):
 	return render(request, 'recipe/did_form.html', {
 			'form': form,
 		})
+
+
+def image_delete(request):
+	if request.is_ajax() and request.method=='POST' and request.user.is_authenticated():
+		f = request.POST.get('file')
+		if f == '':
+			return HttpResponse('fail')
+		p = os.path.join(settings.SITE_ROOT,settings.MEDIA_ROOT,f)
+		print >> sys.stderr, 'Delete Path: ', os.path.dirname(p)
+		if os.path.exists(p):
+			shutil.rmtree(os.path.dirname(p))
+		return HttpResponse('success')
+	else:
+		raise Http404	
+
+
+
+
+
