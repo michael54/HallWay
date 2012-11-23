@@ -17,7 +17,8 @@ class RecipeCategory(models.Model):
 	"""docstring for RecipeCategory"""
 
 	name = models.CharField(max_length=200)
-	brief = models.TextField()
+	brief = models.TextField(blank=True)
+	parent = models.ForeignKey('self', null=True, blank=True)
 
 	def __unicode__(self):
 		return self.name
@@ -29,7 +30,7 @@ class Recipe(models.Model):
 	name = models.CharField(db_index=True, max_length=200)
 	author = models.ForeignKey(User)
 	date = models.DateField(auto_now_add=True)
-	category = models.ForeignKey(RecipeCategory)
+	category = models.ManyToManyField(RecipeCategory, verbose_name=u'list of categories')
 	brief = models.TextField()
 	ingredients = models.ManyToManyField(Food, through='Amount', verbose_name=u"list of ingredients")
 
