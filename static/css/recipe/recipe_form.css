@@ -69,7 +69,6 @@
 #save_button {
 	position: relative;
 	margin-top:5em;
-	/*top:100px;*/
 	margin-right: 3em;
 	width: 110px;
 	height: 40px
@@ -82,22 +81,12 @@ legend {
 	margin: 1em 0px;
 	padding: 0px 0.5em;
 	border-bottom-width: 2px;
-	/*margin: 1em 0px;
-	padding: 0px 0.5em;
-	color: rgb(0, 51, 102);
-	background: none repeat scroll 0% 0% transparent;
-	font-size: 1.3em;
-	font-weight: bold;*/
+
 }
 
 fieldset {
-	/*border: 1px solid rgb(221, 221, 221);*/
 	padding: 0px 0.5em 0.5em;
-	/*margin: 1em 0px;
-	border-right: medium none;
-	border-width: 1px medium medium;
-	border-style: solid none none;
-	border-color: rgb(204, 204, 204) -moz-use-text-color -moz-use-text-color;*/
+	
 }
 
 #container {
@@ -119,9 +108,8 @@ fieldset {
 }
 
 form {
-	/*height: 1300px;*/
+
 	margin:1em;
-	/*background-color: #91643b;*/
 	padding-bottom: 130px;
 	background: -moz-radial-gradient(center center , ellipse farthest-corner, rgb(120,82,49) 0%, rgb(206,168,134) 100%) repeat fixed 0% 0% transparent;
 
