@@ -96,7 +96,7 @@ class Amount(models.Model):
 
 	class Meta:
 		ordering = ['recipe']
-		unique_together = ('recipe', 'ingredient')
+		unique_together = ('recipe', 'must')
 		
 class Step(models.Model):
 	"""docstring for Steps"""
@@ -106,7 +106,7 @@ class Step(models.Model):
 	description = models.CharField(max_length = 1000)
 	step_image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Step image',
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
-            ResizeToFit(width=160,upscale=True)], format='JPEG', options={'quality': 90})
+            ResizeToFit(width=540,upscale=True)], format='JPEG', options={'quality': 80})
 
 	def __unicode__(self):
 		return u'Step %d of %s' % (self.step_num, self.recipe.name)

@@ -25,7 +25,7 @@ did_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIO
 
 cover_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, UPLOAD_DIR='Recipe_Images/Cover_Images')
 
-step_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(160,000), QUALITY=75, UPLOAD_DIR='Recipe_Images/Step_Image')
+step_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=80, UPLOAD_DIR='Recipe_Images/Step_Image')
 
 def nav(request):
 	return render(request, 'nav.html')
