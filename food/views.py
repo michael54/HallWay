@@ -14,6 +14,10 @@ class FoodDetailView(DetailView):
 
 		return object
 
+	def get_context_data(self, **kwargs):
+		context = super(FoodDetailView, self).get_context_data(**kwargs)
+		context['category_list'] = FoodCategory.objects.all()
+		return context
 
 class FoodCategoryListView(ListView):
 	context_object_name = "food_list"
