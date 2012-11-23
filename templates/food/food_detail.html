@@ -20,7 +20,74 @@
 {% block content %}
 <div id="mod-container">
 	<div class="row-fluid container">
-		<div class="mod-food-nav span3 well well-small"></div>
+		<div class="mod-food-nav span3 well well-small">
+			<div class="accordion" id="accordion2">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+              <h2 class="parent-cat">Category 1</h2>
+            </a>
+          </div>
+          <div id="collapseOne" class="accordion-body collapse in">
+            <div class="accordion-inner">
+              {% for c in category_list %}
+								<ul>
+									<li><a href="{{c.get_absolute_url}}">{{c}}</a></li>
+								</ul>
+							{% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+              <h2 class="parent-cat">Category 2</h2>
+            </a>
+          </div>
+          <div id="collapseTwo" class="accordion-body collapse">
+            <div class="accordion-inner">
+              {# {% for c in Cuisines %}
+								<ul>
+									<li><a href="{{c.get_absolute_url}}">{{c}}</a></li>
+								</ul>
+							{% endfor %} #}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+              <h2 class="parent-cat">Category 3</h2>
+            </a>
+          </div>
+          <div id="collapseThree" class="accordion-body collapse">
+            <div class="accordion-inner">
+              {# {% for m in Main_Ingredients %}
+								<ul>
+									<li><a href="{{m.get_absolute_url}}">{{m}}</a></li>
+								</ul>
+							{% endfor %} #}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-group">
+          <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+              <h2 class="parent-cat">Category 4</h2>
+            </a>
+          </div>
+          <div id="collapseFour" class="accordion-body collapse">
+            <div class="accordion-inner">
+              {# {% for s in Sepcial_Diets %}
+								<ul>
+									<li><a href="{{s.get_absolute_url}}">{{s}}</a></li>
+								</ul>
+							{% endfor %} #}
+            </div>
+          </div>
+        </div>
+      </div>
+		</div>
 		<div class="mod-food-detail span9 well well-small">
 			<div class="row-fluid">
 				<div class="mod-food-detail-header">

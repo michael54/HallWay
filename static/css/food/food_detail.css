@@ -1,29 +1,28 @@
-/*div.#mod-container {
-	padding: 0;
+h2.parent-cat {
+	font-family: 'Kite One', sans-serif;
+	font-size: 18px;
+	line-height: 18px;
 	margin: 0;
+	color: black;
+}
+
+div.accordion-inner ul {
+	list-style-type: none;
+}
+
+div.accordion-inner ul > li > a {
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 14px;
+	color: #130F0F;
+}
+
+div.accordion-group {
 	border: 0;
 }
 
-h1.mod-page-title {
-	font-size: 28px;
-	font-style: bold;
-	line-height: 30px;
-	margin-bottom: 15px;
+div.accordion-group a {
+	text-decoration: none;
 }
-
-h2 {
-	color: rgb(110, 110, 110);
-	font-size: 22px;
-	font-style: bold;
-	line-height: 22px;
-	margin-bottom: 15px;
-	padding-left: 15px;
-}
-
-p {
-	padding-left: 15px;
-	/*margin-left: 25px;*/
-}*/
 
 #mod-container img.food-cover-img {
 	height: 140px;
