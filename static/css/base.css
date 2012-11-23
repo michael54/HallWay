@@ -18,3 +18,33 @@ body {
 	border-width: 0;
 	border-radius: 0;
 }
+
+div.#mod-container {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	overflow: scroll;
+}
+
+h1.mod-page-title {
+	font-family: 'Dancing Script', cursive;
+	color: #EE9A2A;
+	font-size: 28px;
+	font-style: bold;
+	line-height: 30px;
+	margin-bottom: 15px;
+}
+
+h2 {
+	color: rgb(130, 130, 130);
+	font-size: 22px;
+	font-style: bold;
+	line-height: 30px;
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+p {
+	padding-left: 15px;
+	margin-left: 25px;
+}

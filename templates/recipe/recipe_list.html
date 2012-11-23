@@ -2,13 +2,36 @@
 <!-- from recipe.views.RecipeCategoryListView -->
 {% extends "nav.html" %}
 
+{% load static from staticfiles %}
+{% load url from future %}
+{% load activity_tags %}
+{% load comments %}
+
+{% load thumbnail %}
+
+{% block csslink %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_list.css" %}"/>
+<link href='http://fonts.googleapis.com/css?family=Gorditas:400,700' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block title %}
+{{category}}(上厨娘)
+{% endblock %}
+
 {% block content %}
 {% if recipe_list %}
-<div id="mod-container" class="well">
+<div id="mod-container" class="well well-small">
 	<div class="row-fluid container">
-		<div class="mod-food-nav span3 well"></div>
-		<div class="mod-food-detail span9 well">
-			<h1>{{category}}</h1>
+		<div class="mod-food-nav span3 well well-small">
+			{% for c in category_list %}
+			<ul>
+				<li>{{c}}</li>
+			</ul>
+			{% endfor %}
+		</div>
+		<div class="mod-food-detail span9 well well-small">
+			<h1 class="mod-page-title">{{category}}</h1>
 			<table id="recipes">
 				{% for recipe in recipe_list %}
 				<tr>
