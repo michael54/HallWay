@@ -101,22 +101,22 @@ Upload your Recipe
 <script type="text/javascript" src="{% static "js//recipe/recipe_form.js" %}"></script>
 <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js" ></script>  
 <script type="text/javascript">
-$(document).ready(function() {
-  $('#cover_image_preview').attr(
-    'src',$('#id_cover_image').val()
+jQuery(document).ready(function() {
+  jQuery('#cover_image_preview').attr(
+    'src',jQuery('#id_cover_image').val()
     );
 
-  $('.step_preview').each(function (i){
-    $('#step'+i+'_preview').attr('src',
-      $('#id_step-'+i+'-step_image').val());
+  jQuery('.step_preview').each(function (i){
+    jQuery('#step'+i+'_preview').attr('src',
+      jQuery('#id_step-'+i+'-step_image').val());
   });
 
- $('#ingredient_table tbody tr').formset({
+ jQuery('#ingredient_table tbody tr').formset({
   prefix: '{{ amount_formset.prefix }}',
   formCssClass: 'dynamic_amount_formset',
 });
 
- $('#step_table tbody tr').formset({
+ jQuery('#step_table tbody tr').formset({
   prefix: '{{ step_formset.prefix }}',
   formCssClass: 'dynamic_step_formset',
   added: function(row) {
@@ -129,7 +129,7 @@ $(document).ready(function() {
           row.find('[id*="step_image"]').val(responseJSON.path);
           row.find('.step_preview').attr('src', responseJSON.path);
 
-          $('.qq-upload-list').css('display','none');
+          jQuery('.qq-upload-list').css('display','none');
         } else {
           alert("upload failed!");
         }
@@ -143,17 +143,17 @@ $(document).ready(function() {
   },
 });
 
- $('.step-uploader').each(function (i){
+ jQuery('.step-uploader').each(function (i){
   var uploader2 = new qq.FileUploader({
     action: "{% url 'step_image_upload' %}",
-    element: $(this)[0],
+    element: jQuery(this)[0],
     multiple: false,
     onComplete: function(id, fileName, responseJSON) {
       if(responseJSON.success) {
-        $('#id_step-'+i+'-step_image').val(responseJSON.path);
-        $('#step'+i+'_preview').attr('src', responseJSON.path);
+        jQuery('#id_step-'+i+'-step_image').val(responseJSON.path);
+        jQuery('#step'+i+'_preview').attr('src', responseJSON.path);
 
-        $('.qq-upload-list').css('display','none');
+        jQuery('.qq-upload-list').css('display','none');
       } else {
         alert("upload failed!");
       }
@@ -169,14 +169,14 @@ $(document).ready(function() {
 
  var uploader = new qq.FileUploader({
   action: "{% url 'recipe_image_upload' %}",
-  element: $('#recipe_uploader')[0],
+  element: jQuery('#recipe_uploader')[0],
   multiple: false,
   onComplete: function(id, fileName, responseJSON) {
     if(responseJSON.success) {
-      $('#id_cover_image').val(responseJSON.path);
-      $('#cover_image_preview').attr('src', responseJSON.path);
+      jQuery('#id_cover_image').val(responseJSON.path);
+      jQuery('#cover_image_preview').attr('src', responseJSON.path);
 
-      $('.qq-upload-list').css('display','none');
+      jQuery('.qq-upload-list').css('display','none');
     } else {
       alert("upload failed!");
     }
