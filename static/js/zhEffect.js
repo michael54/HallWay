@@ -1,14 +1,14 @@
-$(document).ready(function () {
-	$(window).scroll(function(){
-        if ($(this).scrollTop() > 100) {
-            $('a.scroll-up').fadeIn();
+jQuery(document).ready(function () {
+	jQuery(window).scroll(function(){
+        if (jQuery(this).scrollTop() > 100) {
+            jQuery('a.scroll-up').fadeIn();
         } else {
-            $('a.scroll-up').fadeOut();
+            jQuery('a.scroll-up').fadeOut();
         }
     }); 
 
-    $('a.scroll-up').click(function(){
-        $("html, body").animate({ scrollTop: 0 }, 600);
+    jQuery('a.scroll-up').click(function(){
+        jQuery("html, body").animate({ scrollTop: 0 }, 600);
         return false;
     });
 });

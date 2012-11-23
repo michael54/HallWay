@@ -113,7 +113,7 @@ Upload your Recipe
 <script type="text/javascript">
 $(document).ready(function() {
   $('#cover_image_preview').attr(
-    'src',$('#id_cover_image').val()
+    'src','/media/'+ $('#id_cover_image').val()
     );
 
   $('.step_preview').each(function (i){
@@ -137,7 +137,7 @@ $(document).ready(function() {
       onComplete: function(id, fileName, responseJSON) {
         if(responseJSON.success) {
           row.find('[id*="step_image"]').val(responseJSON.path);
-          row.find('.step_preview').attr('src', responseJSON.path);
+          row.find('.step_preview').attr('src', '/media/'+responseJSON.path);
 
           $('.qq-upload-list').css('display','none');
         } else {
@@ -161,7 +161,7 @@ $(document).ready(function() {
     onComplete: function(id, fileName, responseJSON) {
       if(responseJSON.success) {
         $('#id_step-'+i+'-step_image').val(responseJSON.path);
-        $('#step'+i+'_preview').attr('src', responseJSON.path);
+        $('#step'+i+'_preview').attr('src', '/media/'+responseJSON.path);
 
         $('.qq-upload-list').css('display','none');
       } else {
@@ -184,7 +184,7 @@ $(document).ready(function() {
   onComplete: function(id, fileName, responseJSON) {
     if(responseJSON.success) {
       $('#id_cover_image').val(responseJSON.path);
-      $('#cover_image_preview').attr('src', responseJSON.path);
+      $('#cover_image_preview').attr('src', '/media/'+responseJSON.path);
 
       $('.qq-upload-list').css('display','none');
     } else {

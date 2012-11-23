@@ -21,11 +21,11 @@ from accounts.models import MyProfile
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
 
-did_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, UPLOAD_DIR='Recipe_Images/Did_Images')
+did_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, DETAIL = False, SHARPEN = False,UPLOAD_DIR='Recipe_Images/Did_Images')
 
-cover_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, UPLOAD_DIR='Recipe_Images/Cover_Images')
+cover_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, DETAIL = False, SHARPEN = False,UPLOAD_DIR='Recipe_Images/Cover_Images')
 
-step_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=80, UPLOAD_DIR='Recipe_Images/Step_Image')
+step_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=80, DETAIL = False, SHARPEN = False,UPLOAD_DIR='Recipe_Images/Step_Image')
 
 def nav(request):
 	return render(request, 'nav.html')
