@@ -2,10 +2,13 @@
     height: 400px;
     overflow: scroll;
 }
+h2{
+    color: #EE9A2A;
+}
 .bubble{
-    background-color: #F2F2F2;
-    border-radius: 5px;
-    box-shadow: 0 0 6px #B2B2B2;
+    background: #54a3ee; /* Old browsers */
+    border-radius: 15px;
+    box-shadow: 0 0 16px #B2B2B2;
     display: inline-block;
     padding: 10px 18px;
     position: relative;
@@ -15,7 +18,7 @@
 }
 
 .bubble::before {
-    background-color: #F2F2F2;
+    background: #54a3ee; /* Old browsers */
     content: "\00a0";
     display: block;
     height: 16px;

@@ -14,7 +14,7 @@
 
 {% block content %}
 
-<div id="chat_section" class="chat span7 section">
+<div id="chat_section" class="chat span7 section well well-small">
 {% for message in message_list reversed %}
 {% ifequal user message.sender %}
   <div class="bubble me"><img src="{{ message.sender.get_profile.mugshot|thumbnail_url:'avatar'}}"/><a href="{{message.sender.get_absolute_url}}">{{ message.sender }}</a>

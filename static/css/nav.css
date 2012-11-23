@@ -97,7 +97,7 @@ div.navbar {
 }
 
 #colorNav li ul li:first-child{
-	border-radius:3px 3px 0 0;
+	/*border-radius:3px 3px 0 0;*/
 	margin-top:10px;
 	position:relative;
 }
@@ -114,10 +114,10 @@ div.navbar {
 	margin-left:-5px;
 }
 
-#colorNav li ul li:last-child{
+/*#colorNav li ul li:last-child{
 	border-bottom-left-radius:3px;
 	border-bottom-right-radius:3px;
-}
+}*/
 
 /* This will trigger the CSS */
 /* transition animation on hover */

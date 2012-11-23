@@ -92,6 +92,7 @@ class RecipeCategoryListView(ListView):
 	def get_context_data(self, **kwargs):
 		context = super(RecipeCategoryListView, self).get_context_data(**kwargs)
 		context['category'] = self.recipecategory
+		context['category_list'] = RecipeCategory.objects.all().only('name')
 		return context
 
 class HotRecipeListView(ListView):
