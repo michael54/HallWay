@@ -28,6 +28,10 @@ p {
 	margin-left: 25px;
 }*/
 
+.bold {
+	font-weight: bold;
+}
+
 h1 span.mod-edit {
 	font-family: 'Kite One', sans-serif;
 	color: rgb(130, 130, 130);
@@ -145,15 +149,20 @@ div.mod-recipe-share span.mod-recipe-upload > a {
 	padding-left: 15px;
 }
 
-p.mod-recipe-brief-content, p.mod-recipe-tip-content, p.empty-note, ul.ingredient-list {
+p.mod-recipe-brief-content, p.mod-recipe-tip-content, p.empty-note, 
+ul.ingredient-list, div.mod-recipe-steps ol, div.i-title {
 	color: #e3cb9f;
-	font-size: 14px;
+	font-size: 16px;
+	text-align: justify;
+}
+
+div.i-title {
+	font-weight: bold;
 }
 
 div.mod-recipe-comments {
-	margin-top: 20px;
-	margin-bottom: 20px;
-	padding-left: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 div.mod-recipe-comments > a {
@@ -229,7 +238,7 @@ div.mod-recipe-comments > a:active {
 }
 
 div.mod-recipe-brief, div.mod-reicpe-ingredients, 
-div.mod-recipe-steps, div.mod-recipe-tip {
+div.mod-recipe-steps {
 	border-bottom-style: solid;
 	border-bottom-width: 2px;
 	border-bottom-color: #F5D982;
@@ -257,5 +266,28 @@ button#id_comment_submit {
 
 ul.ingredient-list {
 	list-style-type: none;
+	margin-left: 25px;
+}
+
+div.recipe-content {
 	margin-left: 40px;
+}
+
+div.mod-recipe-steps ol {
+	list-style-type: none;
+}
+
+div.mod-recipe-steps div.recipe-content {
+	margin-left: 15px;
+}
+
+div.mod-recipe-steps ol li {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div.mod-recipe-steps ol li:not(:first-child) {
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #F5D982
 }

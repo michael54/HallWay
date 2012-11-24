@@ -74,11 +74,23 @@
           Ratings: <div id="star"></div>
           <div>{{object.rating_num}} rated this.</div>
       </div>
-      <div class="mod-recipe-share">
-        <span class="mod-recipe-upload">
-          <a href="{% url 'did_recipe_upload' object.id %}"><i class="icon-upload-alt"></i>&nbsp;Upload your own recipe for this dish?</a>
-        </span>
+      <div class="row-fluid">
+        <div class="mod-recipe-share span7">
+          <span class="mod-recipe-upload">
+            <a href="{% url 'did_recipe_upload' object.id %}"><i class="icon-upload-alt"></i>&nbsp;Upload your own recipe for this dish?</a>
+          </span>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="mod-recipe-comments span5">
+          <a data-toggle="modal" href="#rateModal"><i class="icon-comment-alt"></i>&nbsp;Leave a rating?</a>
+        </div>
+        {% else %}
+        <div class="mod-recipe-comments span5">
+          <a data-toggle="modal" href="#myModal"><i class="icon-comment-alt"></i>&nbsp;Log in to rate it</a>
+        </div>
+        {% endif %}
       </div>
+
 
       <div class="mod-recipe-brief">
         <div class="mod-recipe-title">
@@ -97,33 +109,50 @@
         <div class="mod-recipe-title">
           <img src="/media/recipe-ingredient.png" alt="Ingredients" />
         </div>
-        {% if amount_list %}
-        <ul class="ingredient-list">
-         {% for ingredient in amount_list %}
-         {% if ingredient.must %}
-         <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
+        <div class="recipe-content">
+          {% if amount_list %}
+          <div class="i-title">Main Ingredient</div>
+          <ul class="ingredient-list main-ingredient">
+           {% for ingredient in amount_list %}
+           {% if ingredient.must %}
+           <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
+           {% endif %}
+           {% endfor %}
+          </ul>
+          <div class="i-title">Reasonings</div>
+          <ul class="ingredient-list reasonings">
+          {% for ingredient in amount_list %}
+           {% if not ingredient.must %}
+           <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
+           {% endif %}
+           {% endfor %}
+          </ul>
          {% else %}
-         <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
+         <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
          {% endif %}
-         {% endfor %}
-        </ul>
-       {% else %}
-       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
-       {% endif %}
+       </div>
       </div>
       <div class="mod-recipe-steps">
         <div class="mod-recipe-title">
           <img src="/media/recipe-instru.png" alt="Instructions" />
         </div>
-        {% if step_list %}
-        <ol>
-         {% for step in step_list %}
-         <li>{{ step.step_num }}:{{step.description}}</li>
-         {% endfor %}
-       </ol>
-       {% else %}
-       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
-       {% endif %}
+        <div class="recipe-content">
+          {% if step_list %}
+          <ol>
+           {% for step in step_list %}
+            <li class="row-fluid">
+              <div class="span9">
+                <div class="step-num bold">Step&nbsp;{{step.step_num}}</div>
+                <div class="step-desctiption">{{step.description}}</div>
+              </div>
+              <img class="span3" src="{{step.step_image.url}}" alt="step image" />
+            </li>
+           {% endfor %}
+         </ol>
+         {% else %}
+         <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+         {% endif %}
+       </div>
       </div>
       <div class="mod-recipe-tip">
         <div class="mod-recipe-title">
@@ -137,16 +166,6 @@
        <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
        {% endif %}
       </div>
-
-      {% if user.is_authenticated %}
-      <div class="mod-recipe-comments">
-        <a data-toggle="modal" href="#rateModal">Say something about the dish?</a>
-      </div>
-      {% else %}
-      <div class="mod-recipe-comments">
-        <a data-toggle="modal" href="#myModal">Log in to rate it</a>
-      </div>
-      {% endif %}
 
       </section>
       <aside class="mod-side span4 well well-small">
