@@ -266,7 +266,11 @@ button#id_comment_submit {
 
 ul.ingredient-list {
 	list-style-type: none;
-	margin-left: 25px;
+	margin-left: 0;
+}
+
+ul.ingredient-list li.ingre-must {
+	margin-left: -20px;
 }
 
 div.recipe-content {

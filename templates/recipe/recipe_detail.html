@@ -111,19 +111,12 @@
         </div>
         <div class="recipe-content">
           {% if amount_list %}
-          <div class="i-title">Main Ingredient</div>
           <ul class="ingredient-list main-ingredient">
            {% for ingredient in amount_list %}
            {% if ingredient.must %}
-           <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
-           {% endif %}
-           {% endfor %}
-          </ul>
-          <div class="i-title">Reasonings</div>
-          <ul class="ingredient-list reasonings">
-          {% for ingredient in amount_list %}
-           {% if not ingredient.must %}
-           <li>{{ ingredient.ingredient }}: {{ ingredient.amount }}</li>
+           <li class="ingre-must"><i class="icon-star"></i>{{ ingredient.ingredient }}&nbsp;--&nbsp;{{ ingredient.amount }}</li>
+           {% else %}
+           <li>{{ ingredient.ingredient }}&nbsp;--&nbsp;{{ ingredient.amount }}</li>
            {% endif %}
            {% endfor %}
           </ul>
