@@ -106,7 +106,7 @@ class Amount(models.Model):
 		return u'Amount of %s in %s' % (self.ingredient.name, self.recipe.name)
 
 	class Meta:
-		ordering = ['recipe','must']
+		ordering = ['recipe','-must']
 		unique_together = ('recipe', 'ingredient')
 		
 class Step(models.Model):
