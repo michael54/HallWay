@@ -153,8 +153,14 @@ P.larger-size { font-size: 16px; }
 	word-wrap: break-word;
 }
 
-#searchform{
-	left: 100px;
+div.content.search-form{
+	/*position: relative;
+	top:90px;
+	left: 140px;
+	/*width: 1.5em;*/
+	/*width: 420px;*/
+	margin-left: auto;
+	margin-right: auto;
 }
 
 
