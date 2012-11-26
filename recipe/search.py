@@ -5,6 +5,7 @@ from recipe.models import Recipe
 from food.models import Food
 from recipe.forms import SearchForm
 from django.forms.formsets import formset_factory
+from django.db.models import Q
 import sys
 
 def autonav(request):
@@ -20,6 +21,7 @@ def advanced_search(request):
 	SearchFormSet = formset_factory(SearchForm, extra = 3)
 	if request.method == 'POST':
 		pass
+
 	else:
 		search_formset = SearchFormSet()
 		return render(request, 'recipe/advanced_search.html', {'formset':search_formset})
@@ -27,7 +29,7 @@ def advanced_search(request):
 def normal_search(request):
 	if request.is_ajax():
 		q = request.POST['q']
-		results = Recipe.objects.filter(name__contains = q).only('name', 'cover_image', 'like_num')
+		results = list(Recipe.objects.filter(Q(name__contains = q)|Q(ingredients__name__contains = q)).only('name', 'cover_image', 'like_num'))
 		return render_to_response('recipe/result.html', {'results': results})
 	else:
 		raise Http404
