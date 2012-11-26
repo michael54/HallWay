@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from food.models import Food, FoodCategory
+from recipe.models import RecipeCategory
 from django.views.generic import DetailView, ListView
 
 class FoodDetailView(DetailView):
@@ -43,3 +44,7 @@ class FoodCategoryListView(ListView):
 		return context
 
 
+def categories(request):
+	fc = FoodCategory.objects.all()
+	rc = RecipeCategory.objects.all().defer('brief')
+	return render(request, 'food/categories.html' {'foodcategory': fc, 'recipecategory':rc})

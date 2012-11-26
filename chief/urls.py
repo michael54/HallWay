@@ -57,7 +57,9 @@ urlpatterns = patterns('',
     url(r'^food/(?P<pk>\d+)/$', FoodDetailView.as_view(), name='food_detail'),
     url(r'^foodcategory/(\d+)/$', FoodCategoryListView.as_view()),
     url(r'^foodcategory/(\d+)/(\w+)/$', FoodCategoryListView.as_view()),
-    
+    url(r'^categories/$', 'food.views.categories', name='categories'),
+
+
     # URL for activity
     url(r'^activity/$', 'accounts.views.activity', name='actstream'),
     url(r'^activity/', include('actstream.urls')),
