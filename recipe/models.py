@@ -140,15 +140,3 @@ class Vote(models.Model):
 	class Meta:
 		ordering = ['user', 'recipe',]
 		unique_together = ("user", "recipe")
-
-
-
-
-
-
-
-
-
-
-
-

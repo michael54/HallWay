@@ -22,7 +22,7 @@ from django.conf import settings
 from accounts.models import MyProfile
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
-from recipe.search import autonav
+from recipe.search import autonav, normal_search
 
 did_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, DETAIL = False, SHARPEN = False,UPLOAD_DIR='Recipe_Images/Did_Images')
 

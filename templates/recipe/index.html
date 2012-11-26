@@ -7,11 +7,7 @@
 
 {% block csslink %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
   <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
-  <link rel="stylesheet" type="text/css" href="{% static "css/elastislide.css" %}"/>
-
-
 {% endblock %}
 
 {% block title %}
@@ -33,47 +29,14 @@
     <a href="javascript:;" id="toggleAnimation" >PAUSE</a>
   </div>
   <div class="content search-form">
-      <form id="searchform" class=".form-search"action="" method="POST">
+      <form id="searchform" class="form-search" action="{% url 'normal_search' %}" method="POST">
         {% csrf_token %}
       <input class="span4 search-query" id="searchinput" placeholder="Type in a dish name or the main ingredient..." type="search" autocomplete="off">
       <div id="suggestions"></div>
       </form>
   </div>
-  <div class="image-show">
-    <div class="fixed-bar">
-      <div id="hide-arrow">
-        Hide
-      </div>
-      <!-- Elastislide Carousel -->
-      <ul id="carousel1" class="elastislide-list">
-        {% for r in results %}
-        {% if r.cover_image %}
-        <li><a href="{{ r.get_absolute_url }}"><img src="{{ r.cover_image|thumbnail_url:'normal' }}"></a></li>
-        {% endif %}
-        {% endfor %}
-        <li>
-          <a href="#" class="ca-img-link">
-            <img src="{% static "img/small/1.jpg" %}" alt="image01" />
-            <div class="carousel1-caption">
-              <h4>Dish title</h4>
-              <p>Dish description hehehe.</p>
-            </div>
-          </a>
-        </li>
-        
-        <li><a href="#"><img src="{% static "img/small/2.jpg" %}" alt="image02" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/3.jpg" %}" alt="image03" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/4.jpg" %}" alt="image04" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/5.jpg" %}"  alt="image05" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/6.jpg" %}"  alt="image06" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/7.jpg" %}"  alt="image07" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/8.jpg" %}"  alt="image08" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/9.jpg" %}"  alt="image09" /></a></li>
-        <li><a href="#"><img src="{% static "img/small/10.jpg" %}"  alt="image10" /></a></li>
-      </ul>
-      <!-- End Elastislide Carousel -->
-    </div>
-  </div>
+  <div id="search_results"></div>
+  
 {% endblock %}
 
 {% block js-head %}
@@ -115,14 +78,10 @@
     var minlength = 3;
     j('#suggestions').hide();
     j('#searchinput').keyup(function(event) {
-      j('#searchform').submit();
-    });
-    j('#searchform').submit(function(event) {
-      event.preventDefault();
       var value = j('#searchinput').val(),
-          url = j(this).attr('action');
-      var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+          url = '';
       if(value.length >= minlength) {
+        var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
         j.post(url, postdata,
           function(data) {
             j('#suggestions').fadeIn();
@@ -135,22 +94,34 @@
       }
     });
 
+    j('#searchinput').keypress(function (event){
+      if (event.which == 13){
+        j('#searchform').submit();
+      }
+    });
+    
+    j('#searchform').submit(function(event) {
+      event.preventDefault();
+      var value = j('#searchinput').val(),
+          url = j(this).attr('action');
+      var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+      if(value.length >= minlength) {
+        j.post(url, postdata,
+          function(data) {
+            j('#search_results').fadeIn();
+            j('#search_results').empty().append(data);
+          }
+        );
+      }
+      else {
+        j('#search_results').fadeOut();
+      }
+    });
+
   });
 </script>
 {% endblock js-head%}
 
 {% block js %}
-  <script type="text/javascript" src="{% static "js/jquery.elastislide.js" %}"></script>
-  <script type="text/javascript">
-    j('#carousel1').elastislide( {
-          minItems : 4
-        });
-    j('#hide-arrow').toggle(function (){
-      j('.image-show').fadeOut(1000);
-    }, function(){
-      j('.image-show').fadeIn(1000);
-    });
-     
-  </script>
   <script type="text/javascript" src="{% static "js/recipe/index.js" %}"></script>
 {% endblock js %}

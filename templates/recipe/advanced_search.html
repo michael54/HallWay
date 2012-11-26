@@ -4,14 +4,26 @@
 
 {% block content %}
 <form id="search_form" method="POST" action="">
-	{% for form in formset %}
-		{{ form.as_p }}
-	{% endfor %}
+	<table border="0" cellpadding="0" cellspacing="0">
+		<tbody>
+			{% for form in formset.forms %}
+			<tr>
+				<th>Ingredient: <th>
+				<td>{{ form.ingredient }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<button class="btn" type="submit">Search</button>
 	{{ formset.management_form }}
 </form>
 {% endblock content %}
 
 {% block js %}
 <script type="text/javascript" src="{% static "js/jquery.formset.min.js" %}"></script>
-
+<script type="text/javascript">
+	jQuery(document).ready(function (){
+		jQuery('#search_form tbody tr').formset();
+	});
+</script>
 {% endblock js %}

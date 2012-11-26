@@ -66,6 +66,9 @@ urlpatterns = patterns('',
 
     url(r'^ajax/image_delete/$', 'recipe.views.image_delete', name='image_delete'),
 
-    url(r'^search/$', 'recipe.search.advanced_search', name = 'advanced_search'),
+    # URL for search
+    url(r'^search/autonav/$', 'recipe.search.autonav', name='autonav'),
+    url(r'^search/$', 'recipe.search.normal_search', name='normal_search'),
+    url(r'^search/advanced/$', 'recipe.search.advanced_search', name = 'advanced_search'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

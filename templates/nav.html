@@ -4,22 +4,31 @@
 {% load url from future %}
 
 {% block csslink %}
-  <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
-  <link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
-  <!-- link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" / -->
-  <link rel="stylesheet" href="{% static "css/form.css" %}" type="text/css" />
-  <link rel="stylesheet" href="{% static "css/scrollbar.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{% static "css/elastislide.css" %}"/>
+<link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
+<!-- link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" / -->
+<link rel="stylesheet" href="{% static "css/form.css" %}" type="text/css" />
+<link rel="stylesheet" href="{% static "css/scrollbar.css" %}" type="text/css" />
 {% endblock %}
-	
+
 {% block navbar %}
-	
+<script src="{% static "js/modernizr.custom.17475.js" %}"></script>
+<div id="nav-search-result" style="position:fixed;"></div>
 <div class="navbar navbar-static-top">
-  <div class="navbar-inner">
-	<div class="container row-fluid" id="nav-container">
-		<div id="nav-logo" class="span3">
-			<a class="brand" href="#">LOGO</a>
-		</div>
-		<div id="colorNav" class="span9">
+	<div class="navbar-inner">
+		<div class="container row-fluid" id="nav-container">
+			<div id="nav-logo" class="span4">
+				<a class="brand" href="#">LOGO</a>
+				<form id="nav-search" class="form-search" action="{% url 'normal_search' %}" method="POST">
+					{% csrf_token %}
+					<input class="span8 search-query" id="nav-input" placeholder="Type in a dish name..." type="search" autocomplete="off">
+				</form>
+				<div id="nav-suggestion"></div>
+			</div>
+			<div id="colorNav" class="span8">
+				
 				<ul style="position:relative;">
 					<li class="green">
 						<a href="{% url 'homepage' %}"><i class="icon-home"></i></a>
@@ -62,43 +71,87 @@
 						</ul>
 					</li>
 					<!-- More menu items -->  	
-			</ul>
+				</ul>
+			</div>
 		</div>
-	</div>
 	</div>
 </div>
 <div>
 	<a href="#" class="scroll-up"><i class="icon-chevron-up"></i></a>
 </div>
 <div class="modal hide fade" tabindex="-1" aria-hidden="true" id="signinModal">
-  <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">x</button>
-	<legend>Sign In</legend>
-  </div>
-  <div class="modal-body">
-	<form method="post" action="{% url 'userena_signin' %}" >
-		{% csrf_token %}
-		<fieldset>
-			<img src="{% static 'img/welcome_pig.jpg' %}" id="welcomePig"/>
-		  <p><input type="text" class="span3" name="identification" id="email" placeholder="Username or Email"></p>
-		  <p><input type="password" class="span3" name="password" placeholder="Password"></p>
-		  <p class="checkbox">
-		  <label for="id_remember_me"><input type="checkbox" name="remember_me" id="id_remember_me" /> Remember me for a month</label>
-		</p>
-		  <p><button type="submit" class="btn btn-primary">Sign in</button>
-			<a href="{% url 'userena_password_reset' %}">Forgot Password?</a>
-		  </p>
-	</fieldset>
-	</form>
-  </div>
-  <div class="modal-footer">
-	New To MyWebsite.com?
-	<a href="{% url 'userena_signup' %}" class="btn btn-primary">Sign Up</a>
-  </div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">x</button>
+		<legend>Sign In</legend>
+	</div>
+	<div class="modal-body">
+		<form method="post" action="{% url 'userena_signin' %}" >
+			{% csrf_token %}
+			<fieldset>
+				<img src="{% static 'img/welcome_pig.jpg' %}" id="welcomePig"/>
+				<p><input type="text" class="span3" name="identification" id="email" placeholder="Username or Email"></p>
+				<p><input type="password" class="span3" name="password" placeholder="Password"></p>
+				<p class="checkbox">
+					<label for="id_remember_me"><input type="checkbox" name="remember_me" id="id_remember_me" /> Remember me for a month</label>
+				</p>
+				<p><button type="submit" class="btn btn-primary">Sign in</button>
+					<a href="{% url 'userena_password_reset' %}">Forgot Password?</a>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+	<div class="modal-footer">
+		New To MyWebsite.com?
+		<a href="{% url 'userena_signup' %}" class="btn btn-primary">Sign Up</a>
+	</div>
 </div>
+
+<script type="text/javascript" src="{% static "js/recipe/index.js" %}"></script>
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
+	var minlength = 3;
+	// jQuery('#nav-search-result').hide();
+	jQuery('#nav-suggestion').hide();
+	jQuery('#nav-input').keyup(function(event) {
+			var value = jQuery('#nav-input').val(),
+					url = "{% url 'autonav' %}";
+			if(value.length >= minlength) {
+				var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+				jQuery.post(url, postdata,
+					function(data) {
+						jQuery('#nav-suggestion').fadeIn();
+						jQuery('#nav-suggestion').empty().append(data);
+					}
+				);
+			}
+			else {
+				jQuery('#nav-suggestion').fadeOut();
+			}
+	});
+
+	jQuery('#nav-input').keypress(function (event){
+			if (event.which == 13){
+				jQuery('#nav-search').submit();
+			}
+		});
+	jQuery('#nav-search').submit(function(event) {
+			event.preventDefault();
+			var value = jQuery('#nav-input').val(),
+					url = jQuery(this).attr('action');
+			var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+			if(value.length >= minlength) {
+				jQuery.post(url, postdata,
+					function(data) {
+						jQuery('#nav-search-result').fadeIn();
+						jQuery('#nav-search-result').empty().append(data);
+					}
+				);
+			}
+			else {
+				jQuery('#nav-search-result').fadeOut();
+			}
+		});
 	jQuery.ajax({ url: "{% url 'message_comet' %}", success: function(data){
 		//Update your dashboard gauge
 		if (jQuery('#notification').html() != data) {
@@ -106,20 +159,20 @@ jQuery(document).ready(function() {
 		}
 
 	}});
-function yuNotify(){
-	setTimeout(function () {
-		jQuery.ajax({ url: "{% url 'message_comet' %}", success: function(data){
+	function yuNotify(){
+		setTimeout(function () {
+			jQuery.ajax({ url: "{% url 'message_comet' %}", success: function(data){
 			//Update your dashboard gauge
 			if (jQuery('#notification').html() != data) {
 				jQuery('#notification').html(data);
 			}
 
 		}, complete: yuNotify });
-	}, 30000);
-};
-{% if user.is_authenticated %}
-yuNotify();
-{% endif %}
+		}, 30000);
+	};
+	{% if user.is_authenticated %}
+	yuNotify();
+	{% endif %}
 });
 </script>
 <script type="text/javascript" src="{% static "js/zhEffect.js" %}"></script>

@@ -48,7 +48,10 @@ class Food(models.Model):
 
 	@models.permalink
 	def get_absolute_url(self):
-		return ('food_detail', (), {'pk': self.id})
+		if self.category.name == 'inactive':
+			return ''
+		else:
+			return ('food_detail', (), {'pk': self.id})
 
 	class Meta:
 		ordering = ['like_num', 'view_num']

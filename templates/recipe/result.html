@@ -1,0 +1,41 @@
+{% load static %}
+
+{% load thumbnail %}
+
+<div class="image-show">
+	<div class="fixed-bar">
+		<div id="hide-arrow">
+			Hide
+		</div>
+		<!-- Elastislide Carousel -->
+		<ul id="carousel1" class="elastislide-list">
+			{% for r in results %}
+			{% if r.cover_image %}
+			<li>
+				<a class="ca-img-link" href="{{ r.get_absolute_url }}"><img src="{{ r.cover_image|thumbnail_url:'normal' }}">
+					<div class="carousel1-caption">
+						<h4>{{ r.name }}</h4>
+						<p>{{ r.brief|truncatechars:50 }}</p>
+					</div>
+				</a>
+			</li>
+			{% endif %}
+			{% endfor %}
+		</ul>
+		<!-- End Elastislide Carousel -->
+	</div>
+</div>
+
+<script type="text/javascript" src="{% static "js/recipe/index.js"%}"></script>
+<script type="text/javascript" src="{% static "js/jquery.elastislide.js" %}"></script>
+<script type="text/javascript">
+jQuery('#carousel1').elastislide( {
+	minItems : 4
+});
+jQuery('#hide-arrow').toggle(function (){
+	jQuery('.image-show').fadeOut(1000);
+}, function(){
+	jQuery('.image-show').fadeIn(1000);
+});
+
+</script>
