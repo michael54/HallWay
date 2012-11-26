@@ -64,6 +64,8 @@ urlpatterns = patterns('',
     url(r'^activity/$', 'accounts.views.activity', name='actstream'),
     url(r'^activity/', include('actstream.urls')),
 
-    url(r'^ajax/image_delete/$', 'recipe.views.image_delete', name='image_delete')
+    url(r'^ajax/image_delete/$', 'recipe.views.image_delete', name='image_delete'),
+
+    url(r'^search/$', 'recipe.search.advanced_search', name = 'advanced_search'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

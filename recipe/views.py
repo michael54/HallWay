@@ -22,6 +22,7 @@ from django.conf import settings
 from accounts.models import MyProfile
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
+from recipe.search import autonav
 
 did_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, DETAIL = False, SHARPEN = False,UPLOAD_DIR='Recipe_Images/Did_Images')
 
@@ -34,13 +35,7 @@ def nav(request):
 
 def index(request):
 	if request.is_ajax():
-		data = ''
-		q = request.POST['q']
-		queries = {}
-		queries['recipe'] = Recipe.objects.filter(name__contains= q)[:3]
-		queries['food'] = Food.objects.filter(name__contains=q)[:3]
-		print>>sys.stderr, queries
-		return render_to_response('autocomplete.html',{'recipe_list':queries['recipe'], 'food_list':queries['food']})
+		return autonav(request)
 	else:
 		return render(request, 'recipe/index.html')
 

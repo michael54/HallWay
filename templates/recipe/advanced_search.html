@@ -1,0 +1,17 @@
+{% extends 'nav.html' %}
+
+{% load static %}
+
+{% block content %}
+<form id="search_form" method="POST" action="">
+	{% for form in formset %}
+		{{ form.as_p }}
+	{% endfor %}
+	{{ formset.management_form }}
+</form>
+{% endblock content %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "js/jquery.formset.min.js" %}"></script>
+
+{% endblock js %}

@@ -39,4 +39,8 @@ class AmountForm(forms.Form):
 	amount = forms.CharField(min_length = 1)
 	must = forms.BooleanField(required=False)
 
+class SearchForm(forms.Form):
+	ingredient = forms.CharField(min_length = 1)
+
+
 

@@ -47,4 +47,4 @@ class FoodCategoryListView(ListView):
 def categories(request):
 	fc = FoodCategory.objects.all()
 	rc = RecipeCategory.objects.all().defer('brief')
-	return render(request, 'food/categories.html' {'foodcategory': fc, 'recipecategory':rc})
+	return render(request, 'food/categories.html', {'foodcategory': fc, 'recipecategory':rc})
