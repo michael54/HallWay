@@ -1,3 +1,7 @@
+#searchinput {
+	border-radius: 0px;
+}
+
 #hide-arrow{
 	position: absolute;
 	right: 10px;
