@@ -103,9 +103,7 @@ fieldset {
 }
 
 form {
-
 	margin:1em;
-	padding-bottom: 130px;
 	background: -moz-radial-gradient(center center , ellipse farthest-corner, rgb(120,82,49) 0%, rgb(206,168,134) 100%) repeat fixed 0% 0% transparent;
 
 }
@@ -117,4 +115,22 @@ th{
 td.form-label {
 	font-family: 'Montserrat Alternates', sans-serif;
 	text-align: right;
+}
+
+th {
+	font-family: 'Montserrat Alternates', sans-serif;
+	text-align: left;
+}
+
+textarea {
+	height: 80px;
+	resize: none;
+}
+
+a.delete-row {
+	float: right;
+}
+
+form#newFormsets {
+	padding-bottom: 60px;
 }

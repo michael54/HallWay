@@ -96,11 +96,11 @@
 			<h1 class="mod-page-title">{{category.parent.name}}:&nbsp;{{category}}</h1>
 			<div class="detail-nav">
 				<div class="rank-method">
-					<a href="#">Recently Popular</a>
+					<a href="{% url 'recipe_category' category.id 'trend' %}">Recently Popular</a>
 					<span>&nbsp;|&nbsp;</span>
-					<a href="#">Most Popular</a>
+					<a href="{% url 'recipe_category' category.id 'hot' %}">Most Popular</a>
 					<span>&nbsp;|&nbsp;</span>
-					<a href="#">Latest Created</a>
+					<a href="{% url 'recipe_category' category.id 'time' %}">Latest Created</a>
 				</div>
 				<div class="display-method">
 					<a href="#"><i class="icon-list-ul"></i></a>

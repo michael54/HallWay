@@ -110,20 +110,20 @@ Upload your Recipe
 <fieldset id="mod-ingredient">
 <legend>How about the ingredients?</legend>  
 {{ amount_formset.management_form }}
-<table id="ingredient_table" class=""> 
-  <thead>
+<table id="ingredient_table"> 
+  <thead class="row-fluid">
     <tr>
-      <th>Ingredient</th>
-      <th>Amount</th>
-      <th>Must?</th>
+      <th><div class="span6">Ingredient</div></th>
+      <th><div class="span3">Amount</div></th>
+      <th><div class="offset2 span3">Must?</div></th>
     </tr>
   </thead>    
-  <tbody>
+  <tbody class="row-fluid">
     {% for form in amount_formset %}
     <tr>{{ form.recipe }}
-      <td>{{ form.ingredient }}</td>
-      <td>{{ form.amount }}</td>
-      <td>{{ form.must }}</td>
+      <td><div class="span6">{{ form.ingredient }}</div></td>
+      <td><div class="span3 mini">{{ form.amount }}</div></td>
+      <td><div class="offset2 span3">{{ form.must }}</div></td>
     </tr>
     {% endfor %}
   </tbody> 
@@ -135,18 +135,22 @@ Upload your Recipe
 <table id="step_table" class="">
   <thead>
     <tr>
-      <th>Step Num</th>
-      <th>Step Description</th>
-      <th>Step Image</th>
+      <th><div class="span1">Step Num</div></th>
+      <th><div class="span3">Step Description</div></th>
+      <th><div class="span3">Step Image</div></th>
     </tr>
   </thead>
   <tbody>
     {% for form in step_formset %}
     <tr>{{form.recipe}}
-      <td><div class="step_num_counter"></div></td>
-      <td>{{ form.description }}</td>
-      <td><div class="step_image_frame">{{ form.step_image }}
-      <img class="step_preview" id="step{{forloop.counter0}}_preview" /><div class="step-uploader"></div><button class="btn step_image_delete">X</button></div>
+      <td><div class="step_num_counter span1"></div></td>
+      <td><div class="span3">{{ form.description }}</div></td>
+      <td>
+        <div class="step_image_frame span3">{{ form.step_image }}
+          <img class="step_preview" id="step{{forloop.counter0}}_preview" />
+          <div class="step-uploader"></div>
+          <button class="btn step_image_delete">X</button>
+        </div>
       </td>
     </tr>
     {% endfor %}
@@ -331,6 +335,18 @@ $(document).ready(function() {
     'csrf_xname': 'X-CSRFToken',
   },
 });
+});
+
+$(document).ready(function () {
+  $('td > div.mini > input').addClass('input-mini');
+
+  var $content = $('a.delete-row').html();
+  $content = '<i class="icon-trash"></i> ' + $content;
+  $('a.delete-row').html($content);
+
+  $content = $('a.add-row').html();
+  $content = '<i class="icon-plus-sign"></i> ' + $content;
+  $('a.add-row').html($content);
 });
 </script>
 {% endblock js%}
