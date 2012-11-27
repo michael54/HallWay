@@ -1,3 +1,8 @@
+/*body {
+	overflow: hidden;
+	height: 100%;
+}*/
+
 #searchinput {
 	border-radius: 0px;
 }
@@ -158,13 +163,27 @@ P.larger-size { font-size: 16px; }
 }
 
 div.content.search-form{
-	/*position: relative;
-	top:90px;
-	left: 140px;
-	/*width: 1.5em;*/
-	/*width: 420px;*/
-	margin-left: auto;
-	margin-right: auto;
+	position: fixed;
+	bottom: 20%;
+	left: 50%;
+	margin-left: -158px;
+}
+
+div.search-div {
+	padding: 10px;
+	background-color: rgba(128, 128, 128, 0.2);
+}
+
+input.search-query {
+	height: 29px;
+	line-height: 29px;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+}
+
+span.add-on {
+	font-size: 29px;
 }
 
 
@@ -181,3 +200,55 @@ div.content.search-form{
 #suggestions span.seperator { float:right; padding-right:15px; margin-right:5px;
       background-image:url(../images/shortcuts_arrow.gif); background-repeat:no-repeat; background-position:right; }
 #suggestions span.seperator a { background-color:transparent; display:block; margin:5px; height:auto; color:#ffffff; }
+
+div.circular-img {
+	width: 100px;
+	height: 100px;
+	border-width: 2px;
+	border-color: white;
+	border-radius: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	background: url(../../../media/no_mugshot.jpg) no-repeat;
+	box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.show-caption {
+	font-family: 'Chela One', cursive;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	padding-top: 10px;
+}
+
+div.category-show {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+a.show-item {
+	text-decoration: none;
+	padding: 5px 0 5px 0;
+}
+
+#item1 {
+	margin-left: 200px;
+}
+
+a.show-item:hover {
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 15px;
+}
+
+div#circular-show {
+	position: fixed;
+	top: 200px;
+	left: 0px;
+	width: 100%;
+	overflow: hidden;
+}

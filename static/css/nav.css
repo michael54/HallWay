@@ -197,3 +197,7 @@ a.scroll-up {
 #nav-suggestion span.seperator { float:right; padding-right:15px; margin-right:5px;
       background-image:url(../images/shortcuts_arrow.gif); background-repeat:no-repeat; background-position:right; }
 #nav-suggestion span.seperator a { background-color:transparent; display:block; margin:5px; height:auto; color:#ffffff; }
+
+form#nav-search {
+	margin-top: 10px;
+}

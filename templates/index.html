@@ -8,34 +8,51 @@
 {% block csslink %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
+  <link href='http://fonts.googleapis.com/css?family=Chela+One' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block title %}
 上厨娘
 {% endblock %}
 
+{% block navbar %}
+{% endblock %}
+
 {% block content %}
+<div id="circular-show">
+  <div class="category-show row">
+    <a href="#" class="span2 show-item" id="item1">
+      <div class="circular-img"></div>
+      <div class="show-caption">Courses</div>
+    </a>
+    <a href="#" class="span2 show-item" id="item2">
+      <div class="circular-img"></div>
+      <div class="show-caption">Cuisines</div>
+    </a>
+    <a href="#" class="span2 show-item" id="item3">
+      <div class="circular-img"></div>
+      <div class="show-caption">Sources</div>
+    </a>
+    <a href="#" class="span2 show-item" id="item4">
+      <div class="circular-img"></div>
+      <div class="show-caption">Diets</div>
+    </a>
+    <a href="#" class="span2 show-item" id="item5">
+      <div class="circular-img"></div>
+      <div class="show-caption">Hot!</div>
+    </a>
+  </div>
+</div>
+
   <div id="bg-show"></div>
-  {% comment %}
-  <div class="row nav-buttons">
-    <div id="nav">&nbsp;</div>
-  </div>
-  <div class="row">
-    <div class="nav-buttons">
-      <a href="javascript:;" id="prev">&lsaquo;</a>&nbsp;&nbsp;&nbsp;
-      <a href="javascript:;" id="next">&rsaquo;</a>
-    </div>
-  </div>
-  <div class="row">
-    <a href="javascript:;" id="toggleAnimation" >PAUSE</a>
-  </div>
-  {% endcomment %}
   <div class="content search-form">
-      <form id="searchform" class="form-search" action="{% url 'normal_search' %}" method="POST">
-        {% csrf_token %}
-      <input class="span4 search-query" id="searchinput" placeholder="Type in a dish name or the main ingredient..." type="search" autocomplete="off">
+    <form id="searchform" class="form-search" action="{% url 'normal_search' %}" method="POST">
+      {% csrf_token %}
+      <div class="search-div">
+        <input class="span4 search-query" id="searchinput" placeholder="Type in a dish name or the main ingredient..." type="search" autocomplete="off">
+      </div>
       <div id="suggestions"></div>
-      </form>
+    </form>
   </div>
   <div id="search_results"></div>
   
@@ -119,6 +136,9 @@
         j('#search_results').fadeOut();
       }
     });
+
+    var pLeft = (window.innerWidth- j('a.show-item').width() - j('#item3').position().left)/2 - j('#item3').width()/2;
+    j('a#item1').css('margin-left', pLeft);
 
   });
 </script>
