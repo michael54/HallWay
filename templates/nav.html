@@ -53,7 +53,7 @@
 							<li><a href="{% url 'userena_umessages_list' %}"><i class="icon-envelope-alt"></i> Message</a></li>
 						</ul>
 					</li>
-					<li class="blue pull-right">
+					<li class="blue">
 						{% if user.is_authenticated %}
 						<a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i></a>
 						{% else %}

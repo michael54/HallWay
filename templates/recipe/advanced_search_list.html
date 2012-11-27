@@ -118,7 +118,7 @@
 							{% endfor %}
 						</div>
 						<div class="brief">
-							<p>"{{recipe.brief|truncatechars:100}}"</p>
+							<p>"{{recipe.brief|truncatechars:170}}"</p>
 						</div>
 					</div>
 				</div>
@@ -128,14 +128,14 @@
 			{% if is_paginated %}
 			<div class="pagination">
 				<span class="page-links">
-					{% if page_obj.has_previous %}
-					<a href="/recipes?page={{ page_obj.previous_page_number }}">previous</a>
+					{% if recipe_list.has_previous %}
+					<a href="?page={{ recipe_list.previous_page_number }}">previous</a>
 					{% endif %}
 					<span class="page-current">
-						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+						Page {{ recipe_list.number }} of {{ recipe_list.paginator.num_pages }}.
 					</span>
-					{% if page_obj.has_next %}
-					<a href="/recipes?page={{ page_obj.next_page_number }}">next</a>
+					{% if recipe_list.has_next %}
+					<a href="?page={{ recipe_list.next_page_number }}">next</a>
 					{% endif %}
 				</span>
 			</div>
