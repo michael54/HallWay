@@ -16,6 +16,7 @@
 
 {% block content %}
   <div id="bg-show"></div>
+  {% comment %}
   <div class="row nav-buttons">
     <div id="nav">&nbsp;</div>
   </div>
@@ -28,6 +29,7 @@
   <div class="row">
     <a href="javascript:;" id="toggleAnimation" >PAUSE</a>
   </div>
+  {% endcomment %}
   <div class="content search-form">
       <form id="searchform" class="form-search" action="{% url 'normal_search' %}" method="POST">
         {% csrf_token %}
@@ -52,7 +54,7 @@
       imageWidth: 1024, 
       imageHeight: 768, 
       slideDirection: 'N',
-      nextSlideDelay: 10000,
+      nextSlideDelay: 7000,
       slideShowSpeed: 3000,
       slideShow: 'true',
       transitionEffect: 'fade',
@@ -65,16 +67,16 @@
     });
 
     // animation control
-    j('#toggleAnimation').unbind('click');
-    j('#toggleAnimation').click(function(){
-      if (j(this).html() == "PAUSE"){
-        j(this).html("RESUME");
-        j('#bg-show').bgStretcher.pause();
-      } else {
-        j(this).html("PAUSE");
-        j('#bg-show').bgStretcher.play();
-      }
-    });
+    // j('#toggleAnimation').unbind('click');
+    // j('#toggleAnimation').click(function(){
+    //   if (j(this).html() == "PAUSE"){
+    //     j(this).html("RESUME");
+    //     j('#bg-show').bgStretcher.pause();
+    //   } else {
+    //     j(this).html("PAUSE");
+    //     j('#bg-show').bgStretcher.play();
+    //   }
+    // });
     var minlength = 3;
     j('#suggestions').hide();
     j('#searchinput').keyup(function(event) {

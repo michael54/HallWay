@@ -37,7 +37,7 @@ def index(request):
 	if request.is_ajax():
 		return autonav(request)
 	else:
-		return render(request, 'recipe/index.html')
+		return render(request, 'index.html')
 
 class RecipeDetailView(DetailView):
 
