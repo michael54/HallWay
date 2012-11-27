@@ -13,91 +13,104 @@ Upload your Recipe
 {{block.super}}
 <link href="{{ STATIC_URL }}ajaxuploader/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_form.css" %}"/>
+<link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates:400,700' rel='stylesheet' type='text/css'>
 {% endblock csslink %}
 
 {% block content %}
-<form id="newFormsets" method="post" enctype="multipart/form-data" action="">
+<form id="newFormsets" method="post" enctype="multipart/form-data" action="" class="well well-small">
   {% csrf_token %}
-<div id="container">  
 <fieldset>
-  <legend>What's the dish you wanna add?</legend>  
-  <table id="recipe_table" class="table-hover">
-    <tr>
-      <th>{{recipe_form.name.label}}</th>
-      <td>{{recipe_form.name}}</td>
-    </tr>
-    {{recipe_form.author}}
-    {{recipe_form.category}}
-    <tr>
-      <th>Courses</th>
-      <td>
-        <select class="seperated_select">
-          <option>None</option>
-          {% for c in Courses%}
-          <option value="{{c.id}}">{{c.name}}</option>
-          {% endfor %}
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th>Cuisine</th>
-      <td>
-        <select class="seperated_select">
-          <option>None</option>
-          {% for c in Cuisines%}
-          <option value="{{c.id}}">{{c.name}}</option>
-          {% endfor %}
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th>Main Ingredient</th>
-      <td>
-        <select class="seperated_select">
-          <option>None</option>
-          {% for c in Main_Ingredients%}
-          <option value="{{c.id}}">{{c.name}}</option>
-          {% endfor %}
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th>Special Diet</th>
-      <td>
-        <select class="seperated_select">
-          <option>None</option>
-          {% for c in Special_Diets%}
-          <option value="{{c.id}}">{{c.name}}</option>
-          {% endfor %}
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <th>{{recipe_form.brief.label}}</th>
-      <td>{{recipe_form.brief}}</td>
-    </tr>
-    <tr>
-      <th>{{recipe_form.cover_image.label}}</th>
-      <td><div id="cover_image_frame"><img id="cover_image_preview" />{{recipe_form.cover_image}}<div id="recipe_uploader"></div><button class="btn" id="cover_image_delete">X</button></div></td>
-    </tr><tr>
-    <th>Notes</th>
-    <td>{{recipe_form.tips}}</td>
-  </tr>
-  <tr>
-    <th>{{recipe_form.prep_time.label}}</th>
-    <td>{{recipe_form.prep_time}}</td>
-  </tr>
-  <tr>
-    <th>{{recipe_form.cook_time.label}}</th>
-    <td>{{recipe_form.cook_time}}</td>
-  </tr>
-</table>
+  <legend>Create a recipe</legend>  
+  <table id="recipe_table" class="">
+    <thead style="display:none;">
+      <th>Form Name</th>
+      <th>Form Content</th>
+    </thead>
+    <tbody class="row-fluid">
+      <tr>
+        <td class="form-label span5">{{recipe_form.name.label}}</td>
+        <td class="offset1 span6">{{recipe_form.name}}</td>
+      </tr>
+      {{recipe_form.author}}
+      {{recipe_form.category}}
+      <tr>
+        <td class="form-label span5">Courses</td>
+        <td class="offset1 span6">
+          <select class="seperated_select">
+            <option>None</option>
+            {% for c in Courses%}
+            <option value="{{c.id}}">{{c.name}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-label span5">Cuisine</td>
+        <td class="offset1 span6">
+          <select class="seperated_select">
+            <option>None</option>
+            {% for c in Cuisines%}
+            <option value="{{c.id}}">{{c.name}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-label span5">Main Ingredient</td>
+        <td class="offset1 span6">
+          <select class="seperated_select">
+            <option>None</option>
+            {% for c in Main_Ingredients%}
+            <option value="{{c.id}}">{{c.name}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-label span5">Special Diet</td>
+        <td class="offset1 span6">
+          <select class="seperated_select">
+            <option>None</option>
+            {% for c in Special_Diets%}
+            <option value="{{c.id}}">{{c.name}}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-label span5">{{recipe_form.brief.label}}</td>
+        <td class="offset1 span6">{{recipe_form.brief}}</td>
+      </tr>
+      <tr>
+        <td class="form-label span5">Cover Image</td>
+        <td class="offset1 span6">
+          <div id="cover_image_frame">
+            <img id="cover_image_preview" />{{recipe_form.cover_image}}
+            <div id="recipe_uploader"></div>
+            <button class="btn" id="cover_image_delete">X</button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="form-label span5">Notes</td>
+        <td class="offset1 span6">{{recipe_form.tips}}</td>
+      </tr>
+      <tr>
+        <td class="form-label span5">Preparation Time</td>
+        <td class="offset1 span6">{{recipe_form.prep_time}}</td>
+      </tr>
+      <tr>
+        <td class="form-label span5">Cook Time</td>
+        <td class="offset1 span6">{{recipe_form.cook_time}}</td>
+      </tr>
+    </tbody>
+  </table>
 </fieldset>
 
-<fieldset id="fieldset">
+<fieldset id="mod-ingredient">
 <legend>How about the ingredients?</legend>  
 {{ amount_formset.management_form }}
-<table id="ingredient_table" class="table-hover"> 
+<table id="ingredient_table" class=""> 
   <thead>
     <tr>
       <th>Ingredient</th>
@@ -116,10 +129,10 @@ Upload your Recipe
   </tbody> 
 </table>
 </fieldset>
-<fieldset id="fieldset2">
+<fieldset id="mod-step">
 <legend>Wanna share your cooking steps with us?</legend>
 {{ step_formset.management_form }}
-<table id="step_table" class="table-hover">
+<table id="step_table" class="">
   <thead>
     <tr>
       <th>Step Num</th>
@@ -140,7 +153,6 @@ Upload your Recipe
   </tbody> 
 </table>
 </fieldset>
-</div>
 <button type="submit" id="save_button" class="btn btn-primary pull-right">Save</button>
 
 </form>

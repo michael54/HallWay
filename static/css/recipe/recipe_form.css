@@ -58,11 +58,11 @@
 	left:110px;
 	/*top:10px;*/
 }
-#fieldset {
+#mod-ingredient {
 	position: relative;
 	/*top:30px;*/
 }
-#fieldset2 {
+#mod-step {
 	position: relative;
 	top:50px;
 }
@@ -75,13 +75,14 @@
 
 }
 legend {
-	color: rgb(11, 119, 183);
+	color: fireBrick;
 	font-size: 1.6em;
 	font-weight: bold;
 	margin: 1em 0px;
 	padding: 0px 0.5em;
 	border-bottom-width: 2px;
-
+	width: 97%;
+	font-family: 'Montserrat Alternates', sans-serif;
 }
 
 fieldset {
@@ -89,12 +90,6 @@ fieldset {
 	
 }
 
-#container {
-	margin: 0px auto;
-	padding: 1em;
-	width: 700px;
-	text-align: left;
-}
 #id_name, #id_category, #id_brief, #id_cover_image, #id_tips, #id_prep_time, #id_cook_time {
 	resize: none;	
 	width: 300px;
@@ -117,4 +112,9 @@ form {
 
 th{
 	font-size: 1.3em;
+}
+
+td.form-label {
+	font-family: 'Montserrat Alternates', sans-serif;
+	text-align: right;
 }

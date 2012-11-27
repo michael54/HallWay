@@ -101,7 +101,7 @@
           {{ object.brief }}
         </p>
        {% else %}
-       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+       <p class="empty-note">"This guy's lazy bones... Nothing left here."</p>
        {% endif %}
       </div>
 
@@ -121,7 +121,7 @@
            {% endfor %}
           </ul>
          {% else %}
-         <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+         <p class="empty-note">"This guy's lazy bones... Nothing left here."</p>
          {% endif %}
        </div>
       </div>
@@ -143,7 +143,7 @@
            {% endfor %}
          </ol>
          {% else %}
-         <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+         <p class="empty-note">"This guy's lazy bones... Nothing left here."</p>
          {% endif %}
        </div>
       </div>
@@ -156,32 +156,43 @@
           {{ object.tips }}
         </p>
        {% else %}
-       <p class="empty-note">This guy's lazy bones... Nothing left here.</p>
+       <p class="empty-note">"This guy's lazy bones... Nothing left here."</p>
        {% endif %}
       </div>
 
       </section>
-      <aside class="mod-side span4 well well-small">
-        <div class="mod-author">
-          <img src="{{profile.get_mugshot_url}}" id="mod-author-img" />
+      <aside class="mod-side span4">
+        <div class="mod-author well well-small">
+          <img src="{{profile.mugshot|thumbnail_url:'avatar'}}" id="mod-author-img" />
           <a href="{{ object.author.get_absolute_url }}">
             <span id="mod-author-name">{{ object.author.username }}</span>
           </a>
+          {% include 'actstream/follow_btn.html'%}
         </div>
-        <div class="mod-vote">
+        <div class="mod-vote well well-small">
           <div class="mod-recipe-title">
-            Who tried this before?
+            Rating history
           </div>
           <ul>
             {% for v in votelist %}
-            <div><div><a href="{{v.user.get_absolute_url}}">{{v.user}}</a><div class="medstar{{v.score}}"></div></div><div>{{ v.comment }}</div><div>{{ v.date|timesince }} ago</div></div>
+            <div class="row-fluid">
+              <div class="span3">
+                <img src="{{v.user.get_profile.mugshot|thumbnail_url:'avatar'}}" alt="mugshot" />
+              </div>
+              <div class="span9">
+                <a href="{{v.user.get_absolute_url}}" id="rate-author">{{v.user}}</a>
+                <span class="medstar{{v.score}}" id="rate-star"></span><span id="rate-score">{{v.score}}</span>
+                <div>{{ v.comment }}</div>
+                <div>{{ v.date|timesince }} ago</div>
+              </div>
+            </div>
             
             {% empty %}
             <div>No ratings yet...</div>
             {% endfor %}
           </ul>
         </div>
-        <div class="mod-discussion">
+        <div class="mod-discussion well well-small">
           <span>
             Discussion Board
           </span>
@@ -195,7 +206,7 @@
             {{ form.object_pk }}
             {{ form.timestamp }}
             {{ form.security_hash }}
-            <button type="submit" class="btn btn-success" id="id_comment_submit" />Post</button>
+            <button type="submit" class="btn btn-success" id="id_comment_submit">Post</button>
           </form>
           {% else %}
           <p>Please <a href="{% url 'userena_signin' %}">log in</a> to leave a comment.</p>

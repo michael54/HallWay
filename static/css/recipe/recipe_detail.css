@@ -207,8 +207,9 @@ div#rateModal > .modal-header > #modal-closebtn {
 	display: inline;
 }
 
-aside.mod-side div.mod-author a {
+aside.mod-side div.mod-author a, a#rate-author {
 	text-decoration: none;
+	clear: both;
 }
 
 aside.mod-side div.mod-author a > span {
@@ -217,7 +218,7 @@ aside.mod-side div.mod-author a > span {
 	margin-left: 15px;
 }
 
-aside.mod-side div.mod-author a > span:link {
+aside.mod-side div.mod-author a > span:link, a#rate-author:link {
 	color: rgb(178, 34, 34);
 }
 
@@ -227,12 +228,12 @@ div.mod-recipe-comments > a:visited {
 }
 
 aside.mod-side div.mod-author a > span:hover,
-div.mod-recipe-comments > a:hover {
+div.mod-recipe-comments > a:hover, a#rate-author:hover {
 	color: rgb(0, 191, 255);
 }
 
 aside.mod-side div.mod-author a > span:active,
-div.mod-recipe-comments > a:active {
+div.mod-recipe-comments > a:active, a#rate-author:active {
 	background: rgb(0, 191, 255);
 	color: white;
 }
@@ -294,4 +295,35 @@ div.mod-recipe-steps ol li:not(:first-child) {
 	border-top-style: solid;
 	border-top-width: 1px;
 	border-top-color: #F5D982
+}
+
+span.mod-user-follow {
+	float: right;
+	position: relative;
+	top: 10px;
+}
+
+div.mod-recipe-title, div.mod-discussion span, div.mod-recipe-title h2 {
+	font-size: 18px;
+	font-weight: bold;
+	color: darkGray;
+}
+
+a#rate-author {
+	font-size: 16px;
+	font-weight: bold;
+	color: #EE9A2A;
+	line-height: 16px;
+}
+
+span#rate-score {
+	font-size: 14px;
+	font-weight: bold;
+	color: #EE9A2A;
+	margin-left: 5px;
+	line-height: 14px;
+}
+
+span#rate-star {
+	line-height: 14px;
 }

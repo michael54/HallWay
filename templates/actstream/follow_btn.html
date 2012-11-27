@@ -1,6 +1,6 @@
 {% load activity_tags %}
 
-<span class="mod-recipe-like pull-right">
+<span class="mod-user-follow">
 	
 	<a href="{% follow_url profile.user %}" id="followhref">
 		<button id="follow_btn" class="btn">{% if user|is_following:profile.user %}UnFollow{% else %}Follow{% endif %}</button>

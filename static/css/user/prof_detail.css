@@ -155,3 +155,7 @@ div#mod-container #mod-prof-details .tab-content #recipes > ul > li:nth-child(3n
 div#mod-container #mod-prof-details .tab-content #prof {
 	margin-left: 15px;
 }
+
+span.mod-user-follow {
+	float: right;
+}
