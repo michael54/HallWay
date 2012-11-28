@@ -226,26 +226,24 @@
 </script>
 <script type="text/javascript">
 jQuery(document).ready(function () {
-  dHeight = window.innerHeight;
-  jQuery('ul.circular-show-inner.upper-level > li').css('top', dHeight*0.2);
-  jQuery('ul.circular-show-inner.lower-level > li').css('top', dHeight*0.4);
-  var dWidth = j('li.show-item').width()*5;
-  // console.log(dWidth);
-  var dLeft = (window.innerWidth- dWidth)/2;
-  j('ul.circular-show-inner.lower-level > li').each(function (i) {
-    j(this).css('left', dLeft+144*i);
-  });
-  j('li#item1').css('left', dLeft);
-  j('li#item2').css('left', dLeft+144);
-  j('li#item3').css('left', dLeft+144*2);
-  j('li#item4').css('left', dLeft+144*3);
-  j('li#item5').css('left', dLeft+144*4);
-
-  console.log(j('li#item1').position().left - dLeft);
-  console.log(j('li#item2').position().left - dLeft);
-  console.log(j('li#item3').position().left - dLeft);
-  console.log(j('li#item4').position().left - dLeft);
-  console.log(j('li#item5').position().left - dLeft);
+  var resizeDiv = function () {
+    dHeight = window.innerHeight;
+    jQuery('ul.circular-show-inner.upper-level > li').css('top', dHeight*0.2);
+    jQuery('ul.circular-show-inner.lower-level > li').css('top', dHeight*0.4);
+    var dWidth = j('li.show-item').width()*5;
+    // console.log(dWidth);
+    var dLeft = (window.innerWidth- dWidth)/2;
+    j('ul.circular-show-inner.lower-level > li').each(function (i) {
+      j(this).css('left', dLeft+144*i);
+    });
+    j('li#item1').css('left', dLeft);
+    j('li#item2').css('left', dLeft+144);
+    j('li#item3').css('left', dLeft+144*2);
+    j('li#item4').css('left', dLeft+144*3);
+    j('li#item5').css('left', dLeft+144*4);
+  }
+  resizeDiv();
+  jQuery(window).resize(resizeDiv);
 });
 </script>
 {% endblock js-head%}

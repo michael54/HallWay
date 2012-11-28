@@ -17,7 +17,7 @@ jQuery(document).ready(function () {
   var move = 0;
   jQuery('li.show-item').toggle(function () {
     move = jQuery('li#item3').position().left - jQuery(this).position().left;
-    console.log(move);
+    // console.log(move);
     jQuery('ul.circular-show-inner.upper-level > li').animate({
       'left': '+='+move
     }, {queue:false, duration: 1000, complete: function () {
