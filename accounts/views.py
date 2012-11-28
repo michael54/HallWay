@@ -36,7 +36,8 @@ def profile(request, username):
 		extra_context = dict()
 		extra_context['followers'] = ActStream.followers(user)
 		extra_context['followings'] = ActStream.following(user)
-		extra_context['recipe_list'] = list(user.get_profile().favourite_recipes.all())
+		extra_context['recipe_list'] = list(user.recipe_set.all().only('name', 'cover_image', 'did_num', 'like_num', 'date', 'view_num'))
+		extra_context['favourite_list'] = list(user.get_profile().favourite_recipes.all().only('name', 'cover_image', 'did_num', 'like_num', 'date', 'view_num'))
 		response = profile_detail(request, username, extra_context = extra_context)
 
 		return response

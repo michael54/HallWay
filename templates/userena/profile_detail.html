@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load static from staticfiles %}
 {% load url from future %}
-
+{% load thumbnail %}
 {% block csslink %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static "css/user/prof_detail.css" %}" type="text/css" />
@@ -91,7 +91,7 @@
 				<li class="span4">
 					<a href="{{ r.get_absolute_url }}" class="thumbnail">
 						{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
-						<img class="cover-img" src="{{ r.cover_image }}" alt="{% trans "cover image" %}" />
+						<img class="cover-img" src="{{ r.cover_image|thumbnail_url:'normal' }}" alt="{% trans "cover image" %}" />
 						<div class="caption">
 							<div class="recipe-name">{{ r.name }}</div>
 							<div class="recipe-stat">
@@ -108,11 +108,32 @@
 					</a>
 				</li>
 				{% endfor %}
+			</ul>
 			</div>
 			<div class="tab-pane" id="favs">
-				{% for f in user.get_profile.favorite.all %}
-				<div>{{ user.get_profile.favorite.all }}</div>
+				<ul class="thumbnails">
+				{% for f in favourite_list %}
+				<li class="span4">
+					<a href="{{ f.get_absolute_url }}" class="thumbnail">
+						{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
+						<img class="cover-img" src="{{ f.cover_image|thumbnail_url:'normal' }}" alt="{% trans "cover image" %}" />
+						<div class="caption">
+							<div class="recipe-name">{{ f.name }}</div>
+							<div class="recipe-stat">
+								<span>{{ f.did_num }} did it.</span>
+								<span class="seperator">&nbsp;|&nbsp;</span>
+								<span>{{ f.like_num }} liked it.</span>
+								<span class="seperator">&nbsp;|&nbsp;</span>
+								<span>{{ f.view_num }} viewed it.</span>
+							</div>
+							<div class="recipe-date">
+								{{ f.date }}
+							</div>
+						</div>
+					</a>
+				</li>
 				{% endfor %}
+			</ul>
 			</div>
 			<div class="tab-pane" id="prof">
 				{% block profile_details %}

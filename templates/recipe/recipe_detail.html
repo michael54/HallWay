@@ -114,9 +114,9 @@
           <ul class="ingredient-list main-ingredient">
            {% for ingredient in amount_list %}
            {% if ingredient.must %}
-           <li class="ingre-must"><i class="icon-star"></i>{{ ingredient.ingredient }}&nbsp;--&nbsp;{{ ingredient.amount }}</li>
+           <li class="ingre-must"><a href="{{ ingredient.ingredient.get_absolute_url }}"><i class="icon-star"></i>{{ ingredient.ingredient }}</a>&nbsp;--&nbsp;{{ ingredient.amount }}</li>
            {% else %}
-           <li>{{ ingredient.ingredient }}&nbsp;--&nbsp;{{ ingredient.amount }}</li>
+           <li><a href="{{ ingredient.ingredient.get_absolute_url }}">{{ ingredient.ingredient }}</a>&nbsp;--&nbsp;{{ ingredient.amount }}</li>
            {% endif %}
            {% endfor %}
           </ul>

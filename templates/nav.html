@@ -20,7 +20,7 @@
 	<div class="navbar-inner">
 		<div class="container row-fluid" id="nav-container">
 			<div id="nav-logo" class="span4">
-				<a class="brand" href="#">LOGO</a>
+				<a class="brand" href="{% url 'homepage' %}">LOGO</a>
 				<form id="nav-search" class="form-search" action="{% url 'normal_search' %}" method="POST">
 					{% csrf_token %}
 					<input class="span8 search-query" id="nav-input" placeholder="Type in a dish name..." type="search" autocomplete="off">
@@ -43,7 +43,10 @@
 						</ul>
 					</li>
 					<li class="yellow">
-						<a href="#"><i class="icon-search"></i></a>
+						<a href="{% url 'advanced_search'%}"><i class="icon-search"></i></a>
+						<ul>
+							<li><a href="{% url 'advanced_search' %}"><i class="icon-search"></i>Advanced Search</a></li>
+						</ul>
 					</li>
 					<div id="notification" style="position:absolute; top:30px; right:180px;" ></div>
 					<li class="purple">
@@ -110,26 +113,36 @@
 
 <script type="text/javascript">
 jQuery(document).ready(function() {
+	var delay = (function(){
+    var timer = 0;
+    return function(callback, ms){
+      clearTimeout (timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+
 	var minlength = 3;
 	// jQuery('#nav-search-result').hide();
 	jQuery('#nav-suggestion').hide();
 	jQuery('#nav-input').keyup(function(event) {
-		if(event.which != 13) {
-			var value = jQuery('#nav-input').val(),
-					url = "{% url 'autonav' %}";
-			if(value.length >= minlength) {
-				var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
-				jQuery.post(url, postdata,
-					function(data) {
-						jQuery('#nav-suggestion').fadeIn();
-						jQuery('#nav-suggestion').empty().append(data);
-					}
-				);
+		delay(function(){
+			if(event.which != 13) {
+				var value = jQuery('#nav-input').val(),
+						url = "{% url 'autonav' %}";
+				if(value.length >= minlength) {
+					var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+					jQuery.post(url, postdata,
+						function(data) {
+							jQuery('#nav-suggestion').fadeIn();
+							jQuery('#nav-suggestion').empty().append(data);
+						}
+					);
+				}
+				else {
+					jQuery('#nav-suggestion').fadeOut();
+				}
 			}
-			else {
-				jQuery('#nav-suggestion').fadeOut();
-			}
-		}
+		}, 300);
 	});
 
 	jQuery('#nav-input').keypress(function (event){

@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from food.models import Food, FoodCategory
-from recipe.models import RecipeCategory
+from recipe.models import RecipeCategory, Recipe
 from django.views.generic import DetailView, ListView
 
 class FoodDetailView(DetailView):
@@ -18,6 +18,7 @@ class FoodDetailView(DetailView):
 	def get_context_data(self, **kwargs):
 		context = super(FoodDetailView, self).get_context_data(**kwargs)
 		context['category_list'] = FoodCategory.objects.all()
+		context['recipe_list'] = context['object'].recipe_set.all().only('name', 'cover_image', 'did_num', 'like_num', 'date', 'view_num')
 		return context
 
 class FoodCategoryListView(ListView):

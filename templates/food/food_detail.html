@@ -5,7 +5,7 @@
 
 {% load static from staticfiles %}
 {% load url from future %}
-
+{% load i18n %}
 {% load thumbnail %}
 
 {% block csslink %}
@@ -92,7 +92,6 @@
 			<div class="row-fluid">
 				<div class="mod-food-detail-header">
 					<div class="header-left span3">
-				    {# since food can only be added in admin, so I add /media/ in src attr #}
 				    <img class="food-cover-img" src="{{object.cover_image}}" alt="food cover image" />
 				  </div>
 				  <div class="header-right span9">
@@ -123,7 +122,31 @@
 				</ul>
 
 				<div class="tab-content">
-					<div class="tab-pane active row-fluid" id="rel-recipes"></div>
+					<div class="tab-pane active row-fluid" id="rel-recipes">
+						<ul class="thumbnails">
+							{% for r in recipe_list %}
+							<li class="span4">
+								<a href="{{ r.get_absolute_url }}" class="thumbnail">
+									{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
+									<img class="cover-img" src="{{ r.cover_image|thumbnail_url:'normal' }}" alt="{% trans "cover image" %}" />
+									<div class="caption">
+										<div class="recipe-name">{{ r.name }}</div>
+										<div class="recipe-stat">
+											<span>{{ r.did_num }} did it.</span>
+											<span class="seperator">&nbsp;|&nbsp;</span>
+											<span>{{ r.like_num }} liked it.</span>
+											<span class="seperator">&nbsp;|&nbsp;</span>
+											<span>{{ r.view_num }} viewed it.</span>
+										</div>
+										<div class="recipe-date">
+											{{ r.date }}
+										</div>
+									</div>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
 					<div class="tab-pane" id="detail-info">
 						<ul>
 					    <li>Name: {{ object.name }}</li>

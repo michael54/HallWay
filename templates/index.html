@@ -120,10 +120,11 @@
   <div class="content search-form">
     <form id="searchform" class="form-search" action="{% url 'normal_search' %}" method="POST">
       {% csrf_token %}
+      <div id="suggestions"></div>
       <div class="search-div">
         <input class="span4 search-query" id="searchinput" placeholder="Type in a dish name or the main ingredient..." type="search" autocomplete="off">
       </div>
-      <div id="suggestions"></div>
+      
     </form>
   </div>
   <div id="search_results"></div>
@@ -166,23 +167,35 @@
     //     j('#bg-show').bgStretcher.play();
     //   }
     // });
+    var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+
     var minlength = 3;
     j('#suggestions').hide();
     j('#searchinput').keyup(function(event) {
-      var value = j('#searchinput').val(),
-          url = '';
-      if(value.length >= minlength) {
-        var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
-        j.post(url, postdata,
-          function(data) {
-            j('#suggestions').fadeIn();
-            j('#suggestions').empty().append(data);
+      delay(function(){
+        if(event.which != 13) {
+          var value = j('#searchinput').val(),
+              url = '';
+          if(value.length >= minlength) {
+            var postdata = {'q': value, 'csrfmiddlewaretoken': '{{ csrf_token }}'}
+            j.post(url, postdata,
+              function(data) {
+                j('#suggestions').fadeIn();
+                j('#suggestions').empty().append(data);
+              }
+            );
           }
-        );
-      }
-      else {
-        j('#suggestions').fadeOut();
-      }
+          else {
+            j('#suggestions').fadeOut();
+          }
+        }
+      }, 300);
     });
 
     j('#searchinput').keypress(function (event){
