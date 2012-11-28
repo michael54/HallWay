@@ -8,7 +8,7 @@
 {% block csslink %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
-  <link href='http://fonts.googleapis.com/css?family=Chela+One' rel='stylesheet' type='text/css'>
+  <!--link href='http://fonts.googleapis.com/css?family=Chela+One' rel='stylesheet' type='text/css'-->
 {% endblock %}
 
 {% block title %}
@@ -19,29 +19,101 @@
 {% endblock %}
 
 {% block content %}
-<div id="circular-show">
-  <div class="category-show row">
-    <a href="#" class="span2 show-item" id="item1">
-      <div class="circular-img"></div>
-      <div class="show-caption">Courses</div>
-    </a>
-    <a href="#" class="span2 show-item" id="item2">
-      <div class="circular-img"></div>
-      <div class="show-caption">Cuisines</div>
-    </a>
-    <a href="#" class="span2 show-item" id="item3">
-      <div class="circular-img"></div>
-      <div class="show-caption">Sources</div>
-    </a>
-    <a href="#" class="span2 show-item" id="item4">
-      <div class="circular-img"></div>
-      <div class="show-caption">Diets</div>
-    </a>
-    <a href="#" class="span2 show-item" id="item5">
-      <div class="circular-img"></div>
-      <div class="show-caption">Hot!</div>
-    </a>
-  </div>
+<div id="circular-show-outer">
+  <ul class="circular-show-inner upper-level">
+    <li class="show-item" id="item1">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Courses</div>
+      </a>
+    </li>
+    <li class="show-item" id="item2">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Cuisines</div>
+      </a>
+    </li>
+    <li class="show-item" id="item3">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Sources</div>
+      </a>
+    </li>
+    <li class="show-item" id="item4">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Diets</div>
+      </a>
+    </li>
+    <li class="show-item" id="item5">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Hot!</div>
+      </a>
+    </li>
+  </ul>
+  <ul class="circular-show-inner lower-level">
+    <li class="show-item" id="item1">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish1</div>
+      </a>
+    </li>
+    <li class="show-item" id="item2">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish2</div>
+      </a>
+    </li>
+    <li class="show-item" id="item3">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish3</div>
+      </a>
+    </li>
+    <li class="show-item" id="item4">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish4</div>
+      </a>
+    </li>
+    <li class="show-item" id="item5">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish5</div>
+      </a>
+    </li>
+    <li class="show-item" id="item6">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish1</div>
+      </a>
+    </li>
+    <li class="show-item" id="item7">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish2</div>
+      </a>
+    </li>
+    <li class="show-item" id="item8">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish3</div>
+      </a>
+    </li>
+    <li class="show-item" id="item9">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish4</div>
+      </a>
+    </li>
+    <li class="show-item" id="item10">
+      <a href="#">
+        <div class="show-img"></div>
+        <div class="show-caption">Dish5</div>
+      </a>
+    </li>
+  </ul>
 </div>
 
   <div id="bg-show"></div>
@@ -137,10 +209,31 @@
       }
     });
 
-    var pLeft = (window.innerWidth- j('a.show-item').width() - j('#item3').position().left)/2 - j('#item3').width()/2;
-    j('a#item1').css('margin-left', pLeft);
-
   });
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  dHeight = window.innerHeight;
+  jQuery('ul.circular-show-inner.upper-level > li').css('top', dHeight*0.2);
+  jQuery('ul.circular-show-inner.lower-level > li').css('top', dHeight*0.4);
+  var dWidth = j('li.show-item').width()*5;
+  // console.log(dWidth);
+  var dLeft = (window.innerWidth- dWidth)/2;
+  j('ul.circular-show-inner.lower-level > li').each(function (i) {
+    j(this).css('left', dLeft+144*i);
+  });
+  j('li#item1').css('left', dLeft);
+  j('li#item2').css('left', dLeft+144);
+  j('li#item3').css('left', dLeft+144*2);
+  j('li#item4').css('left', dLeft+144*3);
+  j('li#item5').css('left', dLeft+144*4);
+
+  console.log(j('li#item1').position().left - dLeft);
+  console.log(j('li#item2').position().left - dLeft);
+  console.log(j('li#item3').position().left - dLeft);
+  console.log(j('li#item4').position().left - dLeft);
+  console.log(j('li#item5').position().left - dLeft);
+});
 </script>
 {% endblock js-head%}
 

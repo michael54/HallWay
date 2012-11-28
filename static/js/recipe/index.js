@@ -12,19 +12,26 @@ jQuery(document).ready(function () {
   );
 
   // index page recipe category show
-  var pLeft = (window.innerWidth - j('a.show-item').width())/2;
-  jQuery('a.show-item').click(function () {
-    // console.log(jQuery(this).position().left);
-    var ppleft = pLeft - jQuery(this).position().left;
-    jQuery(this).parent().animate({
-      left: ppleft
-    }, 1000, function () {
-
-    });
-    jQuery(this).siblings().animate({
-      opacity: 0.0
-    }, 1000, function() {
-      // Animation complete.
-    });
+  // var pLeft = jQuery('li#item3').position().left;
+  // console.log(pLeft);
+  var move = 0;
+  jQuery('li.show-item').toggle(function () {
+    move = jQuery('li#item3').position().left - jQuery(this).position().left;
+    console.log(move);
+    jQuery('ul.circular-show-inner.upper-level > li').animate({
+      'left': '+='+move
+    }, {queue:false, duration: 1000, complete: function () {
+      jQuery('ul.circular-show-inner.lower-level > li').show();
+    }});
+    jQuery(this).siblings().fadeOut(1000);
+    jQuery('div.content.search-form').fadeOut(1000);
+  }, function () {
+    jQuery('ul.circular-show-inner.lower-level > li').hide();
+    jQuery('ul.circular-show-inner.upper-level > li').animate({
+      'left': '-='+move
+    }, {queue:false, duration: 1000, complete: function () {
+    }});
+    jQuery(this).siblings().fadeIn(1000);
+    jQuery('div.content.search-form').fadeIn(1000);
   });
 });

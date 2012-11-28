@@ -164,7 +164,7 @@ P.larger-size { font-size: 16px; }
 
 div.content.search-form{
 	position: fixed;
-	bottom: 20%;
+	bottom: 30%;
 	left: 50%;
 	margin-left: -158px;
 }
@@ -201,7 +201,7 @@ span.add-on {
       background-image:url(../images/shortcuts_arrow.gif); background-repeat:no-repeat; background-position:right; }
 #suggestions span.seperator a { background-color:transparent; display:block; margin:5px; height:auto; color:#ffffff; }
 
-div.circular-img {
+div.show-img {
 	width: 100px;
 	height: 100px;
 	border-width: 2px;
@@ -223,32 +223,45 @@ div.show-caption {
 	color: white;
 	text-align: center;
 	padding-top: 10px;
+	width: 130px;
 }
 
-div.category-show {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
+ul.circular-show-inner {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	/*margin: auto;*/
 }
 
-a.show-item {
+li.show-item {
+	/*display: inline;*/
+	margin: 0;
+	padding: 0;
+	border: 0;
+	position: fixed;
+}
+
+li.show-item a {
 	text-decoration: none;
-	padding: 5px 0 5px 0;
+	display: inline-block;
+	width: 130px;
+	height: 130px;
+	padding: 5px;
 }
 
-#item1 {
-	margin-left: 200px;
-}
-
-a.show-item:hover {
+li.show-item a:hover {
 	background-color: rgba(0, 0, 0, 0.3);
 	border-radius: 15px;
 }
 
-div#circular-show {
+div#circular-show-outer {
 	position: fixed;
-	top: 200px;
-	left: 0px;
+	top: 30%;
 	width: 100%;
 	overflow: hidden;
+	left: 0px;
+}
+
+ul.circular-show-inner.lower-level > li {
+	display: none;
 }
