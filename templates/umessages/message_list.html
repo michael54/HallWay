@@ -1,24 +1,47 @@
 {% extends 'nav.html' %}
 {% load i18n umessages_tags %}
 
-{% block content_title %}<h2>{% trans "Messages" %}</h2>{% endblock %}
+{% block title %}
+{% trans "My Messages" %}
+{% endblock title%}
+
+{% block content_title %}<h2>{% trans "My Messages" %}</h2>{% endblock %}
 
 {% block content %}
+<div class="span8">
 {% get_unread_message_count_for user as unread_message_count %}
 {% blocktrans %}{{ unread_message_count }} new messages.{% endblocktrans %}
 <a href="{% url userena_umessages_compose %}">{% trans "Compose" %}</a>
-<ul>
-  {% for message in message_list %}
-  <li>
-  {% if message.from_user == user %}
-  <a href="{% url userena_umessages_detail message.to_user.username %}">{{ message.to_user }}</a>
-  {% get_unread_message_count_between user and message.to_user as unread_between_count %}
-  {% else %}
-  <a href="{% url userena_umessages_detail message.from_user.username %}">{{ message.from_user }}</a>
-  {% get_unread_message_count_between user and message.from_user as unread_between_count %}
-  {% endif %}
-  {% blocktrans with message.latest_message as latest_message %}{{ latest_message }} ({{ unread_between_count }} new){% endblocktrans %}
-  </li>
-  {% endfor %}
-</ul>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>Last Message</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for message in message_list %}
+    <tr>
+      <td>
+    {% if message.from_user == user %}
+    <a href="{% url userena_umessages_detail message.to_user.username %}">{{ message.to_user }}</a>
+    {% get_unread_message_count_between user and message.to_user as unread_between_count %}
+    {% else %}
+    <a href="{% url userena_umessages_detail message.from_user.username %}">{{ message.from_user }}</a>
+    {% get_unread_message_count_between user and message.from_user as unread_between_count %}
+    {% endif %}
+  </td>
+  <td>
+    {% blocktrans with message.latest_message as latest_message %}{{ latest_message }} ({{ unread_between_count }} new){% endblocktrans %}
+  </td>
+  <td>
+    {{message.latest_message.sent_at}}
+  </td>
+    </tr>
+    {% endfor %}  
+  </tbody>
+</table>
+</div>
 {% endblock %}
