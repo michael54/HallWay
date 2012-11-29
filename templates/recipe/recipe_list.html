@@ -21,7 +21,6 @@
 {% endblock %}
 
 {% block content %}
-{% if recipe_list %}
 <div id="mod-container">
 	<div class="row-fluid container">
 		<div class="mod-list-nav span3 well well-small">
@@ -32,7 +31,7 @@
               <h2 class="parent-cat">Courses</h2>
             </a>
           </div>
-          <div id="collapseOne" class="accordion-body collapse in">
+          <div id="collapseOne" class="accordion-body collapse {% ifequal category.parent.name 'Courses'%}in{% endifequal %}">
             <div class="accordion-inner">
               {% for c in Courses %}
 								<ul>
@@ -48,7 +47,7 @@
               <h2 class="parent-cat">Cuisines</h2>
             </a>
           </div>
-          <div id="collapseTwo" class="accordion-body collapse">
+          <div id="collapseTwo" class="accordion-body collapse {% ifequal category.parent.name 'Cuisines'%}in{% endifequal %}">
             <div class="accordion-inner">
               {% for c in Cuisines %}
 								<ul>
@@ -64,7 +63,7 @@
               <h2 class="parent-cat">Main Ingredients</h2>
             </a>
           </div>
-          <div id="collapseThree" class="accordion-body collapse">
+          <div id="collapseThree" class="accordion-body collapse {% ifequal category.parent.name 'Main Ingredients'%}in{% endifequal %}">
             <div class="accordion-inner">
               {% for m in Main_Ingredients %}
 								<ul>
@@ -80,7 +79,7 @@
               <h2 class="parent-cat">Special Diets</h2>
             </a>
           </div>
-          <div id="collapseFour" class="accordion-body collapse">
+          <div id="collapseFour" class="accordion-body collapse {% ifequal category.parent.name 'Special Diets'%}in{% endifequal %}">
             <div class="accordion-inner">
               {% for s in Special_Diets %}
 								<ul>
@@ -92,6 +91,7 @@
         </div>
       </div>
 		</div>
+		{% if recipe_list %}
 		<div class="mod-list-detail span9 well well-small">
 			<h1 class="mod-page-title">{{category.parent.name}}:&nbsp;{{category}}</h1>
 			<div class="detail-nav">

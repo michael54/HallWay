@@ -1,0 +1,136 @@
+/**** Base styles ****/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+
+html {
+  overflow-y: scroll;
+}
+
+a {
+  color: #A2C;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #D26;
+  text-decoration: none;
+}
+
+a:active {
+  background: hsla( 0, 100%, 100%, 0.5 );
+}
+
+h1, h2 {
+  font-weight: 100;
+  line-height: 1.2em;
+  margin-bottom: 0.6em;
+}
+
+.box h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+h3, p, ul, ol, pre, dl {
+  margin-bottom: 1.0em;
+}
+
+em { font-style: italic; }
+strong { font-weight: bold; }
+
+#hot-recipes {
+  background: #FFF;
+  padding: 5px;
+  margin-bottom: 20px;
+  border-radius: 0px;
+  clear: both;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+}
+
+.box {
+  margin: 5px;
+  padding: 5px;
+  background: #D8D5D2;
+  font-size: 11px;
+  line-height: 1.4em;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+}
+
+
+.box img,
+#tumblelog img {
+  display: block;
+  width: 100%;
+}
+
+.box {
+  text-align: left; 
+  direction: rtl;
+}
+
+
+
+.col1 { width: 80px; }
+.col2 { width: 180px; }
+.col3 { width: 200px; }
+.col4 { width: 380px; }
+.col5 { width: 480px; }
+
+.col1 img { max-width: 80px; }
+.col2 img { max-width: 180px; }
+.col3 img { max-width: 200px; }
+.col4 img { max-width: 380px; }
+.col5 img { max-width: 480px; }
+
+.caption {
+  background: rgba(255,255,255,0.8);
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+  display: none;
+  margin: 0;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.heart {
+  color: red;
+  font-size: 24px;
+  position: absolute;
+  bottom: 20px;
+  text-align: right;
+}

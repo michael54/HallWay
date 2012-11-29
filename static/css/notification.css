@@ -6,6 +6,7 @@
 	min-width: 16px;
 	font-size:13px;
 	color:white;
+	line-height: 16px;
 	border-radius:10px;
 	border-style: solid;
 	border-color: white;
@@ -18,5 +19,4 @@
 	background: -ms-linear-gradient(-45deg,  rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%); /* IE10+ */
 	background: linear-gradient(135deg,  rgba(248,80,50,1) 0%,rgba(241,111,92,1) 50%,rgba(246,41,12,1) 51%,rgba(240,47,23,1) 71%,rgba(231,56,39,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f85032', endColorstr='#e73827',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
 }

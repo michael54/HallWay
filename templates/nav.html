@@ -4,6 +4,7 @@
 {% load url from future %}
 
 {% block csslink %}
+<link rel="stylesheet" type="text/css" href="{% static "css/notification.css"%}">
 <link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{% static "css/elastislide.css" %}"/>
 <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
@@ -48,7 +49,7 @@
 							<li><a href="{% url 'advanced_search' %}"><i class="icon-search"></i>Advanced Search</a></li>
 						</ul>
 					</li>
-					<div id="notification" style="position:absolute; top:30px; right:180px;" ></div>
+					<div id="notification" style="position:absolute; top:20px; right:145px;" ></div>
 					<li class="purple">
 						<a href="{% url 'actstream' %}"><i class="icon-bullhorn"></i></a>
 						<ul>

@@ -66,6 +66,7 @@ div.navbar {
 }
 
 #colorNav li ul{
+	z-index: 99999;
 	position:absolute;
 	list-style:none;
 	text-align:center;

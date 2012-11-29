@@ -5,12 +5,17 @@
 {% trans "My Messages" %}
 {% endblock title%}
 
-{% block content_title %}<h2>{% trans "My Messages" %}</h2>{% endblock %}
+{% block content_title %}
+<h2>
+  {% trans "My Messages" %}
+  {% get_unread_message_count_for user as unread_message_count %}
+  {% blocktrans %}({{ unread_message_count }} Unread){% endblocktrans %}
+</h2>
+{% endblock %}
 
 {% block content %}
-<div class="span8">
-{% get_unread_message_count_for user as unread_message_count %}
-{% blocktrans %}{{ unread_message_count }} new messages.{% endblocktrans %}
+<div class="section span7 well well-small" style="min-height:460px;">
+
 <a href="{% url userena_umessages_compose %}">{% trans "Compose" %}</a>
 
 <table class="table">
@@ -27,14 +32,14 @@
       <td>
     {% if message.from_user == user %}
     <a href="{% url userena_umessages_detail message.to_user.username %}">{{ message.to_user }}</a>
-    {% get_unread_message_count_between user and message.to_user as unread_between_count %}
+    {% get_unread_message_count_between user and message.to_user as unread_between_count %}({{ unread_between_count }} new)
     {% else %}
     <a href="{% url userena_umessages_detail message.from_user.username %}">{{ message.from_user }}</a>
-    {% get_unread_message_count_between user and message.from_user as unread_between_count %}
+    {% get_unread_message_count_between user and message.from_user as unread_between_count %}({{ unread_between_count }} new)
     {% endif %}
   </td>
   <td>
-    {% blocktrans with message.latest_message as latest_message %}{{ latest_message }} ({{ unread_between_count }} new){% endblocktrans %}
+    {{ message.latest_message }}
   </td>
   <td>
     {{message.latest_message.sent_at}}
@@ -43,5 +48,16 @@
     {% endfor %}  
   </tbody>
 </table>
+</div>
+<div class="aside span4 well well-small" style="min-height:460px;">
+<form action="{% url userena_umessages_compose %}" method="post" id="compose_message_form">
+  {% csrf_token %}
+  <fieldset>
+    <legend>Compose message</legend>
+    <p><label for="id_to">To:</label><input type="text" name="to" id="id_to"/></p>
+<p><label for="id_body">Message:</label> <textarea id="id_body" rows="10" cols="40" name="body" class="message"></textarea></p>
+  </fieldset>
+  <button type="submit" class="btn">Send</button>
+</form>
 </div>
 {% endblock %}

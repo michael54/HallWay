@@ -99,7 +99,13 @@ class HotRecipeListView(ListView):
 	queryset = Recipe.objects.all()
 	context_object_name = "hot_recipe_list"
 	template_name = "recipe/hot_recipe_list.html"
-	paginate_by = 10
+	paginate_by = 16
+
+	def get_context_data(self, **kwargs):
+		context = super(HotRecipeListView, self).get_context_data(**kwargs)
+				
+		context['size_list'] = ['3']
+		return context
 
 @login_required
 def rate(request, pk):
