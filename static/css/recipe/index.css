@@ -262,6 +262,59 @@ div#circular-show-outer {
 	left: 0px;
 }
 
-ul.circular-show-inner.lower-level > li {
+ul.lower-level div.show-img {
+	width: 80px;
+	height: 80px;
+	border-width: 2px;
+	border-color: white;
+	border-radius: 40px;
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	background: url(../../../media/no_mugshot.jpg) no-repeat;
+	box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	margin-left: auto;
+	margin-right: auto;
+}
+
+ul.lower-level > li > a {
+	height: 130px;
+	width: 130px;
+}
+
+ul.lower-level > li {
 	display: none;
+	position: absolute;
+	display: inline-block;
+}
+
+ul.lower-level {
+	background-color: red;
+	position: fixed;
+	overflow: hidden;
+	display: none;
+}
+
+a.show-control {
+	position: fixed;
+	/*display: none;*/
+	text-decoration: none;
+	color: white;
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 40px;
+	text-align: center;
+	width: 40px;
+	height: 40px;
+	border-width: 2px;
+	border-color: white;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	background-color: rgba(0, 0, 0, 0.6);
+	box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	margin: 0;
 }

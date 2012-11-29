@@ -52,7 +52,7 @@
       </a>
     </li>
   </ul>
-  <ul class="circular-show-inner lower-level">
+  <ul class="circular-show-inner lower-level" id="showSlider">
     <li class="show-item" id="item1">
       <a href="#">
         <div class="show-img"></div>
@@ -114,6 +114,9 @@
       </a>
     </li>
   </ul>
+  {# circular show nav #}
+  <a class="show-control" href="#showSlider" id="pItem">&lsaquo;</a>
+  <a class="show-control" href="#showSlider" id="nItem">&rsaquo;</a>
 </div>
 
   <div id="bg-show"></div>
@@ -223,28 +226,6 @@
     });
 
   });
-</script>
-<script type="text/javascript">
-jQuery(document).ready(function () {
-  var resizeDiv = function () {
-    dHeight = window.innerHeight;
-    jQuery('ul.circular-show-inner.upper-level > li').css('top', dHeight*0.2);
-    jQuery('ul.circular-show-inner.lower-level > li').css('top', dHeight*0.4);
-    var dWidth = j('li.show-item').width()*5;
-    // console.log(dWidth);
-    var dLeft = (window.innerWidth- dWidth)/2;
-    j('ul.circular-show-inner.lower-level > li').each(function (i) {
-      j(this).css('left', dLeft+144*i);
-    });
-    j('li#item1').css('left', dLeft);
-    j('li#item2').css('left', dLeft+144);
-    j('li#item3').css('left', dLeft+144*2);
-    j('li#item4').css('left', dLeft+144*3);
-    j('li#item5').css('left', dLeft+144*4);
-  }
-  resizeDiv();
-  jQuery(window).resize(resizeDiv);
-});
 </script>
 {% endblock js-head%}
 
