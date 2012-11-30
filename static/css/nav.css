@@ -119,7 +119,7 @@ div.navbar {
 }
 
 #colorNav li ul{
-	z-index: 99999;
+	z-index: 999;
 	position:absolute;
 	list-style:none;
 	text-align:center;
@@ -195,7 +195,7 @@ div.navbar {
 }
 
 #notification {
-	z-index:99999;
+	z-index:999;
 }
 
 
@@ -242,7 +242,7 @@ a.scroll-up {
 
 
 /* CSS for suggestion box */
-#nav-suggestion { z-index:99999;position:absolute; border-width:1px; border-color:#919191; border-style:solid; width:320px; background-color:#a0a0a0; font-size:10px; line-height:14px; }
+#nav-suggestion { z-index:999;position:absolute; border-width:1px; border-color:#919191; border-style:solid; width:320px; background-color:#a0a0a0; font-size:10px; line-height:14px; }
 #nav-suggestion a { display:block; background-color:#e4e4e4; clear:left; height:56px; text-decoration:none; }
 #nav-suggestion a:hover { background-color:#b7b7b7; color:#ffffff; }
 #nav-suggestion a img { float:left; padding:5px 10px; }

@@ -8,6 +8,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/recipe/hot.css' %}">
 {% endblock %}
 
+{% block title %}
+Hot Recipes
+{% endblock %}
+
 {% block content %}
 {% if hot_recipe_list %}
 	<div id="hot_recipes">

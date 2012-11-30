@@ -18,6 +18,7 @@ from userena.signals import signup_complete
 from django.dispatch import receiver
 from recipe import recommendations
 
+
 import sys
 import json
 

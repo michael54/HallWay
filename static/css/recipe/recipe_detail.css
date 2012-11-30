@@ -336,6 +336,7 @@ span#rate-star {
 
 .mod-recipe-recommends {
 	width: 282px;
+	min-height: 500px;
 }
 
 .recommend-img-div {
@@ -347,42 +348,104 @@ span#rate-star {
 }
 
 .caption {
-  background: rgba(255,255,255,0.8);
-  box-sizing:border-box;
-  -moz-box-sizing:border-box; /* Firefox */
-  -webkit-box-sizing:border-box; /* Safari */
-  display: none;
-  margin: 0;
-  padding: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  text-align: justify;
-  vertical-align: bottom;
+	background: rgba(255,255,255,0.8);
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+	display: none;
+	margin: 0;
+	padding: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	text-align: justify;
+	vertical-align: bottom;
 }
 
 .caption h1 {
-  font-size: 28px;
-  padding-top: 30px;
+	font-size: 28px;
+	padding-top: 30px;
 }
 
 .caption p{
-  padding: 0;
-  margin: 0;
-  font-size: 16px;
-  color: #D26;
+	padding: 0;
+	margin: 0;
+	font-size: 16px;
+	color: #D26;
 }
 
 .heart {
-  color: red;
-  font-size: 30px;
-  text-align: right;
-  direction: rtl;
-  float: right;
-  position: absolute;
-  top: 20px;
-  right: 20px;
+	color: red;
+	font-size: 30px;
+	text-align: right;
+	direction: rtl;
+	float: right;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+
+/*CSS for image popup*/
+.enlarge{
+	cursor: pointer;
+}
+
+.enlarge:hover{
+	transform: scale(1.3);
+	-ms-transform: scale(1.3); /* IE 9 */
+	-webkit-transform: scale(1.3); /* Safari and Chrome */
+	-o-transform: scale(1.3); /* Opera */
+	-moz-transform: scale(1.3); /* Firefox */
+}
+
+
+.popupbox {
+/*	width:500px;
+	height:300px;
+	max-height: 500px;
+	max-width: 800px;*/
+
+	background-repeat:no-repeat;
+	display: none; /* Hidden as default */
+	float: left;
+	position: fixed;
+	top: 50%; left: 50%;
+	z-index: 99999;
+	-webkit-box-shadow: 0px 0px 20px #000;
+	-moz-box-shadow: 0px 0px 20px #000;
+	box-shadow: 0px 0px 20px #000;
+	color: #E3CB9F;
+}
+
+#fade { 
+	display: none; /* Hidden as default */
+	background: #000;
+	position: fixed; left: 0; top: 0;
+	width: 100%; height: 100%;
+	opacity: .80;
+	z-index: 9999;
+}
+
+.fullImg{
+/*	width: 100%;
+	height: 100%;*/
+	max-height: 600px;
+}
+
+#prevImg{
+	position: absolute;
+	left: 0;
+	font-size: 30px;
+	text-decoration: none;
+}
+
+#nextImg{
+	position: absolute;
+	right: 0;
+	font-size: 30px;
+	text-decoration: none;
 }
