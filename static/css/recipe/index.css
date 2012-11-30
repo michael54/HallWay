@@ -316,7 +316,6 @@ ul.lower-level > li {
 }
 
 ul.lower-level {
-	background-color: red;
 	position: fixed;
 	overflow: hidden;
 	display: none;

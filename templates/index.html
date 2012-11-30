@@ -8,7 +8,7 @@
 {% block csslink %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
-  <!--link href='http://fonts.googleapis.com/css?family=Chela+One' rel='stylesheet' type='text/css'-->
+  <link href='http://fonts.googleapis.com/css?family=Chela+One' rel='stylesheet' type='text/css' />
 {% endblock %}
 
 {% block title %}
@@ -21,102 +21,86 @@
 {% block content %}
 <div id="circular-show-outer">
   <ul class="circular-show-inner upper-level">
-    <li class="show-item" id="item1">
+    <li class="show-item" id="courses">
       <a href="#">
         <div class="show-img"></div>
         <div class="show-caption">Courses</div>
       </a>
     </li>
-    <li class="show-item" id="item2">
+    <li class="show-item" id="cuisines">
       <a href="#">
         <div class="show-img"></div>
         <div class="show-caption">Cuisines</div>
       </a>
     </li>
-    <li class="show-item" id="item3">
+    <li class="show-item" id="sources">
       <a href="#">
         <div class="show-img"></div>
         <div class="show-caption">Sources</div>
       </a>
     </li>
-    <li class="show-item" id="item4">
+    <li class="show-item" id="diets">
       <a href="#">
         <div class="show-img"></div>
         <div class="show-caption">Diets</div>
       </a>
     </li>
-    <li class="show-item" id="item5">
-      <a href="#">
+    <li class="show-item hot" id="hot">
+      <a href="{% url 'hot_recipes' %}">
         <div class="show-img"></div>
         <div class="show-caption">Hot!</div>
       </a>
     </li>
   </ul>
-  <ul class="circular-show-inner lower-level" id="showSlider">
-    <li class="show-item" id="item1">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish1</div>
-      </a>
-    </li>
-    <li class="show-item" id="item2">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish2</div>
-      </a>
-    </li>
-    <li class="show-item" id="item3">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish3</div>
-      </a>
-    </li>
-    <li class="show-item" id="item4">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish4</div>
-      </a>
-    </li>
-    <li class="show-item" id="item5">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish5</div>
-      </a>
-    </li>
-    <li class="show-item" id="item6">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish1</div>
-      </a>
-    </li>
-    <li class="show-item" id="item7">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish2</div>
-      </a>
-    </li>
-    <li class="show-item" id="item8">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish3</div>
-      </a>
-    </li>
-    <li class="show-item" id="item9">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish4</div>
-      </a>
-    </li>
-    <li class="show-item" id="item10">
-      <a href="#">
-        <div class="show-img"></div>
-        <div class="show-caption">Dish5</div>
-      </a>
-    </li>
+  <ul class="circular-show-inner lower-level" data-target="courses">
+    {% for c in Courses %}
+      <li class="show-item" data-target="courses">
+        <a href="{{c.get_absolute_url}}">
+          <div class="show-img"></div>
+          <div class="show-caption">{{c.name}}</div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  <ul class="circular-show-inner lower-level" data-target="cuisines">
+    {% for c in Cuisines %}
+      <li class="show-item" data-target="cuisines">
+        <a href="{{c.get_absolute_url}}">
+          <div class="show-img"></div>
+          <div class="show-caption">{{c.name}}</div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  <ul class="circular-show-inner lower-level" data-target="sources">
+    {% for c in Main_Ingredients %}
+      <li class="show-item" data-target="sources">
+        <a href="{{c.get_absolute_url}}">
+          <div class="show-img"></div>
+          <div class="show-caption">{{c.name}}</div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  <ul class="circular-show-inner lower-level" data-target="diets">
+    {% for c in Special_Diets %}
+      <li class="show-item" data-target="diets">
+        <a href="{{c.get_absolute_url}}">
+          <div class="show-img"></div>
+          <div class="show-caption">{{c.name}}</div>
+        </a>
+      </li>
+    {% endfor %}
   </ul>
   {# circular show nav #}
-  <a class="show-control" href="#showSlider" id="pItem">&lsaquo;</a>
-  <a class="show-control" href="#showSlider" id="nItem">&rsaquo;</a>
+  <a class="show-control" href="#courses" id="pItem" style="display:none;">&lsaquo;</a>
+  <a class="show-control" href="#courses" id="nItem" style="display:none;">&rsaquo;</a>
+  <a class="show-control" href="#cuisines" id="pItem" style="display:none;">&lsaquo;</a>
+  <a class="show-control" href="#cuisines" id="nItem" style="display:none;">&rsaquo;</a>
+  <a class="show-control" href="#sources" id="pItem" style="display:none;">&lsaquo;</a>
+  <a class="show-control" href="#sources" id="nItem" style="display:none;">&rsaquo;</a>
+  <a class="show-control" href="#diets" id="pItem" style="display:none;">&lsaquo;</a>
+  <a class="show-control" href="#diets" id="nItem" style="display:none;">&rsaquo;</a>
 </div>
 
   <div id="bg-show"></div>
