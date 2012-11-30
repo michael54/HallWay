@@ -1,3 +1,56 @@
+.carousel1-caption {
+	background: rgba(255,255,255,0.8);
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+  display: none;
+	margin-left: 10px;
+	padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  border-radius: 10px;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+
+.heart {
+  color: red;
+  font-size: 24px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  text-align: right;
+  direction: rtl;
+}
+
+.carousel1-caption h1{
+	padding: 10px;
+	font-size: 24px;
+  word-wrap: break-word;
+  width: 100px;
+  font-weight: bold;
+}
+
+.ca-img-link .carousel1-caption h4 {
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	margin: 0;
+	text-decoration: none;
+}
+
+.ca-img-link .carousel1-caption p {
+	font-size: 20px;
+	color: rgb(0.9, 0.9, 0.9);
+	margin: 0;
+	text-decoration: none;
+	word-wrap: break-word;
+}
+
 
 #nav-input {
 	-webkit-border-radius: 0px;
@@ -189,7 +242,7 @@ a.scroll-up {
 
 
 /* CSS for suggestion box */
-#nav-suggestion { position:absolute; border-width:1px; border-color:#919191; border-style:solid; width:320px; background-color:#a0a0a0; font-size:10px; line-height:14px; }
+#nav-suggestion { z-index:99999;position:absolute; border-width:1px; border-color:#919191; border-style:solid; width:320px; background-color:#a0a0a0; font-size:10px; line-height:14px; }
 #nav-suggestion a { display:block; background-color:#e4e4e4; clear:left; height:56px; text-decoration:none; }
 #nav-suggestion a:hover { background-color:#b7b7b7; color:#ffffff; }
 #nav-suggestion a img { float:left; padding:5px 10px; }

@@ -12,7 +12,7 @@
 {% if hot_recipe_list %}
 	<div id="hot_recipes">
 		{% for hot_recipe in hot_recipe_list %}
-			<div class="box photo col{{size_list|random}}">
+			<div class="box photo col3">
 				<a href="{{ hot_recipe.get_absolute_url }}">
 					<img src="{{ hot_recipe.cover_image.url }}" />
 					<div class="caption well">
@@ -55,19 +55,28 @@
 
   	$('.box').hover(
   		function () {
-	      jQuery(this).find('.caption').fadeIn('slow');
+	      jQuery(this).find('.caption').stop(true).fadeIn(400);
 	    }, function () {
-	      jQuery(this).find('.caption').fadeOut('slow');
+	      jQuery(this).find('.caption').stop(true).fadeOut(400);
 	    }
   	);
 
+
     var $container = $('#hot_recipes');
-  
+
+
     $container.imagesLoaded( function(){
       $container.masonry({
         itemSelector : '.box',
         isRsizable: true,
+        isAnimated: true,
+        animationOptions: {
+			    duration: 750,
+			    easing: 'linear',
+			    queue: false
+			  }
       });
+
     });
   
   });

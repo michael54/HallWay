@@ -71,7 +71,7 @@ def advanced_search(request):
 def normal_search(request):
 	if request.is_ajax():
 		q = request.POST['q']
-		results = list(Recipe.objects.filter(Q(name__contains = q)|Q(ingredients__name__contains = q)).only('name', 'cover_image', 'like_num'))
+		results = list(Recipe.objects.filter(Q(name__contains = q)|Q(ingredients__name__contains = q)).distinct().only('name', 'cover_image', 'like_num'))
 		return render_to_response('recipe/result.html', {'results': results})
 	else:
 		raise Http404

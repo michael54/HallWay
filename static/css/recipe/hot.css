@@ -94,7 +94,6 @@ strong { font-weight: bold; }
 
 .box {
   text-align: left; 
-  direction: rtl;
 }
 
 
@@ -125,6 +124,7 @@ strong { font-weight: bold; }
   width: 100%;
   height: 100%;
   overflow: scroll;
+  text-align: justify;
 }
 
 .heart {
@@ -132,5 +132,8 @@ strong { font-weight: bold; }
   font-size: 24px;
   position: absolute;
   bottom: 20px;
+  right: 20px;
   text-align: right;
+  direction: rtl;
 }
+
