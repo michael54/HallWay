@@ -37,7 +37,12 @@ def index(request):
 	if request.is_ajax():
 		return autonav(request)
 	else:
-		return render(request, 'index.html')
+		return render(request, 'index.html', {
+			'Courses': RecipeCategory.objects.filter(parent__name='Courses').only('name'),
+			'Cuisines': RecipeCategory.objects.filter(parent__name='Cuisines').only('name'),
+			'Main_Ingredients': RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'),
+			'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
+		})
 
 class RecipeDetailView(DetailView):
 

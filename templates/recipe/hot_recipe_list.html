@@ -14,7 +14,12 @@
 		{% for hot_recipe in hot_recipe_list %}
 			<div class="box photo col3">
 				<a href="{{ hot_recipe.get_absolute_url }}">
-					<img src="{{ hot_recipe.cover_image.url }}" />
+					<img src="{% if hot_recipe.cover_image %}
+					{{ hot_recipe.cover_image.url }}
+					{% else %}
+					/media/no_image_available.jpg
+					{% endif %}
+					" />
 					<div class="caption well">
 						<h1>{{hot_recipe.name}}</h1>
 						<h3>{{hot_recipe.brief|truncatechars:100}}</h3>
