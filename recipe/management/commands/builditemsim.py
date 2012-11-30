@@ -17,7 +17,7 @@ class Command(BaseCommand):
 				critics[v.user.id] = {}
 			critics[v.user.id][v.recipe.id] = float(v.score)
 
-		itemsim = recommendations.calculateSimilarItems(critics, n=50)
+		itemsim = recommendations.calculateSimilarItems(critics, n=10)
 		# f.writestr('itemsim.py', "critics = "+json.dumps(critics)+"\n"+"itemsim = "+json.dumps(itemsim))
 		f.write("critics = "+json.dumps(critics)+"\n"+"itemsim = "+json.dumps(itemsim))
 		f.close()

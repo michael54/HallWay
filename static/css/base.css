@@ -10,7 +10,7 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cea163', endColorstr='#381c0e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 	background-attachment: fixed;
 	position: relative;
-	padding-top: 40px;
+	/*padding-top: 40px;*/
 }
 select,textarea,input[type="text"],input[type="password"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],.uneditable-input{
 /*	-webkit-border-radius:0;

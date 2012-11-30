@@ -41,14 +41,14 @@ class Food(models.Model):
 		return self.name
 
 	def active(self):
-		if self.category.name == 'inactive':
+		if self.category_id == 1:
 			return False
 		else:
 			return True
 
 	@models.permalink
 	def get_absolute_url(self):
-		if self.category.name == 'inactive':
+		if self.category_id == 1:
 			return ''
 		else:
 			return ('food_detail', (), {'pk': self.id})

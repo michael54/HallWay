@@ -163,19 +163,70 @@ span.add-on {
 
 
 /* CSS for suggestion box */
-#suggestions {z-index: 99999; border-width:1px; border-color:#919191; border-style:solid; width:336px; background-color:#a0a0a0; font-size:10px; line-height:14px; }
-#suggestions a { display:block; background-color:#e4e4e4; clear:left; height:56px; text-decoration:none; }
-#suggestions a:hover { background-color:#b7b7b7; color:#ffffff; }
-#suggestions a img { float:left; padding:5px 10px; }
-#suggestions a span.searchheading { display:block; font-weight:bold; padding-top:5px; color:#191919; }
-#suggestions a:hover span.searchheading { color:#ffffff; }
-#suggestions a span { color:#555555; }
-#suggestions a:hover span { color:#f1f1f1; }
-#suggestions span.category { font-size:11px; margin:5px; display:block; color:#ffffff; }
-#suggestions span.seperator { float:right; padding-right:15px; margin-right:5px;
-      background-image:url(../images/shortcuts_arrow.gif); background-repeat:no-repeat; background-position:right; }
-#suggestions span.seperator a { background-color:transparent; display:block; margin:5px; height:auto; color:#ffffff; }
+#suggestions {
+	z-index: 99999; 
+	border-width:1px; 
+	border-color:#919191; 
+	border-style:solid; 
+	width:336px; 
+	font-size:10px; 
+	line-height:14px; 
+	background-color: rgba(255,255,255,0.6);
+}
+#suggestions a { 
+	display:block; c
+	lear:left; 
+	height:56px; 
+	text-decoration:none; 
+}
+#suggestions a:hover { 
+	background-color:#b7b7b7; 
+	color:#ffffff; 
+}
+#suggestions a img { 
+	float:left; 
+	padding:5px 10px; 
+}
+#suggestions a span.searchheading { 
+	display:block; 
+	font-weight:bold; 
+	padding-top:5px; 
+	color:#191919; 
+}
+#suggestions a:hover span.searchheading { 
+	color:#ffffff; 
+}
+#suggestions a span { 
+	color:#555555; 
+}
+#suggestions a:hover span { 
+	color:#f1f1f1; 
+}
+#suggestions span.category { 
+	font-size:11px; 
+	margin:5px; 
+	display:block; 
+	color:#ABCEDF; 
+	background-color: #FDECBA;
+}
+#suggestions span.seperator { 
+	float:right; 
+	padding-right:15px; 
+	margin-right:5px;
+  background-image:url(../images/shortcuts_arrow.gif); 
+  background-repeat:no-repeat; 
+  background-position:right; 
+}
+#suggestions span.seperator a { 
+	background-color:transparent; 
+	display:block; 
+	margin:5px; 
+	height:auto; 
+	color:#ffffff; 
+}
 
+
+/**************************/
 div.show-img {
 	width: 100px;
 	height: 100px;

@@ -31,8 +31,8 @@
       {% endifequal %}
     </h1>
     <div class="row-fluid">
-      <section class="mod-main span7">
-      <div id="recipe_img_div" class="mod-recipe-img well well-small">
+      <section class="mod-main span7 well well-small">
+      <div id="recipe_img_div" class="mod-recipe-img">
         {% if object.cover_image %}
         <img id="recipe_img" src="{{ object.cover_image.url }}" alt="" />
         {% else %}
@@ -224,18 +224,34 @@
           {% endfor %}
           </div>
         </div>
-        <div class="mod-recipe-recommends">
+        <div class="mod-recipe-recommends well well-small">
           <div class="mod-recipe-title">
-            <h2>People Also Like</h2>
+            <h2>People Also Like<a id="prevA">Previous</a>
+            <a id="nextA">Next</a></h2>
           </div>
           {% if recommends %}
-          <ul>
+          <div style="position:relative;">
             {% for r in recommends %}
-            <li>
-              <a href="{{r.get_absolute_url}}">{{r.name}}</a>
-            </li>
+            <div class="recommend-img-div">
+              <a href="{{ r.get_absolute_url }}">
+              {% if r.cover_image %}
+              <img id="recommend-img" src="{{ r.cover_image.url }}" alt="" />
+              {% else %}
+              <img id="recommend-img" src="/media/no_image_available.jpg" alt="" />
+              {% endif %}
+              <div class="caption well">
+                <h1>{{r.name}}</h1>
+                <div class="heart" >
+                  {{r.like_num}}<i class="icon-heart"></i>
+                </div>
+                <p>{{r.brief|truncatechars:100}}</p>
+                
+              </div>
+            </div>
+          </a>
             {% endfor%}
-          </ul>
+            
+          </div>
           {% endif %}
         </div>
       </aside>
@@ -283,9 +299,16 @@
 <script type="text/javascript" src="{% static "js/yuEffect.js" %}"></script>
 <script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
+<script type="text/javascript" src="{% static "js/yuSlider.js" %}"></script>
 <script type="text/javascript">
 var j = jQuery.noConflict();
 j(document).ready(function() {
+  j(window).resize(function() {
+    j('.mod-recipe-recommends').css('min-height', j(window).height());
+  });
+  j('.mod-recipe-recommends').css('min-height',j(window).height());
+
+  yuSlider('.recommend-img-div','.caption',4000,'#prevA','#nextA');
   yuEffect(j("#recipe_img_div"),j("#recipe_img"),200);
   yuStar('{% static "jquery.raty-2.4.5/img/" %}');
 
@@ -377,6 +400,18 @@ j(document).ready(function() {
     
     // j('#id_comment').val('');
   });
+
+  var divH = jQuery('.mod-recipe-recommends').position().top;
+  jQuery(window).scroll(function() {
+    var position = jQuery(this).scrollTop();
+    if (position>=divH){
+      jQuery('.mod-recipe-recommends').css('position', 'fixed');
+      jQuery('.mod-recipe-recommends').css('top', '0px');
+    }
+    else {
+      jQuery('.mod-recipe-recommends').css('position', 'static');
+    }
+    });
 });
 
 
