@@ -138,8 +138,8 @@ P.larger-size { font-size: 16px; }
 
 
 div.content.search-form{
-	position: fixed;
-	bottom: 30%;
+	/*visibility: hidden;*/
+	position: absolute;
 	left: 50%;
 	margin-left: -158px;
 }
@@ -256,7 +256,6 @@ ul.circular-show-inner {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	/*margin: auto;*/
 }
 
 li.show-item {
@@ -280,12 +279,35 @@ li.show-item a:hover {
 	border-radius: 15px;
 }
 
-div#circular-show-outer {
+div.circular-show-outer.upper-level {
 	position: fixed;
 	top: 30%;
 	width: 100%;
 	overflow: hidden;
 	left: 0px;
+}
+
+div.circular-show-outer.lower-level {
+	float: left;
+	position: fixed;
+	overflow: hidden;
+}
+
+ul.circular-show-inner.lower-level {
+	position: relative;
+	overflow: hidden;
+	left: -130px; /* width of an item */
+	width: 9999px;
+	display: none;
+}
+
+ul.circular-show-inner.lower-level > li {
+	float: left;
+	position: relative;
+	width: 140px;
+	padding: 0;
+	height: 140px;
+	margin: 0;
 }
 
 ul.lower-level div.show-img {
@@ -305,20 +327,8 @@ ul.lower-level div.show-img {
 }
 
 ul.lower-level > li > a {
-	height: 130px;
-	width: 130px;
-}
-
-ul.lower-level > li {
-	display: none;
-	position: absolute;
-	display: inline-block;
-}
-
-ul.lower-level {
-	position: fixed;
-	overflow: hidden;
-	display: none;
+	height: 120px;
+	width: 120px;
 }
 
 a.show-control {
@@ -326,9 +336,9 @@ a.show-control {
 	/*display: none;*/
 	text-decoration: none;
 	color: white;
-	font-size: 40px;
+	font-size: 28px;
 	font-weight: bold;
-	line-height: 40px;
+	line-height: 43px;
 	text-align: center;
 	width: 40px;
 	height: 40px;

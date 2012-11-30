@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="circular-show-outer">
+<div class="circular-show-outer upper-level">
   <ul class="circular-show-inner upper-level">
     <li class="show-item" id="courses">
       <a href="#">
@@ -52,6 +52,8 @@
       </a>
     </li>
   </ul>
+</div>
+<div class="circular-show-outer lower-level">
   <ul class="circular-show-inner lower-level" data-target="courses">
     {% for c in Courses %}
       <li class="show-item" data-target="courses">
@@ -93,14 +95,14 @@
     {% endfor %}
   </ul>
   {# circular show nav #}
-  <a class="show-control" href="#courses" id="pItem" style="display:none;">&lsaquo;</a>
-  <a class="show-control" href="#courses" id="nItem" style="display:none;">&rsaquo;</a>
-  <a class="show-control" href="#cuisines" id="pItem" style="display:none;">&lsaquo;</a>
-  <a class="show-control" href="#cuisines" id="nItem" style="display:none;">&rsaquo;</a>
-  <a class="show-control" href="#sources" id="pItem" style="display:none;">&lsaquo;</a>
-  <a class="show-control" href="#sources" id="nItem" style="display:none;">&rsaquo;</a>
-  <a class="show-control" href="#diets" id="pItem" style="display:none;">&lsaquo;</a>
-  <a class="show-control" href="#diets" id="nItem" style="display:none;">&rsaquo;</a>
+  <a class="show-control" href="#courses" id="pItem" style="display:none;"><i class="icon-chevron-left"></i></a>
+  <a class="show-control" href="#courses" id="nItem" style="display:none;"><i class="icon-chevron-right"></i></a>
+  <a class="show-control" href="#cuisines" id="pItem" style="display:none;"><i class="icon-chevron-left"></i></a>
+  <a class="show-control" href="#cuisines" id="nItem" style="display:none;"><i class="icon-chevron-right"></i></a>
+  <a class="show-control" href="#sources" id="pItem" style="display:none;"><i class="icon-chevron-left"></i></a>
+  <a class="show-control" href="#sources" id="nItem" style="display:none;"><i class="icon-chevron-right"></i></a>
+  <a class="show-control" href="#diets" id="pItem" style="display:none;"><i class="icon-chevron-left"></i></a>
+  <a class="show-control" href="#diets" id="nItem" style="display:none;"><i class="icon-chevron-right"></i></a>
 </div>
 
   <div id="bg-show"></div>
