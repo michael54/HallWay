@@ -21,6 +21,11 @@
 			<div class="mod-prof-main-img span3">
 				<a href="#">
 					<img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mug shot" %}" />
+					<form method="POST" enctype="multipart/form-data" action="{% url 'userena_profile_edit' profile.user.username %}">
+						{% csrf_token %}
+						{{form.as_p}}
+						<button type="submit" class="btn">Upload</button>
+					</form>
 				</a>
 			</div>
 			<div class="mod-prof-main-txt span9">

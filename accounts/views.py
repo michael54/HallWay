@@ -13,6 +13,10 @@ from userena.decorators import secure_required
 from actstream import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
+from accounts.forms import MugshotForm
+from userena.signals import signup_complete
+from django.dispatch import receiver
+from recipe import recommendations
 
 import sys
 import json
@@ -38,6 +42,7 @@ def profile(request, username):
 		extra_context['followings'] = ActStream.following(user)
 		extra_context['recipe_list'] = list(user.recipe_set.all().only('name', 'cover_image', 'did_num', 'like_num', 'date', 'view_num'))
 		extra_context['favourite_list'] = list(user.get_profile().favourite_recipes.all().only('name', 'cover_image', 'did_num', 'like_num', 'date', 'view_num'))
+		extra_context['form'] = MugshotForm()
 		response = profile_detail(request, username, extra_context = extra_context)
 
 		return response
@@ -92,6 +97,13 @@ def profile_edit(request, username):
 			profile.save()
 			return HttpResponse('Saved!')
 		return HttpResponse('Failed!')
+	elif request.method == 'POST':
+		form = MugshotForm(request.POST, request.FILES, instance = profile )
+		if form.is_valid():
+			form.save();
+			return HttpResponse('Saved!')
+		else:
+			return HttpResponse('Failed!')
 	else:
 		raise Http404
 
@@ -139,6 +151,14 @@ def activity(request):
 					'action_list': action_list,
 					'following': models.following(request.user),
 					'followers': models.followers(request.user),
+					'recommends': recommendations.recommendRecipeForUser(request.user.id, 10)
+
 			})
 
+
+@receiver(signup_complete)
+def set_default_mugshot(sender, user, **kwargs):
+	profile = user.get_profile()
+	profile.mugshot = 'no_mugshot.jpg'
+	profile.save()
 

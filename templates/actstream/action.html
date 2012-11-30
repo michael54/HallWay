@@ -1,5 +1,12 @@
-{% load i18n %}{% if action.actor.get_absolute_url %}<a href="{{ action.actor.get_absolute_url }}"><img src="{{action.actor.get_profile.get_mugshot_url}}" />{{ action.actor }}</a>
-{% else %}<a href="{{ action.actor_url }}">{{ action.actor }}</a>{% endif %}
+{% load i18n %}
+{% load thumbnail %}
+
+
+{% if action.actor.get_absolute_url %}
+<a href="{{ action.actor.get_absolute_url }}"><img src="{{action.actor.get_profile.mugshot|thumbnail_url:'avatar'}}" />{{ action.actor }}</a>
+{% else %}
+<a href="{{ action.actor_url }}">{{ action.actor }}</a>
+{% endif %}
 {{ action.verb }}
 {% if action.target %}
     {% if action.target.get_absolute_url %}<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>

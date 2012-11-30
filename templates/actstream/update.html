@@ -1,6 +1,7 @@
 {% extends 'nav.html' %}
 {% load activity_tags i18n static %}
-{% load static %}
+{% load thumbnail %}
+
 {% block csslink %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "css/user/act_update.css" %}"/>
@@ -8,10 +9,10 @@
 
 {% block title %}{% ifequal user actor %}Chef Industry News{% else %}{{ actor }}{% endifequal %}{% endblock %}
 {% block content_title %}
-	{% ifequal user actor %}
-		<h2>What I am interested in ...</h2>
-	{% else %}{{ actor }}
-	{% endifequal %}
+{% ifequal user actor %}
+<h2>What I am interested in ...</h2>
+{% else %}{{ actor }}
+{% endifequal %}
 {% endblock %}
 
 {% block content %}
@@ -32,61 +33,109 @@
 					{% empty %}
 					{% trans "No actions yet" %}
 					{% endfor %}
-				
-				<div class="pagination">
-					<span class="step-links">
-						{% if action_list.has_next %}
-						<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activties</a>
-						{% endif %}
-					</span>
-				</div>
+
+					<div class="pagination">
+						<span class="step-links">
+							{% if action_list.has_next %}
+							<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activties</a>
+							{% endif %}
+						</span>
+					</div>
 				</ul>
 			</div>
 		</section>
-		<aside class="mod-side span4 well">
-			<div>
+		<aside class="mod-side span4">
+			<div class="well well-small">
 				I am following
 				{% for f in following %}
 				<div class='display_user'>
-					<img src="{{f.get_mugshot_url}}" />
+					<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
 					<div class='display_username'>
 						<a href="{{f.get_absolute_url}}">{{f}}</a>
 					</div>
 				</div>
 				{% endfor %}
 			</div>
-			<div>
+			<div class="well well-small">
 				They are following me
 				{% for f in followers %}
 				<div class='display_user'>
-					<img src="{{f.get_mugshot_url}}" />
+					<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
 					<div class='display_username'>
 						<a href="{{f.get_absolute_url}}">{{f}}</a>
 					</div>
 				</div>
 				{% endfor %}
 			</div>
-		</aside>
+			<div class="mod-recipe-recommends well well-small">
+				<div class="mod-recipe-title">
+					<h2>Guess You Like<a id="prevA">Previous</a>
+						<a id="nextA">Next</a></h2>
+					</div>
+					{% if recommends %}
+					<div style="position:relative;">
+						{% for r in recommends %}
+						<div class="recommend-img-div">
+							<a href="{{ r.get_absolute_url }}">
+								{% if r.cover_image %}
+								<img id="recommend-img" src="{{ r.cover_image.url }}" alt="" />
+								{% else %}
+								<img id="recommend-img" src="/media/no_image_available.jpg" alt="" />
+								{% endif %}
+								<div class="caption well">
+									<h1>{{r.name}}</h1>
+									<div class="heart" >
+										{{r.like_num}}<i class="icon-heart"></i>
+									</div>
+									<p>{{r.brief|truncatechars:100}}</p>
+
+								</div>
+							</div>
+						</a>
+						{% endfor%}
+						
+					</div>
+					{% endif %}
+				</div>
+			</aside>
+		</div>
 	</div>
-</div>
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	yuStar('{% static "jquery.raty-2.4.5/img/" %}');
-	$('#next_link').click(function(){
-		var url = $(this).attr('href');
-		var postdata = {
-			'csrfmiddlewaretoken': '{{ csrf_token }}',
-		}
-		$.get(url, postdata, function(data){
-			$('.pagination').replaceWith(data);
-		})
-		return false;
+	<script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/yuSlider.js" %}"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		yuSlider('.recommend-img-div','.caption',4000,'#prevA','#nextA');
+		yuStar('{% static "jquery.raty-2.4.5/img/" %}');
+
+		jQuery(window).resize(function() {
+	    jQuery('.mod-recipe-recommends').css('min-height', jQuery(window).height());
+	  });
+	  jQuery('.mod-recipe-recommends').css('min-height',jQuery(window).height());
+		var divH = jQuery('.mod-recipe-recommends').position().top;
+	  jQuery(window).scroll(function() {
+	    var position = jQuery(this).scrollTop();
+	    if (position>=divH){
+	      jQuery('.mod-recipe-recommends').css('position', 'fixed');
+	      jQuery('.mod-recipe-recommends').css('top', '0px');
+	    }
+	    else {
+	      jQuery('.mod-recipe-recommends').css('position', 'static');
+	    }
+	   });
+		$('#next_link').click(function(){
+			var url = $(this).attr('href');
+			var postdata = {
+				'csrfmiddlewaretoken': '{{ csrf_token }}',
+			}
+			$.get(url, postdata, function(data){
+				$('.pagination').replaceWith(data);
+			})
+			return false;
+		});
 	});
-});
-</script>
+	</script>
 {% endblock%}

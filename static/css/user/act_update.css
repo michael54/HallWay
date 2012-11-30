@@ -24,3 +24,61 @@ p {
 	padding-left: 15px;
 	margin-left: 25px;
 }
+
+/*CSS for recommend in sidebar*/
+#recommend-img {
+	width: 100%;
+}
+
+.mod-recipe-recommends {
+	width: 282px;
+}
+
+.recommend-img-div {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+
+}
+
+.caption {
+  background: rgba(255,255,255,0.8);
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+  display: none;
+  margin: 0;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  text-align: justify;
+  vertical-align: bottom;
+}
+
+.caption h1 {
+  font-size: 28px;
+  padding-top: 30px;
+}
+
+.caption p{
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  color: #D26;
+}
+
+.heart {
+  color: red;
+  font-size: 30px;
+  text-align: right;
+  direction: rtl;
+  float: right;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

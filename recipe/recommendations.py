@@ -152,12 +152,12 @@ def getRecommendedItems(prefs,itemMatch,user):
 def recommendRecipeForUser(uid, num = 10):
 	sorted_objects = []
 	if str(uid) in itemsim.critics:
-		rec = getRecommendedItems(itemsim.critics, itemsim.itemsim, str(user.id))[0:num]
+		rec = getRecommendedItems(itemsim.critics, itemsim.itemsim, str(uid))[0:num]
 		id_list = []
 		for (similarity, i) in rec:
 			id_list.append(i)
 
-		objects = list(Recipe.objects.filter(id__in=id_list).only('name','cover_image'))
+		objects = list(Recipe.objects.filter(id__in=id_list).only('name','cover_image','brief','like_num'))
 		objects = dict([(obj.id, obj) for obj in objects])
 		sorted_objects = [objects[id] for id in id_list]
 
@@ -170,7 +170,7 @@ def recommendRecipeForRecipe(rid, num = 10):
 		for (similarity, i) in itemsim.itemsim[str(rid)]:
 			id_list.append(i)
 
-		objects = list(Recipe.objects.filter(id__in=id_list).only('name','cover_image'))
+		objects = list(Recipe.objects.filter(id__in=id_list).only('name','cover_image','brief','like_num'))
 		objects = dict([(obj.id, obj) for obj in objects])
 		sorted_objects = [objects[id] for id in id_list]
 
