@@ -10,7 +10,7 @@
 {% block title %}{% ifequal user actor %}Chef Industry News{% else %}{{ actor }}{% endifequal %}{% endblock %}
 {% block content_title %}
 {% ifequal user actor %}
-<h2>What I am interested in ...</h2>
+<h1>What I am interested in</h1>
 {% else %}{{ actor }}
 {% endifequal %}
 {% endblock %}
@@ -18,31 +18,22 @@
 {% block content %}
 <div id="mod-container">
 	<div class="row-fluid container-fluid">
-		<section class="mod-main span7 well">
-			{% comment %}
-			{% if user.is_authenticated %}
-			<p>
-				<a href="{% actor_url user %}">{% trans "View my actions" %}</a>
-			</p>
-			{% endif %}
-			{% endcomment %}
-			<div>
-				<ul id="action_list">
-					{% for action in action_list %}
-					<li>{% include 'actstream/action.html' %}</li>
-					{% empty %}
-					{% trans "No actions yet" %}
-					{% endfor %}
+		<section class="mod-main span7">
+			<ul class="action-list">
+				{% for action in action_list %}
+					<li class="action-item">{% include 'actstream/action.html' %}</li>
+				{% empty %}
+					{% trans "No actions yet. XD" %}
+				{% endfor %}
 
-					<div class="pagination">
-						<span class="step-links">
-							{% if action_list.has_next %}
-							<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activties</a>
-							{% endif %}
-						</span>
-					</div>
-				</ul>
-			</div>
+				<div class="pagination">
+					<span class="step-links">
+						{% if action_list.has_next %}
+						<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activties</a>
+						{% endif %}
+					</span>
+				</div>
+			</ul>
 		</section>
 		<aside class="mod-side span4">
 			<div class="well well-small">
@@ -137,5 +128,13 @@
 			return false;
 		});
 	});
+	</script>
+	<script type="text/javascript">
+		$('li.action-item').hover(
+			function () {
+				console.log('hehe');
+			}, function () {
+				console.log('haha');
+			});
 	</script>
 {% endblock%}

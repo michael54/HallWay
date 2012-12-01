@@ -1,28 +1,10 @@
-div.#mod-container {
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
-
-h1.mod-page-title {
-	font-size: 28px;
-	font-style: bold;
-	line-height: 30px;
-	margin-bottom: 15px;
-}
-
 h2 {
 	color: rgb(130, 130, 130);
-	font-size: 22px;
+	font-size: 18px;
 	font-style: bold;
-	line-height: 30px;
+	line-height: 18px;
 	margin-bottom: 15px;
 	padding-left: 15px;
-}
-
-p {
-	padding-left: 15px;
-	margin-left: 25px;
 }
 
 /*CSS for recommend in sidebar*/
@@ -81,4 +63,29 @@ p {
   position: absolute;
   top: 20px;
   right: 20px;
+}
+/**************************/
+
+/* css for the action list */
+ul.action-list {
+  list-style-type: none;
+  border-left-style: solid;
+  border-left-width: 4px;
+  border-left-color: #F5D982;
+  padding-left: 10px;
+}
+
+ul.action-list > li {
+  padding-top: 10px;
+  padding-left: 10px;
+  border-style: solid;
+  border-width: 0px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 1px 1px 5px black;
+}
+
+ul.action-list > li:not(:last-child) {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 }

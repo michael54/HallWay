@@ -138,8 +138,8 @@ jQuery(document).ready(function () {
   //   });  
   // }  
   
-  jQuery('a#nItem').click(function (event) {slideControl('right' ,jQuery(this), event);});
-  jQuery('a#pItem').click(function (event) {slideControl('left' ,jQuery(this), event);});
+  jQuery('a#nItem').click(function (event) {slideControl('right' ,jQuery(this), event); return false;});
+  jQuery('a#pItem').click(function (event) {slideControl('left' ,jQuery(this), event); return false;});
 });  
   
 /* the slide control function */ 
@@ -159,11 +159,11 @@ function slideControl(direction, obj, event){
     'left' : leftIndent
   },{queue: false, duration: 500, complete: function(){
     if(direction == 'left'){
-      obj.click(function (event) {slideControl('left' ,jQuery(this), event);});
+      obj.click(function (event) {slideControl('left' ,jQuery(this), event); return false;});
       jQuery(jQuery('ul.lower-level > li[data-target="'+val+'"]').first()).before(
           jQuery(jQuery('ul.lower-level > li[data-target="'+val+'"]').last()));  
     }else{
-      obj.click(function (event) {slideControl('right' ,jQuery(this), event);});
+      obj.click(function (event) {slideControl('right' ,jQuery(this), event); return false;});
       jQuery(jQuery('ul.lower-level > li[data-target="'+val+'"]').last()).after(
           jQuery(jQuery('ul.lower-level > li[data-target="'+val+'"]').first())); 
     }
@@ -181,7 +181,7 @@ function nextItem (obj, event) {
   jQuery('ul.lower-level > li[data-target="'+val+'"]').stop(true).animate({
     'left': '-=144'
   }, {queue: false, duration: 500, complete: function () {
-    obj.click(function() {nextItem(obj);});
+    obj.click(function() {nextItem(obj); return false;});
     console.log(numChild);
     console.log($firstChild.position().left+144*numChild);
     $firstChild.css('left', $firstChild.position().left+144);
@@ -198,13 +198,13 @@ function prevItem (obj, event) {
     jQuery('ul.lower-level > li[data-target="'+val+'"]').stop(true).animate({
       'left': '-='+(numChild-5)*144
     }, {queue: false, duration: 500, complete: function () {
-      obj.click(function() {prevItem(obj);});
+      obj.click(function() {prevItem(obj); return false;});
     }});
   } else {
     jQuery('ul.lower-level > li[data-target="'+val+'"]').stop(true).animate({
       'left': '+=144'
     }, {queue: false, duration: 500, complete: function () {
-      obj.click(function() {prevItem(obj);});
+      obj.click(function() {prevItem(obj); return false;});
     }});
   }
 }

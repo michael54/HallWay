@@ -19,6 +19,49 @@
 {% endblock %}
 
 {% block content %}
+<div class="login-modal">
+  {% if user.is_authenticated %}
+    <a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i></a>
+  {% else %}
+    <a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i></a>
+  {% endif %}
+  <ul>  
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i> My Profile</a></li>
+    <li><a href="#"><i class="icon-glass"></i> My Recipes</a></li>
+    <li><a href="{% url 'userena_signout' %}"><i class="icon-signout"></i> Sign Out</a></li>
+    {% else %}
+    <li><a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i> Sign In</a></li>
+    <li><a data-toggle="modal" href="{% url 'userena_signup' %}" ><i class="icon-plus"></i> Sign Up</a></li>
+    {% endif %}
+  </ul>
+  <div class="modal hide fade" tabindex="-1" aria-hidden="true" id="signinModal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">x</button>
+      <legend>Sign In</legend>
+    </div>
+    <div class="modal-body">
+      <form method="post" action="{% url 'userena_signin' %}" >
+        {% csrf_token %}
+        <fieldset>
+          <img src="{% static 'img/welcome_pig.jpg' %}" id="welcomePig"/>
+          <p><input type="text" class="span3" name="identification" id="email" placeholder="Username or Email"></p>
+          <p><input type="password" class="span3" name="password" placeholder="Password"></p>
+          <p class="checkbox">
+            <label for="id_remember_me"><input type="checkbox" name="remember_me" id="id_remember_me" /> Remember me for a month</label>
+          </p>
+          <p><button type="submit" class="btn btn-primary">Sign in</button>
+            <a href="{% url 'userena_password_reset' %}">Forgot Password?</a>
+          </p>
+        </fieldset>
+      </form>
+    </div>
+    <div class="modal-footer">
+      New To MyWebsite.com?
+      <a href="{% url 'userena_signup' %}" class="btn btn-primary">Sign Up</a>
+    </div>
+  </div>
+</div>
 <div class="circular-show-outer upper-level">
   <ul class="circular-show-inner upper-level">
     <li class="show-item" id="courses">

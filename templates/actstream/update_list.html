@@ -3,9 +3,9 @@
 
 
 {% for action in action_list %}
-<li>{% include 'actstream/action.html' %}</li>
+  <li>{% include 'actstream/action.html' %}</li>
 {% empty %}
-{% trans "No more action" %}
+  {% trans "No more action" %}
 {% endfor %}
 
 <div class="pagination">
@@ -17,14 +17,14 @@
 </div>
 
 <script type="text/javascript">
-  	$('#next_link').click(function(){
-  		var url = $(this).attr('href');
-  		var postdata = {
-  			'csrfmiddlewaretoken': '{{ csrf_token }}',
-  		}
-  		$.get(url, postdata, function(data){
-  			$('.pagination').replaceWith(data);
-  		})
-  		return false;
-  	});
+	$('#next_link').click(function(){
+		var url = $(this).attr('href');
+		var postdata = {
+			'csrfmiddlewaretoken': '{{ csrf_token }}',
+		}
+		$.get(url, postdata, function(data){
+			$('.pagination').replaceWith(data);
+		})
+		return false;
+	});
 </script>

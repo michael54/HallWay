@@ -2,27 +2,41 @@
 {% load thumbnail %}
 
 
-{% if action.actor.get_absolute_url %}
-<a href="{{ action.actor.get_absolute_url }}"><img src="{{action.actor.get_profile.mugshot|thumbnail_url:'avatar'}}" />{{ action.actor }}</a>
-{% else %}
-<a href="{{ action.actor_url }}">{{ action.actor }}</a>
-{% endif %}
-{{ action.verb }}
-{% if action.target %}
-    {% if action.target.get_absolute_url %}<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>
-    {% else %}<a href="{{ action.target_url }}">{{ action.target }}</a>
-{% endif %}
-{% if action.action_object %}
-{{ action.action_object.content_type}}
-<div class="medstar{{action.action_object.score}}"></div>
-<div class="mod-brief">{{action.target.brief|truncatechars:50}}</div>
-{% if action.action_object.comment %}
-<div>
-&quot;{{action.action_object.comment}}&quot;
+<div class="row-fluid">
+	<div class="span2 act-avatar">
+		{% if action.actor.get_absolute_url %}
+			<a href="{{ action.actor.get_absolute_url }}">
+				<img src="{{action.actor.get_profile.mugshot|thumbnail_url:'avatar'}}" />
+			</a>
+		{% endif %}
+	</div>
+	<div class="span10 action-info">
+		{% if action.actor.get_absolute_url %}
+			<a href="{{ action.actor.get_absolute_url }}">
+				{{ action.actor }}
+			</a>
+		{% endif %}
+		<span class="action-verb">{{ action.verb }}</span>
+		{% if action.target %}
+			{% if action.target.get_absolute_url %}
+				<a href="{{ action.target.get_absolute_url }}">{{ action.target }}</a>
+			{% else %}
+				<a href="{{ action.target_url }}">{{ action.target }}</a>
+			{% endif %}
+			{% if action.action_object %}
+				{{ action.action_object.content_type}}
+				<div class="medstar{{action.action_object.score}}"></div>
+				<div class="mod-brief">{{action.target.brief|truncatechars:50}}</div>
+				{% if action.action_object.comment %}
+				<div>
+					&quot;{{action.action_object.comment}}&quot;
+				</div>
+				{% endif %}
+			{% else %}
+				<div class="mod-brief">{{action.target.brief|truncatechars:50}}</div>
+			{% endif %}
+		{% endif %}
+		<div class="action-since">{{ action.timestamp|timesince }} {% trans "ago" %}</div>
+		{# {{ action.timestamp }} #}
+	</div>
 </div>
-{% endif %}
-{% else %}
-<div class="mod-brief">{{action.target.brief|truncatechars:50}}</div>
-{% endif %}
-{% endif %}
-{{ action.timestamp|timesince }} {% trans "ago" %}
