@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="popupbox">
+<div class="popupbox" tabindex="0">
   <a id="prevImg"><i class="icon-chevron-left"></i></a>
   <a id="nextImg"><i class="icon-chevron-right"></i></a>
   <div id="appended"></div>
@@ -317,13 +317,9 @@ j(document).ready(function() {
   yuStar('{% static "jquery.raty-2.4.5/img/" %}');
 
   var imageNum = 0;
-  j('img.popup').click(function (){
-    j('#appended').empty();
-    j(this).clone().removeClass('span3').removeClass('enlarge').addClass('fullImg').appendTo(j('#appended'));
-    
-    j('.popupbox').fadeIn();
-    j(this).siblings('.step-div').clone().removeClass('span9').width(j('.fullImg').width()).appendTo(j('#appended'));
-    j('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+
+  var popupPos = function(){
+    j('.popup-step').width(j('.fullImg').width());
     var popuptopmargin = (j('.popupbox').height() + 10) / 2;
     var popupleftmargin = (j('.popupbox').width() + 10) / 2;
     j('.popupbox').css({
@@ -332,7 +328,19 @@ j(document).ready(function() {
     });
     j('#prevImg').css('top', j('.fullImg').height()/2);
     j('#nextImg').css('top', j('.fullImg').height()/2);
+  }
+
+  j('img.popup').click(function (){
+    j('#appended').empty();
+    j(this).clone().removeClass('span3').removeClass('enlarge').addClass('fullImg').appendTo(j('#appended')).lazyload({
+        load: popupPos,
+      });;
+    j('.popupbox').fadeIn().focus();
+    j(this).siblings('.step-div').clone().removeClass('span9').addClass('popup-step').appendTo(j('#appended'));
+    j('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+    popupPos();
     imageNum = j('img.popup').index(j(this));
+    
     return false;
   });
 
@@ -344,17 +352,13 @@ j(document).ready(function() {
   j('#prevImg').click(function() {
     if(imageNum > 1){
       j('#appended').empty();
-      j('img.popup').eq(imageNum - 2).clone().removeClass('enlarge').removeClass('span3').addClass('fullImg').appendTo(j('#appended'));
-      j('.step-div').eq(imageNum - 2).clone().removeClass('span9').width(j('.fullImg').width()).appendTo(j('#appended'));
+      j('img.popup').eq(imageNum - 2).clone().removeClass('enlarge').removeClass('span3').addClass('fullImg').appendTo(j('#appended')).lazyload({
+        load: popupPos,
+      });;
+      j('.step-div').eq(imageNum - 2).clone().removeClass('span9').addClass('popup-step').appendTo(j('#appended'));
       imageNum = imageNum - 1;
-      var popuptopmargin = (j('.popupbox').height() + 10) / 2;
-      var popupleftmargin = (j('.popupbox').width() + 10) / 2;
-      j('.popupbox').css({
-        'margin-top' : -popuptopmargin,
-        'margin-left' : -popupleftmargin
-      });
-      j('#prevImg').css('top', j('.fullImg').height()/2);
-      j('#nextImg').css('top', j('.fullImg').height()/2);
+      popupPos();
+      
     }
     
     return false;
@@ -363,21 +367,31 @@ j(document).ready(function() {
   j('#nextImg').click(function() {
     if(imageNum < j('img.popup').size() - 1){
       j('#appended').empty();
-      j('img.popup').eq(imageNum).clone().removeClass('enlarge').removeClass('span3').addClass('fullImg').appendTo(j('#appended'));
-      j('.step-div').eq(imageNum).clone().removeClass('span9').width(j('.fullImg').width()).appendTo(j('#appended'));
-      imageNum = imageNum + 1;
-      var popuptopmargin = (j('.popupbox').height() + 10) / 2;
-      var popupleftmargin = (j('.popupbox').width() + 10) / 2;
-      j('.popupbox').css({
-        'margin-top' : -popuptopmargin,
-        'margin-left' : -popupleftmargin
+      j('img.popup').eq(imageNum).clone().removeClass('enlarge').removeClass('span3').addClass('fullImg').appendTo(j('#appended')).lazyload({
+        load: popupPos,
       });
-      j('#prevImg').css('top', j('.fullImg').height()/2);
-      j('#nextImg').css('top', j('.fullImg').height()/2);
+      j('.step-div').eq(imageNum).clone().removeClass('span9').addClass('popup-step').appendTo(j('#appended'));
+      
+      imageNum = imageNum + 1;
+      popupPos();
+      
     }
     
     return false;
   });
+
+  j('.popupbox').keyup(function (event) {
+    if(event.keyCode==37){
+      j('#prevImg').click();
+    }
+    if(event.keyCode==39){
+      j('#nextImg').click();
+    }
+    if(event.keyCode==27){
+      j('#fade').click();
+    }
+  });
+
   j('#star').raty({
     path: '{% static "jquery.raty-2.4.5/img/" %}',
     half: true,
