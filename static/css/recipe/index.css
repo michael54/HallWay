@@ -139,9 +139,9 @@ P.larger-size { font-size: 16px; }
 
 div.content.search-form{
 	/*visibility: hidden;*/
-	position: absolute;
+	position: fixed;
 	left: 50%;
-	margin-left: -158px;
+	margin-left: -208px;
 }
 
 div.search-div {
@@ -149,12 +149,24 @@ div.search-div {
 	background-color: rgba(128, 128, 128, 0.2);
 }
 
-input.search-query {
+div.search-div input {
+	padding: .25em 5px .31em 30px;
 	height: 29px;
 	line-height: 29px;
+	font-size: 100%;
 	-webkit-border-radius:10px;
 	-moz-border-radius:10px;
 	border-radius:10px;
+}
+
+div.search-div span {
+	position: fixed;
+}
+
+div.search-div span i {
+	font-size: 29px;
+	line-height: 29px;
+	color: rgba(0, 0, 0, 0.4);
 }
 
 span.add-on {
@@ -174,8 +186,8 @@ span.add-on {
 	background-color: rgba(255,255,255,0.6);
 }
 #suggestions a { 
-	display:block; c
-	lear:left; 
+	display:block; 
+	clear:left; 
 	height:56px; 
 	text-decoration:none; 
 }

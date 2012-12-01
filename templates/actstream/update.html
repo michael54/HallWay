@@ -130,11 +130,15 @@
 	});
 	</script>
 	<script type="text/javascript">
-		$('li.action-item').hover(
-			function () {
-				console.log('hehe');
-			}, function () {
-				console.log('haha');
-			});
+		// put date mark on the timeline
+		var $html = $('<li class="datesince">Today</li>');
+		$('li.action-item > div.today').first().parent().before($html);
+		var $html = $('<li class="datesince">Yesterday</li>');
+		$('li.action-item > div.yesterday').first().parent().before($html);
+		var $html = $('<li class="datesince">In this week</li>');
+		$('li.action-item > div.in-this-week').first().parent().before($html);
+		var $html = $('<li class="datesince">More than a week ago</li>');
+		$('li.action-item > div.more-than-a-week-ago').first().parent().before($html);
+		//------------------------------------------------------------------------------//
 	</script>
 {% endblock%}

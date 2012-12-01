@@ -48,6 +48,11 @@ jQuery(document).ready(function () {
     /* slider control position */
     jQuery('a.show-control').css('top', winHeight*0.2+230);
     /*********************************************************************************************/
+
+    /* search form icon position */
+    jQuery('div.search-div span').css('top', jQuery('div.content.search-form').position().top+15);
+    jQuery('div.search-div span').css('left', jQuery('div.content.search-form').position().left-208+15);
+    /*********************************************************************************************/
     // jQuery('ul.lower-level').each(function () {
     //   jQuery(this).find('li').each(function (i) {
     //     jQuery(this).css('left', 144*i);

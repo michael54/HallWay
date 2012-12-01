@@ -8,9 +8,9 @@ def dayssince(value):
     today = datetime.date.today()
     diff  = today - value
     if diff.days > 7:
-        return u'more than a week ago'
+        return u'more-than-a-week-ago'
     elif diff.days > 1:
-        return u'in this week'
+        return u'in-this-week'
     elif diff.days == 1:
         return u'yesterday'
     elif diff.days == 0:

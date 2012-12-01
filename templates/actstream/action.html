@@ -1,8 +1,9 @@
 {% load i18n %}
 {% load thumbnail %}
+{% load daysince %}
 
 
-<div class="row-fluid">
+<div class="row-fluid {{ action.timestamp.date|dayssince }}">
 	<div class="span2 act-avatar">
 		{% if action.actor.get_absolute_url %}
 			<a href="{{ action.actor.get_absolute_url }}">
