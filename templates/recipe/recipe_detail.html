@@ -144,7 +144,7 @@
                 <div class="step-num bold">Step&nbsp;{{step.step_num}}</div>
                 <div class="step-desctiption">{{step.description}}</div>
               </div>
-              <img class="span3 popup enlarge" src="{{step.step_image.url}}" alt="step image" />
+              <img class="span3 popup enlarge" src="{% static "img/loading.gif" %}"  data-original="{{step.step_image.url}}" alt="step image" />
             </li>
            {% endfor %}
          </ol>
@@ -306,9 +306,12 @@
 <script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
 <script type="text/javascript" src="{% static "js/yuSlider.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.lazyload.min.js" %}"></script>
 <script type="text/javascript">
 var j = jQuery.noConflict();
 j(document).ready(function() {
+  j('img.popup').lazyload();
+
   yuSlider('.recommend-img-div','.caption',4000,'#prevA','#nextA');
   yuEffect(j("#recipe_img_div"),j("#recipe_img"),200);
   yuStar('{% static "jquery.raty-2.4.5/img/" %}');

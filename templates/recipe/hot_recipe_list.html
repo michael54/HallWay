@@ -2,6 +2,8 @@
 <!-- from HotRecipeListView -->
 {% extends "nav.html" %}
 {% load static %}
+{% load thumbnail %}
+
 
 {% block csslink %}
 {{block.super}}
@@ -14,28 +16,22 @@ Hot Recipes
 
 {% block content %}
 {% if hot_recipe_list %}
-	<div id="hot_recipes">
-		{% for hot_recipe in hot_recipe_list %}
-			<div class="box photo col3">
-				<a href="{{ hot_recipe.get_absolute_url }}">
-					<img src="{% if hot_recipe.cover_image %}
-					{{ hot_recipe.cover_image.url }}
-					{% else %}
-					/media/no_image_available.jpg
-					{% endif %}
-					" />
-					<div class="caption well">
-						<h1>{{hot_recipe.name}}</h1>
-						<div class="heart" >
-							{{hot_recipe.like_num}}<i class="icon-heart"></i>
-						</div>
-						<p>{{hot_recipe.brief|truncatechars:100}}</p>
-						
-					</div>
-				</a>
+	<div id="hot_recipes"><img id="loading" src="{% static "img/loading.gif" %}" /> </div>
+	{% for hot_recipe in hot_recipe_list %}
+	<a class="box-a" href="{{ hot_recipe.get_absolute_url }}">
+		<input type="hidden" value="{% if hot_recipe.cover_image %}{{ hot_recipe.cover_image|thumbnail_url:'col' }}{% else %}/media/no_image_available.jpg{% endif %}" />
+		<div class="caption well">
+			<h1>{{hot_recipe.name}}</h1>
+			<div class="heart" >
+				{{hot_recipe.like_num}}<i class="icon-heart"></i>
 			</div>
-		{% endfor %}
-	</div>
+			<p>{{hot_recipe.brief|truncatechars:100}}</p>
+
+		</div>
+		
+	</a>
+	{% endfor %}
+	
 	{# .... **Now the pagination section** .... #}
 	{% if is_paginated %}
 		<div class="pagination">
@@ -60,35 +56,46 @@ Hot Recipes
 
 {% block js %}
 <script src="{% static 'js/jquery.masonry.min.js' %}"></script>
-<script>
-  $(function(){
+<script type="text/javascript">
+$(function(){
+	var $container = $('#hot_recipes');
+	
+	$container.masonry({
+		itemSelector : '.box',
+		isRsizable: true,
+		isAnimated: true,
+		animationOptions: {
+			duration: 350,
+			easing: 'linear',
+			queue: false
+		}
+	});
 
-  	$('.box').hover(
-  		function () {
-	      jQuery(this).find('.caption').stop(true).fadeIn(400);
-	    }, function () {
-	      jQuery(this).find('.caption').stop(true).fadeOut(400);
-	    }
-  	);
+	var items = [],
+			item, datum;
 
+	$('.box-a').each(function(i) {
+		var s = $(this).find('input').attr('value');
+		item = '<div class="box photo col3"><a href="' + $(this).attr('href') + '">'
+			+ '<img src="' + s + '" />'
+			+ $(this).find('.caption')[0].outerHTML
+			+ '</a></div>';
+		items.push(item);
+	});
 
-    var $container = $('#hot_recipes');
+	var $items = $( items.join(''));
+	$items.imagesLoaded(function() {
+		$container.masonry('remove', $('#loading')).masonry().append($items).masonry('appended', $items);
+		$items.hover(
+			function () {
+				jQuery(this).find('.caption').stop(true).fadeIn(400);
+			}, function () {
+				jQuery(this).find('.caption').stop(true).fadeOut(400);
+			}
+		);
+		$container.masonry('reload');
+	});
 
-
-    $container.imagesLoaded( function(){
-      $container.masonry({
-        itemSelector : '.box',
-        isRsizable: true,
-        isAnimated: true,
-        animationOptions: {
-			    duration: 750,
-			    easing: 'linear',
-			    queue: false
-			  }
-      });
-
-    });
-  
-  });
+});
 </script>
 {% endblock js %}

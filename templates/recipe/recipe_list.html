@@ -112,7 +112,7 @@
 				<div class="recipe list row-fluid">
 					<div class="recipe-img span4">
 						<a href="{{ recipe.get_absolute_url }}" class="see_detail">
-							<img src="{{recipe.cover_image|thumbnail_url:'normal'}}" alt="recipe cover image" />
+							<img class="lazy" src="{% static "img/loading.gif" %}" data-original="{{recipe.cover_image|thumbnail_url:'normal'}}" alt="recipe cover image" />
 						</a>
 					</div>
 					<div class="recipe-txt span8">
@@ -143,14 +143,14 @@
 			{% if is_paginated %}
 			<div class="pagination">
 				<span class="page-links">
-					{% if recipe_list.has_previous %}
-					<a href="?page={{ recipe_list.previous_page_number }}">previous</a>
+					{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}">previous</a>
 					{% endif %}
 					<span class="page-current">
-						Page {{ recipe_list.number }} of {{ recipe_list.paginator.num_pages }}.
+						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
 					</span>
-					{% if recipe_list.has_next %}
-					<a href="?page={{ recipe_list.next_page_number }}">next</a>
+					{% if page_obj.has_next %}
+					<a href="?page={{ page_obj.next_page_number }}">next</a>
 					{% endif %}
 				</span>
 			</div>
@@ -167,9 +167,14 @@
 {% block js %}
 <script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
+<script type="text/javascript" src="{% static "js/jquery.lazyload.min.js" %}"></script>
 <script type="text/javascript">
 jQuery(document).ready(function () {
+	jQuery('img').lazyload({
+		effect: 'fadeIn',
+	});
 	yuStar('{% static "jquery.raty-2.4.5/img/" %}');
+
 });
 </script>
 {% endblock %}

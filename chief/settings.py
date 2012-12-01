@@ -232,6 +232,7 @@ THUMBNAIL_ALIASES = {
     '': {
         'normal': {'size': (220,160), 'crop': 'smart'},
         'avatar': {'size': (50,50), 'crop': 'smart'},
+        'col': {'size': (200,0), 'crop': 'smart'},
     },
 }
 
