@@ -35,34 +35,36 @@
 				</div>
 			</ul>
 		</section>
-		<aside class="mod-side span4">
+		<aside class="mod-side sick-of-choosing-name span4">
 			<div class="well well-small">
-				I am following
+				<div class="mod-heading">I am following</div>
+				<ul>
 				{% for f in following %}
-				<div class='display_user'>
-					<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
-					<div class='display_username'>
+					<li class='display_user'>
+						<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
 						<a href="{{f.get_absolute_url}}">{{f}}</a>
-					</div>
-				</div>
-				{% endfor %}
+					</li>
+					{% endfor %}
+				</ul>
 			</div>
 			<div class="well well-small">
-				They are following me
-				{% for f in followers %}
-				<div class='display_user'>
-					<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
-					<div class='display_username'>
+				<div class="mod-heading">They are following me</div>
+				<ul>
+					{% for f in followers %}
+					<li class='display_user'>
+						<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
 						<a href="{{f.get_absolute_url}}">{{f}}</a>
-					</div>
-				</div>
-				{% endfor %}
+					</li>
+					{% endfor %}
+				</ul>
 			</div>
 			<div class="mod-recipe-recommends well well-small">
 				<div class="mod-recipe-title">
-					<h2>Guess You Like<a id="prevA">Previous</a>
-						<a id="nextA">Next</a></h2>
-					</div>
+            <span>People Also Like
+              <a id="prevA"><i class="icon-caret-left"></i></a>
+              <a id="nextA"><i class="icon-caret-right"></i></a>
+            </span>
+          </div>
 					{% if recommends %}
 					<div style="position:relative;">
 						{% for r in recommends %}
@@ -121,10 +123,10 @@
 			var url = $(this).attr('href');
 			var postdata = {
 				'csrfmiddlewaretoken': '{{ csrf_token }}',
-			}
+			};
 			$.get(url, postdata, function(data){
 				$('.pagination').replaceWith(data);
-			})
+			});
 			return false;
 		});
 	});

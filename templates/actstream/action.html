@@ -27,14 +27,14 @@
 			{% if action.action_object %}
 				{{ action.action_object.content_type}}
 				<div class="medstar{{action.action_object.score}}"></div>
-				<div class="mod-brief">{{action.target.brief|truncatechars:50}}</div>
+				<div class="mod-brief">{{action.target.brief|truncatechars:140}}</div>
 				{% if action.action_object.comment %}
 				<div>
 					&quot;{{action.action_object.comment}}&quot;
 				</div>
 				{% endif %}
 			{% else %}
-				<div class="mod-brief">{{action.target.brief|truncatechars:50}}</div>
+				<div class="mod-brief">{{action.target.brief|truncatechars:140}}</div>
 			{% endif %}
 		{% endif %}
 		<div class="action-since">{{ action.timestamp|timesince }} {% trans "ago" %}</div>

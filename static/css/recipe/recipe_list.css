@@ -111,3 +111,13 @@ div.display-method a {
 	font-size: 18px;
 	margin-left: 5px;
 }
+
+div.no-recipe p {
+	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
+	font-size: 14px;
+	padding: 5px;
+}
+
+span.seperator:last-child {
+	display: none;
+}

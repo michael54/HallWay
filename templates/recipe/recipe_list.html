@@ -102,12 +102,12 @@
 					<span>&nbsp;|&nbsp;</span>
 					<a href="{% url 'recipe_category' category.id 'time' %}">Latest Created</a>
 				</div>
-				<div class="display-method">
+				<!--div class="display-method">
 					<a href="#"><i class="icon-list-ul"></i></a>
 					<a href="#"><i class="icon-th-large"></i></a>
-				</div>
+				</div-->
 			</div>
-			<div class="rank-hot">
+			<div class="rank-hot row-fluid">
 				{% for recipe in recipe_list %}
 				<div class="recipe list row-fluid">
 					<div class="recipe-img span4">
@@ -129,6 +129,7 @@
 							{% for i in recipe.amount_set.all %}
 								{% if i.must %}
 								<span>{{i.ingredient}}</span>
+								<span class="seperator">&nbsp;|&nbsp;</span>
 								{% endif %}
 							{% endfor %}
 						</div>
@@ -155,13 +156,30 @@
 				</span>
 			</div>
 		</div>
+		{% endif %}
+		{% else %}
+		<div class="mod-list-detail span9 well well-small">
+			<h1 class="mod-page-title">{{category.parent.name}}:&nbsp;{{category}}</h1>
+			<div class="detail-nav">
+				<div class="rank-method">
+					<a href="{% url 'recipe_category' category.id 'trend' %}">Recently Popular</a>
+					<span>&nbsp;|&nbsp;</span>
+					<a href="{% url 'recipe_category' category.id 'hot' %}">Most Popular</a>
+					<span>&nbsp;|&nbsp;</span>
+					<a href="{% url 'recipe_category' category.id 'time' %}">Latest Created</a>
+				</div>
+				<!--div class="display-method">
+					<a href="#"><i class="icon-list-ul"></i></a>
+					<a href="#"><i class="icon-th-large"></i></a>
+				</div-->
+			</div>
+			<div class="no-recipe">
+				<p>"No recipes in thie category... XD"</p>
+			</div>
+		</div>
+		{% endif %}
 	</div>
 </div>
-{% endif %}
-{% else %}
-<h3>My recipes</h3>
-<p>No recipes found!!! :(</p>
-{% endif %}
 {% endblock %}
 
 {% block js %}

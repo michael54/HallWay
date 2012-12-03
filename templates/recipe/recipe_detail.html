@@ -188,7 +188,7 @@
               <div class="span9">
                 <a href="{{v.user.get_absolute_url}}" id="rate-author">{{v.user}}</a>
                 <span class="medstar{{v.score}}" id="rate-star"></span><span id="rate-score">{{v.score}}</span>
-                <div>{{ v.comment }}</div>
+                <div>{{ v.comment|truncatechars:140 }}</div>
                 <div>{{ v.date|timesince }} ago</div>
               </div>
             </div>
@@ -232,8 +232,10 @@
         </div>
         <div class="mod-recipe-recommends well well-small">
           <div class="mod-recipe-title">
-            <h2>People Also Like<a id="prevA">Previous</a>
-            <a id="nextA">Next</a></h2>
+            <span>People Also Like
+              <a id="prevA"><i class="icon-caret-left"></i></a>
+              <a id="nextA"><i class="icon-caret-right"></i></a>
+            </span>
           </div>
           {% if recommends %}
           <div style="position:relative;">

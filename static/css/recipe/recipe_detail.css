@@ -303,10 +303,11 @@ span.mod-user-follow {
 	top: 10px;
 }
 
-div.mod-recipe-title, div.mod-discussion span, div.mod-recipe-title h2 {
+div.mod-recipe-title, div.mod-discussion span, div.mod-recipe-title span {
 	font-size: 18px;
 	font-weight: bold;
 	color: darkGray;
+	margin-bottom: 10px;
 }
 
 a#rate-author {
@@ -448,4 +449,25 @@ span#rate-star {
 	right: 0;
 	font-size: 30px;
 	text-decoration: none;
+}
+
+a#prevA {
+	position: relative;
+	left: 80px;
+}
+
+a#nextA {
+	position: relative;
+	left: 90px;
+}
+
+a#prevA, a#nextA {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+a#prevA > i, a#nextA {
+	font-size: 24px;
+	font-weight: bold;
+	color: darkGray;
 }

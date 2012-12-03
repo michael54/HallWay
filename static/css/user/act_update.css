@@ -89,3 +89,50 @@ ul.action-list > li:not(:last-child) {
   padding-bottom: 10px;
   margin-bottom: 10px;
 }
+
+a#prevA {
+  position: relative;
+  left: 80px;
+}
+
+a#nextA {
+  position: relative;
+  left: 90px;
+}
+
+a#prevA, a#nextA {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a#prevA > i, a#nextA {
+  font-size: 24px;
+  font-weight: bold;
+  color: darkGray;
+}
+
+div.mod-recipe-title span, div.mod-heading{
+  font-size: 18px;
+  font-weight: bold;
+  color: darkGray;
+  margin-bottom: 10px;
+  line-height: 24px;
+}
+
+aside.sick-of-choosing-name ul {
+  list-style: none;
+  overflow: auto;
+  margin: 0;
+}
+
+li.display_user {
+  width: 70px;
+  height: 70px;
+  float: left;
+}
+
+li.display_user img {
+  margin-left: 10px;
+  height: 50px;
+  width: 50px;
+}
