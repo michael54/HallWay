@@ -159,3 +159,15 @@ div#mod-container #mod-prof-details .tab-content #prof {
 span.mod-user-follow {
 	float: right;
 }
+
+input[type="text"].profile_input {
+	background: transparent;
+	border:0;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+.prof_smt_btn{
+	display: none;
+}

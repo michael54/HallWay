@@ -1,6 +1,6 @@
 from userena.views import profile_detail
 from django.contrib.auth.models import User
-from django.shortcuts import render,get_object_or_404, render_to_response
+from django.shortcuts import render,get_object_or_404, render_to_response, redirect
 from recipe.models import Recipe
 from actstream import models as ActStream
 from django.contrib.auth.decorators import login_required
@@ -67,7 +67,8 @@ def leave_message(request, username):
 def profile_edit(request, username):
 
 	user = get_object_or_404(User, username__iexact=username)
-
+	if(request.user != user):
+		raise Http404
 	profile = user.get_profile()
 
 	if request.is_ajax():
@@ -102,7 +103,7 @@ def profile_edit(request, username):
 		form = MugshotForm(request.POST, request.FILES, instance = profile )
 		if form.is_valid():
 			form.save();
-			return HttpResponse('Saved!')
+			return redirect('userena_profile_detail', username=username)
 		else:
 			return HttpResponse('Failed!')
 	else:
@@ -153,7 +154,6 @@ def activity(request):
 					'following': models.following(request.user),
 					'followers': models.followers(request.user),
 					'recommends': recommendations.recommendRecipeForUser(request.user.id, 10)
-
 			})
 
 
