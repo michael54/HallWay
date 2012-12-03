@@ -180,7 +180,7 @@ span.add-on {
 	border-width:1px; 
 	border-color:#919191; 
 	border-style:solid; 
-	width:336px; 
+	width:416px; 
 	font-size:10px; 
 	line-height:14px; 
 	background-color: rgba(255,255,255,0.6);
@@ -198,6 +198,8 @@ span.add-on {
 #suggestions a img { 
 	float:left; 
 	padding:5px 10px; 
+	height: 50px;
+	width: 50px;
 }
 #suggestions a span.searchheading { 
 	display:block; 
@@ -239,6 +241,8 @@ span.add-on {
 
 
 /**************************/
+
+/* CSS for slider show */
 div.show-img {
 	width: 100px;
 	height: 100px;
@@ -364,4 +368,43 @@ a.show-control {
 	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
 	-moz-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
 	margin: 0;
+}
+
+
+/**************************/
+
+/* CSS for login bar */
+div.logbar {
+	position: fixed;
+	right: -90px;
+	top: 150px;
+	height: 100px;
+	width: 120px;
+}
+
+div.logbar a {
+	text-decoration: none;
+}
+
+div.logbar-content {
+	position: relative;
+	left: 30px;
+	top: -100px;
+	width: 90px;
+	height: 100px;
+	background-color: white;
+}
+
+div.logbar-sign {
+	position: relative;
+	left: 0;
+	top: 0;
+	width: 30px;
+	height: 100px;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+div.logbar-sign a {
+	width: 30px;
+	height: 100px;
 }

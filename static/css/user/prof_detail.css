@@ -171,3 +171,11 @@ input[type="text"].profile_input {
 .prof_smt_btn{
 	display: none;
 }
+
+div#u-followers > div, div#u-followings > div {
+	border-width: 1px;
+	border-color: #E6E6E6;
+	border-style: solid;
+	padding: 5px;
+	height: 62px;
+}

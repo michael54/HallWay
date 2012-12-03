@@ -20,21 +20,25 @@
 
 {% block content %}
 <div class="login-modal">
-  {% if user.is_authenticated %}
-    <a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i></a>
-  {% else %}
-    <a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i></a>
-  {% endif %}
-  <ul>  
-    {% if user.is_authenticated %}
-    <li><a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i> My Profile</a></li>
-    <li><a href="#"><i class="icon-glass"></i> My Recipes</a></li>
-    <li><a href="{% url 'userena_signout' %}"><i class="icon-signout"></i> Sign Out</a></li>
-    {% else %}
-    <li><a data-toggle="modal" href="#signinModal" ><i class="icon-signin"></i> Sign In</a></li>
-    <li><a data-toggle="modal" href="{% url 'userena_signup' %}" ><i class="icon-plus"></i> Sign Up</a></li>
-    {% endif %}
-  </ul>
+  <div class="logbar">
+    <div class="logbar-sign">
+      {% if user.is_authenticated %}
+        <a href="{% url 'userena_profile_detail' user.username %}"><i class="icon-user"></i></a>
+      {% else %}
+        <a href="#" data-toggle="modal"><i class="icon-user"></i></a>
+      {% endif %}
+    </div>
+    <div class="logbar-content">
+      {% if user.is_authenticated %}
+      <a href="{% url 'userena_profile_detail' user.username %}#prof" id="u-profile"><i class="icon-file"></i> My Profile</a><br />
+      <a href="{% url 'userena_profile_detail' user.username %}" id="u-recipe"><i class="icon-glass"></i> My Recipes</a><br />
+      <a href="{% url 'userena_signout' %}" id="u-signout"><i class="icon-signout"></i> Sign Out</a>
+      {% else %}
+      <a data-toggle="modal" href="#signinModal" id="u-signin"><i class="icon-signin"></i> Sign In</a><br />
+      <a data-toggle="modal" href="{% url 'userena_signup' %}" id="u-signout"><i class="icon-plus"></i> Sign Up</a><br />
+      {% endif %}
+    </div>
+  </div>
   <div class="modal hide fade" tabindex="-1" aria-hidden="true" id="signinModal">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">x</button>
@@ -169,7 +173,7 @@
   <script src="{% static "js/bgstretcher.js" %}"></script>
   <script type="text/javascript">
   var j = jQuery.noConflict();
-  j(document).ready(function(){  
+  j(document).ready(function(){
     // initialize slider
     j('#bg-show').bgStretcher({
       images: ['/media/Index_Images/bg-img1.jpg', '/media/Index_Images/bg-img2.jpg',

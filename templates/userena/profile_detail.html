@@ -229,8 +229,30 @@
 				</div>
 			</div>
 			<div class="tab-pane" id="friends">
-				<div>{{followers}}</div>
-				<div>{{following}}</div>
+				<div class="tabbable tabs-left">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#u-followers" data-toggle="tab">Followers</a></li>
+						<li><a href="#u-followings" data-toggle="tab">Followees</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active row-fluid" id="u-followers">
+							{% for f in followers %}
+								<div class="span4 row-fluid">
+									<a href="{{f.get_absolute_url}}" class="span4"><img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" /></a>
+									<a href="{{f.get_absolute_url}}" class="span8">{{f.username}}</a>
+								</div>
+							{% endfor %}
+						</div>
+						<div class="tab-pane" id="u-followings">
+							{% for f in followings %}
+								<div class="span4">
+									<a href="{{f.get_absolute_url}}" class="span4"><img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" /></a>
+									<a href="{{f.get_absolute_url}}" class="span8">{{f.username}}</a>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="tab-pane" id="cmts">
 				<div class="row span8">
@@ -349,6 +371,14 @@ $(document).ready(function() {
 	});
 	{% endifequal%}
 
+  // receive request for the profile tab pane
+  var hashPath = window.location.hash;
+  console.log(hashPath);
+  if (hashPath.length > 0) {
+  	var objPath = 'ul#mod-prof-nav > li > a[href=' + hashPath + ']';
+	  console.log(objPath);
+    $(objPath).tab('show');
+  }
 });
 </script>
 {% endblock js%}
