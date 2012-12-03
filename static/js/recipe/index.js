@@ -1,4 +1,17 @@
 jQuery(document).ready(function () {
+  // index page show bg config
+  jQuery('div.show-img.lower.courses').each(function (i) {
+    jQuery(this).css('background-position', -160-200*i);
+  });
+  jQuery('div.show-img.lower.cuisines').each(function (i) {
+    jQuery(this).css('background-position', -160-200*i);
+  });
+  jQuery('div.show-img.lower.sources').each(function (i) {
+    jQuery(this).css('background-position', -160-200*i);
+  });
+  jQuery('div.show-img.lower.diets').each(function (i) {
+    jQuery(this).css('background-position', -160-200*i);
+  });
 
   // hover caption effect
   jQuery('a.ca-img-link .carousel1-caption').hide();

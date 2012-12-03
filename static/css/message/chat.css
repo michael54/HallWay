@@ -1,10 +1,12 @@
 .chat{
     height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
+
 h2{
     color: #EE9A2A;
 }
+
 .bubble{
     background: #54a3ee; /* Old browsers */
     border-radius: 15px;
@@ -17,7 +19,7 @@ h2{
     width: 300px;
 }
 
-.bubble::before {
+.bubble:before {
     background: #54a3ee; /* Old browsers */
     content: "\00a0";
     display: block;
@@ -37,7 +39,7 @@ h2{
     margin: 5px 45px 5px 20px;         
 }
 
-.me::before {
+.me:before {
     box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
     left: -9px;           
 }
@@ -47,7 +49,7 @@ h2{
     margin: 5px 20px 5px 45px;         
 }
 
-.you::before {
+.you:before {
     box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
     right: -9px;    
 }
@@ -56,4 +58,10 @@ h2{
     width: 280px;
     resize:none;
 }
-​
+
+legend#compose-title {width:100%;}
+
+p {
+    padding-left: 0;
+    margin-left: 0;
+}

@@ -70,31 +70,31 @@
   <ul class="circular-show-inner upper-level">
     <li class="show-item" id="courses">
       <a href="#">
-        <div class="show-img"></div>
+        <div class="show-img upper" style="background-position: -250px;"></div>
         <div class="show-caption">Courses</div>
       </a>
     </li>
     <li class="show-item" id="cuisines">
       <a href="#">
-        <div class="show-img"></div>
+        <div class="show-img upper" style="background-position: -550px;"></div>
         <div class="show-caption">Cuisines</div>
       </a>
     </li>
     <li class="show-item" id="sources">
       <a href="#">
-        <div class="show-img"></div>
+        <div class="show-img upper" style="background-position: -1150px;"></div>
         <div class="show-caption">Sources</div>
       </a>
     </li>
     <li class="show-item" id="diets">
       <a href="#">
-        <div class="show-img"></div>
+        <div class="show-img upper" style="background-position: -850px;"></div>
         <div class="show-caption">Diets</div>
       </a>
     </li>
     <li class="show-item hot" id="hot">
       <a href="{% url 'hot_recipes' %}">
-        <div class="show-img"></div>
+        <div class="show-img upper"></div>
         <div class="show-caption">Hot!</div>
       </a>
     </li>
@@ -105,7 +105,7 @@
     {% for c in Courses %}
       <li class="show-item" data-target="courses">
         <a href="{{c.get_absolute_url}}">
-          <div class="show-img"></div>
+          <div class="show-img lower courses"></div>
           <div class="show-caption lower">{{c.name}}</div>
         </a>
       </li>
@@ -115,7 +115,7 @@
     {% for c in Cuisines %}
       <li class="show-item" data-target="cuisines">
         <a href="{{c.get_absolute_url}}">
-          <div class="show-img"></div>
+          <div class="show-img lower cuisines"></div>
           <div class="show-caption lower">{{c.name}}</div>
         </a>
       </li>
@@ -125,7 +125,7 @@
     {% for c in Main_Ingredients %}
       <li class="show-item" data-target="sources">
         <a href="{{c.get_absolute_url}}">
-          <div class="show-img"></div>
+          <div class="show-img lower sources"></div>
           <div class="show-caption lower">{{c.name}}</div>
         </a>
       </li>
@@ -135,7 +135,7 @@
     {% for c in Special_Diets %}
       <li class="show-item" data-target="diets">
         <a href="{{c.get_absolute_url}}">
-          <div class="show-img"></div>
+          <div class="show-img lower diets"></div>
           <div class="show-caption lower">{{c.name}}</div>
         </a>
       </li>

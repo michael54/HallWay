@@ -31,9 +31,12 @@
 <form action="{% url userena_umessages_compose %}" method="post" id="compose_message_form">
   {% csrf_token %}
   <fieldset>
-    <legend>Compose message</legend>
+    <legend id="compose-title">Compose message</legend>
     <input type="hidden" name="to" id="id_to" value="{{recipient}}"/>
-<p><label for="id_body">Message:</label> <textarea id="id_body" rows="10" cols="40" name="body" class="message"></textarea></p>
+    <p>
+      <label for="id_body">Message:</label>
+      <textarea id="id_body" rows="10" cols="40" name="body" class="message"></textarea>
+    </p>
   </fieldset>
   <button type="submit" class="btn">Send</button>
 </form>

@@ -251,12 +251,15 @@ div.show-img {
 	border-radius: 50px;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
-	background: url(../../../media/no_mugshot.jpg) no-repeat;
 	box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 	margin-left: auto;
 	margin-right: auto;
+}
+
+div.show-img.upper {
+	background: url(../../img/index/image.jpg) no-repeat;
 }
 
 div.show-caption {
@@ -340,12 +343,27 @@ ul.lower-level div.show-img {
 	border-radius: 40px;
 	-webkit-border-radius: 40px;
 	-moz-border-radius: 40px;
-	background: url(../../../media/no_mugshot.jpg) no-repeat;
 	box-shadow: 0 0 6px rgba(0, 0, 0, .8);
 	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
 	-moz-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
 	margin-left: auto;
 	margin-right: auto;
+}
+
+div.show-img.lower.courses {
+	background: url(../../img/index/courses/image.jpg) no-repeat;
+}
+
+div.show-img.lower.cuisines {
+	background: url(../../img/index/cuisines/image.jpg) no-repeat;
+}
+
+div.show-img.lower.sources {
+	background: url(../../img/index/sources/image.jpg) no-repeat;
+}
+
+div.show-img.lower.diets {
+	background: url(../../img/index/diets/image.jpg) no-repeat;
 }
 
 ul.lower-level > li > a {
