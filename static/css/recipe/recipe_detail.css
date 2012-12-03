@@ -245,6 +245,15 @@ div.mod-recipe-steps {
 	border-bottom-color: #F5D982;
 }
 
+img.avatar-img {
+	height: 50px;
+	width: 50px;
+}
+
+ul.rate-hist {
+	margin-left: 0;
+}
+
 div.mod-reicpe-ingredients, div.mod-recipe-steps, div.mod-recipe-tip {
 	margin-top: 20px;
 }

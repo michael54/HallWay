@@ -169,7 +169,7 @@
       </section>
       <aside class="mod-side span4">
         <div class="mod-author well well-small">
-          <img src="{{profile.mugshot|thumbnail_url:'avatar'}}" id="mod-author-img" />
+          <img src="{{profile.mugshot|thumbnail_url:'avatar'}}" class="avatar-img" />
           <a href="{{ object.author.get_absolute_url }}">
             <span id="mod-author-name">{{ object.author.username }}</span>
           </a>
@@ -179,14 +179,14 @@
           <div class="mod-recipe-title">
             Rating history
           </div>
-          <ul>
+          <ul class="rate-hist">
             {% for v in votelist %}
             <div class="row-fluid">
               <div class="span3">
-                <img src="{{v.user.get_profile.mugshot|thumbnail_url:'avatar'}}" alt="mugshot" />
+                <img src="{{v.user.get_profile.mugshot|thumbnail_url:'avatar'}}" class="avatar-img" alt="mugshot" />
               </div>
               <div class="span9">
-                <a href="{{v.user.get_absolute_url}}" id="rate-author">{{v.user}}</a>
+                <a href="{{v.user.get_absolute_url}}" id="rate-author">{{v.user}}</a><br />
                 <span class="medstar{{v.score}}" id="rate-star"></span><span id="rate-score">{{v.score}}</span>
                 <div>{{ v.comment|truncatechars:140 }}</div>
                 <div>{{ v.date|timesince }} ago</div>
@@ -204,7 +204,7 @@
           </span>
           {% if user.is_authenticated %}
           {% get_comment_form for object as form %}
-          <form id="comment_form" action="{% url 'ajaxcommentpost'%}" method="POST">
+          <form style="min-height: 110px;" id="comment_form" action="{% url 'ajaxcommentpost'%}" method="POST">
             {% csrf_token %}
             {{ form.comment }}
             <div style="display:none">{{ form.honeypot }}</div>

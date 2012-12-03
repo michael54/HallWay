@@ -66,13 +66,43 @@ div#mod-container #mod-prof-main .mod-prof-main-about dd > a:active {
 }
 
 div#mod-container #mod-prof-details {
-	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
+	width: 80%;
+	float: right;
 }
 
 div#mod-container #mod-prof-nav {
 	margin-bottom: 15px;
+	border-bottom: 0;
+}
+
+div#mod-container #mod-prof-nav > li {
+	float: right;
+	background-color: transparent;
+	width: 85px;
+}
+
+div#mod-container #mod-prof-nav > li > a {
+	border: 0;
+	color: #FFE8C5;
+	transition: width 2s, height 2s, transform 2s;
+	-moz-transition: width 2s, height 2s, -moz-transform 2s;
+	-webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+	-o-transition: width 2s, height 2s,-o-transform 2s;
+	text-align: center;
+}
+
+div#mod-container #mod-prof-nav > li:not(.active) > a:hover {
+	font-size: 18px;
+	background-color: transparent;
+}
+
+div#mod-container #mod-prof-nav > li.active > a {
+	background-color: transparent;
+	font-weight: bold;
+	font-size: 18px;
+	border-bottom-color: #FFE8C5;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
 }
 
 div#mod-container #mod-prof-nav ul li a {
@@ -128,28 +158,46 @@ div#mod-container #mod-prof-details .tab-content #cmts textarea {
 	height: 200px;
 }
 
-div#mod-container #mod-prof-details .tab-content #recipes > ul > li {
-	height: 241px;
+div#mod-container #mod-prof-details .tab-content #recipes > ul,
+div#mod-container #mod-prof-details .tab-content #favs > ul {
+	list-style-type: none;
+	margin: 0 10px 0 10px;
 }
 
-div#mod-container #mod-prof-details .tab-content #recipes > ul > li > a {
+div#mod-container #mod-prof-details .tab-content #recipes > ul > li,
+div#mod-container #mod-prof-details .tab-content #favs > ul > li {
+	height: 241px;
+	width: 190px;
+	padding: 10px;
+	margin: 0 0 10px 0;
+	float: left;
+}
+
+div#mod-container #mod-prof-details .tab-content #recipes > ul > li > a,
+div#mod-container #mod-prof-details .tab-content #favs > ul > li > a {
 	text-decoration: none;
 }
 
+div#mod-container #mod-prof-details .tab-content #recipes > ul > li:not(:nth-child(3n+1)),
+div#mod-container #mod-prof-details .tab-content #favs > ul > li:not(:nth-child(3n+1)) {
+	margin-left: 10px;
+}
+
 div.caption div.recipe-name {
-	color: rgb(0, 191, 255);
+	color: #4B3025;
 	font-size: 14px;
 	line-height: 14px;
+	margin-top: 10px;
+}
+
+div.caption div.recipe-stat {
+	margin-top: 10px;
 }
 
 div.caption div.recipe-stat span, div.caption div.recipe-date {
-	color: rgb(140, 140, 140);
+	color: #3E3E41;
 	font-size: 12px;
 	line-height: 12px;
-}
-
-div#mod-container #mod-prof-details .tab-content #recipes > ul > li:nth-child(3n+1) {
-	margin-left: 0;
 }
 
 div#mod-container #mod-prof-details .tab-content #prof {

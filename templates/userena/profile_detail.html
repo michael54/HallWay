@@ -17,86 +17,64 @@
 {% block content %}
 <div id="mod-container" class="well">
 	<div class="row-fluid container">
-		<div id="mod-prof-main" class="row">
-			<div class="mod-prof-main-img span3">
-				<img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Mugshot" %}" />
+		<div id="mod-prof-main" class="span2">
+			<div class="mod-prof-main-img">
+				<img class="mugshot" style="height: 100px;width: 100px;" src="{{ profile.get_mugshot_url }}" alt="{% trans "Mugshot" %}" />
 				{% ifequal user.get_profile profile%}
-				<form id="mugshot_form" method="POST" enctype="multipart/form-data" action="{% url 'userena_profile_edit' profile.user.username %}">
+				<form id="mugshot_form" method="POST" enctype="multipart/form-data" action="{% url 'userena_profile_edit' profile.user.username %}" style="display: none;">
 					{% csrf_token %}
 					<label for="id_mugshot">Change Mugshot:</label>
 					<input type="file" name="mugshot" id="id_mugshot">
 				</form>
 				{% endifequal %}
 			</div>
-			<div class="mod-prof-main-txt span9">
+			<div class="mod-prof-main-txt span9" style="display: none;">
 				<div class="mod-prof-username-h2">
 					<h2>The Kitchen of {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>
 				</div>
 				{% include 'actstream/follow_btn.html'%}
-{% comment %}        
-	<div>{{ user.vote_set.all }}</div>
-	<div>{{ user.get_profile.favorite.all }}</div>
-	<div>{{ user.did_recipe_set.all }}</div>
-	{% endcomment %}
-	<div class="mod-prof-main-about">
-		<dl>
-			{% if profile.about_me %}
-			<dt>{% trans "About me" %}</dt>
-			<dd>{{ profile.about_me }}</dd>
-			{% endif %}
-			{% if profile.website %}
-			<dt>{% trans "Website" %}</dt>
-			<dd>{{ profile.website|urlize }}</dd>
-			{% endif %}
-		</dl>
-	</div>
-</div>
-</div>
+				<div class="mod-prof-main-about">
+					<dl>
+						{% if profile.about_me %}
+						<dt>{% trans "About me" %}</dt>
+						<dd>{{ profile.about_me }}</dd>
+						{% endif %}
+						{% if profile.website %}
+						<dt>{% trans "Website" %}</dt>
+						<dd>{{ profile.website|urlize }}</dd>
+						{% endif %}
+					</dl>
+				</div>
+			</div>
+		</div>
 
-<hr />
-
-{% comment %}
-{% block profile_navigation %}
-{% if user.username == profile.user.username %}
-<ul id="box-nav">
-{% block profile_navigation_items %}
-	<li><a href="{% url 'userena_profile_detail' user.username %}">{% trans "View profile" %}</a></li>
-	<li><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit details" %}</a></li>
-	<li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
-	<li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
-{% endblock %}
-</ul>
-{% endif %}
-{% endblock %}
-{% endcomment %}
-
-<div id="mod-prof-details" class="tabbable">
+<div id="mod-prof-details" class="tabbable span9">
 	<ul id="mod-prof-nav" class="nav nav-tabs">
-		<li class="active">
-			<a href="#recipes" data-toggle="tab">Recipes</a>
-		</li>
 		<li>
-			<a href="#favs" data-toggle="tab">Favorites</a>
-		</li>
-		<li>
-			<a href="#prof" data-toggle="tab">Profile</a>
+			<a href="#cmts" data-toggle="tab">Message</a>
 		</li>
 		<li>
 			<a href="#friends" data-toggle="tab">Friends</a>
 		</li>
 		<li>
-			<a href="#cmts" data-toggle="tab">Message</a>
+			<a href="#prof" data-toggle="tab">Profile</a>
+		</li>
+		<li>
+			<a href="#favs" data-toggle="tab">Favorites</a>
+		</li>
+		<li class="active">
+			<a href="#recipes" data-toggle="tab">Recipes</a>
 		</li>
 	</ul>
 
 	<div class="tab-content">
 		<div class="tab-pane active row-fluid" id="recipes">
-			<ul class="thumbnails">
+			<ul class="">
 				{% for r in recipe_list %}
-				<li class="span4">
-					<a href="{{ r.get_absolute_url }}" class="thumbnail">
+				<li class="well well-small">
+					<a href="{{ r.get_absolute_url }}" class="">
 						{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
-						<img class="cover-img" src="{{ r.cover_image|thumbnail_url:'normal' }}" alt="{% trans "cover image" %}" />
+						<img class="cover-img" style="height: 140px;width: 190px;" src="{{ r.cover_image|thumbnail_url:'recipe-prf' }}" alt="{% trans "cover image" %}" />
 						<div class="caption">
 							<div class="recipe-name">{{ r.name }}</div>
 							<div class="recipe-stat">
@@ -116,12 +94,12 @@
 			</ul>
 			</div>
 			<div class="tab-pane" id="favs">
-				<ul class="thumbnails">
+				<ul class="">
 				{% for f in favourite_list %}
-				<li class="span4">
-					<a href="{{ f.get_absolute_url }}" class="thumbnail">
+				<li class="well well-small">
+					<a href="{{ f.get_absolute_url }}" class="">
 						{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
-						<img class="cover-img" src="{{ f.cover_image|thumbnail_url:'normal' }}" alt="{% trans "cover image" %}" />
+						<img class="cover-img" style="height: 140px;width: 190px;" src="{{ f.cover_image|thumbnail_url:'recipe-prf' }}" alt="{% trans "cover image" %}" />
 						<div class="caption">
 							<div class="recipe-name">{{ f.name }}</div>
 							<div class="recipe-stat">

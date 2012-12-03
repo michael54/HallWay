@@ -226,6 +226,10 @@ div.navbar {
 	height: 55px;
 }
 
+a.scroll-up:hover, a.scroll-down:hover {
+	color: #D26;
+}
+
 a.scroll-up {
 	border-radius: 20px;
 	padding: 15px;
