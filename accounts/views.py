@@ -17,6 +17,7 @@ from accounts.forms import MugshotForm
 from userena.signals import signup_complete
 from django.dispatch import receiver
 from recipe import recommendations
+from userena.contrib.umessages.forms import ComposeForm
 
 
 import sys
@@ -44,6 +45,7 @@ def profile(request, username):
 		extra_context['recipe_list'] = list(user.recipe_set.all().only('name', 'cover_image', 'did_num', 'like_num', 'date', 'view_num'))
 		extra_context['favourite_list'] = list(user.get_profile().favourite_recipes.all().only('name', 'cover_image', 'did_num', 'like_num', 'date', 'view_num'))
 		extra_context['form'] = MugshotForm()
+		extra_context['public_messages'] = list(Message.objects.get_public_messages(to_user = user))
 		response = profile_detail(request, username, extra_context = extra_context)
 
 		return response
@@ -52,9 +54,13 @@ def profile(request, username):
 def leave_message(request, username):
 	if request.is_ajax():
 		user = get_object_or_404(User, username__iexact = username)
-		msg = Message.objects.send_message(request.user, [user, ], str(request.POST['message']))
-		if msg:
-			return render_to_response('umessages/message.html', {'message': msg})
+		data = request.POST
+		data['to'] = [user,]
+		form = ComposeForm(data)
+		if form.is_valid():
+			msg = form.save(sender = request.user)
+			if msg:
+				return render_to_response('umessages/message.html', {'message': msg})
 		else:
 			return HttpResponse('Failed')
 	else:

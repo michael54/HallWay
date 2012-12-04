@@ -101,6 +101,7 @@
 	<script type="text/javascript" src="{% static "js/yuSlider.js" %}"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
+		var flag = true;
 		yuSlider('.recommend-img-div','.caption',4000,'#prevA','#nextA');
 		yuStar('{% static "jquery.raty-2.4.5/img/" %}');
 
@@ -118,6 +119,10 @@
 	    else {
 	      jQuery('.mod-recipe-recommends').css('position', 'static');
 	    }
+	    if (position >= jQuery(document).height() - jQuery(window).height() && flag){
+	    	flag = false;
+	    	jQuery('#next_link').click();
+	    }
 	   });
 		$('#next_link').click(function(){
 			var url = $(this).attr('href');
@@ -126,6 +131,7 @@
 			};
 			$.get(url, postdata, function(data){
 				$('.pagination').replaceWith(data);
+				flag = true;
 			});
 			return false;
 		});
