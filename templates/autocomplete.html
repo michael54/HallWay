@@ -7,7 +7,7 @@
 	<span class="category">Recipe</span>
 		{% for recipe in recipe_list %}
 		<a href="{{ recipe.get_absolute_url }}">
-			<img alt="{{recipe.name}} image" src="{{ recipe.cover_image|thumbnail_url:'avatar' }}" style="height=50px; width=50px;" />
+			<img alt="{{recipe.name}} image" src="{{ recipe.cover_image|thumbnail_url:'avatar' }}" style="height:50px; width:50px;" />
 			<span class="searchheading">{{recipe.name|title}}</span>
 			<span>{{recipe.brief|truncatechars:100}}</span>
 		</a>
@@ -18,7 +18,7 @@
 
 		{% for food in food_list %}
 		<a href="{{ food.get_absolute_url }}">
-			<img alt="{{food.name}} image" src="{{ food.cover_image|thumbnail_url:'avatar' }}" style="height=50px; width=50px;" />
+			<img alt="{{food.name}} image" src="{{ food.cover_image|thumbnail_url:'avatar' }}" style="height:50px; width:50px;" />
 			<span class="searchheading">{{food.name|title}}</span>
 			<span>{{food.brief|truncatechars:100}}</span>
 		</a>

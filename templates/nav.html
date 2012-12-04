@@ -20,11 +20,13 @@
 <div class="navbar navbar-static-top">
 	<div class="navbar-inner">
 		<div class="container row-fluid" id="nav-container">
-			<div id="nav-logo" class="span4">
-				<a class="brand" href="{% url 'homepage' %}">LOGO</a>
+			<div id="nav-logo" class="span2">
+				<a class="brand" href="{% url 'homepage' %}"><img src="/media/logo.png" alt="LOGO" /></a>
+			</div>
+			<div class="span2" id="search-div">
 				<form id="nav-search" class="form-search" action="{% url 'normal_search' %}" method="POST">
 					{% csrf_token %}
-					<input class="span8 search-query" id="nav-input" placeholder="Type in a dish name..." type="search" autocomplete="off">
+					<input class="span8 search-query" id="nav-input" placeholder="Type to search..." type="search" autocomplete="off">
 				</form>
 				<div id="nav-suggestion"></div>
 			</div>

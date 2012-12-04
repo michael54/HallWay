@@ -69,6 +69,30 @@ div.navbar {
 	max-height: 50px;
 }
 
+div#search-div {
+	overflow: visible;
+}
+
+div#search-div input{
+	transition-property:width;
+    -o-transition-property:width;
+    -moz-transition-property:width;
+    -webkit-transition-property:width;
+    transition-duration:.20s;
+    -o-transition-duration:.20s;
+    -moz-transition-duration:.20s;
+    -webkit-transition-duration:.20s;
+    transition-timing-function:ease-in-out;
+    -o-transition-timing-function:linear;
+    -moz-transition-timing-function:linear;
+    -webkit-transition-timing-function:ease-in-out;
+    width: 100%;
+}
+
+div#search-div input:focus {
+	width: 180%;
+}
+
 #colorNav {
 	height: 50px;
 	max-height: 50px;
@@ -82,6 +106,7 @@ div.navbar {
 	height: 40px;
 	max-height: 40px;
 	line-height: 40px;
+	margin-left: 115px;
 }
 
 #colorNav > ul > li{ /* will style only the top level li */
@@ -96,19 +121,13 @@ div.navbar {
 	max-height: 35px;
 }
 
-#colorNav > ul > li:not(:last-child) {
+#colorNav > ul > li:not(:first-child) {
 	margin-left: 20px;
 	margin-right: 0px;
 }
 
 #colorNav > ul > li:first-child {
-	margin-left: 50px;
-}
-
-#colorNav > ul > li:last-child {
-	margin-left: 20px;
-	margin-right: 40px;
-	padding-right: 0px;
+	margin-left: 0;
 }
 
 #colorNav > ul > li > a{

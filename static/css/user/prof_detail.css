@@ -78,22 +78,32 @@ div#mod-container #mod-prof-nav {
 div#mod-container #mod-prof-nav > li {
 	float: right;
 	background-color: transparent;
-	width: 85px;
 }
 
 div#mod-container #mod-prof-nav > li > a {
 	border: 0;
 	color: #FFE8C5;
-	transition: width 2s, height 2s, transform 2s;
-	-moz-transition: width 2s, height 2s, -moz-transform 2s;
-	-webkit-transition: width 2s, height 2s, -webkit-transform 2s;
-	-o-transition: width 2s, height 2s,-o-transform 2s;
+	transition-property:font-size border-bottom;
+    -o-transition-property:font-size border-bottom;
+    -moz-transition-property:font-size border-bottom;
+    -webkit-transition-property:font-size border-bottom;
+    transition-duration:.15s;
+    -o-transition-duration:.15s;
+    -moz-transition-duration:.15s;
+    -webkit-transition-duration:.15s;
+    transition-timing-function:ease-in-out;
+    -o-transition-timing-function:linear;
+    -moz-transition-timing-function:linear;
+    -webkit-transition-timing-function:ease-in-out;
 	text-align: center;
 }
 
 div#mod-container #mod-prof-nav > li:not(.active) > a:hover {
 	font-size: 18px;
 	background-color: transparent;
+	border-bottom-color: #FFE8C5;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
 }
 
 div#mod-container #mod-prof-nav > li.active > a {

@@ -12,7 +12,14 @@
 	right: 10px;
 	top: 10px;
 	z-index: 10;
+	cursor: pointer;
+	font-size: 1.8em;
 }
+
+#hide-arrow:hover {
+	color: #D26;
+}
+
 .image-show {
 	position: relative;
 }
@@ -183,7 +190,7 @@ span.add-on {
 	width:416px; 
 	font-size:10px; 
 	line-height:14px; 
-	background-color: rgba(255,255,255,0.6);
+	background-color: rgba(255,255,255,0.8);
 }
 #suggestions a { 
 	display:block; 
