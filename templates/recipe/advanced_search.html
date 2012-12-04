@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block title %}
+Advanced Search
+{% endblock%}
+
 {% block content %}
 <form id="search_form" method="POST" action="">
 	{% csrf_token %}

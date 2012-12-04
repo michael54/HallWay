@@ -19,6 +19,14 @@ class FoodCategory(models.Model):
 	def __unicode__(self):
 		return self.name
 
+	@models.permalink
+	def get_absolute_url(self):
+		if self.id == 1:
+			return ''
+		else:
+			return ('food_list', (), {'pk':self.id})
+
+
 
 class Food(models.Model):
 	"""Food Model, managing all kinds of food"""

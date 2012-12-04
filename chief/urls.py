@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from recipe.views import RecipeDetailView, RecipeCategoryListView, HotRecipeListView
-from food.views import FoodDetailView, FoodCategoryListView
+from food.views import FoodDetailView, FoodCategoryDetailView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -55,8 +55,7 @@ urlpatterns = patterns('',
 
     # URL for food
     url(r'^food/(?P<pk>\d+)/$', FoodDetailView.as_view(), name='food_detail'),
-    url(r'^foodcategory/(\d+)/$', FoodCategoryListView.as_view()),
-    url(r'^foodcategory/(\d+)/(\w+)/$', FoodCategoryListView.as_view()),
+    url(r'^foodcategory/(?P<pk>\d+)/$', FoodCategoryDetailView.as_view(), name='food_list'),
     url(r'^categories/$', 'food.views.categories', name='categories'),
 
 

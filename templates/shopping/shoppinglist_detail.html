@@ -1,0 +1,13 @@
+{% extends 'nav.html' %}
+
+{% block title %}
+My Shopping List
+{% endblock title%}
+
+{% block content %}
+{% for a in amount_list %}
+	<div>{{a.ingredient}}:{{a.amount}}</div>
+{% empty %}
+Your Shopping List is Empty now.
+{% endfor %}
+{% endblock content %}

@@ -2,34 +2,87 @@
 <!-- from food.views.FoodCategoryListView -->
 {% extends "nav.html" %}
 
+{% load static %}
+{% load thumbnail %}
+{% load url from future%}
+
+{% block title %}
+{{category}}
+{% endblock title %}
+
 {% block content %}
-{% if food_list %}
-    <table id="foods">
-        {% for food in food_list %}
-            <tr>
-                <td>{{ food.name }}</td>
-                <td><a href="/food/{{ food.id }}/" class="see_detail">detail</a></td>
-            </tr>
-        {% endfor %}
-    </table>
-    {# .... **Now the pagination section** .... #}
-    {% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="/foods?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="/foods?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
-{% else %}
-    <h3>My foods</h3>
-    <p>No foods found!!! :(</p>
-{% endif %}
+<div id="mod-container">
+	<div class="row-fluid container">
+		<div class="mod-list-nav span3 well well-small">
+			<ul>
+				{% for cc in category_list %}
+				<li><a href="{{ cc.get_absolute_url }}">{{cc.name}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% if food_list %}
+		<div class="mod-list-detail span9 well well-small">
+			<h1 class="mod-page-title">{{category}}</h1>
+			<div class="rank-hot row-fluid">
+				{% for recipe in food_list %}
+				<div class="recipe list row-fluid">
+					<div class="recipe-img span4">
+						<a href="{{ recipe.get_absolute_url }}" class="see_detail">
+							<img class="lazy" src="{% static "img/loading.gif" %}" data-original="{{recipe.cover_image|thumbnail_url:'normal'}}" alt="recipe cover image" />
+						</a>
+					</div>
+					<div class="recipe-txt span8">
+						<div class="name">
+							<h3>
+								<a href="{{ recipe.get_absolute_url }}" class="see_detail">
+									{{ recipe.name }}
+								</a>
+							</h3>
+						</div>
+						<div class="brief">
+							<p>"{{recipe.brief|truncatechars:170}}"</p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{# .... **Now the pagination section** .... #}
+			{% if is_paginated %}
+			<div class="pagination">
+				<span class="page-links">
+					{% if page_obj.has_previous %}
+					<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+					{% endif %}
+					<span class="page-current">
+						Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+					</span>
+					{% if page_obj.has_next %}
+					<a href="?page={{ page_obj.next_page_number }}">next</a>
+					{% endif %}
+				</span>
+			</div>
+		</div>
+		{% endif %}
+		{% else %}
+		<div class="mod-list-detail span9 well well-small">
+			<h1 class="mod-page-title">{{category.name}}</h1>
+			<div class="no-recipe">
+				<p>"No food in this category... XD"</p>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static "js/jquery.lazyload.min.js" %}"></script>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+	jQuery('img').lazyload({
+		effect: 'fadeIn',
+	});
+});
+</script>
 {% endblock %}
