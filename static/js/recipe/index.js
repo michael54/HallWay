@@ -78,15 +78,15 @@ var showEffect = function (obj, event) {
   var numChild = jQuery('ul.lower-level[data-target="'+dataTarget+'"]').children().length;
   jQuery('ul.upper-level > li').animate({
     'left': '+='+move
-  }, {queue:false, duration: 1000, complete: function () {
+  }, {queue:false, duration: 700, complete: function () {
     if (numChild > 6) { // here is 6, since there is one clone object befor the "first" one
       jQuery('a.show-control[href="#'+dataTarget+'"]').show();
     }
     jQuery('ul.lower-level[data-target="'+dataTarget+'"]').show();
     // obj.siblings().click(function() {showEffect(jQuery(this));});
   }});
-  jQuery(obj).siblings().fadeOut(1000);
-  jQuery('div.content.search-form').fadeOut(1000);
+  jQuery(obj).siblings().fadeOut(700);
+  jQuery('div.content.search-form').fadeOut(700);
 };
 
 var hideEffect = function (obj, event) {
@@ -96,11 +96,11 @@ var hideEffect = function (obj, event) {
   jQuery('a.show-control[href="#'+dataTarget+'"]').hide();
   jQuery('ul.upper-level > li').animate({
     'left': '-='+move
-  }, {queue:false, duration: 1000, complete: function () {
+  }, {queue:false, duration: 700, complete: function () {
     // obj.siblings().click(function() {hideEffect(jQuery(this));});
   }});
-  jQuery(obj).siblings().fadeIn(1000);
-  jQuery('div.content.search-form').fadeIn(1000);
+  jQuery(obj).siblings().fadeIn(700);
+  jQuery('div.content.search-form').fadeIn(700);
 };
 
 /* the slide control function */ 

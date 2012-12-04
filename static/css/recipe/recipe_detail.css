@@ -449,15 +449,21 @@ span#rate-star {
 #prevImg{
 	position: absolute;
 	left: 0;
-	font-size: 30px;
+	font-size: 50px;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 #nextImg{
 	position: absolute;
 	right: 0;
-	font-size: 30px;
+	font-size: 50px;
 	text-decoration: none;
+	cursor: pointer;
+}
+
+#prevImg:hover, #nextImg:hover {
+	color: #D26;
 }
 
 a#prevA {
@@ -475,7 +481,7 @@ a#prevA, a#nextA {
 	cursor: pointer;
 }
 
-a#prevA > i, a#nextA {
+a#prevA > i, a#nextA > i {
 	font-size: 24px;
 	font-weight: bold;
 	color: darkGray;
