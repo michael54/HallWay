@@ -105,10 +105,11 @@
 		yuSlider('.recommend-img-div','.caption',4000,'#prevA','#nextA');
 		yuStar('{% static "jquery.raty-2.4.5/img/" %}');
 
-		jQuery(window).resize(function() {
-	    jQuery('.mod-recipe-recommends').css('min-height', jQuery(window).height());
-	  });
-	  jQuery('.mod-recipe-recommends').css('min-height',jQuery(window).height());
+		// jQuery(window).resize(function() {
+	 //    jQuery('.mod-recipe-recommends').css('min-height', jQuery(window).height());
+	 //  });
+	  // jQuery('.mod-recipe-recommends').css('min-height',jQuery(window).height());
+	  jQuery('.mod-recipe-recommends').css('height',450);
 		var divH = jQuery('.mod-recipe-recommends').position().top;
 	  jQuery(window).scroll(function() {
 	    var position = jQuery(this).scrollTop();

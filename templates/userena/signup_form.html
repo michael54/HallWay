@@ -7,11 +7,14 @@
 {% block content %}
 <div class="container">
   <div class="row-fluid">
-    <div class="span6 offset6 ">
+    <div class="span8 well well-small">
+      <img src="/static/img/signin-page-img.jpg" alt="sign in page image" />
+    </div>
+    <div class="span4 well well-small">
         <form action="" method="post">
           {% csrf_token %}
           <fieldset>
-            <legend>{% trans "Signup" %}</legend>
+            <legend style="margin-bottom: 0;">{% trans "Signup" %}</legend>
             {% if form.non_field_errors %}
               <div class="alert alert-error fieldWrapper fade in">
                   <a class="close" data-dismiss="alert" href="#">×</a>{{ form.non_field_errors }}
@@ -30,14 +33,14 @@
             <label for="id_{{ field.name }}">{{ field }} {{ field.label }}</label>
             </p>
             {% else %}
-            <div class="row-fluid control-group fieldWrapper" id="group_{{ field.name }}">
+            <div class="control-group fieldWrapper span12" id="group_{{ field.name }}" style="margin-top: 10px;">
               {{ field.label_tag }} 
               {{ field }}
             </div>
             {% endif %}
             {% endfor %}
           </fieldset>
-          <div id="scrollbar1" class="span10 well">
+          <div id="scrollbar1" class="well well-small">
             <div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
             <div class="viewport">
                 <div class="overview">
@@ -45,7 +48,7 @@
                 </div>
             </div>
           </div>
-          <button type="submit" class="span10 btn btn-info" style="margin:0px;">{% trans "Create My Account"%}</button>
+          <button type="submit" class="btn btn-info span12" style="margin:0px; border-radius: 0;">{% trans "Create My Account"%}</button>
         </form>
     </div>
 </div>
