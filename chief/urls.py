@@ -70,5 +70,10 @@ urlpatterns = patterns('',
     url(r'^search/autonav/$', 'recipe.search.autonav', name='autonav'),
     url(r'^search/$', 'recipe.search.normal_search', name='normal_search'),
     url(r'^search/advanced/$', 'recipe.search.advanced_search', name = 'advanced_search'),
+
+
+    # URL for shopping
+    url(r'shopping/add/$', 'shopping.views.add_item', name='add_to_shopping_list'),
+    
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

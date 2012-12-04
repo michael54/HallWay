@@ -137,7 +137,7 @@ INSTALLED_APPS = (
         
     # Plugins
     'djcelery',
-    'autofixture',
+    # 'autofixture',
     'imagekit',
     #'south',
     'actstream',
@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'recipe',
     'food',
     'accounts',
+    'shopping',
 )
 
 # Settings for celery
