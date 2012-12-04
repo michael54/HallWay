@@ -74,6 +74,6 @@ urlpatterns = patterns('',
 
     # URL for shopping
     url(r'shopping/add/$', 'shopping.views.add_item', name='add_to_shopping_list'),
-    
+    url(r'shopping/list/$', 'shopping.views.view_shopping_list', name='view_shopping_list')
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

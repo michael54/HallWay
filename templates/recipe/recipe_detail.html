@@ -120,10 +120,13 @@
           <ul class="ingredient-list main-ingredient">
            {% for ingredient in amount_list %}
            {% if ingredient.must %}
-           <li class="ingre-must"><a href="{{ ingredient.ingredient.get_absolute_url }}"><i class="icon-star"></i>{{ ingredient.ingredient }}</a>&nbsp;--&nbsp;{{ ingredient.amount }}</li>
+           <li class="ingre-must"><a href="{{ ingredient.ingredient.get_absolute_url }}"><i class="icon-star"></i>{{ ingredient.ingredient }}</a>&nbsp;--&nbsp;{{ ingredient.amount }}
            {% else %}
-           <li><a href="{{ ingredient.ingredient.get_absolute_url }}">{{ ingredient.ingredient }}</a>&nbsp;--&nbsp;{{ ingredient.amount }}</li>
+           <li><a href="{{ ingredient.ingredient.get_absolute_url }}">{{ ingredient.ingredient }}</a>&nbsp;--&nbsp;{{ ingredient.amount }}
            {% endif %}
+           <a href="{% url 'add_to_shopping_list' %}"class="add_to_list"><i class="icon-shopping-cart"></i>
+            <input class="amount_id" type="hidden" value="{{ingredient.id}}"/>
+           </a></li>
            {% endfor %}
           </ul>
          {% else %}
@@ -452,6 +455,13 @@ j(document).ready(function() {
     return false;
   });
 
+  j('.add_to_list').popover({
+    trigger: 'manual',
+    title: 'Success',
+    content: 'This item is added to your shopping list.',
+    placement: 'top',
+  });
+
   j('#id_comment_submit').popover({
     trigger: 'manual',
     title: 'Success',
@@ -482,6 +492,28 @@ j(document).ready(function() {
     
     // j('#id_comment').val('');
   });
+
+  j('.add_to_list').click(function() {
+    var t = j(this);
+    var url = j(this).attr('href');
+    var postdata = {
+      'csrfmiddlewaretoken': '{{ csrf_token }}',
+      'amount': j(this).find('.amount_id').val(),
+    }
+    j.post(url, postdata, function(data) {
+      if (data.success=='true'){
+        t.popover('show');
+        setTimeout(function() {
+          t.popover('hide');
+        }, 1200);
+      }
+      else{
+        alert("Sorry, we can't add it now.");
+      }
+    });
+    return false;
+  });
+
 
   var divH = jQuery('.mod-recipe-recommends').position().top;
   jQuery(window).scroll(function() {
