@@ -100,6 +100,8 @@
 					<span>&nbsp;|&nbsp;</span>
 					<a href="{% url 'recipe_category' category.id 'hot' %}">Most Popular</a>
 					<span>&nbsp;|&nbsp;</span>
+					<a href="{% url 'recipe_category' category.id 'rating' %}">Best Rating</a>
+					<span>&nbsp;|&nbsp;</span>
 					<a href="{% url 'recipe_category' category.id 'time' %}">Latest Created</a>
 				</div>
 				<!--div class="display-method">
@@ -126,7 +128,7 @@
 						</div>
 						<div class="rating medstar{{recipe.rating_int}}"></div>&nbsp;<div class="rating-num">{{recipe.rating|floatformat:1}}</div>
 						<div class="ingredients">
-							{% for i in recipe.amount_set.all %}
+							{% for i in amount_list %}
 								{% if i.must %}
 								<span>{{i.ingredient}}</span>
 								<span class="seperator">&nbsp;|&nbsp;</span>

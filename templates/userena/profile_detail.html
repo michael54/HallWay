@@ -10,7 +10,7 @@
 
 {% block title %}
 {% blocktrans with profile.user.username as username %}
-{{ username }}(上厨娘)
+{{ username }} - HallWay
 {% endblocktrans %}
 {% endblock %}
 
@@ -209,7 +209,7 @@
 				</div>
 			</div>
 			<div class="tab-pane" id="friends">
-				<div class="tabbable tabs-right">
+				<div class="well well-small tabbable tabs-right">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#u-followers" data-toggle="tab">Followers</a></li>
 						<li><a href="#u-followings" data-toggle="tab">Followees</a></li>
@@ -235,13 +235,21 @@
 				</div>
 			</div>
 			<div class="tab-pane" id="cmts">
-				<div class="row span8">
+				<div class="well well-small tabbable tabs-right">
 					<form id="message_form" action="{% url 'leave_message' profile.user.username %}" method="POST">
 						<textarea name="comment" id="id_comment" maxlength="140"></textarea>
 						<button id="message_btn" rel="popover" type="submit" class="btn pull-right">Leave a Message</button>
 					</form>
 					<div id="conversation">
-						{{public_messages}}
+						<ul>
+							{% for message in public_messages %}
+							<li>
+								<div class="row"><img src="{{ message.sender.get_profile.mugshot|thumbnail_url:'avatar'}}"/><a href="{{message.sender.get_absolute_url}}">{{ message.sender }}</a></div>
+								<div class="row">{{ message.body}}</div>
+								<p>{% blocktrans with message.sent_at as sent_at %}Received on {{ sent_at }}{% endblocktrans %}</p>
+							</li>
+							{% endfor %}
+						</ul>
 					</div>
 					<a id="load_converstion" href="?page=1">See a full list of messages ...</a>
 				</div>

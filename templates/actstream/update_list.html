@@ -1,5 +1,6 @@
 
 {% load i18n %}
+{% load static %}
 
 
 {% for action in action_list %}
@@ -11,6 +12,7 @@
 <div class="pagination">
 	<span class="step-links">
 		{% if action_list.has_next %}
+		<img id="loading_gif" src="{% static 'img/loading.gif' %}" style="display:none;" />
 		<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activites</a>
 		{% endif %}
 	</span>

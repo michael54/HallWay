@@ -23,6 +23,7 @@ from accounts.models import MyProfile
 from ajaxuploader.views import AjaxFileUploader
 from ajaxuploader.backends.easythumbnails import EasyThumbnailUploadBackend
 from recipe.search import autonav, normal_search
+from django.db.models import Q
 
 did_image_upload = AjaxFileUploader(backend=EasyThumbnailUploadBackend, DIMENSIONS=(540,000), QUALITY=90, DETAIL = False, SHARPEN = False,UPLOAD_DIR='Recipe_Images/Did_Images')
 
@@ -88,6 +89,9 @@ class RecipeCategoryListView(ListView):
 		elif self.args[1] == 'trend':
 			self.recipecategory = get_object_or_404(RecipeCategory, id__iexact=self.args[0])
 			return Recipe.objects.filter(category = self.recipecategory).order_by("-trend_num")
+		elif self.args[1] == 'rating':
+			self.recipecategory = get_object_or_404(RecipeCategory, id__iexact=self.args[0])
+			return Recipe.objects.filter(category = self.recipecategory).extra(select={'total': 'cumulative_score / rating_num'}).extra(order_by=['-total'])
 		else:
 			raise Http404
 

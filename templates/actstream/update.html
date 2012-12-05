@@ -29,6 +29,7 @@
 				<div class="pagination">
 					<span class="step-links">
 						{% if action_list.has_next %}
+						<img id="loading_gif" src="{% static 'img/loading.gif' %}" style="display:none;" />
 						<a href="?page={{ action_list.next_page_number }}" id="next_link">Load more activties</a>
 						{% endif %}
 					</span>
@@ -124,10 +125,12 @@
 	    }
 	    if (position >= jQuery(document).height() - jQuery(window).height() && flag){
 	    	flag = false;
+	    	$('#loading_gif').show();
 	    	jQuery('#next_link').click();
 	    }
 	   });
 		$('#next_link').click(function(){
+			$('#loading_gif').show();
 			var url = $(this).attr('href');
 			var postdata = {
 				'csrfmiddlewaretoken': '{{ csrf_token }}',
