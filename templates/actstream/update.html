@@ -7,10 +7,10 @@
 <link rel="stylesheet" type="text/css" href="{% static "css/user/act_update.css" %}"/>
 {% endblock %}
 
-{% block title %}{% ifequal user actor %}Chef Industry News{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block title %}{% ifequal user actor %}News Feed - HallWay{% else %}{{ actor }}{% endifequal %}{% endblock %}
 {% block content_title %}
 {% ifequal user actor %}
-<h1>What I am interested in</h1>
+<h1>News Feed</h1>
 {% else %}{{ actor }}
 {% endifequal %}
 {% endblock %}
@@ -41,8 +41,9 @@
 				<ul>
 				{% for f in following %}
 					<li class='display_user'>
+						<a href="{{f.get_absolute_url}}">
 						<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
-						<a href="{{f.get_absolute_url}}">{{f}}</a>
+						{{f.username}}</a>
 					</li>
 					{% endfor %}
 				</ul>
@@ -52,15 +53,16 @@
 				<ul>
 					{% for f in followers %}
 					<li class='display_user'>
+						<a href="{{f.get_absolute_url}}">
 						<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
-						<a href="{{f.get_absolute_url}}">{{f}}</a>
+						{{f.username}}</a>
 					</li>
 					{% endfor %}
 				</ul>
 			</div>
 			<div class="mod-recipe-recommends well well-small">
 				<div class="mod-recipe-title">
-            <span>People Also Like
+            <span>Guess You Like
               <a id="prevA"><i class="icon-caret-left"></i></a>
               <a id="nextA"><i class="icon-caret-right"></i></a>
             </span>

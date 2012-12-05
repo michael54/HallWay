@@ -20,6 +20,15 @@
 {% endblock %}
 
 {% block content %}
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_floating_style addthis_counter_style" style="left:0px;top:155px;">
+<a class="addthis_button_facebook_like" fb:like:layout="box_count"></a>
+<a class="addthis_button_tweet" tw:count="vertical"></a>
+<a class="addthis_button_google_plusone" g:plusone:size="tall"></a>
+<a class="addthis_counter"></a>
+</div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-50bea2f16eb8acc4"></script>
+<!-- AddThis Button END -->
 <div class="popupbox" tabindex="0">
   <a id="prevImg"><i class="icon-chevron-left"></i></a>
   <a id="nextImg"><i class="icon-chevron-right"></i></a>
@@ -92,7 +101,7 @@
         </div>
         {% else %}
         <div class="mod-recipe-comments span5">
-          <a data-toggle="modal" href="#myModal"><i class="icon-comment-alt"></i>&nbsp;Log in to rate it</a>
+          <a data-toggle="modal" href="#signinModal"><i class="icon-comment-alt"></i>&nbsp;Log in to rate it</a>
         </div>
         {% endif %}
       </div>
@@ -218,7 +227,7 @@
             <button type="submit" class="btn btn-success" id="id_comment_submit">Post</button>
           </form>
           {% else %}
-          <p>Please <a href="{% url 'userena_signin' %}">log in</a> to leave a comment.</p>
+          <p>Please <a href="{% url 'userena_signin' %}?next={{object.get_absolute_url}}">log in</a> to leave a comment.</p>
           {% endif %}
           <div id="discussion_list">
           {% get_comment_list for object as comment_list%}
@@ -312,6 +321,7 @@
 <script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
 <script type="text/javascript" src="{% static "js/yuSlider.js" %}"></script>
 <script type="text/javascript" src="{% static "js/jquery.lazyload.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/fixedSide.js" %}"></script>
 <script type="text/javascript">
 var j = jQuery.noConflict();
 j(document).ready(function() {
@@ -514,18 +524,23 @@ j(document).ready(function() {
     return false;
   });
 
+  j('.add_to_list').tooltip({
+    title: 'Click to add to Shopping List',
+    placement: 'right',
+  })
 
-  var divH = jQuery('.mod-recipe-recommends').position().top;
-  jQuery(window).scroll(function() {
-    var position = jQuery(this).scrollTop();
-    if (position>=divH){
-      jQuery('.mod-recipe-recommends').css('position', 'fixed');
-      jQuery('.mod-recipe-recommends').css('top', '0px');
-    }
-    else {
-      jQuery('.mod-recipe-recommends').css('position', 'static');
-    }
-    });
+  // var divH = jQuery('.mod-recipe-recommends').position().top;
+  // jQuery(window).scroll(function() {
+  //   var position = jQuery(this).scrollTop();
+  //   if (position>=divH){
+  //     jQuery('.mod-recipe-recommends').css('position', 'fixed');
+  //     jQuery('.mod-recipe-recommends').css('top', '0px');
+  //   }
+  //   else {
+  //     jQuery('.mod-recipe-recommends').css('position', 'static');
+  //   }
+  //   });
+  fixedSide('.mod-recipe-recommends');
 });
 
 

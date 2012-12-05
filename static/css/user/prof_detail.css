@@ -224,6 +224,7 @@ input[type="text"].profile_input {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
+	cursor: pointer;
 }
 
 .prof_smt_btn{
@@ -236,4 +237,9 @@ div#u-followers > div, div#u-followings > div {
 	border-style: solid;
 	padding: 5px;
 	height: 62px;
+}
+
+
+#mod-prof-main{
+	word-wrap: break-word;
 }

@@ -17,22 +17,24 @@
 {% block content %}
 <div id="mod-container" class="well">
 	<div class="row-fluid container">
-		<div id="mod-prof-main" class="span2">
+		<div id="mod-prof-main" class="span2" style="width:150px;">
+			<div class="mod-prof-username-h2" style="display:none">
+				<h2>The Kitchen of {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>
+			</div>
+			<div class="follow_btn">
+				{% include 'actstream/follow_btn.html'%}
+			</div>
 			<div class="mod-prof-main-img">
 				<img class="mugshot" style="height: 100px;width: 100px;" src="{{ profile.get_mugshot_url }}" alt="{% trans "Mugshot" %}" />
 				{% ifequal user.get_profile profile%}
-				<form id="mugshot_form" method="POST" enctype="multipart/form-data" action="{% url 'userena_profile_edit' profile.user.username %}" style="display: none;">
+				<form id="mugshot_form" method="POST" enctype="multipart/form-data" action="{% url 'userena_profile_edit' profile.user.username %}">
 					{% csrf_token %}
 					<label for="id_mugshot">Change Mugshot:</label>
 					<input type="file" name="mugshot" id="id_mugshot">
 				</form>
 				{% endifequal %}
 			</div>
-			<div class="mod-prof-main-txt span9" style="display: none;">
-				<div class="mod-prof-username-h2">
-					<h2>The Kitchen of {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>
-				</div>
-				{% include 'actstream/follow_btn.html'%}
+			<div class="mod-prof-main-txt">
 				<div class="mod-prof-main-about">
 					<dl>
 						{% if profile.about_me %}
@@ -118,7 +120,7 @@
 				{% endfor %}
 			</ul>
 			</div>
-			<div class="tab-pane" id="prof">
+			<div class="tab-pane well well-small" id="prof">
 				{% block profile_details %}
 				<dl>
 					{% block profile_definition_list %}

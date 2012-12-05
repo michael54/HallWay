@@ -186,12 +186,14 @@
 <script type="text/javascript" src="{% static "jquery.raty-2.4.5/js/jquery.raty.min.js" %}"></script>
 <script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
 <script type="text/javascript" src="{% static "js/jquery.lazyload.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/fixedSide.js" %}"></script>
 <script type="text/javascript">
 jQuery(document).ready(function () {
 	jQuery('img').lazyload({
 		effect: 'fadeIn',
 	});
 	yuStar('{% static "jquery.raty-2.4.5/img/" %}');
+	fixedSide('.mod-list-nav');
 
 });
 </script>
