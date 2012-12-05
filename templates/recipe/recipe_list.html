@@ -12,8 +12,8 @@
 {% block csslink %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_list.css" %}"/>
-<link href='http://fonts.googleapis.com/css?family=Gorditas:400,700' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Gorditas:400,700' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css' />
 {% endblock %}
 
 {% block title %}
@@ -112,7 +112,7 @@
 				<div class="recipe list row-fluid">
 					<div class="recipe-img span4">
 						<a href="{{ recipe.get_absolute_url }}" class="see_detail">
-							<img class="lazy" src="{% static "img/loading.gif" %}" data-original="{{recipe.cover_image|thumbnail_url:'normal'}}" alt="recipe cover image" />
+							<img class="lazy" src="{% static "img/loading.gif" %}" data-original="{{recipe.cover_image|thumbnail_url:'normal'}}" style="height: 160px; width: 220px;" alt="recipe cover image" />
 						</a>
 					</div>
 					<div class="recipe-txt span8">
