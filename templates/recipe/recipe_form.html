@@ -158,7 +158,7 @@ Upload your Recipe
   <tbody class="row-fluid">
     {% for form in amount_formset %}
     <tr>{{ form.recipe }}
-      <td><div class="span6">{{ form.ingredient }}</div></td>
+      <td><div class="span6 ingredient_type">{{ form.ingredient }}</div></td>
       <td><div class="span3 mini">{{ form.amount }}</div></td>
       <td><div class="offset2 span3">{{ form.must }}</div></td>
     </tr>
@@ -240,6 +240,61 @@ $('body').on('click', '.step_image_delete', function(event) {
 });
 
 $(document).ready(function() {
+  $('#ingredient_table tbody tr').formset({
+    prefix: '{{ amount_formset.prefix }}',
+    formCssClass: 'dynamic_amount_formset',
+    added: function(row){
+      row.find('td > div.mini > input').addClass('input-mini');
+      row.find('a').attr('tabindex', '-1');
+      row.find('.ingredient_type').find('input').attr('autocomplete', 'off');
+      row.find('.ingredient_type').find('input').typeahead({
+        source: [{% for food in food_name_list%}"{{food.name}}",{% endfor %}],
+        items: 4,
+      });
+    },
+  });
+
+  $('#step_table tbody tr').formset({
+    prefix: '{{ step_formset.prefix }}',
+    formCssClass: 'dynamic_step_formset',
+    removed: function(row){
+      stepCount(jQuery('.step_num_counter'));
+    },
+    added: function(row) {
+      stepCount(jQuery('.step_num_counter'));
+      var uploader1 = new qq.FileUploader({
+        action: "{% url 'step_image_upload' %}",
+        element: row.find('.step-uploader')[0],
+        multiple: false,
+        onComplete: function(id, fileName, responseJSON) {
+          if(responseJSON.success) {
+            row.find('[id*="step_image"]').val(responseJSON.path);
+            row.find('.step_preview').attr('src', '/media/'+responseJSON.path);
+            row.find('.step_image_delete').show();
+            row.find('.step-uploader').hide();
+            row.find('.step_preview').show('slow');
+            $('.qq-upload-list').css('display','none');
+          } else {
+            alert("upload failed!");
+          }
+        },
+        params: {
+          'csrf_token': '{{ csrf_token }}',
+          'csrf_name': 'csrfmiddlewaretoken',
+          'csrf_xname': 'X-CSRFToken',
+        },
+      });
+    },
+  });
+
+  jQuery('a.delete-row').attr('tabindex', '-1');
+  jQuery('#ingredient_table').find('.ingredient_type').find(':text').attr('autocomplete', 'off');
+  jQuery('#ingredient_table').find('.ingredient_type').find(':text').attr('data-provide','typeahead');
+  jQuery('#ingredient_table').find('.ingredient_type').find(':text').typeahead({
+      source: [{% for food in food_name_list%}"{{food.name}}",{% endfor %}],
+      items: 4,
+    });
+
   $('.timepicker-default').timepicker({
     minuteStep: 10,
     defaultTime: '01:00',
@@ -287,44 +342,6 @@ $(document).ready(function() {
     }
     
   });
-
- $('#ingredient_table tbody tr').formset({
-  prefix: '{{ amount_formset.prefix }}',
-  formCssClass: 'dynamic_amount_formset',
-});
-
- $('#step_table tbody tr').formset({
-  prefix: '{{ step_formset.prefix }}',
-  formCssClass: 'dynamic_step_formset',
-  removed: function(row){
-    stepCount(jQuery('.step_num_counter'));
-  },
-  added: function(row) {
-    stepCount(jQuery('.step_num_counter'));
-    var uploader1 = new qq.FileUploader({
-      action: "{% url 'step_image_upload' %}",
-      element: row.find('.step-uploader')[0],
-      multiple: false,
-      onComplete: function(id, fileName, responseJSON) {
-        if(responseJSON.success) {
-          row.find('[id*="step_image"]').val(responseJSON.path);
-          row.find('.step_preview').attr('src', '/media/'+responseJSON.path);
-          row.find('.step_image_delete').show();
-          row.find('.step-uploader').hide();
-          row.find('.step_preview').show('slow');
-          $('.qq-upload-list').css('display','none');
-        } else {
-          alert("upload failed!");
-        }
-      },
-      params: {
-        'csrf_token': '{{ csrf_token }}',
-        'csrf_name': 'csrfmiddlewaretoken',
-        'csrf_xname': 'X-CSRFToken',
-      },
-    });
-  },
-});
 
  $('.step-uploader').each(function (i){
   var sd = $('.step_image_delete').get(i),

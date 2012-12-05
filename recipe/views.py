@@ -176,8 +176,8 @@ def recipe_create(request):
 	"""
 	Page for create a new recipe
 	"""    
-	AmountFormSet = formset_factory(AmountForm, extra = 1)
-	StepFormSet = formset_factory(StepForm, extra = 1)
+	AmountFormSet = formset_factory(AmountForm, extra = 3)
+	StepFormSet = formset_factory(StepForm, extra = 3)
 	if request.method == 'POST':
 		recipe_form = RecipeForm(request.POST)
 		amount_formset = AmountFormSet(request.POST, prefix='amount')
@@ -211,15 +211,17 @@ def recipe_create(request):
 		recipe_form = RecipeForm(initial={'author': request.user.id})
 		amount_formset = AmountFormSet(prefix='amount')
 		step_formset = StepFormSet(prefix='step')
+		food_name = Food.objects.all().only('name')
 
-	return render(request, 'recipe/recipe_form.html',{
-		'recipe_form': recipe_form,
-		'amount_formset': amount_formset,
-		'step_formset': step_formset,
-		'Courses': RecipeCategory.objects.filter(parent__name='Courses').only('name'),
-		'Cuisines': RecipeCategory.objects.filter(parent__name='Cuisines').only('name'),
-		'Main_Ingredients': RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'),
-		'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
+		return render(request, 'recipe/recipe_form.html',{
+			'recipe_form': recipe_form,
+			'amount_formset': amount_formset,
+			'step_formset': step_formset,
+			'Courses': RecipeCategory.objects.filter(parent__name='Courses').only('name'),
+			'Cuisines': RecipeCategory.objects.filter(parent__name='Cuisines').only('name'),
+			'Main_Ingredients': RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'),
+			'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
+			'food_name_list': food_name,
 		})
 
 @login_required
@@ -292,17 +294,19 @@ def recipe_edit(request, pk):
 
 		amount_formset = AmountFormSet(initial = initial_amount ,prefix='amount')
 		step_formset = StepFormSet(initial = initial_step, prefix='step')
+		food_name = Food.objects.all().only('name')
 
-	return render(request, 'recipe/recipe_form.html',{
-		'recipe_form': recipe_form,
-		'amount_formset': amount_formset,
-		'step_formset': step_formset,
-		'Courses': RecipeCategory.objects.filter(parent__name='Courses').only('name'),
-		'Cuisines': RecipeCategory.objects.filter(parent__name='Cuisines').only('name'),
-		'Main_Ingredients': RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'),
-		'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
-		'category_list': recipe.category.all().only('name'),
-		})
+		return render(request, 'recipe/recipe_form.html',{
+			'recipe_form': recipe_form,
+			'amount_formset': amount_formset,
+			'step_formset': step_formset,
+			'Courses': RecipeCategory.objects.filter(parent__name='Courses').only('name'),
+			'Cuisines': RecipeCategory.objects.filter(parent__name='Cuisines').only('name'),
+			'Main_Ingredients': RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'),
+			'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
+			'category_list': recipe.category.all().only('name'),
+			'food_name_list': food_name,
+			})
 
 @login_required
 def recipe_delete(request, pk):
