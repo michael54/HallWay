@@ -9,6 +9,15 @@
   {{ block.super }}
   <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
   <link href='http://fonts.googleapis.com/css?family=Chela+One' rel='stylesheet' type='text/css' />
+  <style type="text/css">
+  @font-face {
+      font-family: "Ribeye";
+      src: url('/static/font/RibeyeMarrow-Regular.ttf');
+  }
+  .ribeye {
+      font-family: "Ribeye";
+  }
+  </style>
 {% endblock %}
 
 {% block title %}
@@ -64,6 +73,12 @@ Welcome
       New To MyWebsite.com?
       <a href="{% url 'userena_signup' %}" class="btn btn-primary">Sign Up</a>
     </div>
+  </div>
+</div>
+<div class="logo">
+  <div class="ribeye">
+    <div style="color: white; position: fixed; top: 20%; left: 50%; margin-left: -96.5px; font-size: 250%; font-weight: bold;">HALLWAY</div>
+    <div style="color: white; position: fixed; top: 25%; left: 50%; margin-left: -145.5px; font-size: 150%;">to enjoyable foods and life</div>
   </div>
 </div>
 <div class="circular-show-outer upper-level">

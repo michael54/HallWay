@@ -11,17 +11,18 @@
 
 {% block csslink %}
 {{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_detail.css" %}"/>
 <link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block title %}
-{{ object.name }}_{{ object.author }}
+{{ object.recipe.name }}_{{ profile.user.username }}
 {% endblock %}
 
 {% block content %}
 <div id="mod-container">
 	<div class="row-fluid container-fluid">
-		<h1 class="mod-page-title span11" itemprop="dish-name">{{profile.user.username}}'s work of {{ object.recipe.name }}
+		<h1 class="mod-page-title span11" itemprop="dish-name">{{ object.recipe.name }} ({{profile.user.username}})
 		</h1>
 		<div class="row-fluid">
 			<section class="mod-main span7 well well-small">
@@ -33,10 +34,11 @@
 					{% endif %}
 				</div>
 				<div>
-					{{object.comment}}
-				</div>
-				<div>
-					{{object.date}}
+					{% if object.comment %}
+						<p class="mod-recipe-tip-content">"{{object.comment}}"</p>
+					{% else %}
+						<p class="empty-note">"This guy's lazy bones... Nothing left here."</p>
+	        {% endif %}
 				</div>
 			</section>
 			<aside class="mod-side span4">
@@ -47,7 +49,7 @@
 					</a>
 					{% include 'actstream/follow_btn.html'%}
 					<div class="upload-date" style="font-size: 14px;margin-top: 5px;color: white;">
-						<i class="icon-calendar"></i> This recipe is created on {{object.date}}
+						<i class="icon-calendar"></i> This recipe is uploaded on {{object.date}}
 					</div>
 				</div>
 				<div class="mod-discussion well well-small">

@@ -145,21 +145,21 @@ function resizeDiv() {
   var upperWidth = jQuery('ul.upper-level > li').width()*5;
   var upperHeight = jQuery('ul.upper-level > li').height();
   var upperLeft = (window.innerWidth- upperWidth)/2;
-  jQuery('ul.upper-level > li').css('top', winHeight*0.2);
+  jQuery('ul.upper-level > li').css('top', winHeight*0.35);
   /*********************************************************************************************/
 
   /* outer lower-level div position */
   var lowerWidth = jQuery('ul.lower-level > li').width()*5;
   var lowerHeight = jQuery('ul.lower-level > li').height();
   var lowerLeft = (window.innerWidth- lowerWidth)/2;
-  jQuery('div.circular-show-outer.lower-level').css('top', winHeight*0.2+200); // set lower slider's outer top pos
+  jQuery('div.circular-show-outer.lower-level').css('top', winHeight*0.35+200); // set lower slider's outer top pos
   jQuery('div.circular-show-outer.lower-level').css('left', lowerLeft); // set lower slider's outer left pos
   jQuery('div.circular-show-outer.lower-level').css('width', lowerWidth); // set lower slider's outer width
   jQuery('div.circular-show-outer.lower-level').css('height', lowerHeight); // set lower slider's outer height = width
   /*********************************************************************************************/
 
   /* slider control position */
-  jQuery('a.show-control').css('top', winHeight*0.2+230);
+  jQuery('a.show-control').css('top', winHeight*0.35+230);
   /*********************************************************************************************/
 
   /* search form icon position */

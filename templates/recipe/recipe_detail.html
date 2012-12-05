@@ -181,8 +181,26 @@
        <p class="empty-note">"This guy's lazy bones... Nothing left here."</p>
        {% endif %}
       </div>
-      <div>
-        {{ did_recipe_list }}
+      <div class="mod-recipe-did">
+        <div class="mod-recipe-title">
+          Other Users' Version
+        </div>
+        <div class="circular-show-outer">
+          <a class="show-control" id="pItem"><i class="icon-chevron-left"></i></a>
+          <ul class="circular-show-inner">
+          {% for did in did_recipe_list %}
+            <li class="show-item">
+              <a href="{{did.get_absolute_url}}">
+                <div class="show-img"><img src="{{did.image.url}}" /></div>
+                <!--div class="show-caption">{{did.name}}</div-->
+              </a>
+            </li>
+          {% empty %}
+            <p class="empty-note">"No other version of this recipe yet."</p>
+          {% endfor %}
+          </ul>
+          <a class="show-control" id="nItem"><i class="icon-chevron-right"></i></a>
+        </div>
       </div>
       </section>
       <aside class="mod-side span4">

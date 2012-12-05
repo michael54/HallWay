@@ -244,7 +244,7 @@ div.mod-recipe-comments > a:active, a#rate-author:active {
 }
 
 div.mod-recipe-brief, div.mod-reicpe-ingredients, 
-div.mod-recipe-steps {
+div.mod-recipe-steps, div.mod-recipe-tip {
 	border-bottom-style: solid;
 	border-bottom-width: 2px;
 	border-bottom-color: #F5D982;
@@ -259,7 +259,7 @@ ul.rate-hist {
 	margin-left: 0;
 }
 
-div.mod-reicpe-ingredients, div.mod-recipe-steps, div.mod-recipe-tip {
+div.mod-reicpe-ingredients, div.mod-recipe-steps, div.mod-recipe-tip, div.mod-recipe-did {
 	margin-top: 20px;
 }
 
