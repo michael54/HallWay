@@ -4,7 +4,7 @@ import os
 import uuid
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404, redirect
-from recipe.models import Recipe, RecipeCategory, Vote, Step, Amount
+from recipe.models import Recipe, RecipeCategory, Vote, Step, Amount, DidRecipe
 from recipe.forms import RecipeForm, VoteForm, StepForm, AmountForm, DidRecipeForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -73,7 +73,11 @@ class RecipeDetailView(DetailView):
 		context['amount_list'] = Amount.objects.filter(recipe = context['object']).select_related('ingredient').defer('ingredient__brief')
 		context['step_list'] = Step.objects.filter(recipe = context['object']).order_by('step_num')
 		context['votelist'] = Vote.objects.filter(recipe = context['object']).order_by('-date')
+		context['did_recipe_list'] = DidRecipe.objects.filter(recipe = context['object']).select_related('user').only('image','user')
 		return context
+
+class DidRecipeDetailView(DetailView):
+	model = DidRecipe
 
 class RecipeCategoryListView(ListView):
 	context_object_name = "recipe_list"
@@ -310,7 +314,9 @@ def did_recipe_upload(request, pk):
 			if request.user != form.cleaned_data['user']:
 				raise Http404
 			form.save()
-
+			recipe.did_num  = recipe.did_num + 1
+			recipe.save()
+			
 		return redirect(recipe)
 	else:
 		form = DidRecipeForm(initial= {'recipe': recipe.id, 'user': request.user.id,})

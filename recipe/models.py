@@ -12,6 +12,11 @@ def get_file_path(instance, filename):
     filename = "%s.%s" % (uuid.uuid4(), ext)
     return os.path.join('Recipe_photos', filename)
 
+def did_get_file_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('DidRecipe_photos', filename)
+
 
 class RecipeCategory(models.Model):
 	"""docstring for RecipeCategory"""
@@ -84,7 +89,7 @@ class DidRecipe(models.Model):
 	"""docstring for DidRecipe"""
 	recipe = models.ForeignKey(Recipe)
 	user = models.ForeignKey(User)
-	image = ProcessedImageField(upload_to=get_file_path, null=True, blank=True, verbose_name=u'Cover image',
+	image = ProcessedImageField(upload_to=did_get_file_path, null=True, blank=True, verbose_name=u'Cover image',
 						processors=[Adjust(contrast=1.2, sharpness=1.1),
             ResizeToFit(width=540,upscale=True)], format='JPEG', options={'quality': 90})
 	comment = models.TextField()
@@ -93,6 +98,8 @@ class DidRecipe(models.Model):
 	def __unicode__(self):
 		return u"%s's %s" % (self.user.username, self.recipe.name)
 
+	class Meta:
+		ordering = ['recipe', '-date']
 
 class Amount(models.Model):
 	"""docstring for Amount"""
