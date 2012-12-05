@@ -40,7 +40,7 @@
 						{% endif %}
 						{% if profile.website %}
 						<dt>{% trans "Website" %}</dt>
-						<dd>{{ profile.website|urlize }}</dd>
+						<a href="{{profile.website|urlize}}">{{ profile.website }}</a>
 						{% endif %}
 					</dl>
 				</div>
@@ -126,7 +126,7 @@
 					{% block profile_definition_list %}
 					<div class="row-fluid">
 						{% if profile.user.first_name or profile.user.id == user.id %}
-						<div class="prof-div span5">
+						<div class="prof-div span6">
 							<dt>{% trans "First Name" %}</dt>
 							<div class="prof-form input-append">
 								<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
@@ -150,7 +150,7 @@
 					</div>
 					<div class="row-fluid">
 						{% if profile.user.email and not hide_email or profile.user.id == user.id  %}
-						<div class="prof-div span5">
+						<div class="prof-div span6">
 							<dt>{% trans "Email" %}</dt>
 
 							<div class="prof-form">
@@ -174,7 +174,7 @@
 					</div>
 					<div class="row-fluid">
 						{% if profile.website or profile.user.id == user.id  %}
-						<div class="prof-div span5">
+						<div class="prof-div span6">
 							<dt>{% trans "Website" %}</dt>
 							<div class="prof-form input-append">
 								<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
@@ -243,7 +243,12 @@
 			<div class="tab-pane" id="cmts">
 				<div class="well well-small tabbable tabs-right">
 					<form id="message_form" action="{% url 'leave_message' profile.user.username %}" method="POST">
+						<input id="id_to" type="hidden" value="{{profile.user.username}}" />	
 						<textarea name="comment" id="id_comment" maxlength="140"></textarea>
+						<p>
+				      <label for="id_public">Public:</label>
+				      <input type="checkbox" name="public" id="id_public" checked />
+				    </p>
 						<button id="message_btn" rel="popover" type="submit" class="btn pull-right">Leave a Message</button>
 					</form>
 					<div id="conversation">
@@ -296,7 +301,9 @@ $(document).ready(function() {
 		event.preventDefault();
 		var url = $(this).attr('action');
 		var postdata = {
-			'message': $('#id_comment').val(),
+			'to': $('#id_to').val(),
+			'body': $('#id_comment').val(),
+			'public': $('#id_public').attr('checked'),
 			'csrfmiddlewaretoken': '{{ csrf_token }}',
 		}
 		$.post(url, postdata, function(data){
@@ -310,14 +317,14 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$('#load_converstion').click(function(){
+	$('#load_conversation').click(function(){
 		var url = $(this).attr('href');
 		var postdata = {
 			'csrfmiddlewaretoken': '{{ csrf_token }}',
 		}
 		$.get(url, postdata, function(data){
 			$('#conversation').hide().empty().append(data).show('slow');
-			$('#load_converstion').hide();
+			$('#load_conversation').hide();
 		});
 		return false;
 	});

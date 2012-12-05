@@ -55,12 +55,16 @@ Advanced Search
 			prefix: '{{ formset.prefix }}',
 			addText: 'Add another ingredient that you have',
 			added: function(row){
+				row.find('a').attr('tabindex', '-1');
+				row.find(':text').attr('autocomplete', 'off');
 				row.find(':text').typeahead({
 					source: [{% for food in food_name_list%}"{{food.name}}",{% endfor %}],
 					items: 4,
 				});
 			},
 		});
+		jQuery('a').attr('tabindex', '-1');
+		jQuery(':text').attr('autocomplete', 'off');
 		jQuery(':text').attr('data-provide','typeahead');
 		jQuery(':text').typeahead({
 			source: [{% for food in food_name_list%}"{{food.name}}",{% endfor %}],

@@ -55,9 +55,7 @@ def profile(request, username):
 def leave_message(request, username):
 	if request.is_ajax():
 		user = get_object_or_404(User, username__iexact = username)
-		data = request.POST
-		data['to'] = [user,]
-		form = ComposeForm(data)
+		form = ComposeForm(request.POST)
 		if form.is_valid():
 			msg = form.save(sender = request.user)
 			if msg:

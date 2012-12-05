@@ -3,7 +3,7 @@
 <span class="mod-user-follow">
 	
 	<a href="{% follow_url profile.user %}" id="followhref">
-		<button id="follow_btn" class="btn">{% if user|is_following:profile.user %}Unfollow{% else %}Follow{% endif %}</button>
+		<button id="follow_btn" class="btn" style="background-image: none; border-radius: 0; font-weight: bold; color: white; background-color:{% if user|is_following:profile.user %}darkGrey{% else %}fireBrick{% endif %}">{% if user|is_following:profile.user %}Unfollow{% else %}Follow{% endif %}</button>
 	</a>
 </span>
 
