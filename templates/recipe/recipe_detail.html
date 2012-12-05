@@ -185,21 +185,23 @@
         <div class="mod-recipe-title">
           Other Users' Version
         </div>
-        <div class="circular-show-outer">
-          <a class="show-control" id="pItem"><i class="icon-chevron-left"></i></a>
-          <ul class="circular-show-inner">
-          {% for did in did_recipe_list %}
-            <li class="show-item">
-              <a href="{{did.get_absolute_url}}">
-                <div class="show-img"><img src="{{did.image.url}}" /></div>
-                <!--div class="show-caption">{{did.name}}</div-->
-              </a>
-            </li>
-          {% empty %}
-            <p class="empty-note">"No other version of this recipe yet."</p>
-          {% endfor %}
-          </ul>
-          <a class="show-control" id="nItem"><i class="icon-chevron-right"></i></a>
+        <div class="content">
+          <a class="did-show-control" id="pItem"><i class="icon-chevron-left"></i></a>
+          <div class="did-show-outer">
+            <ul class="did-show-inner">
+            {% for did in did_recipe_list %}
+              <li class="did-show-item">
+                <a href="{{did.get_absolute_url}}">
+                  <div class="did-show-img"><img src="{{did.image.url}}" /></div>
+                  <div class="did-show-caption">{{did.user.username}}<br />{{did.date}}</div>
+                </a>
+              </li>
+            {% empty %}
+              <p class="empty-note">"No other version of this recipe yet."</p>
+            {% endfor %}
+            </ul>
+          </div>
+          <a class="did-show-control" id="nItem"><i class="icon-chevron-right"></i></a>
         </div>
       </div>
       </section>

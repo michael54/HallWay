@@ -270,15 +270,17 @@ div.show-img.upper {
 }
 
 div.show-caption {
-	font-family: 'Chela One', cursive;
-	font-size: 20px;
+	font-family: "Ribeye";
+	font-size: 16px;
 	color: white;
+	font-weight: bold;
 	text-align: center;
 	padding-top: 10px;
 	width: 130px;
 }
 
 div.show-caption.lower {
+	font-family: 'Chela One', cursive;
 	font-size: 16px;
 	position: relative;
 	left: -5px;

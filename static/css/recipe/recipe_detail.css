@@ -491,3 +491,79 @@ a#prevA > i, a#nextA > i {
 	font-weight: bold;
 	color: darkGray;
 }
+
+a.did-show-control {
+	text-decoration: none;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 25px;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	border-width: 2px;
+	border-color: white;
+	border-radius: 12px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	background-color: rgba(0, 0, 0, 0.6);
+	box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	-moz-box-shadow: 0 0 6px rgba(0, 0, 0, .8);
+	margin: 0;
+	top: 60px;
+	position: relative;
+	cursor: pointer;
+	display: none;
+}
+
+a.did-show-control, ul.did-show-inner {
+	float: left;
+}
+
+ul.did-show-inner {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	overflow: hidden;
+	left: -151px; /* width of an item */
+	width: 9999px;
+}
+
+ul.did-show-inner > li {
+	float: left;
+	position: relative;
+	width: 141px;
+	padding: 0;
+	height: 141px;
+	margin: 0;
+	padding: 5px;
+}
+
+ul.did-show-inner > li a {
+	text-decoration: none;
+}
+
+ul.did-show-inner > li img {
+	margin:0;
+	height: 141px;
+	width: 141px;
+}
+
+div.did-show-outer {
+	float: left;
+	width: 472px;
+	overflow: hidden;
+}
+
+div.did-show-caption {
+	position: relative;
+	top: -40px;
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 40px;
+	padding-left: 10px;
+	color: white;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	display: none;
+}
