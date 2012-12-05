@@ -24,11 +24,13 @@ def advanced_search(request):
 	SearchFormSet = formset_factory(SearchForm, extra = 3)
 	if request.method == 'POST':
 		result_list = list()
-		search_formset = SearchFormSet(request.POST, prefix='ingredient')
+		search_formset = SearchFormSet(request.POST, prefix='normal')
 		extra_form = SearchFormExtra(request.POST, prefix='extra')
 		if search_formset.is_valid() and extra_form.is_valid():
 			min_rate = extra_form.cleaned_data['min_rating']
-			objs = Recipe.objects.extra(select={'total': 'cumulative_score / rating_num'}).extra(where=["total >= "+min_rate])
+			objs = Recipe.objects.all()
+			if min_rate != '0':
+				objs = objs.extra(select={'total': 'cumulative_score / rating_num'}).extra(where=["total >= "+min_rate])
 			if extra_form.cleaned_data['courses'] != '0':
 				objs = objs.filter(category__pk=extra_form.cleaned_data['courses'])
 			if extra_form.cleaned_data['cuisines'] != '0':
@@ -40,7 +42,8 @@ def advanced_search(request):
 			
 			ingredient_list = list()
 			for form in search_formset:
-				ingredient_list.append(form.cleaned_data['ingredient'])
+				if 'ingredient' in form.cleaned_data:
+					ingredient_list.append(form.cleaned_data['ingredient'])
 			amount_list = list(Amount.objects.filter(ingredient__name__in=ingredient_list, must=True).only('recipe'))
 			candidate_list = list()
 			for a in amount_list:
@@ -55,8 +58,8 @@ def advanced_search(request):
 						break
 				if flag:
 					result_list.append(r)
-
-			result_list = list(set(result_list+list(objs)))
+			id_list = [obj.id for obj in objs]
+			result_list = [obj for obj in result_list if obj.id in id_list]
 			paginator = Paginator(result_list, 10)
 
 			return render(request, 'recipe/advanced_search_list.html', {
@@ -78,9 +81,13 @@ def advanced_search(request):
 				'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
 				})
 		else:
-			search_formset = SearchFormSet(prefix='ingredient')
+			search_formset = SearchFormSet(prefix='normal')
 			extra_form = SearchFormExtra(prefix='extra')
-			return render(request, 'recipe/advanced_search.html', {'formset':search_formset, 'extra_form':extra_form})
+			food_name = Food.objects.all().only('name')
+			return render(request, 'recipe/advanced_search.html', {
+					'formset':search_formset, 
+					'extra_form':extra_form,
+					'food_name_list': food_name})
 
 def normal_search(request):
 	if request.is_ajax():

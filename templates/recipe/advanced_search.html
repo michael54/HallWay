@@ -7,19 +7,41 @@ Advanced Search
 {% endblock%}
 
 {% block content %}
+<div class="row">
 <form id="search_form" method="POST" action="">
 	{% csrf_token %}
-	{{extra_form.as_table}}
-	<table border="0" cellpadding="0" cellspacing="0">
-		<tbody>
-			{% for form in formset.forms %}
-			<tr>
-				<th>Ingredient: <th>
-				<td>{{ form.ingredient }}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<legend>Advanced Search</legend>
+	<div>
+		<h2>Find Recipes with your ingredients...</h2>
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tbody>
+				{% for form in formset.forms %}
+				<tr>
+					<th>Ingredient: <th>
+					<td>{{ form.ingredient }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+	<div>
+		<h2>Then narrow your result by...</h2>
+		<table>
+			<tbody>
+				{% for field in extra_form%}
+				<tr>
+					<th>
+						{{field.label}}
+					</th>
+					<td>
+						{{field}}
+					</td>	
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 	<button class="btn" type="submit">Search</button>
 	{{ formset.management_form }}
 </form>
@@ -29,7 +51,21 @@ Advanced Search
 <script type="text/javascript" src="{% static "js/jquery.formset.min.js" %}"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function (){
-		jQuery('#search_form tbody tr').formset();
+		jQuery('#search_form tbody tr').formset({
+			prefix: '{{ formset.prefix }}',
+			addText: 'Add another ingredient that you have',
+			added: function(row){
+				row.find(':text').typeahead({
+					source: [{% for food in food_name_list%}"{{food.name}}",{% endfor %}],
+					items: 4,
+				});
+			},
+		});
+		jQuery(':text').attr('data-provide','typeahead');
+		jQuery(':text').typeahead({
+			source: [{% for food in food_name_list%}"{{food.name}}",{% endfor %}],
+			items: 4,
+		});
 	});
 </script>
 {% endblock js %}
