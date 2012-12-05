@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{% static "css/user/act_update.css" %}"/>
 {% endblock %}
 
-{% block title %}{% ifequal user actor %}News Feed - HallWay{% else %}{{ actor }}{% endifequal %}{% endblock %}
+{% block title %}{% ifequal user actor %}News Feed {% else %}{{ actor }}{% endifequal %}{% endblock %}
 {% block content_title %}
 {% ifequal user actor %}
 <h1>News Feed</h1>

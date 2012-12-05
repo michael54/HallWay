@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% extends "nav.html" %}
 
 {% block title %}Page not found{% endblock %}
 
@@ -11,6 +12,6 @@
 
 {% block content %}
   <div id="img-404">
-    <img src="img/404.png" />
+    <img src="{% static 'img/404.png' %}" />
   </div>
 {% endblock %}
