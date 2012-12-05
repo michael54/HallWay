@@ -250,6 +250,9 @@ Welcome
 
     var minlength = 3;
     j('#suggestions').hide();
+    j('#searchinput').focusout(function (){
+      j('#suggestions').fadeOut();
+    });
     j('#searchinput').keyup(function(event) {
       delay(function(){
         if(event.which != 13) {
