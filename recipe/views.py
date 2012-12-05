@@ -73,7 +73,7 @@ class RecipeDetailView(DetailView):
 		context['amount_list'] = Amount.objects.filter(recipe = context['object']).select_related('ingredient').defer('ingredient__brief')
 		context['step_list'] = Step.objects.filter(recipe = context['object']).order_by('step_num')
 		context['votelist'] = Vote.objects.filter(recipe = context['object']).order_by('-date')
-		context['did_recipe_list'] = DidRecipe.objects.filter(recipe = context['object']).select_related('user').only('image','user')
+		context['did_recipe_list'] = DidRecipe.objects.filter(recipe = context['object']).select_related('user').only('image','user')[:4]
 		return context
 
 class DidRecipeDetailView(DetailView):
@@ -316,7 +316,7 @@ def did_recipe_upload(request, pk):
 			form.save()
 			recipe.did_num  = recipe.did_num + 1
 			recipe.save()
-			
+
 		return redirect(recipe)
 	else:
 		form = DidRecipeForm(initial= {'recipe': recipe.id, 'user': request.user.id,})
