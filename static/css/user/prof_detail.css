@@ -15,40 +15,93 @@ div#mod-container #mod-prof-main .mod-prof-main-img{
 	padding-left: 15px;
 }
 
+div.follow-div {
+	position: relative;
+	left: -35px;
+	box-shadow: 0 0 5px 1px rgb(206,161,99) inset;
+}
+
+button#follow_btn {
+	border-radius: 0 !important;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-img img{
+	margin: 10px 10px 10px 0;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-img form{
+	position: absolute;
+	display: none;
+}
+
 div#mod-container #mod-prof-main .mod-prof-username-h2 {
-	color: rgb(130, 130, 130);
+	position: relative;
+	left: -49px;
+	padding: 10px 10px 10px 18px;
+	overflow: visible;
+	background-color: rgba(255, 232, 197, 0.4);
+}
+
+div#mod-container #mod-prof-main .mod-prof-username-h2 img {
+	position: absolute;
+	top: -11px;
+	left: 0;	
+}
+
+div#mod-container #mod-prof-main .mod-prof-username-h2 h2 {
 	font-size: 22px;
 	font-weight: bold;
-	line-height: 30px;
-	margin-bottom: 15px;
-	padding-left: 15px;
+	line-height: 22px;
+	font-family: "Times New Roman",Georgia,Serif;
+	color: #4B3025;
+	margin: 0;
+	padding: 0;
+	display: inline;
 }
 
-div#mod-container #mod-prof-main .mod-prof-main-about {
-	padding-left: 30px;
+div#mod-container #mod-prof-main .mod-prof-username-h2 span {
+	font-size: 22px;
+	font-weight: bold;
+	line-height: 22px;
+	font-family: "Times New Roman",Georgia,Serif;
+	color: #FFE8C5;
 }
 
-div#mod-container #mod-prof-main .mod-prof-main-about dt {
-	color: rgb(140, 140, 140);
+div#mod-container #mod-prof-main .mod-prof-main-about,
+div#mod-container #mod-prof-details .tab-content .tab-pane {
+	/*padding-left: 30px;*/
+	font-family: "Times New Roman",Georgia,Serif;
+}
+
+div#mod-container #mod-prof-main .mod-prof-main-about dt, 
+div#mod-container #mod-prof-details .tab-content .tab-pane dt {
+	color: #FFE8C5;
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 14px;
 	margin-bottom: 5px;
 }
 
-div#mod-container #mod-prof-main .mod-prof-main-about dd {
-	color: rgb(150, 150, 150);
+div#mod-container #mod-prof-main .mod-prof-main-about dd,
+div#mod-container #mod-prof-details .tab-content .tab-pane input.profile_input {
+	color: #FFE8C5;
 	font-size: 14px;
 	line-height: 14px;
 	margin-bottom: 5px;
+}
+
+div#mod-container #mod-prof-details .tab-content .tab-pane dt, 
+div#mod-container #mod-prof-details .tab-content .tab-pane input.profile_input {
+	color: #4B3025;
 }
 
 div#mod-container #mod-prof-main .mod-prof-main-about dd > a {
-	text-decoration: none;
-	color: rgb(178, 34, 34);
+	/*text-decoration: none;*/
+	color: #FFE8C5;
+	/*color: rgb(178, 34, 34);*/
 }
 
-div#mod-container #mod-prof-main .mod-prof-main-about dd > a:link {
+/*div#mod-container #mod-prof-main .mod-prof-main-about dd > a:link {
 	color: rgb(178, 34, 34);
 }
 
@@ -63,6 +116,10 @@ div#mod-container #mod-prof-main .mod-prof-main-about dd > a:hover {
 div#mod-container #mod-prof-main .mod-prof-main-about dd > a:active {
 	background: rgb(0, 191, 255);
 	color: white;
+}*/
+
+div.change-pass a {
+	color: #FFE8C5;
 }
 
 div#mod-container #mod-prof-details {
@@ -70,13 +127,24 @@ div#mod-container #mod-prof-details {
 	float: right;
 }
 
-div#mod-container #mod-prof-nav {
+div#mod-container #mod-prof-nav,
+div#mod-container #friends {
 	margin-bottom: 15px;
 	border-bottom: 0;
 }
 
+div#mod-container #friends ul {
+	border-left-color: #FFE8C5;
+	border-left-width: 1px;
+	border-left-style: solid;
+}
+
 div#mod-container #mod-prof-nav > li {
 	float: right;
+	background-color: transparent;
+}
+
+div#mod-container #friends ul > li {
 	background-color: transparent;
 }
 
@@ -98,12 +166,42 @@ div#mod-container #mod-prof-nav > li > a {
 	text-align: center;
 }
 
+div#mod-container #friends ul > li > a {
+	border: 0;
+	color: #FFE8C5;
+	transition-property:font-size font-weight;
+    -o-transition-property:font-size font-weight;
+    -moz-transition-property:font-size font-weight;
+    -webkit-transition-property:font-size font-weight;
+    transition-duration:.15s;
+    -o-transition-duration:.15s;
+    -moz-transition-duration:.15s;
+    -webkit-transition-duration:.15s;
+    transition-timing-function:ease-in-out;
+    -o-transition-timing-function:linear;
+    -moz-transition-timing-function:linear;
+    -webkit-transition-timing-function:ease-in-out;
+	text-align: center;
+}
+
+div#mod-container #friends ul > li:not(.active) > a:hover {
+	font-size: 16px;
+	background-color: transparent;
+	font-weight: bold;
+}
+
 div#mod-container #mod-prof-nav > li:not(.active) > a:hover {
 	font-size: 18px;
 	background-color: transparent;
 	border-bottom-color: #FFE8C5;
 	border-bottom-style: solid;
 	border-bottom-width: 2px;
+}
+
+div#mod-container #friends ul > li.active > a {
+	background-color: transparent;
+	font-weight: bold;
+	font-size: 16px;
 }
 
 div#mod-container #mod-prof-nav > li.active > a {
@@ -123,43 +221,6 @@ div#mod-container #mod-prof-nav ul li a {
 div#mod-container #mod-prof-details .tab-content {
 	padding-left: 0px;
 	padding-top: 0px;
-}
-
-div#mod-container #mod-prof-details .tab-content .tab-pane dt {
-	color: rgb(140, 140, 140);
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 14px;
-	margin-bottom: 5px;
-}
-
-div#mod-container #mod-prof-details .tab-content .tab-pane dd {
-	color: rgb(150, 150, 150);
-	font-size: 14px;
-	line-height: 14px;
-	margin-bottom: 5px;
-}
-
-div#mod-container #mod-prof-details .tab-content .tab-pane dd > a {
-	text-decoration: none;
-	color: rgb(178, 34, 34);
-}
-
-div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:link {
-	color: rgb(178, 34, 34);
-}
-
-div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:visited {
-	color: rgb(150, 150, 150);
-}
-
-div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:hover {
-	color: rgb(0, 191, 255);
-}
-
-div#mod-container #mod-prof-details .tab-content .tab-pane dd > a:active {
-	background: rgb(0, 191, 255);
-	color: white;
 }
 
 div#mod-container #mod-prof-details .tab-content #cmts textarea {
@@ -231,15 +292,38 @@ input[type="text"].profile_input {
 	display: none;
 }
 
-div#u-followers > div, div#u-followings > div {
-	border-width: 1px;
-	border-color: #E6E6E6;
-	border-style: solid;
-	padding: 5px;
-	height: 62px;
-}
-
 
 #mod-prof-main{
 	word-wrap: break-word;
+}
+
+
+/* prof friends grim config */
+div#u-followers, div#u-followings {
+	padding: 9px;
+}
+
+div#u-followers > div, div#u-followings > div {
+	border-width: 1px;
+	border-color: #FFE8C5;
+	border-style: solid;
+	padding: 5px;
+	height: 50px;
+	float: left;
+}
+
+div.grid-item {
+	width: 161px;
+}
+
+div.grid-item:not(:nth-child(3n+1)) {
+	margin-left: 9px;
+}
+
+div.grid-item a {
+	color: #4B3025;
+}
+
+a#load_conversation {
+	color: #FFE8C5
 }

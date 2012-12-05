@@ -186,6 +186,21 @@
             <span id="mod-author-name">{{ object.author.username }}</span>
           </a>
           {% include 'actstream/follow_btn.html'%}
+          <div class="upload-date" style="font-size: 14px;margin-top: 5px;color: white;">
+            <i class="icon-calendar"></i> This recipe is created on {{object.date}}
+          </div>
+        </div>
+        <div class="mod-belong well well-small">
+          <div class="mod-recipe-title">
+            The recipe belongs to
+          </div>
+          <ul class="belong-list" style="list-style-type: none;">
+            {% for c in object.category.all %}
+            <li><a href="{{c.get_absolute_url}}" style="text-decoration: none; color:fireBrick;">{{c.name}}</a></li>
+            {% empty %}
+            "The recipe belongs to no categories right now."
+            {% endfor %}
+          </ul>
         </div>
         <div class="mod-vote well well-small">
           <div class="mod-recipe-title">

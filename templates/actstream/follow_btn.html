@@ -3,7 +3,7 @@
 <span class="mod-user-follow">
 	
 	<a href="{% follow_url profile.user %}" id="followhref">
-		<button id="follow_btn" class="btn">{% if user|is_following:profile.user %}UnFollow{% else %}Follow{% endif %}</button>
+		<button id="follow_btn" class="btn">{% if user|is_following:profile.user %}Unfollow{% else %}Follow{% endif %}</button>
 	</a>
 </span>
 
@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
 		var url = jQuery(this).attr('href');
 		jQuery.get(url, function(data) {
 			if (jQuery('#follow_btn').html() == 'Follow'){
-				jQuery('#follow_btn').html('UnFollow');
+				jQuery('#follow_btn').html('Unfollow');
 				jQuery('#followhref').attr('href', "{% url actstream_unfollow 3 profile.user.id %}")
 			}
 			else{

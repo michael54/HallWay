@@ -70,7 +70,7 @@ div.mod-recipe-stat .mod-recipe-count {
 div.mod-recipe-stat .mod-recipe-count span {
 	font-size: 14px;
 	font-weight: bold;
-	color: rgb(169, 169, 169);
+	color: white;
 }
 
 div.mod-recipe-stat .mod-recipe-like {
@@ -101,7 +101,7 @@ div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likedbtn {
 div.mod-recipe-ratings, div.mod-recipe-ratings > div {
 	display: inline;
 	font-size: 14px;
-	color: rgb(169, 169, 169);
+	color: white;
 	height: 40px;
 	line-height: 40px;
 }
@@ -151,9 +151,14 @@ div.mod-recipe-share span.mod-recipe-upload > a {
 
 p.mod-recipe-brief-content, p.mod-recipe-tip-content, p.empty-note, 
 ul.ingredient-list, div.mod-recipe-steps ol, div.i-title {
-	color: #e3cb9f;
+	color: white;
 	font-size: 16px;
 	text-align: justify;
+}
+
+ul.ingredient-list a {
+	color: fireBrick;
+	text-decoration: none;
 }
 
 div.i-title {

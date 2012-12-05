@@ -17,20 +17,17 @@
 {% block content %}
 <div id="mod-container" class="well">
 	<div class="row-fluid container">
-		<div id="mod-prof-main" class="span2" style="width:150px;">
-			<div class="mod-prof-username-h2" style="display:none">
-				<h2>The Kitchen of {{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>
-			</div>
-			<div class="follow_btn">
-				{% include 'actstream/follow_btn.html'%}
+		<div id="mod-prof-main" class="span2" style="width:150px; overflow: visible;">
+			<div class="mod-prof-username-h2">
+				<h2>Kitchen of </h2><span>{{ profile.user.username }}</span>
+				<img src="{% static "img/tag.png" %}" />
 			</div>
 			<div class="mod-prof-main-img">
-				<img class="mugshot" style="height: 100px;width: 100px;" src="{{ profile.get_mugshot_url }}" alt="{% trans "Mugshot" %}" />
+				<img class="mugshot well well-small" style="height: 100px;width: 100px;" src="{{ profile.get_mugshot_url }}" alt="{% trans "Mugshot" %}" />
 				{% ifequal user.get_profile profile%}
 				<form id="mugshot_form" method="POST" enctype="multipart/form-data" action="{% url 'userena_profile_edit' profile.user.username %}">
 					{% csrf_token %}
-					<label for="id_mugshot">Change Mugshot:</label>
-					<input type="file" name="mugshot" id="id_mugshot">
+					<input type="file" name="mugshot" id="id_mugshot" style="width: 92px; overflow: hidden;" />
 				</form>
 				{% endifequal %}
 			</div>
@@ -47,6 +44,9 @@
 						{% endif %}
 					</dl>
 				</div>
+			</div>
+			<div class="follow-div">
+				{% include 'actstream/follow_btn.html'%}
 			</div>
 		</div>
 
@@ -124,72 +124,78 @@
 				{% block profile_details %}
 				<dl>
 					{% block profile_definition_list %}
-					{% if profile.user.first_name or profile.user.id == user.id %}
-					<div class="prof-div">
-						<dt>{% trans "First Name" %}</dt>
-						<div class="prof-form input-append">
-							<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
-								<input readonly class="profile_input special_input" type="text" name="first_name" value="{{ profile.user.first_name }}" />
-								<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
-							</form>
+					<div class="row-fluid">
+						{% if profile.user.first_name or profile.user.id == user.id %}
+						<div class="prof-div span5">
+							<dt>{% trans "First Name" %}</dt>
+							<div class="prof-form input-append">
+								<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
+									<input readonly class="profile_input special_input" type="text" name="first_name" value="{{ profile.user.first_name }}" />
+									<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
+								</form>
+							</div>
 						</div>
+						{% endif %}
+						{% if profile.user.last_name or profile.user.id == user.id  %}
+						<div class="prof-div span4">
+							<dt>{% trans "Last Name" %}</dt>
+							<div class="prof-form input-append">
+								<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
+									<input readonly class="profile_input special_input"  type="text" name="last_name" value="{{ profile.user.last_name }}" />
+									<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
+								</form>
+							</div>
+						</div>
+						{% endif %}
 					</div>
-					{% endif %}
-					{% if profile.user.last_name or profile.user.id == user.id  %}
-					<div class="prof-div">
-					<dt>{% trans "Last Name" %}</dt>
-					<div class="prof-form input-append">
-						<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
-							<input readonly class="profile_input special_input"  type="text" name="last_name" value="{{ profile.user.last_name }}" />
-							<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
-						</form>
-					</div>
-				</div>
-					{% endif %}
-					{% if profile.user.email and not hide_email or profile.user.id == user.id  %}
-					<div>
-					<dt>{% trans "Email" %}</dt>
+					<div class="row-fluid">
+						{% if profile.user.email and not hide_email or profile.user.id == user.id  %}
+						<div class="prof-div span5">
+							<dt>{% trans "Email" %}</dt>
 
-					<div class="prof-form">
-						<form action="" method="POST">
-							<input readonly="readonly" class="profile_input" type="text" name="email" value="{{ profile.user.email }}" />
-						</form>
+							<div class="prof-form">
+								<form action="" method="POST">
+									<input readonly="readonly" class="profile_input" type="text" name="email" value="{{ profile.user.email }}" />
+								</form>
+							</div>
+						</div>
+						{% endif %}
+						{% if profile.age or profile.user.id == user.id  %}
+						<div class="prof-div span4">
+							<dt>{% trans "Age" %}</dt>
+							<div class="prof-form input-append">
+								<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
+									<input readonly class="profile_input special_input" type="text" name="age" value="{{ profile.age }}" />
+									<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
+								</form>
+							</div>
+						</div>
+						{% endif %}
 					</div>
-				</div>
-					{% endif %}
-					{% if profile.age or profile.user.id == user.id  %}
-					<div class="prof-div">
-					<dt>{% trans "Age" %}</dt>
-					<div class="prof-form input-append">
-						<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
-							<input readonly class="profile_input special_input" type="text" name="age" value="{{ profile.age }}" />
-							<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
-						</form>
+					<div class="row-fluid">
+						{% if profile.website or profile.user.id == user.id  %}
+						<div class="prof-div span5">
+							<dt>{% trans "Website" %}</dt>
+							<div class="prof-form input-append">
+								<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
+									<input readonly class="profile_input special_input"  type="text" name="website" value="{{ profile.website }}" />
+									<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
+								</form>
+							</div>
+						</div>
+						{% endif %}
+						{% if profile.location or profile.user.id == user.id  %}
+						<div class="prof-div span4">
+							<dt>{% trans "Location" %}</dt>
+							<div class="prof-form input-append">
+								<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
+									<input readonly class="profile_input special_input"  type="text" name="location" value="{{ profile.location }}" />
+									<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
+								</form>
+							</div>
+						</div>
+						{% endif %}
 					</div>
-				</div>
-					{% endif %}
-					{% if profile.website or profile.user.id == user.id  %}
-					<div class="prof-div">
-					<dt>{% trans "Website" %}</dt>
-					<div class="prof-form input-append">
-						<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
-							<input readonly class="profile_input special_input"  type="text" name="website" value="{{ profile.website }}" />
-							<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
-						</form>
-					</div>
-				</div>
-					{% endif %}
-					{% if profile.location or profile.user.id == user.id  %}
-					<div class="prof-div">
-					<dt>{% trans "Location" %}</dt>
-					<div class="prof-form input-append">
-						<form class="prof_edit" action="{% url 'userena_profile_edit' profile.user.username %}" method="POST">
-							<input readonly class="profile_input special_input"  type="text" name="location" value="{{ profile.location }}" />
-							<button class="prof_smt_btn btn" rel="popover" type="submit">Submit</button>
-						</form>
-					</div>
-				</div>
-					{% endif %}
 					{% if profile.about_me or profile.user.id == user.id  %}
 					<div class="prof-div">
 					<dt>{% trans "About me" %}</dt>
@@ -204,29 +210,29 @@
 					{% endblock %}
 				</dl>
 				{% endblock %}
-				<div>
+				<div class="change-pass">
 					<a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a>
 				</div>
 			</div>
 			<div class="tab-pane" id="friends">
-				<div class="well well-small tabbable tabs-right">
+				<div class="tabbable tabs-right">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#u-followers" data-toggle="tab">Followers</a></li>
 						<li><a href="#u-followings" data-toggle="tab">Followees</a></li>
 					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active row-fluid" id="u-followers">
+					<div class="well well-small tab-content">
+						<div class="tab-pane active" id="u-followers">
 							{% for f in followers %}
-								<div class="span4 row-fluid">
-									<a href="{{f.get_absolute_url}}" class="span4"><img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" /></a>
+								<div class="grid-item row-fluid">
+									<a href="{{f.get_absolute_url}}" class="span4"><img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" style="width:50px;height:50px;" /></a>
 									<a href="{{f.get_absolute_url}}" class="span8">{{f.username}}</a>
 								</div>
 							{% endfor %}
 						</div>
 						<div class="tab-pane" id="u-followings">
 							{% for f in followings %}
-								<div class="span4">
-									<a href="{{f.get_absolute_url}}" class="span4"><img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" /></a>
+								<div class="grid-item row-fluid">
+									<a href="{{f.get_absolute_url}}" class="span4"><img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" style="width:50px;height:50px;" /></a>
 									<a href="{{f.get_absolute_url}}" class="span8">{{f.username}}</a>
 								</div>
 							{% endfor %}
@@ -251,7 +257,7 @@
 							{% endfor %}
 						</ul>
 					</div>
-					<a id="load_converstion" href="?page=1">See a full list of messages ...</a>
+					<a id="load_conversation" href="?page=1">See a full list of messages ...</a>
 				</div>
 			</div>
 		</div>
@@ -368,6 +374,21 @@ $(document).ready(function() {
 	  console.log(objPath);
     $(objPath).tab('show');
   }
+
+  // config position
+  $('div.mod-prof-username-h2').css('width', $('div.mod-prof-username-h2 h2').width() + $('div.mod-prof-username-h2 span').width()+20);
+  // console.log($('div.mod-prof-username-h2').position().top);
+  $('div.mod-prof-main-img form').css('top', $('div.mod-prof-main-img img').position().top+50);
+  $('div.mod-prof-main-img form').css('left', $('div.mod-prof-main-img img').position().left+14);
+
+  // show change mugshot button
+  $('div.mod-prof-main-img').hover(function () {
+  	$('div.mod-prof-main-img form').stop().show();
+  	console.log('over');
+  }, function() {
+  	$('div.mod-prof-main-img form').stop().hide();
+  	console.log('out');
+  });
 });
 </script>
 {% endblock js%}
