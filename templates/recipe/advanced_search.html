@@ -9,6 +9,7 @@ Advanced Search
 {% block content %}
 <form id="search_form" method="POST" action="">
 	{% csrf_token %}
+	{{extra_form.as_table}}
 	<table border="0" cellpadding="0" cellspacing="0">
 		<tbody>
 			{% for form in formset.forms %}

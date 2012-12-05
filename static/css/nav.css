@@ -255,7 +255,7 @@ a.scroll-up {
 	background-color: rgba(0, 0, 0, 0.4);
     position:fixed;
     bottom:100px;
-    right:100px;
+    right:50px;
     font-size: 30px;
     text-decoration: none;
     color: black;
@@ -268,7 +268,7 @@ a.scroll-down {
 	background-color: rgba(0, 0, 0, 0.4);
     position:fixed;
     bottom:40px;
-    right:100px;
+    right:50px;
     font-size: 30px;
     text-decoration: none;
     color: black;

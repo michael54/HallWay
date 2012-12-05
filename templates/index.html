@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block title %}
-HallWay
+Welcome
 {% endblock %}
 
 {% block navbar %}
@@ -82,7 +82,7 @@ HallWay
     </li>
     <li class="show-item" id="sources">
       <a href="#">
-        <div class="show-img upper" style="background-position: -1150px;"></div>
+        <div class="show-img upper" style="background-position: -1450px;"></div>
         <div class="show-caption">Sources</div>
       </a>
     </li>
@@ -94,7 +94,7 @@ HallWay
     </li>
     <li class="show-item hot" id="hot">
       <a href="{% url 'hot_recipes' %}">
-        <div class="show-img upper"></div>
+        <div class="show-img upper" style="background-position: -1150px;"></div>
         <div class="show-caption">Hot!</div>
       </a>
     </li>
@@ -174,6 +174,27 @@ HallWay
   <script type="text/javascript">
   var j = jQuery.noConflict();
   j(document).ready(function(){
+    j('#courses').find('a').tooltip({
+      title: 'Browse Recipes by Courses',
+      placement: 'top',
+    });
+    j('#cuisines').find('a').tooltip({
+      title: 'Browse Recipes by Cuisines',
+      placement: 'top',
+    });
+    j('#sources').find('a').tooltip({
+      title: 'Browse Recipes by Main Ingredient',
+      placement: 'top',
+    });
+    j('#diets').find('a').tooltip({
+      title: 'Browse Special Diets Recipe',
+      placement: 'top',
+    });
+    j('#hot').find('a').tooltip({
+      title: 'Browse Our Most Populart Recipes',
+      placement: 'top',
+    });
+
     // initialize slider
     j('#bg-show').bgStretcher({
       images: ['/media/Index_Images/bg-img1.jpg', '/media/Index_Images/bg-img2.jpg',

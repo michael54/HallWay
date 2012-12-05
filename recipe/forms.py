@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from recipe.models import Recipe, Step, Vote, DidRecipe
+from recipe.models import Recipe, Step, Vote, DidRecipe, RecipeCategory
 from django.forms.models import inlineformset_factory
 from django import forms
 from django.conf import settings
@@ -42,5 +42,25 @@ class AmountForm(forms.Form):
 class SearchForm(forms.Form):
 	ingredient = forms.CharField(min_length = 1)
 
+
+MIN_RATING_CHOICES=(
+	('0', '0'),
+	('1', '1'),
+	('2', '2'),
+	('3', '3'),
+	('4', '4'),
+	('5', '5'),
+)
+COURSES_CHOICES =[('0', 'None'),] + [ (obj.id, obj.name) for obj in list(RecipeCategory.objects.filter(parent__name='Courses').only('name'))]
+CUISINES_CHOICES =[('0', 'None'),] + [ (obj.id, obj.name) for obj in list(RecipeCategory.objects.filter(parent__name='Cuisines').only('name'))]
+INGREDIENTS_CHOICES =[('0', 'None'),] + [ (obj.id, obj.name) for obj in list(RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'))]
+DIETS_CHOICES =[('0', 'None'),] + [ (obj.id, obj.name) for obj in list(RecipeCategory.objects.filter(parent__name='Special Diets').only('name'))]
+
+class SearchFormExtra(forms.Form):
+	courses = forms.ChoiceField(choices=COURSES_CHOICES)
+	cuisines = forms.ChoiceField(choices=CUISINES_CHOICES)
+	main_ingredients = forms.ChoiceField(choices=INGREDIENTS_CHOICES)
+	special_diets = forms.ChoiceField(choices=DIETS_CHOICES)
+	min_rating = forms.ChoiceField(choices=MIN_RATING_CHOICES)
 
 
