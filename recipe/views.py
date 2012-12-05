@@ -79,6 +79,13 @@ class RecipeDetailView(DetailView):
 class DidRecipeDetailView(DetailView):
 	model = DidRecipe
 
+	def get_context_data(self, **kwargs):
+		context = super(DidRecipeDetailView, self).get_context_data(**kwargs)
+		context['profile'] = MyProfile.objects.only('mugshot').get(user = context['object'].user)
+
+		return context
+
+
 class RecipeCategoryListView(ListView):
 	context_object_name = "recipe_list"
 	paginate_by = 10

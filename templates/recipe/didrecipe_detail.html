@@ -1,5 +1,124 @@
-{% extends 'nav.html' %}
+<!-- recipe_detail.html -->
+<!-- from recipe.views.RecipeDetailView -->
+{% extends "nav.html" %}
+
+{% load static from staticfiles %}
+{% load url from future %}
+{% load activity_tags %}
+{% load comments%}
+
+{% load thumbnail %}
+
+{% block csslink %}
+{{ block.super }}
+<link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block title %}
+{{ object.name }}_{{ object.author }}
+{% endblock %}
 
 {% block content %}
-	{{object}}
-{% endblock content %}
+<div id="mod-container">
+	<div class="row-fluid container-fluid">
+		<h1 class="mod-page-title span11" itemprop="dish-name">{{profile.user.username}}'s work of {{ object.recipe.name }}
+		</h1>
+		<div class="row-fluid">
+			<section class="mod-main span7 well well-small">
+				<div id="recipe_img_div" class="mod-recipe-img">
+					{% if object.image %}
+					<img id="recipe_img" src="{{ object.image.url }}" alt="" />
+					{% else %}
+					<img id="recipe_img" src="/media/no_image_available.jpg" alt="" />
+					{% endif %}
+				</div>
+				<div>
+					{{object.comment}}
+				</div>
+				<div>
+					{{object.date}}
+				</div>
+			</section>
+			<aside class="mod-side span4">
+				<div class="mod-author well well-small">
+					<img src="{{profile.mugshot|thumbnail_url:'avatar'}}" class="avatar-img" />
+					<a href="{{ object.user.get_absolute_url }}">
+						<span id="mod-author-name">{{ object.user.username }}</span>
+					</a>
+					{% include 'actstream/follow_btn.html'%}
+					<div class="upload-date" style="font-size: 14px;margin-top: 5px;color: white;">
+						<i class="icon-calendar"></i> This recipe is created on {{object.date}}
+					</div>
+				</div>
+				<div class="mod-discussion well well-small">
+					<span>
+						Discussion Board
+					</span>
+					{% if user.is_authenticated %}
+					{% get_comment_form for object as form %}
+					<form style="min-height: 110px;" id="comment_form" action="{% url 'ajaxcommentpost'%}" method="POST">
+						{% csrf_token %}
+						{{ form.comment }}
+						<div style="display:none">{{ form.honeypot }}</div>
+						{{ form.content_type }}
+						{{ form.object_pk }}
+						{{ form.timestamp }}
+						{{ form.security_hash }}
+						<button type="submit" class="btn btn-success" id="id_comment_submit">Post</button>
+					</form>
+					{% else %}
+					<p>Please <a href="{% url 'userena_signin' %}?next={{object.get_absolute_url}}">log in</a> to leave a comment.</p>
+					{% endif %}
+					<div id="discussion_list">
+					{% get_comment_list for object as comment_list%}
+					{% for comment in comment_list|slice:"-5:" reversed%}
+					<div>
+						<img src="{{comment.user.get_profile.mugshot|thumbnail_url:'avatar'}}" />
+						<a href="{{comment.user.get_absolute_url}}">{{comment.user}}</a>:
+						{{comment.comment}}
+						{{comment.submit_date|timesince}} ago
+					</div>
+
+					{% endfor %}
+					</div>
+				</div>
+			</aside>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#id_comment_submit').popover({
+		trigger: 'manual',
+		title: 'Success',
+		content: 'Your message is posted on the discussion board.',
+		placement: 'top',
+	});
+
+	$('#comment_form').submit(function(event) {
+		event.preventDefault();
+		var postdata = {
+			'comment' : $('#id_comment').val(),
+			'content_type' : $('#id_content_type').val(),
+			'object_pk' : $('#id_object_pk').val(),
+			'timestamp' : $('#id_timestamp').val(),
+			'security_hash' : $('#id_security_hash').val(),
+			'honeypot' : $('#id_honeypot').val(),
+			'csrfmiddlewaretoken': '{{ csrf_token }}',
+		}
+
+		$.post($(this).attr('action'), postdata, function(data) {
+				$('#id_comment_submit').popover('show');
+				setTimeout(function() {
+					$('#id_comment_submit').popover('hide');
+				}, 1200);
+				$(data).hide().prependTo('#discussion_list').show('slow');
+				$('#id_comment').val('');
+		});
+	});
+});
+</script>
+{% endblock %}
