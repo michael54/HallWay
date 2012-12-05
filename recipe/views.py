@@ -48,7 +48,8 @@ def index(request):
 class RecipeDetailView(DetailView):
 
 	def get_object(self):
-		object = Recipe.objects.select_related().get(id=self.kwargs.get('pk',None))
+
+		object = get_object_or_404(Recipe.objects.select_related(), pk=self.kwargs.get('pk',None))
 
 		add_view_num.delay(object)
 
@@ -183,7 +184,7 @@ def recipe_create(request):
 		step_formset = StepFormSet(request.POST, prefix='step')
 		if recipe_form.is_valid() and amount_formset.is_valid() and step_formset.is_valid():
 			r = recipe_form.save()
-			step = 0
+			step = 1
 			for form in step_formset:
 				des = ''
 				if 'description' in form.cleaned_data:
@@ -239,7 +240,7 @@ def recipe_edit(request, pk):
 			r = recipe_form.save()
 			
 			# Process step
-			step = 0
+			step = 1
 			for form in step_formset:
 				des = ''
 				if 'description' in form.cleaned_data:
@@ -296,6 +297,11 @@ def recipe_edit(request, pk):
 		'recipe_form': recipe_form,
 		'amount_formset': amount_formset,
 		'step_formset': step_formset,
+		'Courses': RecipeCategory.objects.filter(parent__name='Courses').only('name'),
+		'Cuisines': RecipeCategory.objects.filter(parent__name='Cuisines').only('name'),
+		'Main_Ingredients': RecipeCategory.objects.filter(parent__name='Main Ingredients').only('name'),
+		'Special_Diets': RecipeCategory.objects.filter(parent__name='Special Diets').only('name'),
+		'category_list': recipe.category.all().only('name'),
 		})
 
 @login_required

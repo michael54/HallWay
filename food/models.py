@@ -22,7 +22,7 @@ class FoodCategory(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		if self.id == 1:
-			return ''
+			return None
 		else:
 			return ('food_list', (), {'pk':self.id})
 
@@ -57,7 +57,7 @@ class Food(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		if self.category_id == 1:
-			return ''
+			return None
 		else:
 			return ('food_detail', (), {'pk': self.id})
 

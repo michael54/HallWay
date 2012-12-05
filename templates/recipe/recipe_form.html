@@ -11,6 +11,7 @@ Upload your Recipe
 
 {% block csslink %}
 {{block.super}}
+<link rel="stylesheet" type="text/css" href="{% static "css/timepicker.css" %}">
 <link href="{{ STATIC_URL }}ajaxuploader/css/fileuploader.css" media="screen" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{% static "css/recipe/recipe_form.css" %}"/>
 <link href='http://fonts.googleapis.com/css?family=Montserrat+Alternates:400,700' rel='stylesheet' type='text/css'>
@@ -21,69 +22,88 @@ Upload your Recipe
   {% csrf_token %}
 <fieldset>
   <legend>Create a recipe</legend>  
-  <table id="recipe_table" class="">
+  <table id="recipe_table" class="container span12">
     <thead style="display:none;">
       <th>Form Name</th>
       <th>Form Content</th>
     </thead>
     <tbody class="row-fluid">
-      <tr>
-        <td class="form-label span5">{{recipe_form.name.label}}</td>
-        <td class="offset1 span6">{{recipe_form.name}}</td>
+      <tr class="span12" style="margin-left:20px;">
+        <td class="form-label span2">{{recipe_form.name.label}}</td>
+        <td class="offset1 span8">{{recipe_form.name}}
+          <span class="help-inline">{% for error in recipe_form.name.errors %}{{ error|escape }}{% endfor %}
+          </span></td>
       </tr>
       {{recipe_form.author}}
       {{recipe_form.category}}
-      <tr>
-        <td class="form-label span5">Courses</td>
-        <td class="offset1 span6">
+      <tr class="span12">
+        <td class="form-label span2">Courses</td>
+        <td class="offset1 span8">
           <select class="seperated_select">
             <option>None</option>
             {% for c in Courses%}
+            {% if c in category_list %}
+            <option value="{{c.id}}" selected>{{c.name}}</option>
+            {% else %}
             <option value="{{c.id}}">{{c.name}}</option>
+            {% endif %}
             {% endfor %}
           </select>
         </td>
       </tr>
-      <tr>
-        <td class="form-label span5">Cuisine</td>
-        <td class="offset1 span6">
+      <tr class="span12">
+        <td class="form-label span2">Cuisine</td>
+        <td class="offset1 span8">
           <select class="seperated_select">
             <option>None</option>
             {% for c in Cuisines%}
+            {% if c in category_list %}
+            <option value="{{c.id}}" selected>{{c.name}}</option>
+            {% else %}
             <option value="{{c.id}}">{{c.name}}</option>
+            {% endif %}
             {% endfor %}
           </select>
         </td>
       </tr>
-      <tr>
-        <td class="form-label span5">Main Ingredient</td>
-        <td class="offset1 span6">
+      <tr class="span12">
+        <td class="form-label span2">Main Ingredient</td>
+        <td class="offset1 span8">
           <select class="seperated_select">
             <option>None</option>
             {% for c in Main_Ingredients%}
+            {% if c in category_list %}
+            <option value="{{c.id}}" selected>{{c.name}}</option>
+            {% else %}
             <option value="{{c.id}}">{{c.name}}</option>
+            {% endif %}
             {% endfor %}
           </select>
         </td>
       </tr>
-      <tr>
-        <td class="form-label span5">Special Diet</td>
-        <td class="offset1 span6">
+      <tr class="span12">
+        <td class="form-label span2">Special Diet</td>
+        <td class="offset1 span8">
           <select class="seperated_select">
             <option>None</option>
             {% for c in Special_Diets%}
+            {% if c in category_list %}
+            <option value="{{c.id}}" selected>{{c.name}}</option>
+            {% else %}
             <option value="{{c.id}}">{{c.name}}</option>
+            {% endif %}
             {% endfor %}
           </select>
         </td>
       </tr>
-      <tr>
-        <td class="form-label span5">{{recipe_form.brief.label}}</td>
-        <td class="offset1 span6">{{recipe_form.brief}}</td>
+      <tr class="span12">
+        <td class="form-label span2">{{recipe_form.brief.label}}</td>
+        <td class="offset1 span8">{{recipe_form.brief}}<span class="help-inline">{% for error in recipe_form.brief.errors %}{{ error|escape }}{% endfor %}
+          </span></td>
       </tr>
-      <tr>
-        <td class="form-label span5">Cover Image</td>
-        <td class="offset1 span6">
+      <tr class="span12">
+        <td class="form-label span2">Cover Image</td>
+        <td class="offset1 span8">
           <div id="cover_image_frame">
             <img id="cover_image_preview" />{{recipe_form.cover_image}}
             <div id="recipe_uploader"></div>
@@ -91,17 +111,34 @@ Upload your Recipe
           </div>
         </td>
       </tr>
-      <tr>
-        <td class="form-label span5">Notes</td>
-        <td class="offset1 span6">{{recipe_form.tips}}</td>
+      <tr class="span12">
+        <td class="form-label span2">Notes</td>
+        <td class="offset1 span8">{{recipe_form.tips}}<span class="help-inline">{% for error in recipe_form.tips.errors %}{{ error|escape }}{% endfor %}
+          </span></td>
       </tr>
-      <tr>
-        <td class="form-label span5">Preparation Time</td>
-        <td class="offset1 span6">{{recipe_form.prep_time}}</td>
-      </tr>
-      <tr>
-        <td class="form-label span5">Cook Time</td>
-        <td class="offset1 span6">{{recipe_form.cook_time}}</td>
+      <tr class="span12">
+        <td class="form-label span2">Preparation Time</td>
+        <td class="offset1 span8">
+          <div class="input-append bootstrap-timepicker-component">
+            <input type="text" class="timepicker-default input-small" name="prep_time" value="{{recipe_form.prep_time.value}}">
+            <span class="add-on">
+                <i class="icon-time"></i>
+            </span>
+          </div>
+          <span class="help-inline">{% for error in recipe_form.cook_time.errors %}{{ error|escape }}{% endfor %}
+          </span></td>
+      </tr class="span12">
+      <tr class="span12">
+        <td class="form-label span2">Cook Time</td>
+        <td class="offset1 span8">
+          <div class="input-append bootstrap-timepicker-component">
+            <input type="text" class="timepicker-default input-small" name="cook_time" value="{{recipe_form.cook_time.value}}">
+            <span class="add-on">
+                <i class="icon-time"></i>
+            </span>
+          </div>
+          <span class="help-inline">{% for error in recipe_form.cook_time.errors %}{{ error|escape }}{% endfor %}
+          </span></td>
       </tr>
     </tbody>
   </table>
@@ -164,6 +201,7 @@ Upload your Recipe
 
 {% block js %}
 <script type="text/javascript" src="{% static "js/jquery.formset.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/bootstrap-timepicker.js" %}"></script>
 
 <script src="{{ STATIC_URL }}ajaxuploader/js/fileuploader.js" ></script>  
 <script type="text/javascript" src="{% static "js/recipe/recipe_form.js" %}"></script>
@@ -202,6 +240,11 @@ $('body').on('click', '.step_image_delete', function(event) {
 });
 
 $(document).ready(function() {
+  $('.timepicker-default').timepicker({
+    minuteStep: 10,
+    defaultTime: '01:00',
+    showMeridian: false,
+  });
   $('#id_category').hide();
   $('.seperated_select').change(function (){
     bindSelet();
