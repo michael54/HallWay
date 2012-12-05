@@ -6,67 +6,144 @@ h2.parent-cat {
 	color: black;
 }
 
-div.accordion-inner ul {
+div.mod-food-nav > ul {
 	list-style-type: none;
+	margin-left: 0;
+	margin-bottom: 0;
 }
 
-div.accordion-inner ul > li > a {
-	font-family: Tahoma, Geneva, sans-serif, 'Microsoft Yahei';
-	font-size: 14px;
-	color: #130F0F;
+div.mod-food-nav > ul > li {
+	height: 34px;
+	width: 202px;
+	transition-property: font-weight box-shadow background-color;
+  -o-transition-property: font-weight box-shadow background-color;
+  -moz-transition-property: font-weight box-shadow background-color;
+  -webkit-transition-property: font-weight box-shadow background-color;
+  transition-duration:.15s;
+  -o-transition-duration:.15s;
+  -moz-transition-duration:.15s;
+  -webkit-transition-duration:.15s;
+  transition-timing-function:ease-in-out;
+  -o-transition-timing-function:linear;
+  -moz-transition-timing-function:linear;
+  -webkit-transition-timing-function:ease-in-out;
+  overflow: visible;
 }
 
-div.accordion-group {
-	border: 0;
+div.mod-food-nav > ul > li:not(:last-child) {
+	
 }
 
-div.accordion-group a {
+div.mod-food-nav > ul > li > a {
+	font-family: 'Kite One', sans-serif;
+	font-size: 16px;
+	line-height: 34px;
+	margin: 0;
+	color: black;
 	text-decoration: none;
 }
 
-#mod-container img.food-cover-img {
-	height: 160px;
-	width: 220px;
+div.mod-food-nav > ul > li:hover {
+	font-weight: bold;
+  box-shadow: 0px 0px 10px 1px black;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+div#mod-container #mod-food-detail-content .tab-content #rel-recipes > ul{
+	list-style-type: none;
+	margin: 0 10px 0 10px;
+}
+
+div#mod-container #mod-food-detail-content .tab-content #rel-recipes > ul > li{
+	height: 241px;
+	width: 190px;
+	padding: 10px;
+	margin: 0 0 10px 0;
+	float: left;
+}
+
+div#mod-container #mod-food-detail-content .tab-content #rel-recipes > ul > li > a{
+	text-decoration: none;
+}
+
+div#mod-container #mod-food-detail-content .tab-content #rel-recipes > ul > li:not(:nth-child(3n+1)) {
+	margin-left: 10px;
+}
+
+div.caption div.recipe-name {
+	color: #4B3025;
+	font-size: 14px;
+	line-height: 14px;
+	margin-top: 10px;
+}
+
+div.caption div.recipe-stat {
+	margin-top: 10px;
+}
+
+div.caption div.recipe-stat span, div.caption div.recipe-date {
+	color: #3E3E41;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+div#mod-container #content-nav {
+	margin-bottom: 15px;
+	border-bottom: 0;
+}
+
+div#mod-container #content-nav > li {
+	float: left;
+	background-color: transparent;
+}
+
+div#mod-container #content-nav > li > a {
+	border: 0;
+	color: #FFE8C5;
+	transition-property:font-size border-bottom;
+    -o-transition-property:font-size border-bottom;
+    -moz-transition-property:font-size border-bottom;
+    -webkit-transition-property:font-size border-bottom;
+    transition-duration:.15s;
+    -o-transition-duration:.15s;
+    -moz-transition-duration:.15s;
+    -webkit-transition-duration:.15s;
+    transition-timing-function:ease-in-out;
+    -o-transition-timing-function:linear;
+    -moz-transition-timing-function:linear;
+    -webkit-transition-timing-function:ease-in-out;
+	text-align: center;
+}
+
+div#mod-container #content-nav > li:not(.active) > a:hover {
+	font-size: 18px;
+	background-color: transparent;
+	border-bottom-color: #FFE8C5;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+}
+
+div#mod-container #content-nav > li.active > a {
+	background-color: transparent;
+	font-weight: bold;
+	font-size: 18px;
+	border-bottom-color: #FFE8C5;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+}
+
+div#mod-container #content-nav ul li a {
 	margin-left: auto;
 	margin-right: auto;
-	line-height: 140px;
 }
 
-#mod-container div.food-stat {
-	padding-left: 15px;
-	margin-bottom: 15px;
-	font-size: 14px;
+div.food-stat, div.brief-intro {
+	color: #FFE8C5;
 	font-weight: bold;
-	color: rgb(169, 169, 169);
 }
 
-#mod-container div.brief-intro {
-	display: inline;
-}
-
-#mod-container a.hide-show {
-	display: none;
-	text-decoration: none;
-	color: rgb(178, 34, 34);
-}
-
-#mod-container a.hide-show:link {
-	color: rgb(178, 34, 34);
-}
-
-#mod-container a.hide-show:hover {
-	color: rgb(0, 191, 255);
-}
-
-#mod-container a.hide-show:visited {
-	color: rgb(178, 34, 34);
-}
-
-#mod-container a.hide-show:active {
-	background: rgb(0, 191, 255);
-	color: white;
-}
-
-#mod-container div.brief-intro div, #mod-container div.brief-intro a {
-	margin-left: 15px;
+div.brief-intro p {
+	margin-left: 0;
+	margin-bottom: 0;
+	padding: 10px;
 }

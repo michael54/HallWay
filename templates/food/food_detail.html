@@ -11,6 +11,7 @@
 {% block csslink %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "css/food/food_detail.css" %}"/>
+<link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css' />
 {% endblock %}
 
 {% block title %}
@@ -23,7 +24,8 @@
 		<div class="mod-food-nav span3 well well-small">
 			<ul>
 				{% for cc in category_list %}
-				<li><a href="{{ cc.get_absolute_url }}">{{cc.name}}</a>
+				<li>
+					<a href="{{ cc.get_absolute_url }}">{{cc.name}}<i class="icon-caret-right"></i></a>
 				</li>
 				{% endfor %}
 			</ul>
@@ -32,18 +34,22 @@
 			<div class="row-fluid">
 				<div class="mod-food-detail-header">
 					<div class="header-left span3">
-				    <img class="food-cover-img" src="{{object.cover_image}}" alt="food cover image" />
+				    <img class="food-cover-img" src="{{object.cover_image|thumbnail_url:'normal'}}" alt="food cover image" />
 				  </div>
 				  <div class="header-right span9">
-				    <h1 class="food-name">{{object.name}}</h1>
+				    <h1 class="food-name" style="margin: 0;">{{object.name}}</h1>
 				    <div class="food-stat">
-					    <span class="rel-dish">## relative dishes.</span>
+					    <span class="rel-dish">{{recipe_list|length}} relative dishes.</span>
 					    <br />
 					    <span class="like-num">{{object.like_num}} liked this material.</span>
 					  </div>
 					  <div class="brief-intro">
-					    <div>{{object.brief}}</div>
-					    <a href="#" class="hide-show">Show more</a>
+					  	{% if object.brief %}
+						    <div>{{object.brief}}</div>
+						    <a href="#" class="hide-show">Show more</a>
+					    {% else %}
+					    	<p>"Sorry, we don't have the description for this food. You can try it~ Hope we can see you tomorrow~ XD"</p>
+							{% endif %}
 					  </div>
 				  </div>
 			  </div>
@@ -62,13 +68,38 @@
 				</ul>
 
 				<div class="tab-content">
-					<div class="tab-pane active row-fluid" id="rel-recipes">
-						<ul class="thumbnails">
+					<!--div class="tab-pane active row-fluid" id="rel-recipes">
+						<ul class="">
 							{% for r in recipe_list %}
-							<li class="span4">
-								<a href="{{ r.get_absolute_url }}" class="thumbnail">
+							<li class="span4 well well-small">
+								<a href="{{ r.get_absolute_url }}" class="">
 									{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
 									<img class="cover-img" src="{{ r.cover_image|thumbnail_url:'normal' }}" alt="{% trans "cover image" %}" />
+									<div class="caption">
+										<div class="recipe-name">{{ r.name }}</div>
+										<div class="recipe-stat">
+											<span>{{ r.did_num }} did it.</span>
+											<span class="seperator">&nbsp;|&nbsp;</span>
+											<span>{{ r.like_num }} liked it.</span>
+											<span class="seperator">&nbsp;|&nbsp;</span>
+											<span>{{ r.view_num }} viewed it.</span>
+										</div>
+										<div class="recipe-date">
+											{{ r.date }}
+										</div>
+									</div>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</div-->
+					<div class="tab-pane active row-fluid" id="rel-recipes">
+						<ul class="">
+							{% for r in recipe_list %}
+							<li class="well well-small">
+								<a href="{{ r.get_absolute_url }}" class="">
+									{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
+									<img class="cover-img" style="height: 140px;width: 190px;" src="{{ r.cover_image|thumbnail_url:'recipe-prf' }}" alt="{% trans "cover image" %}" />
 									<div class="caption">
 										<div class="recipe-name">{{ r.name }}</div>
 										<div class="recipe-stat">

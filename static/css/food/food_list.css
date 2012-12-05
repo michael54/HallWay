@@ -1,0 +1,79 @@
+h1.mod-page-title {
+	font-family: 'Gorditas', cursive;
+}
+
+h2.parent-cat {
+	font-family: 'Kite One', sans-serif;
+	font-size: 18px;
+	line-height: 18px;
+	margin: 0;
+	color: black;
+}
+
+.hidden-field {
+	display: none;
+}
+
+div.mod-list-nav > ul {
+	list-style-type: none;
+	margin-left: 0;
+	margin-bottom: 0;
+}
+
+div.mod-list-nav > ul > li {
+	height: 34px;
+	width: 202px;
+	transition-property: font-weight box-shadow;
+  -o-transition-property: font-weight box-shadow;
+  -moz-transition-property: font-weight box-shadow;
+  -webkit-transition-property: font-weight box-shadow;
+  transition-duration:.15s;
+  -o-transition-duration:.15s;
+  -moz-transition-duration:.15s;
+  -webkit-transition-duration:.15s;
+  transition-timing-function:ease-in-out;
+  -o-transition-timing-function:linear;
+  -moz-transition-timing-function:linear;
+  -webkit-transition-timing-function:ease-in-out;
+  overflow: visible;
+}
+
+div.mod-list-nav > ul > li:not(:last-child) {
+	
+}
+
+div.mod-list-nav > ul > li > a {
+	font-family: 'Kite One', sans-serif;
+	font-size: 16px;
+	line-height: 34px;
+	margin: 0;
+	color: black;
+	text-decoration: none;
+}
+
+div.mod-list-nav > ul > li:hover {
+	font-weight: bold;
+  box-shadow: 0px 0px 10px 1px black;
+}
+
+div.recipe.list {
+	width: 665px;
+	padding: 5px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-top-color: #D3C0A8;
+}
+
+div.recipe-txt h3 {
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-size: 25px;
+	line-height: 25px;
+}
+
+div.recipe-txt h3 > a {
+	text-decoration: none;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: #EE492A;
+	font-weight: bold;
+}
