@@ -192,7 +192,13 @@
             {% for did in did_recipe_list %}
               <li class="did-show-item">
                 <a href="{{did.get_absolute_url}}">
-                  <div class="did-show-img"><img src="{{did.image.url}}" /></div>
+                  <div class="did-show-img">
+                    {% if did.image %}
+                      <img src="{{did.image.url}}" />
+                    {% else %}
+                      <img src="/media/no_image_available.jpg" />
+                    {% endif %}
+                  </div>
                   <div class="did-show-caption">{{did.user.username}}<br />{{did.date}}</div>
                 </a>
               </li>
