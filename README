@@ -1,42 +1,86 @@
-PROJECT For CMPT 470
-Group ido
+CMPT 470 Final Project
+Group 14 - ido
+Group Members:
+Te Bu
+Haowei Zhang
+Yu Yu
 
+Development Environment:
 
-INSTALLATION:
-Checkout project folder in your computer
+Python 2.7.3
+Django 1.4.2
+jQuery 1.8.2
+Bootstrap 2.2.1
+Group Work Distribution:
 
-IMPORTANT: DEPENDENCIES
-Install django-ajaxuploader from my github https://github.com/michael54/django-ajax-uploader
+Yu Yu: Back-End Developer
+Haowei Zhang: Front-End Developer
+Te Bu: Tester
 
-Read http://www.sandersnewmedia.com/why/2012/04/16/installing-pil-virtualenv-ubuntu-1204-precise-pangolin/ to install PIL
+Technology Features:
 
-Read http://south.readthedocs.org/en/latest/installation.html to install South
+1. Use of AJAX for editing profile, uploading recipe images, comment posting and more.
+2. Use of RabbitMQ and Celery as asynchronous message queue to do some work that is necessary but doesn’t require immediate execution and speed up the response time. Also the message queue is used to calculate recipe trending.
+3. Use of recommendation system, which is simply implemented in Python. We are planning to make our recommendation system more powerfully to recommend items based on user’s location, age, etc.
+4. One of this project’s highlight features is that we put much emphasis on the UI design to try our best to provide a web application more mature, delicate, user-friendly with appropriate technologies. We believe that to be a good product, user experience is of great importance. You may find our designs while you go through our project.
+5. Advanced Search. With advanced search, you can narrow down your searching results by different requirements like main ingredients, categories, ratings, etc. and the system will only provide the dishes that meet your favour.
 
-Read https://github.com/jdriscoll/django-imagekit to install django-imagekit
+Website Guidance:
 
-Read http://docs.django-userena.org/en/latest/installation.html#required-settings to install django-userena
+welcome to our website HALLWAY! This is a world of yummy foods and also a hallway to a enjoyable life. create your own kitchen and have fun with your friends! enjoy your journey here!
+Starting from the homepage, you can browse various dishes in three ways:
+1. Browse by categories. click the icon “courses” or “cuisines” or whatever, you’ll see the sub-categories belonging to it. and one of the them and go to the recipes page.
+2. Don’t know what to eat? no worry! a quick click on the “hot” icon on the homepage and you’ll see a whole bunch of hottest recipes. hover your mouse on the recipe pics, you’ll see a brief introduction.
+3. Already got ideas in mind? just type it into our search bar on the homepage. for example, type in chicken and you’ll see some recipes related to chicken displayed above the bar.
+jumping to a recipe page, let’s see what’s it about?
+1. the middle column is about the dish. the cover photo, ingredients, instructions, chief’s note and photos for each step are all displayed here. oh, you think the step photos are too tiny to see? no problem, just click it and view the enlarged photos with instructions. you don’t the ingredients needed? just click the shopping cart icon beside the ingredient and you can purchase online.
+2. the right column  is for other information about the dish. here you can see the uploader of the dish, the rating history and even quickly leave your comments on the discussion board! we also recommend some dishes to you in the “people also like” section and it’s periodically computed according to the preference of other users.  anytime you want to return to the top of the page, just click on the up arrow at the right corner.
+3. wanna share this wonderful dish with your friends? there’s a row of icons right below the cover page of the dish. facebook? twitter? email? no problem! want to upload your own recipe for this same dish or leave a rating and comments? you need to log in first! I’ll introduce in the following parts.
+Once arrived at a recipe page. you can see a navigation bar on the top of the page. hover you mouse on the different icons to see what they are all about. from left to right, they are home, recipe, advanced search, news center and my profile. some functions require login first.
 
-Read https://django-grappelli.readthedocs.org/en/2.4.2/quickstart.html#installation to install django-grappelli
+About advanced search:
 
-Install 'django-autofixture' 'django-celery' ‘django-debug-tool'
+with advanced search, you can narrow down your searching results by different requirements like main ingredients, categories,ratings, etc. and the system will only provide the dishes that meet your favour.
+In order to have more interaction and fun with other users, why not create your own profile in our website? I’m sorry to tell you so late, but actually you can register as soon as you come to our homepage. to register,
+1. see the green person icon on the right of the homepage? hover your mouse on it and click “sign up” and you’ll be redirected to the sign up page.
+2. enter your user name, email address and password, click on “Create My Account” and a confirmation email will be sent to the email address you provide.
+3. click the activation link in your mailbox and you are now logged in!
+Once registered and logged in, you can enjoy more fun!
+1. leave rating or upload you own recipe a dish on its page. click “like” to show your fondness.
+2. upload new recipes in the add recipe page.(go to the navigation bar to find it)
+3. edit your own profile in “my profile”. you can also view the recipes you uploaded, the recipes you like in this part.
+4. “follow” other users. by clicking “follow”, you become a follower of other users. and you can see them under “friends” tag in your profile center. and the recent activities of the people you follow will be displayed in your news center.(the purple icon in the navigation bar)
+5. you can also leave a message to your friend by going to their profile page and click “message”. every time you receive new messages, a red number will appear on the purple icon to inform you of the coming messages.
+Hmmm....I guess that’s all about it, do you have any questions? Oh note, the “add to shopping list” function is not mature yet. Our idea of it is to provide the users a convenient way to collect the ingredients all at once, and all we need is some reliable e-commerce sites’ API.
+I hope you’ve had a pleasant experience in our website. next I’ll introduce the technology hidden behind the scene:
 
-Please use 'python manage.py runserver' to test if it works well
+Known Bugs:
 
+1. User can’t change email address.
+2. This is somewhere inappropriate. When user delete recipe, we did not provide a confirmation step.
+3. Some UI designs did not meet our expectations.
 
+Django Plugins:
 
-ADMIN:
-username: ido
-password: 654321
+django-ajaxuploader from https://github.com/GoodCloud/django-ajax-uploader for ajax recipe images uploading. We hacked  the back-end interface for easy-thumbnails to adopt our project. Our hacked version is in https://github.com/michael54/django-ajax-uploader.
+django-imagekit from https://github.com/jdriscoll/django-imagekit to auto adjust uploaded images.
+django-userena from http://www.django-userena.org/ for user management part. Hacked to provide public as well as private message communication between users. Our hacked version is in https://github.com/michael54/django-userena.
+django-grappelli from https://github.com/sehmaschine/django-grappelli for administration site.
+django-celery from http://pypi.python.org/pypi/django-celery with rabbitmq from http://www.rabbitmq.com/ as our asynchronous message queue
+django-activity-stream from https://github.com/justquick/django-activity-stream for news feed. We also hacked part of it for our project.
+easy-thumbnails from https://github.com/SmileyChris/easy-thumbnails to provide image thumbnails.
+django-guardian from https://github.com/lukaszb/django-guardian for safety.
+jQuery Plugins:
 
+jQuery Raty from http://www.wbotelhos.com/raty/ for display star rating.
+jQuery Lazy Loading from http://www.appelsiini.net/projects/lazyload to speed up page loading.
+bgStretcher from http://www.ajaxblender.com/bgstretcher-jquery-stretch-background-plugin.html for homepage background image display.
+Elastislide from http://tympanus.net/codrops/2011/09/12/elastislide-responsive-carousel/ for search result bar.
+django-dynamic-formset from http://code.google.com/p/django-dynamic-formset/.
+jQuery Masonry from http://masonry.desandro.com/ for hot recipe view.
+jQuery Tinyscorllbar from http://baijs.nl/tinyscrollbar/
+Bootstrap Timepicker from https://github.com/jdewit/bootstrap-timepicker to pick preparation time and cook time.
+Font Awsome from http://fortawesome.github.com/Font-Awesome/ for all icons.
+Acknowledgement:
 
-FILE DESCRIPTION:
-templates folder is for HTML files
-static folder is for CSS, JS, image files
-media folder is for media files (uploaded files)
-database folder is for sqlite database file
-chief folder contains settings and url files for the whole project
-recipe folder contains the first app, recipe, dealing with recipe
-ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
-
-COMMANDS:
-python manage.py celeryd -B -E -v 2 -l INFO
+All test recipes and photos are taken from “Kayotic Kitchen”, http://www.kayotic.nl/blog/
