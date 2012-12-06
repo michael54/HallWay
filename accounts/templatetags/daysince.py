@@ -13,10 +13,7 @@ def dayssince(value):
         return u'in-this-week'
     elif diff.days == 1:
         return u'yesterday'
-    elif diff.days == 0:
-        return u'today'
     else:
-        # Date is in the future; return formatted date.
-        return value.strftime("%B %d, %Y")
-
+        return u'today'
+    
 register.filter('dayssince', dayssince)

@@ -417,6 +417,7 @@ div.logbar {
 
 div.logbar a {
 	text-decoration: none;
+	color: white !important;
 }
 
 div.logbar-content {
@@ -446,4 +447,5 @@ div.logbar-sign a {
 	color:green;
 	width: 30px;
 	height: 100px;
+	font-size: 24px;
 }

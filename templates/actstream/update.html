@@ -106,24 +106,25 @@
 	<script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/yuSlider.js" %}"></script>
 	<script type="text/javascript">
-	function addTimeStamp () {
+	function addTimeStamp() {
 			// put date mark on the timeline
 			var $html = $('<span>Today</span>');
 			$('li.action-item > div.today').first().parent().prev().prev().addClass('first');
 			$('li.action-item > div.today').first().parent().prev().html($html);
 			$('li.action-item > div.today').first().parent().prev().show();
 			var $html = $('<span>Yesterday</span>');
+			// alert($('li.action-item > div.yesterday').html();
 			$('li.action-item > div.yesterday').first().parent().prev().prev().addClass('first');
 			$('li.action-item > div.yesterday').first().parent().prev().html($html);
 			$('li.action-item > div.yesterday').first().parent().prev().show();
-			var $html = $('<span>Before Yesterday</span>');
+			var $html = $('<span>In This Week</span>');
 			$('li.action-item > div.in-this-week').first().parent().prev().prev().addClass('first');
 			$('li.action-item > div.in-this-week').first().parent().prev().html($html);
 			$('li.action-item > div.in-this-week').first().parent().prev().show();
-			// var $html = $('<span>More than a week ago</span>');
-			// $('li.action-item > div.more-than-a-week-ago').first().parent().prev().prev().addClass('first');
-			// $('li.action-item > div.more-than-a-week-ago').first().parent().prev().html($html);
-			// $('li.action-item > div.more-than-a-week-ago').first().parent().prev().show();
+			var $html = $('<span>More than a week ago</span>');
+			$('li.action-item > div.more-than-a-week-ago').first().parent().prev().prev().addClass('first');
+			$('li.action-item > div.more-than-a-week-ago').first().parent().prev().html($html);
+			$('li.action-item > div.more-than-a-week-ago').first().parent().prev().show();
 			//------------------------------------------------------------------------------//
 			$('ul.action-list > li.first').css('margin-bottom', 20);
 		}

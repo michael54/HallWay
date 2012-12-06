@@ -27,6 +27,7 @@
 		}
 		$.get(url, postdata, function(data){
 			$('.pagination').replaceWith(data);
+			addTimeStamp();
 		})
 		return false;
 	});
