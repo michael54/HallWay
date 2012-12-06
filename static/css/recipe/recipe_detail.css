@@ -121,6 +121,10 @@ ul.belong-list a, ul.ingredient-list a, a.hide-show {
 	text-decoration: none;
 }
 
+a.hide-show{
+	display: none;
+}
+
 div.mod-recipe-share span.mod-recipe-upload {
 	height: 40px;
 }

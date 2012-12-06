@@ -31,26 +31,33 @@ jQuery(document).ready(function () {
     return false;
   });
 
-  // hide string content in brief content of the part more than length = 50
-  var $bContent = jQuery('div.rat-content div').text();
-  var bLength = $bContent.length;
-  if (bLength > 140) {
-    // $clicedRemaining = $bContent.slice(100);
-    $slicedContent = $bContent.slice(0, 140) + '...   ';
-    jQuery('div.rat-content div').text($slicedContent);
-    jQuery('a.hide-show').show();
-    // alert($bContent);
-  }
-  jQuery('a.hide-show').toggle(
-    function () {
-      $showContent = $bContent;
-      jQuery('div.rat-content div').text($showContent);
-      jQuery('a.hide-show').text('Hide');
-    }, function() {
+  jQuery('div.rat-content div').each(function (i) {
+    var $bContent = jQuery(this).text();
+    var t = jQuery(this);
+    var bLength = $bContent.length;
+    if (bLength > 100) {
+      // $clicedRemaining = $bContent.slice(100);
       $slicedContent = $bContent.slice(0, 140) + '...   ';
-      jQuery('div.rat-content div').html($slicedContent);
-      jQuery('a.hide-show').text('Show more');
-  });
+      jQuery(t).text($slicedContent);
+      jQuery(t).siblings('a.hide-show').show();
+      jQuery(t).siblings('a.hide-show').toggle(
+        function () {
+          $showContent = $bContent;
+          jQuery(t).text($showContent);
+          jQuery(this).text('Hide');
+          return false;
+        }, function() {
+          $slicedContent = $bContent.slice(0, 140) + '...   ';
+          jQuery(t).html($slicedContent);
+          jQuery(this).text('Show more');
+          return false;
+      });
+      // alert($bContent);
+    }
+  })
+  // hide string content in brief content of the part more than length = 50
+  
+  
 });
 
 /* the slide control function */ 
