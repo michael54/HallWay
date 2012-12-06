@@ -4,23 +4,9 @@
 
 {% block title %}Page not found{% endblock %}
 
-{% block css %}
-  #404-div{
-  	top:0px;
-  	left: 0px;
-  	position:fixed;
-  	width:100%;
-	}
-
-	#404-img{
-		width:100%;
-		height:100%;
-	}
-{% endblock %}
-
 {% block content %}
-<div id="404-div">
-<img id="404-img" src="{% static 'img/404.jpg' %}" />
+<div id="404-div" style="z-index=-1;position:fixed;top:0px;left: 0px;width:100%;">
+<img id="404-img" style="width:100%; height:100%;" src="{% static 'img/404.jpg' %}" />
 </div>
 {% endblock content%}
 
