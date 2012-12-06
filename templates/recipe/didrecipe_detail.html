@@ -22,7 +22,7 @@
 {% block content %}
 <div id="mod-container">
 	<div class="row-fluid container-fluid">
-		<h1 class="mod-page-title span11" itemprop="dish-name">{{ object.recipe.name }} ({{profile.user.username}})
+		<h1 class="mod-page-title span11" itemprop="dish-name"><a href="{{object.recipe.get_absolute_url}}" style="text-decoration: none; color: #EE9A2A;">{{ object.recipe.name }}</a>
 		</h1>
 		<div class="row-fluid">
 			<section class="mod-main span7 well well-small">
@@ -33,7 +33,7 @@
 					<img id="recipe_img" src="/media/no_image_available.jpg" alt="" />
 					{% endif %}
 				</div>
-				<div>
+				<div style="padding: 10px 10px 10px 0;">
 					{% if object.comment %}
 						<p class="mod-recipe-tip-content">"{{object.comment}}"</p>
 					{% else %}

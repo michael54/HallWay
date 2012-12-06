@@ -46,8 +46,9 @@
 				{% for f in following %}
 					<li class='display_user'>
 						<a href="{{f.get_absolute_url}}">
-						<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
-						{{f.username}}</a>
+							<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
+				      <abbr title="{{f.username}}" style="cursor:pointer !important;border-bottom:0;padding-left: 11px;">{{f.username|truncatechars:5}}</abbr>
+						</a>
 					</li>
 					{% endfor %}
 				</ul>
@@ -58,8 +59,9 @@
 					{% for f in followers %}
 					<li class='display_user'>
 						<a href="{{f.get_absolute_url}}">
-						<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
-						{{f.username}}</a>
+							<img src="{{f.get_profile.mugshot|thumbnail_url:'avatar'}}" />
+				      <abbr title="{{f.username}}" style="cursor:pointer !important;border-bottom:0;padding-left: 11px;">{{f.username|truncatechars:5}}</abbr>
+						</a>
 					</li>
 					{% endfor %}
 				</ul>
@@ -117,7 +119,7 @@
 			$('li.action-item > div.yesterday').first().parent().prev().prev().addClass('first');
 			$('li.action-item > div.yesterday').first().parent().prev().html($html);
 			$('li.action-item > div.yesterday').first().parent().prev().show();
-			var $html = $('<span>In This Week</span>');
+			var $html = $('<span>In this week</span>');
 			$('li.action-item > div.in-this-week').first().parent().prev().prev().addClass('first');
 			$('li.action-item > div.in-this-week').first().parent().prev().html($html);
 			$('li.action-item > div.in-this-week').first().parent().prev().show();

@@ -98,6 +98,10 @@ class DidRecipe(models.Model):
 	def __unicode__(self):
 		return u"%s's %s" % (self.user.username, self.recipe.name)
 
+	@models.permalink
+	def get_absolute_url(self):
+		return ('did_recipe_detail', (), {'pk': self.id})
+
 	class Meta:
 		ordering = ['recipe', '-date']
 

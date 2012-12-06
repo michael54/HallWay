@@ -60,3 +60,11 @@ textarea {
 a, a * {
 	text-decoration: none;
 }
+
+.font-white {
+	color: white;
+}
+
+.align-just {
+	text-align: justify;
+}

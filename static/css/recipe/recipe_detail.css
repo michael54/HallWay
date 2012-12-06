@@ -91,7 +91,7 @@ div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likedbtn {
 }
 
 div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likebtn{
-	background: rgb(178, 34, 34);
+	background: white;
 }
 
 div.mod-recipe-stat .mod-recipe-like > a > #mod-recipe-likedbtn {
@@ -117,32 +117,40 @@ div.mod-recipe-share {
 	margin-bottom: 10px;
 }
 
+ul.belong-list a, ul.ingredient-list a, a.hide-show {
+	text-decoration: none;
+}
+
 div.mod-recipe-share span.mod-recipe-upload {
 	height: 40px;
 }
 
 div.mod-recipe-share span.mod-recipe-upload > a:link,
-div.mod-recipe-comments > a:link {
-	color: rgb(178, 34, 34);
+div.mod-recipe-comments > a:link, ul.belong-list a:link,
+ul.ingredient-list a:link {
+	color: white;
 }
 
 div.mod-recipe-share span.mod-recipe-upload > a:visited,
-div.mod-recipe-comments > a:visited {
-	color: rgb(178, 34, 34);
+div.mod-recipe-comments > a:visited, ul.belong-list a:visited,
+ul.ingredient-list a:visited {
+	color: white;
 }
 
 div.mod-recipe-share span.mod-recipe-upload > a:hover,
-div.mod-recipe-comments > a:hover {
+div.mod-recipe-comments > a:hover, ul.belong-list a:hover,
+ul.ingredient-list a:hover {
 	color: rgb(0, 191, 255);
 }
 
 div.mod-recipe-share span.mod-recipe-upload > a:active,
-div.mod-recipe-comments > a:active {
+div.mod-recipe-comments > a:active, ul.belong-list a:active,
+ul.ingredient-list a:active {
 	background: rgb(0, 191, 255);
 	color: white;
 }
 
-div.mod-recipe-share span.mod-recipe-upload > a {
+div.mod-recipe-share span.mod-recipe-upload > a, ul.belong-list a: {
 	font-size: 14px;
 	font-weight: bold;
 	text-decoration: none;
@@ -156,8 +164,8 @@ ul.ingredient-list, div.mod-recipe-steps ol, div.i-title {
 	text-align: justify;
 }
 
-ul.ingredient-list a {
-	color: fireBrick;
+ul.ingredient-list a i.icon-shopping-cart {
+	color: #CA250E;
 	text-decoration: none;
 }
 
@@ -219,12 +227,12 @@ aside.mod-side div.mod-author a, a#rate-author {
 
 aside.mod-side div.mod-author a > span {
 	font-size: 20px;
-	color: rgb(178, 34, 34);
+	color: white;
 	margin-left: 15px;
 }
 
 aside.mod-side div.mod-author a > span:link, a#rate-author:link {
-	color: rgb(178, 34, 34);
+	color: white;
 }
 
 aside.mod-side div.mod-author a > span:visited,
@@ -320,7 +328,7 @@ span.mod-user-follow {
 div.mod-recipe-title, div.mod-discussion span, div.mod-recipe-title span {
 	font-size: 18px;
 	font-weight: bold;
-	color: darkGray;
+	color: #CA250E;
 	margin-bottom: 10px;
 }
 

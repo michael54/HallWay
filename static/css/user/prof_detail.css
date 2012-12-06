@@ -230,13 +230,15 @@ div#mod-container #mod-prof-details .tab-content #cmts textarea {
 }
 
 div#mod-container #mod-prof-details .tab-content #recipes > ul,
-div#mod-container #mod-prof-details .tab-content #favs > ul {
+div#mod-container #mod-prof-details .tab-content #favs > ul,
+div#mod-container #mod-prof-details .tab-content #did-recipe > ul  {
 	list-style-type: none;
 	margin: 0 10px 0 10px;
 }
 
 div#mod-container #mod-prof-details .tab-content #recipes > ul > li,
-div#mod-container #mod-prof-details .tab-content #favs > ul > li {
+div#mod-container #mod-prof-details .tab-content #favs > ul > li,
+div#mod-container #mod-prof-details .tab-content #did-recipe > ul > li  {
 	height: 241px;
 	width: 190px;
 	padding: 10px;
@@ -245,12 +247,14 @@ div#mod-container #mod-prof-details .tab-content #favs > ul > li {
 }
 
 div#mod-container #mod-prof-details .tab-content #recipes > ul > li > a,
-div#mod-container #mod-prof-details .tab-content #favs > ul > li > a {
+div#mod-container #mod-prof-details .tab-content #favs > ul > li > a,
+div#mod-container #mod-prof-details .tab-content #did-recipe > ul > li > a  {
 	text-decoration: none;
 }
 
 div#mod-container #mod-prof-details .tab-content #recipes > ul > li:not(:nth-child(3n+1)),
-div#mod-container #mod-prof-details .tab-content #favs > ul > li:not(:nth-child(3n+1)) {
+div#mod-container #mod-prof-details .tab-content #favs > ul > li:not(:nth-child(3n+1)),
+div#mod-container #mod-prof-details .tab-content #did-recipe > ul > li:not(:nth-child(3n+1))  {
 	margin-left: 10px;
 }
 

@@ -228,7 +228,7 @@
           </div>
           <ul class="belong-list" style="list-style-type: none;">
             {% for c in object.category.all %}
-            <li><a href="{{c.get_absolute_url}}" style="text-decoration: none; color:fireBrick;">{{c.name}}</a></li>
+            <li><a href="{{c.get_absolute_url}}">{{c.name}}</a></li>
             {% empty %}
             "The recipe belongs to no categories right now."
             {% endfor %}
@@ -247,13 +247,16 @@
               <div class="span9">
                 <a href="{{v.user.get_absolute_url}}" id="rate-author">{{v.user}}</a><br />
                 <span class="medstar{{v.score}}" id="rate-star"></span><span id="rate-score">{{v.score}}</span>
-                <div>{{ v.comment|truncatechars:140 }}</div>
-                <div>{{ v.date|timesince }} ago</div>
+                <div class="font-white align-just rat-content">
+                  <div>{{ v.comment }}</div>
+                  <a href="#" class="hide-show">Show more</a>
+                </div>
+                <div class="font-white">{{ v.date|timesince }} ago</div>
               </div>
             </div>
             
             {% empty %}
-            <div>No ratings yet...</div>
+            <div>&quot;No ratings yet...&quot;</div>
             {% endfor %}
           </ul>
         </div>
@@ -572,7 +575,7 @@ j(document).ready(function() {
   });
 
   j('.add_to_list').tooltip({
-    title: 'Click to add to Shopping List',
+    title: 'Add to Shopping List',
     placement: 'right',
   })
 

@@ -23,10 +23,33 @@ jQuery(document).ready(function () {
   jQuery('a#nItem').click(function (event) {slideControl('right' ,jQuery(this), event); return false;});
   jQuery('a#pItem').click(function (event) {slideControl('left' ,jQuery(this), event); return false;});
 
-  jQuery('ul.did-show-inner > li > a').hover(function () {
-  	jQuery(this).find('div.did-show-caption').fadeIn(500);
+  jQuery('ul.did-show-inner > li > a').stop().hover(function () {
+  	jQuery(this).find('div.did-show-caption').stop().fadeIn(500);
+    return false;
   }, function () {
-  	jQuery(this).find('div.did-show-caption').fadeOut(500);
+  	jQuery(this).find('div.did-show-caption').stop().fadeOut(500);
+    return false;
+  });
+
+  // hide string content in brief content of the part more than length = 50
+  var $bContent = jQuery('div.rat-content div').text();
+  var bLength = $bContent.length;
+  if (bLength > 140) {
+    // $clicedRemaining = $bContent.slice(100);
+    $slicedContent = $bContent.slice(0, 140) + '...   ';
+    jQuery('div.rat-content div').text($slicedContent);
+    jQuery('a.hide-show').show();
+    // alert($bContent);
+  }
+  jQuery('a.hide-show').toggle(
+    function () {
+      $showContent = $bContent;
+      jQuery('div.rat-content div').text($showContent);
+      jQuery('a.hide-show').text('Hide');
+    }, function() {
+      $slicedContent = $bContent.slice(0, 140) + '...   ';
+      jQuery('div.rat-content div').html($slicedContent);
+      jQuery('a.hide-show').text('Show more');
   });
 });
 

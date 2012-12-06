@@ -62,6 +62,9 @@
 			<a href="#prof" data-toggle="tab">Profile</a>
 		</li>
 		<li>
+			<a href="#did-recipe" data-toggle="tab">Did</a>
+		</li>
+		<li>
 			<a href="#favs" data-toggle="tab">Favorites</a>
 		</li>
 		<li class="active">
@@ -111,6 +114,24 @@
 								<span class="seperator">&nbsp;|&nbsp;</span>
 								<span>{{ f.view_num }} viewed it.</span>
 							</div>
+							<div class="recipe-date">
+								{{ f.date }}
+							</div>
+						</div>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+			</div>
+			<div class="tab-pane" id="did-recipe">
+				<ul class="">
+				{% for f in did_recipe_list %}
+				<li class="well well-small" style="height:185px;">
+					<a href="{{ f.get_absolute_url }}" class="">
+						{# here is a potential bug, that the image uploaded in admin won't contain /media/ in url #}
+						<img class="cover-img" style="height: 140px;width: 190px;" src="{{ f.image|thumbnail_url:'recipe-prf' }}" alt="{% trans "cover image" %}" />
+						<div class="caption">
+							<div class="recipe-name">{{ f.recipe.name }}</div>
 							<div class="recipe-date">
 								{{ f.date }}
 							</div>
