@@ -47,6 +47,7 @@ def profile(request, username):
 		extra_context['form'] = MugshotForm()
 		extra_context['public_messages'] = list(Message.objects.get_public_messages(to_user = user))
 		extra_context['recommends'] = list(recommendations.recommendRecipeForUser(user.id, 10))
+		extra_context['did_recipe_list'] = list(DidRecipe.objects.filter(user = user).select_related('recipe').only('image', 'date', 'recipe__name'))
 		response = profile_detail(request, username, extra_context = extra_context)
 
 		return response
