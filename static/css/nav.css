@@ -99,6 +99,10 @@ div#search-div input:focus {
 	margin-top: 10px;
 }
 
+#colorNav a {
+	color: white !important;
+}
+
 #colorNav > ul{
 	/*width: 900px;  Increase when adding more menu items */
 	margin-top: auto;

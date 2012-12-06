@@ -41,6 +41,7 @@
 						<ul>
 							<li><a href="{% url 'hot_recipes' %}"><i class="icon-heart"></i>Hot Recipes</a></li>
 							<li><a href="{% url 'recipe_category' 5 'hot' %}"><i class="icon-th-large"></i>Browse Recipes</a></li>
+							<li><a href="{% url 'food_list' 4 %}"><i class="icon-leaf"></i>Browse Ingredients</a></li>
 							{% if user.is_authenticated %}
 							<li><a href="{% url 'recipe_create' %}"><i class="icon-upload-alt"></i>Add A Recipe</a></li>
 							{% endif %}

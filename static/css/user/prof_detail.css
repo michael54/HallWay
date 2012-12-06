@@ -310,10 +310,11 @@ div#u-followers > div, div#u-followings > div {
 	padding: 5px;
 	height: 50px;
 	float: left;
+	margin-bottom: 10px;
 }
 
 div.grid-item {
-	width: 161px;
+	width: 151px;
 }
 
 div.grid-item:not(:nth-child(3n+1)) {
