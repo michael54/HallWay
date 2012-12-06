@@ -4,7 +4,8 @@
 
 
 {% for action in action_list %}
-  <li>{% include 'actstream/action.html' %}</li>
+	<li class="datesince"></li>
+  <li class="action-item">{% include 'actstream/action.html' %}</li>
 {% empty %}
   {% trans "No more action" %}
 {% endfor %}

@@ -1,9 +1,10 @@
 {% load i18n %}
 {% load thumbnail %}
 {% load daysince %}
+{% load static from staticfiles %}
 
-
-<div class="row-fluid {{ action.timestamp.date|dayssince }}">
+<div><img src="{% static 'img/dot.png' %}" style="position:relative;left:-45px;" /></div>
+<div class="row-fluid {{ action.timestamp.date|dayssince }}" style="margin-top: -20px;">
 	<div class="span2 act-avatar">
 		{% if action.actor.get_absolute_url %}
 			<a href="{{ action.actor.get_absolute_url }}">
@@ -35,6 +36,7 @@
 				{% endif %}
 			{% else %}
 				<div class="mod-brief">{{action.target.brief|truncatechars:140}}</div>
+				<img src="{{action.action_object.img.url}}" />
 			{% endif %}
 		{% endif %}
 		<div class="action-since">{{ action.timestamp|timesince }} {% trans "ago" %}</div>

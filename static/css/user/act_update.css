@@ -1,3 +1,14 @@
+body {
+  color: #4B3025 !important;
+  font-size: 15px !important;
+  text-align: justify !important;
+}
+
+a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
 h2 {
 	color: rgb(130, 130, 130);
 	font-size: 18px;
@@ -73,16 +84,37 @@ ul.action-list {
   border-left-width: 4px;
   border-left-color: #F5D982;
   padding-left: 20px;
+  padding-top: 1px;
 }
 
-ul.action-list > li {
+ul.action-list > li:not(.datesince) {
   padding-top: 10px;
   padding-left: 10px;
+  padding-right: 10px;
   border-style: solid;
   border-width: 0px;
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 1px 1px 5px black;
+}
+
+ul.action-list > li.datesince {
+  display: none;
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
+  position: relative;
+  left: -20px;
+}
+
+ul.action-list > li.datesince > span {
+  /*background-color: rgba(255, 232, 197, 0.4);*/
+  background-color: #F5D982;
+  padding: 9px;
+  color: #4B3025;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 22px;
+  font-family: "Times New Roman",Georgia,Serif;
 }
 
 ul.action-list > li:not(:last-child) {

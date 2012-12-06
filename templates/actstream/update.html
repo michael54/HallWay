@@ -21,8 +21,10 @@
 		<section class="mod-main span7">
 			<ul class="action-list">
 				{% for action in action_list %}
-					<div><img src="" /></div>
-					<li class="action-item">{% include 'actstream/action.html' %}</li>
+					<li class="datesince"></li>
+					<li class="action-item">
+						{% include 'actstream/action.html' %}
+					</li>
 				{% empty %}
 					{% trans "No actions yet. XD" %}
 				{% endfor %}
@@ -104,7 +106,29 @@
 	<script type="text/javascript" src="{% static "js/yuStar.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/yuSlider.js" %}"></script>
 	<script type="text/javascript">
+	function addTimeStamp () {
+			// put date mark on the timeline
+			var $html = $('<span>Today</span>');
+			$('li.action-item > div.today').first().parent().prev().prev().addClass('first');
+			$('li.action-item > div.today').first().parent().prev().html($html);
+			$('li.action-item > div.today').first().parent().prev().show();
+			var $html = $('<span>Yesterday</span>');
+			$('li.action-item > div.yesterday').first().parent().prev().prev().addClass('first');
+			$('li.action-item > div.yesterday').first().parent().prev().html($html);
+			$('li.action-item > div.yesterday').first().parent().prev().show();
+			var $html = $('<span>Before Yesterday</span>');
+			$('li.action-item > div.in-this-week').first().parent().prev().prev().addClass('first');
+			$('li.action-item > div.in-this-week').first().parent().prev().html($html);
+			$('li.action-item > div.in-this-week').first().parent().prev().show();
+			// var $html = $('<span>More than a week ago</span>');
+			// $('li.action-item > div.more-than-a-week-ago').first().parent().prev().prev().addClass('first');
+			// $('li.action-item > div.more-than-a-week-ago').first().parent().prev().html($html);
+			// $('li.action-item > div.more-than-a-week-ago').first().parent().prev().show();
+			//------------------------------------------------------------------------------//
+			$('ul.action-list > li.first').css('margin-bottom', 20);
+		}
 	$(document).ready(function() {
+
 		var flag = true;
 		yuSlider('.recommend-img-div','.caption',4000,'#prevA','#nextA');
 		yuStar('{% static "jquery.raty-2.4.5/img/" %}');
@@ -139,21 +163,19 @@
 			$.get(url, postdata, function(data){
 				$('.pagination').replaceWith(data);
 				flag = true;
+				addTimeStamp();
 			});
 			return false;
 		});
 	});
 	</script>
 	<script type="text/javascript">
-		// put date mark on the timeline
-		var $html = $('<li class="datesince">Today</li>');
-		$('li.action-item > div.today').first().parent().before($html);
-		var $html = $('<li class="datesince">Yesterday</li>');
-		$('li.action-item > div.yesterday').first().parent().before($html);
-		var $html = $('<li class="datesince">In this week</li>');
-		$('li.action-item > div.in-this-week').first().parent().before($html);
-		var $html = $('<li class="datesince">More than a week ago</li>');
-		$('li.action-item > div.more-than-a-week-ago').first().parent().before($html);
-		//------------------------------------------------------------------------------//
+		$(document).ready(function () {
+			addTimeStamp();
+		})
+
+		
+		
+		// $('li.datesince').css('')
 	</script>
 {% endblock%}
