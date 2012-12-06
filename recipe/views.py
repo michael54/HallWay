@@ -69,7 +69,8 @@ class RecipeDetailView(DetailView):
 				context['vote'] = vote
 
 		context['profile'] = MyProfile.objects.only('mugshot').get(user = context['object'].author)
-		context['liked'] = self.request.user.get_profile().favourite_recipes.filter(id=context['object'].id).only('id')
+		if self.request.user.is_authenticated():
+			context['liked'] = self.request.user.get_profile().favourite_recipes.filter(id=context['object'].id).only('id')
 
 		context['amount_list'] = Amount.objects.filter(recipe = context['object']).select_related('ingredient').defer('ingredient__brief')
 		context['step_list'] = Step.objects.filter(recipe = context['object']).order_by('step_num')
