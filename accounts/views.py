@@ -123,7 +123,7 @@ def message_comet(request):
 		else:
 			return HttpResponse('')
 	else:
-		raise Http404
+		return HttpResponse('')
 
 @login_required
 def activity(request):
