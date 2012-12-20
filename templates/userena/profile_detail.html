@@ -5,7 +5,9 @@
 {% load thumbnail %}
 {% block csslink %}
 {{ block.super }}
+{% compress css %}
 <link rel="stylesheet" href="{% static "css/user/prof_detail.css" %}" type="text/css" />
+{% endcompress %}
 {% endblock %}
 
 {% block title %}

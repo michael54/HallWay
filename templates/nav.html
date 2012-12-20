@@ -4,14 +4,15 @@
 {% load url from future %}
 
 {% block csslink %}
+{% compress css %}
 <link rel="stylesheet" type="text/css" href="{% static "css/notification.css"%}">
 <link rel="stylesheet" href="{% static "css/recipe/index.css" %}" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{% static "css/elastislide.css" %}"/>
 <link rel="stylesheet" href="{% static "font-awesome/css/font-awesome.css" %}" type="text/css" />
 <link rel="stylesheet" href="{% static "css/nav.css" %}" type="text/css" />
-<!-- link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic" / -->
 <link rel="stylesheet" href="{% static "css/form.css" %}" type="text/css" />
 <link rel="stylesheet" href="{% static "css/scrollbar.css" %}" type="text/css" />
+{% endcompress %}
 {% endblock %}
 
 {% block navbar %}
@@ -202,6 +203,8 @@ jQuery(document).ready(function() {
 	{% endif %}
 });
 </script>
+{% compress js %}
 <script type="text/javascript" src="{% static "js/zhEffect.js" %}"></script>
+{% endcompress %}
 
 {% endblock %}

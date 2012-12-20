@@ -4,10 +4,13 @@
 {% load url from future %}
 
 {% load thumbnail %}
+{% load compress %}
 
 {% block csslink %}
   {{ block.super }}
+  {% compress css %}
   <link rel="stylesheet" href="{% static "css/bgstretcher.css" %}" type="text/css" />
+  {% endcompress %}
   <link href='http://fonts.googleapis.com/css?family=Chela+One' rel='stylesheet' type='text/css' />
   <style type="text/css">
   @font-face {
@@ -184,6 +187,7 @@ Welcome
 {% endblock %}
 
 {% block js-head %}
+  {% compress js %}
   <script src="{% static "js/modernizr.custom.17475.js" %}"></script>
   <script src="{% static "js/bgstretcher.js" %}"></script>
   <script type="text/javascript">
@@ -230,17 +234,6 @@ Welcome
       anchoringImg: 'left center'
     });
 
-    // animation control
-    // j('#toggleAnimation').unbind('click');
-    // j('#toggleAnimation').click(function(){
-    //   if (j(this).html() == "PAUSE"){
-    //     j(this).html("RESUME");
-    //     j('#bg-show').bgStretcher.pause();
-    //   } else {
-    //     j(this).html("PAUSE");
-    //     j('#bg-show').bgStretcher.play();
-    //   }
-    // });
     var delay = (function(){
       var timer = 0;
       return function(callback, ms){
@@ -301,8 +294,11 @@ Welcome
 
   });
 </script>
+{% endcompress %}
 {% endblock js-head%}
 
 {% block js %}
+  {% compress js %}
   <script type="text/javascript" src="{% static "js/recipe/index.js" %}"></script>
+  {% endcompress %}
 {% endblock js %}
