@@ -4,14 +4,16 @@ import os
 
 DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
 SITE_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+PREFIX = '/hallway'
 
 # Django settings for chief project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
+	('Yu Yu','yuyu666306@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -63,7 +65,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(SITE_ROOT, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -74,7 +76,6 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SITE_ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -223,9 +224,9 @@ ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = 'accounts.MyProfile'
 
 
-LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
-LOGIN_URL = '/accounts/signin/'
-LOGOUT_URL = '/accounts/signout/'
+LOGIN_REDIRECT_URL = PREFIX+'/accounts/%(username)s/'
+LOGIN_URL = PREFIX+'/accounts/signin/'
+LOGOUT_URL = PREFIX+'/accounts/signout/'
 
 
 # Settings for easy_thumbnail
@@ -248,7 +249,7 @@ ACTSTREAM_SETTINGS = {
 }
 
 ABSOLUTE_URL_OVERRIDES = {
-    'auth.user': lambda u: "/accounts/%s/" % u.username,
+    'auth.user': lambda u: PREFIX + "/accounts/%s/" % u.username,
 }
 
 USERENA_MUGSHOT_SIZE = 160
@@ -257,7 +258,7 @@ USERENA_MUGSHOT_GRAVATAR = False
 
 USERENA_MUGSHOT_DEFAULT = "/media/no_mugshot.jpg"
 
-USERENA_SIGNIN_REDIRECT_URL = "/activity/"
+USERENA_SIGNIN_REDIRECT_URL = PREFIX+"/activity/"
 
 
 INTERNAL_IPS = ('127.0.0.1',)
