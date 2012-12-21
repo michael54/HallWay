@@ -4,7 +4,7 @@ import glob
 
 mergedImg = Image.new("RGBA", (200*(len(glob.glob("*.jpg"))+1), 80), (0,0,0,0))
 count = 0
-for files in glob.glob("*.jpg"):
+for files in sorted(glob.glob("*.jpg")):
 	count = count + 1
 	img = Image.open(files)
 	size = img.size
