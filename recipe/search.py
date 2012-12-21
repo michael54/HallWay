@@ -13,8 +13,8 @@ def autonav(request):
 	if request.is_ajax():
 		q = request.POST['q']
 		queries = {}
-		queries['recipe'] = Recipe.objects.filter(name__contains= q).only('name','cover_image','brief')[:3]
-		queries['food'] = Food.objects.filter(name__contains=q).only('name','cover_image','brief')[:3]
+		queries['recipe'] = Recipe.objects.filter(name__icontains= q).only('name','cover_image','brief')[:3]
+		queries['food'] = Food.objects.filter(name__icontains=q).only('name','cover_image','brief')[:3]
 		
 		return render_to_response('autocomplete.html',{'recipe_list':queries['recipe'], 'food_list':queries['food']})
 
@@ -92,7 +92,7 @@ def advanced_search(request):
 def normal_search(request):
 	if request.is_ajax():
 		q = request.POST['q']
-		results = list(Recipe.objects.filter(Q(name__contains = q)|Q(ingredients__name__contains = q)).distinct().only('name', 'cover_image', 'like_num'))
+		results = list(Recipe.objects.filter(Q(name__icontains = q)|Q(ingredients__name__icontains = q)).distinct().only('name', 'cover_image', 'like_num'))
 		return render_to_response('recipe/result.html', {'results': results})
 	else:
 		raise Http404
