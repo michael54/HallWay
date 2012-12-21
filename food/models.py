@@ -26,6 +26,8 @@ class FoodCategory(models.Model):
 		else:
 			return ('food_list', (), {'pk':self.id})
 
+	class Meta:
+		ordering = ['name']
 
 
 class Food(models.Model):
